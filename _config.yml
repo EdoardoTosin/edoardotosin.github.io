@@ -31,7 +31,7 @@ url: "https://edoardotosin.github.io/" # the base hostname & protocol for your s
 heading: Edoardo Tosin # Change this
 copyright:
   year: 2022
-  msg: Edoardo Tosin # This is a mandatory attribute for copyright to be displayed ; If deleting this, edit at footer layout.
+  msg: Contents under CC-BY-NC # This is a mandatory attribute for copyright to be displayed ; If deleting this, edit at footer layout.
 
 
 #####################################################################

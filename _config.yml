@@ -129,6 +129,18 @@ defaults:
     values:
       layout: Post
       content-type: notes
+  - scope:
+      path: "/google2f6de5d39727b8da.html"
+    values:
+      sitemap: false
+  - scope:
+      path: "/keybase.txt"
+    values:
+      sitemap: false
+  - scope:
+      path: "/BingSiteAuth.xml"
+    values:
+      sitemap: false
 
 
 # Exclude from processing.

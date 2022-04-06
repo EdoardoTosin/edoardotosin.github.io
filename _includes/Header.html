@@ -32,10 +32,9 @@
 <nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <a class="navbar-item" href="../index.html">
-        <svg width="32" height="32" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd" clip-rule="evenodd" d="M36.9477 13.7742C38.3043 11.4086 41.6957 11.4086 43.0523 13.7742L70.5226 61.6774C71.8791 64.043 70.1834 67 67.4703 67H12.5297C9.81658 67 8.12089 64.043 9.47744 61.6774L36.9477 13.7742ZM40 16.9677L13.7506 62.7419H66.2494L40 16.9677Z" fill="var(--text-main)"/>
-        </svg>
-        <h4>Digital Garden</h4>  
+        <img src="/assets/img/favicon.png" alt="Logo" width="24" height="24"/>
+        <h4>&nbsp;</h4>
+        <h4>Edoardo Tosin‍</h4>
       </a>
       <div class="navbar-item navbar-dark-mode__mobile is-hidden-tablet" onclick="modeSwitcher()">
         <div class="buttons">
@@ -52,20 +51,23 @@
         <span aria-hidden="true"></span>
       </a>
     </div>
-    
+
     <div id="navbarBasicExample" class="navbar-menu">
       <div class="navbar-start">
-        <a href="../posts/how-to"  class="navbar-item">
-          How To
+        <a href="../posts/whoami"  class="navbar-item" title="About">
+          whoami
         </a>
-        <a href="https://github.com/Jekyll-Garden/jekyll-garden.github.io" target="_blank" class="navbar-item">
-          GitHub
+        <a href="../notes" target="_self" class="navbar-item" title="DevNotes">
+          ~/DevNotes
         </a>
-        <a href="https://jekyllrb.com/" target="_blank"  class="navbar-item">
-          Jekyll
+        <a href="../posts" target="_self" class="navbar-item" title="DevLogs">
+          ~/DevLogs
         </a>
-        <a href="https://obsidian.md/"  target="_blank" class="navbar-item">
-          Obsidian
+         <a href="https://github.com/edoardotosin" target="_self" class="navbar-item" title="GitHub">
+          git
+        </a>
+        <a href="mailto:edoardotosindev@pm.me"  target="_blank" class="navbar-item" title="Contact">
+          sendmail
         </a>
       </div>
       <div class="navbar-end is-hidden-mobile" onclick="modeSwitcher()" >
@@ -82,4 +84,3 @@
     </div>
   </nav>
   <script src="/assets/js/Hamburger.js"></script>
-

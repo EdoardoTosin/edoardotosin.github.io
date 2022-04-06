@@ -1,0 +1,56 @@
+==================================================================
+https://keybase.io/edoardotosin
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://edoardotosin.github.io
+  * I am edoardotosin (https://keybase.io/edoardotosin) on keybase.
+  * I have a public key ASD0SLgoQdwa-c047xitG3dVuvaDaqbPJiUBNtlWd0OiZgo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "0120f448b82841dc1af9cd38ef18ad1b7755baf6836aa6cf26250136d9567743a2660a",
+      "host": "keybase.io",
+      "kid": "0120f448b82841dc1af9cd38ef18ad1b7755baf6836aa6cf26250136d9567743a2660a",
+      "uid": "da69cb973cc3f863a5b4a16c682be919",
+      "username": "edoardotosin"
+    },
+    "merkle_root": {
+      "ctime": 1635802805,
+      "hash": "6fe12616d79ed5c07e808c754ae1fe5b050b970b4ebaef16cbc8837757da78dd7d560a5e16ac9a2f90860182527c8a7b8a027d8ba5667cedfbd2f6332a97a064",
+      "hash_meta": "4af0f20af0de21b1b218cc1d5d8606b651c2d0c257019d786dfe98093de9bef2",
+      "seqno": 21113612
+    },
+    "service": {
+      "entropy": "CXwtNwA/tJPzXoModhEJW2Vh",
+      "hostname": "edoardotosin.github.io",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 2
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "5.8.0"
+  },
+  "ctime": 1635802833,
+  "expire_in": 504576000,
+  "prev": "5a7dc898ab32bc604ff72284b32d709cddad8bed4e7bd6f110a485f4e16c70e8",
+  "seqno": 10,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEg9Ei4KEHcGvnNOO8YrRt3Vbr2g2qmzyYlATbZVndDomYKp3BheWxvYWTESpcCCsQgWn3ImKsyvGBP9yKEsy1wnN2ti+1Oe9bxEKSF9OFscOjEICXpP+rn2i2qiMJ3rOde8LhbcfAj5rdWmwXxmwwl8x/HAgHCo3NpZ8RAqT6fTeWnIYjuq4mEl0Qo2tpfR52LjGMjaWmxItTUFWizxSxOU1KR71HmxZ/PX50xF42CPSU6+4wYHc3PicDoB6hzaWdfdHlwZSCkaGFzaIKkdHlwZQildmFsdWXEIGixK00pHFTgu3B5aLfbJQKvHdsbbrg8Pv+kGCRYuEMdo3RhZ80CAqd2ZXJzaW9uAQ==
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/edoardotosin
+
+==================================================================

@@ -49,7 +49,17 @@
     <meta content="{{ site.url }}{{ page.url }}" property="og:url">
     {%- endif -%}
 
+    {%- if page.permalink == "/" -%}
+    <title>{{ site.heading }}</title>
+    {%- elsif page.content-type == "notes" or page.content-type == "post"  -%}
     <title>{{ page.title }}</title>
+    {%- elsif page.permalink == "/notes" -%}
+    <title>DevNotes</title>
+    {%- elsif page.permalink == "/posts" -%}
+    <title>DevLogs</title>
+    {%- else -%}
+    <title>{{ site.title }}</title>
+    {%- endif -%}
 
     <link rel="canonical" href="{{site.url}}{{page.url}}" />
     <link rel="apple-touch-icon" href="/assets/img/profile.png">

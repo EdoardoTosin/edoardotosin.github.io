@@ -1,8 +1,6 @@
 _site
 .jekyll-cache
-pages/.DS_Store
 pages/tags.md
-_notes/.obsidian
-_posts/.obsidian
-.obsidian
+**/.obsidian
 tools
+**/.DS_Store

@@ -1,6 +1,7 @@
 ---
 title: ZooMeeting Redirector - Readme
-notetype : feed
+feed: show
+date: 21-05-2021
 ---
 
 A web extension that redirects zoom meetings to the web client version.

@@ -1,6 +1,7 @@
 ---
 title: miniLaska Game - Readme
-notetype : feed
+feed: show
+date: 05-09-2021
 ---
 
 This project is a variant of the game called Lasca (or Laska).

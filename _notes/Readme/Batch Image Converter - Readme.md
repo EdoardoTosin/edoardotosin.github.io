@@ -2,9 +2,7 @@
 title: Batch Image Converter - Readme
 feed: show
 date: 15-06-2022
---
-
-## Summary
+---
 
 Simple script written in Python that converts all images found within the folder where the script is located (and all sub-folders); if the images are not in png or jpg (and jpeg) type, then it converts them to the latter one.  
 Among the options there is the possibility of setting the quality, the maximum resolution in pixels of the long side of the image while maintaining the aspect ratio (without upscaling if smaller) and changing the dpi.  
@@ -19,6 +17,7 @@ The following formats are recognised: jpg, jpeg, png, tif, tiff, bmp, psd, psb.
 ## How it works
 
 Batch Image Converter search recursively for all recognized images inside the path (included subfolders) and converts them. If there are no arguments given to the script, the following is the normal behaviour:
+
 - Convert images that are not in jpg, jpeg and png filetype into the former.
 - Path: the folder where the script is located.
 - DPI: 72 dpi.
@@ -29,7 +28,7 @@ Batch Image Converter search recursively for all recognized images inside the pa
 - Optimization: Enabled.
 - Alert: Enabled.
 - Wait before exit: Enabled.
-By default the script try to open the images, check the dimension are downscale them to fit into 1000x1000 pixel box if bigger (no upscaling) using the `Nearest` filter. If the images are in other filetypes except png and jpeg (jpg) then it converts them to the latter and delete the original ones (otherwise it overwrites the file in jpg or png). During the saving phase, the script sets the dpi to 72.
+  By default the script try to open the images, check the dimension are downscale them to fit into 1000x1000 pixel box if bigger (no upscaling) using the `Nearest` filter. If the images are in other filetypes except png and jpeg (jpg) then it converts them to the latter and delete the original ones (otherwise it overwrites the file in jpg or png). During the saving phase, the script sets the dpi to 72.
 
 Default: `main.py --dpi 72 --size 1000 --filter 0 --no-colorspace --quality 80 --optimize --alert --wait`
 
@@ -62,7 +61,7 @@ To run the script two modules are required (listed inside `requirements.txt`):
 - Help screen: `python main.py -h`
 
 > **Note**: append the following string before calling main.py script based on your operating system.
->
+> 
 > - Linux: `python3`
 > - Windows: `python`
 

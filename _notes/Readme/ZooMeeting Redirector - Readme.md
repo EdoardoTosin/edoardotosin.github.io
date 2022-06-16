@@ -80,7 +80,7 @@ ZooMeeting Redirector does **NOT** collect any data of any kind.
 
 ## Permissions
 
-``` json
+```json
 "permissions": [
   "activeTab",
   "storage",

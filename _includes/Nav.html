@@ -21,7 +21,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *
-* File: Header.html
+* File: Nav.html
 * Author Raghuveer S, Hiran Venugopalan
 *
 * This file contains the markup for the context menu thingy you see when you right
@@ -31,16 +31,16 @@
 
 <nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-      <a class="navbar-item" href="../index.html">
-        <img src="/assets/img/favicon.png" alt="Logo" width="24" height="24"/>
-        <h4>&nbsp;</h4>
-        <h4>Edoardo Tosin‍</h4>
-      </a>
+      <a class="navbar-item" style="padding-left: 0;"; href="{{ site.baseurl }}/index.html">
+          <img src="/assets/img/favicon.png" alt="Logo" width="24" height="24"/>
+          <h6>&nbsp;</h4>
+          <h6> {{site.heading}}</h6></a>
+          <script src="{{ site.baseurl }}/assets/js/modeswitcher.js"></script>
       <div class="navbar-item navbar-dark-mode__mobile is-hidden-tablet" onclick="modeSwitcher()">
         <div class="buttons">
           <a class="button is-text">
             <span class="icon is-small">
-              <img src="../assets/img/sun.svg" id="theme-toggle-img--mobile">
+              <img src="{{ '/assets/img/sun.svg' | relative_url }}" id="theme-toggle-img--mobile">
             </span>
           </a>
         </div>
@@ -54,13 +54,13 @@
 
     <div id="navbarBasicExample" class="navbar-menu">
       <div class="navbar-start">
-        <a href="../posts/whoami"  class="navbar-item" title="About">
+        <a href="{{'/post/whoami' | relative_url}}"  class="navbar-item" title="About">
           whoami
         </a>
-        <a href="../notes" target="_self" class="navbar-item" title="Notes">
+        <a href="{{'/notes' | relative_url}}" target="_self" class="navbar-item" title="Notes">
           ~/DevNotes
         </a>
-        <a href="../posts" target="_self" class="navbar-item" title="Posts">
+        <a href="{{'/posts' | relative_url}}" target="_self" class="navbar-item" title="Posts">
           ~/DevLogs
         </a>
          <a href="https://github.com/edoardotosin" target="_self" class="navbar-item" title="GitHub">
@@ -75,7 +75,7 @@
           <div class="buttons">
             <a class="button is-text">
               <span class="icon is-small">
-                <img src="../assets/img/sun.svg" id="theme-toggle-img">
+                <img src="{{ '/assets/img/sun.svg' | relative_url }}" id="theme-toggle-img">
               </span>
             </a>
           </div>
@@ -83,4 +83,3 @@
       </div>
     </div>
   </nav>
-  <script src="/assets/js/Hamburger.js"></script>

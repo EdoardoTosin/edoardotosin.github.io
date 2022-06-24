@@ -17,7 +17,6 @@ The following formats are recognised: jpg, jpeg, png, tif, tiff, bmp, psd, psb.
 ## How it works
 
 Batch Image Converter search recursively for all recognized images inside the path (included subfolders) and converts them. If there are no arguments given to the script, the following is the normal behaviour:
-
 - Convert images that are not in jpg, jpeg and png filetype into the former.
 - Path: the folder where the script is located.
 - DPI: 72 dpi.
@@ -28,13 +27,13 @@ Batch Image Converter search recursively for all recognized images inside the pa
 - Optimization: Enabled.
 - Alert: Enabled.
 - Wait before exit: Enabled.
-  By default the script try to open the images, check the dimension are downscale them to fit into 1000x1000 pixel box if bigger (no upscaling) using the `Nearest` filter. If the images are in other filetypes except png and jpeg (jpg) then it converts them to the latter and delete the original ones (otherwise it overwrites the file in jpg or png). During the saving phase, the script sets the dpi to 72.
+By default the script try to open the images, check the dimension are downscale them to fit into 1000x1000 pixel box if bigger (no upscaling) using the `Nearest` filter. If the images are in other filetypes except png and jpeg (jpg) then it converts them to the latter and delete the original ones (otherwise it overwrites the file in jpg or png). During the saving phase, the script sets the dpi to 72.
 
 Default: `main.py --dpi 72 --size 1000 --filter 0 --no-colorspace --quality 80 --optimize --alert --wait`
 
 ## Requirements
 
-Python version 3.10 or newer must be installed before following the instructions paragraph.
+Python version equal or greater than 3.9 must be installed before following the instructions paragraph.
 
 To run the script two modules are required (listed inside `requirements.txt`):
 
@@ -61,9 +60,13 @@ To run the script two modules are required (listed inside `requirements.txt`):
 - Help screen: `python main.py -h`
 
 > **Note**: append the following string before calling main.py script based on your operating system.
-> 
+>
 > - Linux: `python3`
 > - Windows: `python`
+
+### Portable version
+
+Portable version can be built with the [`Windows script`](https://raw.githubusercontent.com/EdoardoTosin/Batch-Image-Converter/main/buildWin.ps1) and [`Linux script`](https://raw.githubusercontent.com/EdoardoTosin/Batch-Image-Converter/main/buildLinux.sh), or downloaded directly from the [Release page](https://github.com/EdoardoTosin/Batch-Image-Converter/releases/latest) (with checksums).
 
 ## Usage
 

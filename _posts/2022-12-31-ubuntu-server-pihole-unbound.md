@@ -1,5 +1,6 @@
 ---
 title: Guida alla creazione di un server DNS in rete locale
+date: 31-12-2022
 ---
 
 > Guida installazione e configurazione Ubuntu Server, Pi-Hole e Unbound

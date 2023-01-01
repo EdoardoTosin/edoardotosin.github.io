@@ -1,6 +1,6 @@
 ---
 layout: Post
 permalink: /lists
-title: List of Lists
+title: Listing Resources
 feedformat: row
 ---

@@ -210,7 +210,7 @@ Verrà chiesto se si vuole che i token siano temporanei. Scrivere `y` e premere 
 
 ![2FA 12](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/doc/2_2FA/2FA_12.jpg)
 
-Verrà creata la chiave segreta (`Yout new secret key is:`) per la generazione dei codici a tempo.
+Verrà creata la chiave segreta (`Your new secret key is:`) per la generazione dei codici a tempo.
 È importante tenere un backup di questa chiave per ridurre il rischio di perderla.
 Scansionare il QR-Code oppure inserire la chiave in un'applicazione (per distro Debian e derivate va bene Authenticator già presente nei repository di sistema) e salvare.
 Dopo aver salvato si può vedere il codice. Inserirlo nel terminale e premere `Invio` per confermare.

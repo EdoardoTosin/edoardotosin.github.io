@@ -222,7 +222,7 @@ Successivamente chiederà se si vuole aggiornare il file .google_authenticator. 
 ![2FA 14](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/doc/2_2FA/2FA_14.jpg)
 
 Per aumentare la sicurezza aggiungiamo le restrizioni di login ogni 30 secondi (quindi un solo login con successo per ogni codice generato).
-Per confermare scrivere `y` e premere `Invio`
+Per confermare scrivere `y` e premere `Invio`.
 
 ![2FA 15](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/doc/2_2FA/2FA_15.jpg)
 

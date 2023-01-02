@@ -1301,7 +1301,7 @@ label.srs-toggle {
     margin: 4rem 0 1rem 0;
 }
 
-#copyright-notice, #credits {
+#copyright-notice {
     font-size: 0.7rem;
     font-weight: var(--text-weight-normal);
     text-align: center;

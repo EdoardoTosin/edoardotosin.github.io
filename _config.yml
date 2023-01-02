@@ -98,15 +98,15 @@ defaults:
       layout: Post
       content-type: notes
   - scope:
-      path: "/google2f6de5d39727b8da.html"
+      path: "google2f6de5d39727b8da.html"
     values:
       sitemap: false
   - scope:
-      path: "/keybase.txt"
+      path: "keybase.txt"
     values:
       sitemap: false
   - scope:
-      path: "/BingSiteAuth.xml"
+      path: "BingSiteAuth.xml"
     values:
       sitemap: false
 

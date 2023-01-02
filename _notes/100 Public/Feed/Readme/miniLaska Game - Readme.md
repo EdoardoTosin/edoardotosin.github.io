@@ -1,5 +1,6 @@
 ---
 title: miniLaska Game - Readme
+description: Variant of a game called lasca or laska
 feed: show
 date: 05-09-2021
 ---

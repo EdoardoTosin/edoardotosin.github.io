@@ -31,10 +31,12 @@
 
 <head>
     <meta content="width=device-width, initial-scale=1" name="viewport" />
-    <meta content="Edoardo Tosin" property="og:site_name" />
-    <meta
-        content="Tech-related blog and personal portfolio"
-        property="og:description">
+    <meta content="{{ page.title }}" property="og:site_name" />
+	{%- if page.description -%}
+	<meta content="{{ page.description }}" property="og:description">
+	{%- else -%}
+    <meta content="{{ site.content }}" property="og:description">
+	{%- endif -%}
     <meta content="{{ site.url }}/about/" property="article:author">
     <meta property="og:image" content="../assets/img/OGImg.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">

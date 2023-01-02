@@ -33,9 +33,9 @@
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <meta content="{{ page.title }}" property="og:site_name" />
 	{%- if page.description -%}
-	<meta content="{{ page.description }}" property="og:description">
+	<meta content="{{ page.description }}" property="og:description" name="description">
 	{%- else -%}
-    <meta content="{{ site.content }}" property="og:description">
+    <meta content="{{ site.content }}" property="og:description" name="description">
 	{%- endif -%}
     <meta content="{{ site.url }}/about/" property="article:author">
     <meta property="og:image" content="../assets/img/OGImg.png">

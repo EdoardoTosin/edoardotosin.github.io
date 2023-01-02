@@ -96,6 +96,7 @@ defaults:
       type: notes
     values:
       layout: Post
+      permalink: /note/:title
       content-type: notes
   - scope:
       path: "google2f6de5d39727b8da.html"

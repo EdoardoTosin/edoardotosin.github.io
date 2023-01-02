@@ -1,7 +1,8 @@
 ---
+permalink: /about
+layout: Post
+content-type: static
 title: whoami
-description: about me
-date: 01-01-2014
 ---
 
 <br />

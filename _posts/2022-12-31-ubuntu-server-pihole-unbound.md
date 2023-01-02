@@ -1,9 +1,10 @@
 ---
 title: Guida alla creazione di un server DNS in rete locale
+description: Guida installazione e configurazione Ubuntu Server, Pi-Hole e Unbound
 date: 31-12-2022
 ---
 
-> Guida installazione e configurazione Ubuntu Server, Pi-Hole e Unbound
+*Guida installazione e configurazione Ubuntu Server, Pi-Hole e Unbound*
 
 In questa guida verrà illustrato come installare Ubuntu Server (sistema operativo) insieme ai tool FOSS [Pi-Hole](https://it.wikipedia.org/wiki/Pi-hole) (dns ad-blocker) e [Unbound](https://it.wikipedia.org/wiki/Unbound) (dns resolver).
 Inoltre viene fatto uso dell'autenticazione a due fattori (2FA) come ulteriore protezione da accessi non autorizzati.

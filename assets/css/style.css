@@ -2,7 +2,7 @@
 layout: Stylesheet 
 --- 
 @import "fruity.css";
-
+@import "stylesheet.css";
 
 html,
 html[data-theme="light"] {
@@ -358,7 +358,7 @@ img {
 }
 
 code {
-    font-family: Consolas, 'Courier New', Courier, monospace;
+    font-family: 'caskaydiacove_nerd_fontRg', 'Courier New', Courier, monospace;
     display: inline-block;
     overflow: auto !important;
     word-wrap: break-word !important;
@@ -367,6 +367,7 @@ code {
     padding: 2px 2px 2px 2px;
     border: 1px solid var(--secondary-border-color);
     border-radius: 4px;
+	background-color: var(--color-border-light);
 }
 
 .regular-sans code {

@@ -358,7 +358,7 @@ img {
 }
 
 code {
-    font-family: 'caskaydiacove_nerd_fontRg', 'Courier New', Courier, monospace;
+    font-family: 'caskaydiacove_nerd_fontRg', Consolas,'Courier New', Courier, monospace;
     display: inline-block;
     overflow: auto !important;
     word-wrap: break-word !important;
@@ -386,7 +386,7 @@ code {
 
 
 pre code {
-    font-family: Consolas, 'Courier New', Courier, monospace;
+    font-family: 'caskaydiacove_nerd_fontRg', Consolas, 'Courier New', Courier, monospace;
     display: inline-block;
     overflow: auto !important;
     word-wrap: break-word !important;

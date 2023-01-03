@@ -1,7 +1,7 @@
 @font-face {
     font-family: 'caskaydiacove_nerd_font_monRg';
-    src: url('assets/fonts/caskaydia_cove_nerd_font_complete_mono_regular-webfont.woff2') format('woff2'),
-         url('assets/fonts/caskaydia_cove_nerd_font_complete_mono_regular-webfont.woff') format('woff');
+    src: url('../fonts/caskaydia_cove_nerd_font_complete_mono_regular-webfont.woff2') format('woff2'),
+         url('../fonts/caskaydia_cove_nerd_font_complete_mono_regular-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 
@@ -9,8 +9,8 @@
 
 @font-face {
     font-family: 'caskaydiacove_nerd_fontRg';
-    src: url('assets/fonts/caskaydia_cove_nerd_font_complete_regular-webfont.woff2') format('woff2'),
-         url('assets/fonts/caskaydia_cove_nerd_font_complete_regular-webfont.woff') format('woff');
+    src: url('../fonts/caskaydia_cove_nerd_font_complete_regular-webfont.woff2') format('woff2'),
+         url('../fonts/caskaydia_cove_nerd_font_complete_regular-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 

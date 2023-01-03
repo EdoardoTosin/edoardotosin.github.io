@@ -96,13 +96,26 @@ ZooMeeting Redirector does **NOT** collect any data of any kind.
 - ``storage`` is used to store the status of the slide checkbox.  
 - ``*://*.zoom.us/*`` and ``*://*.zoomgov.com/*`` are necessary to get the url and modify it to redirect to the web client page.
 
-## Release History
+## Translation
 
-See the [releases pages](https://github.com/EdoardoTosin/ZooMeeting-Redirector/releases) for a history of releases and highlights for each release.
+Locales are hosted using [Crowdin](https://crowdin.com) to help the process of translation. To translate it, please follow these steps:
+* Sign up on [Crowdin](https://accounts.crowdin.com/register) and Join the project [here](https://crowdin.com/project/zoomeeting-redirector).
+* Make sure your locale exists there, if it does not exist, open an issue [here](https://github.com/EdoardoTosin/ZooMeeting-Redirector/issues) on Github and I'll add the language option.
+* Get familiar with the Crowdin translation UI, as you will need to use it to translate JSON files.
+
+For translation progress details see the [TRANSLATION](https://github.com/EdoardoTosin/ZooMeeting-Redirector/blob/main/TRANSLATION.md) file.
 
 ## Changelog
 
 For more details see the [CHANGELOG](https://github.com/EdoardoTosin/ZooMeeting-Redirector/tree/main/CHANGELOG.md) file.
+
+## Release History
+
+See the [releases pages](https://github.com/EdoardoTosin/ZooMeeting-Redirector/releases) for a history of releases and highlights for each release.
+
+## Security Policy
+
+For more details see the [SECURITY](https://github.com/EdoardoTosin/ZooMeeting-Redirector/blob/main/SECURITY.md) file.
 
 ## Contributing
 
@@ -110,10 +123,6 @@ For more details see the [CHANGELOG](https://github.com/EdoardoTosin/ZooMeeting-
 When contributing to this repository, please first discuss the change you wish to make via issue, discussion, or any other method with the owner of this repository before making a change.
 
 **Read carefully the [contributing guidelines](https://github.com/EdoardoTosin/ZooMeeting-Redirector/tree/main/CONTRIBUTING.md).**
-
-## Security Policy
-
-For more details see the [SECURITY](https://github.com/EdoardoTosin/ZooMeeting-Redirector/blob/main/SECURITY.md) file.
 
 ## License
 

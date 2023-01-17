@@ -49,7 +49,7 @@ tqdm>=4.64.0
 ### Linux
 
 - `git clone https://github.com/EdoardoTosin/Batch-Image-Converter.git`
-- `cd Batch-Image-Converter/src && python3 -m pip install -r requirements.txt`
+- `cd Batch-Image-Converter && python3 -m pip install -r requirements.txt`
 - Copy `main.py` into the folder you want to convert all images.
 - `python3 main.py`
 - Help screen: `python3 main.py -h`
@@ -57,7 +57,7 @@ tqdm>=4.64.0
 ### Windows
 
 - `git clone https://github.com/EdoardoTosin/Batch-Image-Converter.git`
-- `cd Batch-Image-Converter\src; python -m pip install -r requirements.txt`
+- `cd Batch-Image-Converter; python -m pip install -r requirements.txt`
 - Copy `main.py` into the folder you want to convert all images.
 - Double click `main.py` to start it with default parameters or launch via terminal with `python main.py`.
 - Help screen: `python main.py -h`
@@ -74,10 +74,11 @@ Portable version can be built with the [`Windows script`](https://raw.githubuser
 ## Usage
 
 ```console
-usage: ./main.py [-h] [-v] [-p PATH] [-d [1-1000]] [-s [1-10000]]
+usage: main.py [-h] [-v] [-p PATH] [-d [1-1000]] [-s [1-10000]]
                  [-f [0 = Nearest, 4 = Box, 2 = Bilinear, 5 = Hamming, 3 = Bicubic, 1 = Lanczos]]
-                 [--colorspace | --no-colorspace | --cs | --no-cs] [-q [1-100]] [-m [0-10000]]
-                 [--optimize | --no-optimize] [--alert | --no-alert] [--wait | --no-wait]
+                 [--colorspace | --no-colorspace | --cs | --no-cs]
+                 [-q [1-100]] [-m [0-10000]] [--optimize | --no-optimize]
+                 [--alert | --no-alert] [--wait | --no-wait]
 
 Batch image conversion. Filetype: jpg, jpeg, png, tif, tiff, bmp, psd, psb.
 
@@ -92,15 +93,13 @@ commands:
   -d [1-1000], --dpi [1-1000]
                         pixel density in pixels per inch (dpi), must be in range 1-1000 (default: 72)
   -s [1-10000], --size [1-10000]
-                        max resolution of image (long side) in pixel (downscaling only), must be in range 1-10000
-                        (default: 1000)
+                        max resolution of image (long side) in pixel (downscaling only), must be in range 1-10000 (default: 1000)
   -f [0 = Nearest, 4 = Box, 2 = Bilinear, 5 = Hamming, 3 = Bicubic, 1 = Lanczos], --filter [0 = Nearest, 4 = Box, 2 = Bilinear, 5 = Hamming, 3 = Bicubic, 1 = Lanczos]
                         type of filter used for downscaling, must be an integer in range 0-5 (default: 0 = Nearest)
   --colorspace, --no-colorspace, --cs, --no-cs
                         convert all images to RGB color space
   -q [1-100], --quality [1-100]
-                        quality of output images, must be in range 1-100 (values above 95 should be avoided) (default:
-                        80)
+                        quality of output images, must be in range 1-100 (values above 95 should be avoided) (default: 80)
   -m [0-10000], --max-image-mpixels [0-10000]
                         maximum images resolution allowed in Megapixel, (default: 0 [None])
   --optimize, --no-optimize

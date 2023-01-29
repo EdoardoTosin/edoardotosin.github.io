@@ -1,0 +1,17 @@
+---
+permalink: /credits
+layout: Post
+content-type: static
+title: Credits
+---
+
+<br />
+
+This website is powered by [Jekyll SSG](https://jekyllrb.com/), and hosted using [Github Page](https://pages.github.com/). The theme is based on [Simply Jekyll](https://github.com/raghudotcc/simply-jekyll) and modified version is available at [Jekyll Garden Theme](https://jekyll-garden.github.io/posts/how-to). Highlight.css is based on [Jekyll Pygments](https://github.com/jwarby/jekyll-pygments-themes). Please feel free to fork and use!
+
+## Tools
+- [Obsidian](https://obsidian.md/) for knowledge management
+
+## Fonts & More
+- [IBM Plex Sans](https://fonts.google.com/specimen/IBM+Plex+Sans) for text
+- [Feather Icons](https://feathericons.com/) for icons

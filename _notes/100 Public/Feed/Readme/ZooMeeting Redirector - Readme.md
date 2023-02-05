@@ -22,7 +22,7 @@ When opening the dashboard there is a toggle to enable/disable the extension to 
 
 ### Dark mode
 
-According to system settings the extension's dashboard has the corresponding background.
+According to system settings the extension's dashboard has the corresponding theme.
 
 ## Installation
 
@@ -30,25 +30,23 @@ According to system settings the extension's dashboard has the corresponding bac
     <thead align="center">
         <tr>
             <th>Mozilla Firefox Add-on</th>
-            <th>Chromium*</th>
-            <th>Microsoft Edge**</th>
+            <th>Chrome (and<br>Chromium<br>based browsers)*</th>
+            <th>Microsoft Edge*</th>
         </tr>
     </thead>
     <tbody align="center">
         <tr>
           <td><a href="https://addons.mozilla.org/firefox/addon/zoomeeting-redirector">
          <img alt="Mozilla Firefox" src="https://img.shields.io/amo/v/zoomeeting-redirector?label=firefox&logo=Firefox&style=for-the-badge"></a></td>
-          <td><a href="https://github.com/EdoardoTosin/ZooMeeting-Redirector/releases" href_x="https://chrome.google.com/webstore/detail/zoom-web-client-redirecto/ommndciompclncigoffdnipifnfnaclj">
-          <img alt_x="Chromium" src_x="https://img.shields.io/chrome-web-store/v/ommndciompclncigoffdnipifnfnaclj?label=chrome&logo=google-chrome&style=for-the-badge">Only available here</a></td>
+          <td><a href="https://chrome.google.com/webstore/detail/bfkjcjmaimcoidkipkgochffmlbfhbfj">
+          <img alt="Chrome" src="https://img.shields.io/chrome-web-store/v/bfkjcjmaimcoidkipkgochffmlbfhbfj?label=chrome&logo=google-chrome&style=for-the-badge"></a></td>
           <td><a href="https://microsoftedge.microsoft.com/addons/detail/kfpmepjfaolgcgabdmbpkfnicejbiggn">
        <img alt="Microsoft Edge" src="https://img.shields.io/badge/dynamic/json?label=Edge%09%09&logo=microsoft-edge&style=for-the-badge&prefix=v&query=%24.version&url=https%3A%2F%2Fmicrosoftedge.microsoft.com%2Faddons%2Fgetproductdetailsbycrxid%2Fkfpmepjfaolgcgabdmbpkfnicejbiggn"></a></td>
         </tr>
     </tbody>
 </table>
 
-\* Only compatible with Chromium-based browsers that support Manifest V2.
-
-\*\* Manifest V2 addons cannot be published anymore. Lastest published version is currently 3.1.0.
+\* Addon is based on branch [manifest-v3](https://github.com/EdoardoTosin/ZooMeeting-Redirector/tree/manifest-v3)
 
 ## Dashboard
 
@@ -85,6 +83,8 @@ ZooMeeting Redirector does **NOT** collect any data of any kind.
 
 ## Permissions
 
+**Manifest V2** ([main](https://github.com/EdoardoTosin/ZooMeeting-Redirector/tree/main) branch)
+
 ``` json
 "permissions": [
   "activeTab",
@@ -92,6 +92,19 @@ ZooMeeting Redirector does **NOT** collect any data of any kind.
   "*://*.zoom.us/*",
   "*://*.zoomgov.com/*"
 ],
+```
+
+**Manifest V3** ([manifest-v3](https://github.com/EdoardoTosin/ZooMeeting-Redirector/tree/manifest-v3) branch)
+
+``` json
+"permissions": [
+    "activeTab",
+    "storage"
+],
+"host_permissions": [
+    "*://*.zoom.us/*",
+    "*://*.zoomgov.com/*"
+]
 ```
 
 - ``activeTab`` is necessary to be able to open hyperlinks in the dashboard.

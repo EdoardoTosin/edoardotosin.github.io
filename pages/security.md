@@ -7,4 +7,4 @@ title: Security
 
 <br />
 
-**[Details](https://github.com/EdoardoTosin)**
+**[Contact Me]({{'/contact-me' | relative_url}}) :** All contact methods

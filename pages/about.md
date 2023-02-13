@@ -23,13 +23,13 @@ title: whoami
 
 ## About my page
 ---
-**[DevNotes](https://edoardotosin.github.io/notes) :** A mini note version of my DevLog. Mainly contains simple notes on some development knowledge I've obtained.
+**[DevNotes]({{'/notes' | relative_url}}) :** A mini note version of my DevLog. Mainly contains simple notes on some development knowledge I've obtained.
 
-**[DevLogs](https://edoardotosin.github.io/posts) :** A full version of my development log.
+**[DevLogs]({{'/posts' | relative_url}}) :** A full version of my development log.
 
 **[Github](https://github.com/edoardotosin) :**
 Visit my GitHub page to discover all my repositories!
 
-**[Contact](mailto:edoardotosindev@pm.me) :** Personal email.
+**[Contact Me]({{'/contact-me' | relative_url}}) :** All contact methods.
 
 <br>

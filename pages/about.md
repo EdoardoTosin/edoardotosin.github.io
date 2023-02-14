@@ -5,7 +5,7 @@ content-type: static
 title: whoami
 ---
 
-<br />
+<br>
 
 ## Hi there!
 ---

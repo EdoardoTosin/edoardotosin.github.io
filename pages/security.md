@@ -5,6 +5,6 @@ content-type: static
 title: Security
 ---
 
-<br />
+<br>
 
 **[Contact Me]({{'/contact-me' | relative_url}}) :** All contact methods

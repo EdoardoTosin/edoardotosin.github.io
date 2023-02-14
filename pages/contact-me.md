@@ -35,10 +35,10 @@ title: Contact Me
 <table align="center">
 	<tr>
 		<td>eMail Signing</td>
-		<td><a href="https://keybase.io/edoardotosin/pgp_keys.asc?fingerprint=ea315e01cd28871199cbbbce5b565012d7e24bcb"><img src="https://img.shields.io/badge/5B565012D7E24BCB-PGP?style=for-the-badge&label=PGP&labelColor=0d1117&color=1182c3" title="PGP Public Key" alt="PGP"></a></td>
+		<td><a href="https://raw.githubusercontent.com/EdoardoTosin/edoardotosin/main/signed-email-ea315e01cd28871199cbbbce5b565012d7e24bcb.asc"><img src="https://img.shields.io/badge/5B565012D7E24BCB-PGP?style=for-the-badge&label=PGP&labelColor=0d1117&color=1182c3" title="PGP Public Key" alt="PGP"></a></td>
 	</tr>
 	<tr>
 		<td>Git Commits</td>
-		<td><a href="https://keybase.io/edoardotosin/pgp_keys.asc?fingerprint=e11888c2ac5f9da4edc42299b1f7877739614df0"><img src="https://img.shields.io/badge/B1F7877739614DF0-GPG?style=for-the-badge&label=GPG&labelColor=0d1117&color=1182c3" title="GPG Public Key" alt="GPG"></a></td>
+		<td><a href="https://raw.githubusercontent.com/EdoardoTosin/edoardotosin/main/signed-commits-e11888c2ac5f9da4edc42299b1f7877739614df0.asc"><img src="https://img.shields.io/badge/B1F7877739614DF0-GPG?style=for-the-badge&label=GPG&labelColor=0d1117&color=1182c3" title="GPG Public Key" alt="GPG"></a></td>
 	</tr>
 </table>

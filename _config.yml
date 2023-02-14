@@ -29,6 +29,8 @@ baseurl: ""
 # If you are deleting this, make sure you remove it from HTML files too
 heading: Edoardo Tosin # Change this
 content: Tech-related blog and personal portfolio
+social:
+    mastodon: "https://mastodon.social/@edoardotosin"
 copyright:
   year: © 2023
   msg: Contents under CC-BY-NC

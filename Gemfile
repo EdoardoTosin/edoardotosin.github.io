@@ -18,7 +18,6 @@ group :jekyll_plugins do
   gem "jekyll-feed", "~> 0.12"
   gem "jekyll-tidy"
   gem "jekyll-spaceship"
-  gem "jekyll_github_sample", git: "https://github.com/bwillis/jekyll-github-sample", ref: 'master'
 end
 
 # Windows and JRuby does not include zoneinfo files, so bundle the tzinfo-data gem

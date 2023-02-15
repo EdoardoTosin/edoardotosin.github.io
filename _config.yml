@@ -65,6 +65,7 @@ plugins:
   - jekyll-sitemap
   - jekyll-tidy
   - jekyll-spaceship
+  - jekyll_include_plugin
 
 ## Enable Collections
 ## Suggested collects are "notes" "lists" and "blog"

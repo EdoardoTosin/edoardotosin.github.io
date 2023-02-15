@@ -30,7 +30,6 @@ baseurl: ""
 heading: Edoardo Tosin # Change this
 content: Tech-related blog and personal portfolio
 social:
-    github: "https://github.com/edoardotosin"
     mastodon: "https://mastodon.social/@edoardotosin"
 copyright:
   year: © 2023

@@ -126,6 +126,9 @@ exclude:
   - _notes/000 Inbox
   - _notes/200 Private
   - _notes/300 Templates
+  - Dockerfile
+  - README.md
+  - LICENSE
 #   - .sass-cache/
 #   - .jekyll-cache/
 #   - gemfiles/

@@ -64,13 +64,14 @@
         <a href="{{'/posts' | relative_url}}" target="_self" class="navbar-item" title="Posts">
           ~/DevLogs
         </a>
-         <a href="https://github.com/edoardotosin" target="_self" class="navbar-item" title="GitHub">
+         <a href="{{ site.social.github }}" target="_self" class="navbar-item" title="GitHub">
           git
         </a>
-        <a href="mailto:edoardotosindev@pm.me"  target="_blank" class="navbar-item" title="Contact">
+        <a href="{{'/contact-me' | relative_url}}"  target="_self" class="navbar-item" title="Contact Me">
           sendmail
         </a>
       </div>
+	  <div class="navbar-item"></div>
       <div class="navbar-end is-hidden-mobile" onclick="modeSwitcher()" >
         <div class="navbar-item">
           <div class="buttons">

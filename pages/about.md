@@ -27,7 +27,7 @@ title: whoami
 
 **[DevLogs]({{'/posts' | relative_url}}) :** A full version of my development log.
 
-**[Github]({{ site.social.github }}) :**
+**[Github]({{ site.url.github }}) :**
 Visit my GitHub page to discover all my repositories!
 
 **[Contact Me]({{'/contact-me' | relative_url}}) :** All contact methods.

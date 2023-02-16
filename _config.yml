@@ -30,7 +30,6 @@ baseurl: ""
 heading: Edoardo Tosin # Change this
 content: Tech-related blog and personal portfolio
 url:
-    license: "https://creativecommons.org/licenses/by-nc/4.0/"
     mastodon: "https://mastodon.social/@edoardotosin"
     github: "https://github.com/edoardotosin"
 copyright:

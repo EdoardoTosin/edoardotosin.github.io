@@ -13,7 +13,7 @@ title: whoami
 
 **I am from :** Italy.
 
-**I love :** learning InfoSec and OSINT.
+**I love :** learning about InfoSec and OSINT.
 
 **I lived in :** London (during my 2011 high-school year, for 3 weeks).
 
@@ -27,7 +27,7 @@ title: whoami
 
 **[DevLogs]({{'/posts' | relative_url}}) :** A full version of my development log.
 
-**[Github](https://github.com/edoardotosin) :**
+**[Github]({{ site.social.github }}) :**
 Visit my GitHub page to discover all my repositories!
 
 **[Contact Me]({{'/contact-me' | relative_url}}) :** All contact methods.

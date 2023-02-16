@@ -30,6 +30,6 @@
 
 {%- if site.copyright.msg != nil and site.copyright.msg != empty and site.copyright.msg != null -%}
 <div id="copyright">
-    <p id="copyright-notice"><a href="{{ site.url.github }}" class="copyright-item" style="color:var(--link);"> {{site.copyright.year}} {{site.heading}}</a> • <a href="https://creativecommons.org/licenses/by-nc/4.0/" class="copyright-item" style="color:var(--link);">{{site.copyright.msg}}</a> • <a href="{{'/feed.xml' | relative_url}}" style="color:var(--link);">RSS</a> • <a href="{{'/credits' | relative_url}}" style="color:var(--link);">Credits</a></p>
+    <p id="copyright-notice"><a href="{{ site.link.github }}" class="copyright-item" style="color:var(--link);"> {{site.copyright.year}} {{site.heading}}</a> • <a href="{{ site.link.license }}" class="copyright-item" style="color:var(--link);">{{site.copyright.msg}}</a> • <a href="{{'/feed.xml' | relative_url}}" style="color:var(--link);">RSS</a> • <a href="{{'/credits' | relative_url}}" style="color:var(--link);">Credits</a></p>
 </div>
 {%- endif -%}

@@ -29,6 +29,7 @@ baseurl: ""
 # If you are deleting this, make sure you remove it from HTML files too
 heading: Edoardo Tosin # Change this
 content: Tech-related blog and personal portfolio
+mail: "edoardotosindev@pm.me"
 link:
     license: "https://creativecommons.org/licenses/by-nc/4.0/"
     mastodon: "https://mastodon.social/@edoardotosin"
@@ -67,6 +68,7 @@ plugins:
   - jekyll-sitemap
   - jekyll-tidy
   - jekyll-spaceship
+  - jekyll-email-protect
 
 ## Enable Collections
 ## Suggested collects are "notes" "lists" and "blog"

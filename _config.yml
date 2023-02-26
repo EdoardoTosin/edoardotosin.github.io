@@ -131,6 +131,10 @@ exclude:
   - Dockerfile
   - README.md
   - LICENSE
+  - tools
+  - debug.yml
+  - docker-compose.yml
+  - blog.code-workspace
 #   - .sass-cache/
 #   - .jekyll-cache/
 #   - gemfiles/

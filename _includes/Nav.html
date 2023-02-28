@@ -55,7 +55,7 @@
 
     <div id="navbarBasicExample" class="navbar-menu">
       <div class="navbar-start">
-        <a href="{{'/about' | relative_url}}"  class="navbar-item" title="About">
+        <a href="{{'/about' | relative_url}}"  target="_self" class="navbar-item" title="About">
           whoami
         </a>
         <a href="{{'/notes' | relative_url}}" target="_self" class="navbar-item" title="Notes">
@@ -64,7 +64,7 @@
         <a href="{{'/posts' | relative_url}}" target="_self" class="navbar-item" title="Posts">
           ~/DevLogs
         </a>
-         <a href="{{ site.link.github }}" target="_self" class="navbar-item" title="GitHub">
+         <a href="{{ site.link.github }}" target="_blank" class="navbar-item" title="GitHub">
           git
         </a>
         <a href="{{'/contact-me' | relative_url}}"  target="_self" class="navbar-item" title="Contact Me">

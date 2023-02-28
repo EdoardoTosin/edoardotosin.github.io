@@ -3,6 +3,7 @@ permalink: /contact-me
 layout: Post
 content-type: static
 title: Contact Me
+description: How to contact me
 ---
 
 <br>

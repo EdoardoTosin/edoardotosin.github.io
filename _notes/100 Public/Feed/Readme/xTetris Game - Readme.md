@@ -3,7 +3,7 @@ title: xTetris Game - Readme
 description: Variant of the famous game Tetris for Linux
 feed: show
 date: 05-09-2022
-image: "https://raw.githubusercontent.com/EdoardoTosin/xTetris-Game/main/doc/social-preview.jpg"
+ogimg: "https://raw.githubusercontent.com/EdoardoTosin/xTetris-Game/main/doc/social-preview.jpg"
 ---
 
 This is a variant of the famous video game Tetris written in C (standard C89) for Linux.

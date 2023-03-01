@@ -3,7 +3,7 @@ title: Batch Image Converter - Readme
 description: Batch image converter written in Python
 feed: show
 date: 15-06-2022
-image: "https://raw.githubusercontent.com/EdoardoTosin/Batch-Image-Converter/main/doc/output.jpg"
+ogimg: "https://raw.githubusercontent.com/EdoardoTosin/Batch-Image-Converter/main/doc/output.jpg"
 ---
 
 Simple script written in Python that converts all images found within the folder where the script is located (and all sub-folders); if the images are not in png or jpg (and jpeg) type, then it converts them to the latter one.  

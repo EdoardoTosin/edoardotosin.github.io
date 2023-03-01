@@ -18,12 +18,26 @@ function changeIconImgSrc(src) {
 	document.getElementById("theme-toggle-img").src = src;
 	document.getElementById("theme-toggle-img--mobile").src = src;
 }
+
 function iconToggle() {
-if (systemInitiatedDark.matches) {
-	changeIconImgSrc(iconMoon);
-} else {
-	changeIconImgSrc(iconSun);
-}
+	let theme = sessionStorage.getItem('theme');
+	if (theme === "dark") {
+		document.documentElement.setAttribute('data-theme', 'dark');
+		sessionStorage.setItem('theme', 'dark');
+		changeIconImgSrc(iconMoon);
+	}	else if (theme === "light") {
+		document.documentElement.setAttribute('data-theme', 'light');
+		sessionStorage.setItem('theme', 'light');
+		changeIconImgSrc(iconSun);
+	} else if (systemInitiatedDark.matches) {	
+		document.documentElement.setAttribute('data-theme', 'dark');
+		sessionStorage.setItem('theme', 'dark');
+		changeIconImgSrc(iconMoon);
+	} else {
+		document.documentElement.setAttribute('data-theme', 'light');
+		sessionStorage.setItem('theme', 'light');
+		changeIconImgSrc(iconSun);
+	}
 }
 
 function prefersColorTest(systemInitiatedDark) {

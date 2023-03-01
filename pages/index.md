@@ -4,5 +4,5 @@
 
 layout: Post
 permalink: /
-title: "Tech Blog and Portfolio"
+title: "Tech Blog and Portfolio to showcase my skills and projects"
 ---

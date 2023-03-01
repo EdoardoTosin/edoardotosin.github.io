@@ -28,7 +28,7 @@ baseurl: ""
 # Website Header, Description, Footer year and text.
 # If you are deleting this, make sure you remove it from HTML files too
 heading: Edoardo Tosin # Change this
-content: Tech Blog and Portfolio
+content: "Tech Blog and Portfolio"
 description: "edoardo.tos-in.it is a website created by Edoardo Tosin, an Italian software developer. The website serves as a platform for Edoardo to showcase his skills, projects, and interests. Visitors can browse Edoardo's past and current software development projects, which range from web applications to software applications and games. Additionally, Edoardo shares his knowledge and expertise through blog posts and tutorials on various topics related to programming. Overall, Edoardo Tos-in.it is an informative and engaging website that offers insights into the world of software development and the passion and creativity of a skilled Italian developer."
 link:
     license: "https://creativecommons.org/licenses/by-nc/4.0/"

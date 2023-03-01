@@ -4,5 +4,5 @@
 
 layout: Post
 permalink: /
-title: Edoardo Tosin
+title: "Tech Blog and Portfolio"
 ---

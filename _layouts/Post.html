@@ -60,10 +60,13 @@
     <meta content="{{ site.url }}{{ page.url }}" property="og:url">
     {%- endif -%}
 	
-	{%- if page.permalink == '/' -%}
+	{%- if page.permalink == '/' and page.title -%}
     <title>{{site.heading}} - {{page.title}}</title>
-    {%- else -%}
+    {%- elsif page.title -%}
     <title>{{page.title}} - {{site.heading}}</title>
+    {%- elsif page.permalink == '/404.html' -%}
+    <title>There's been a glitch...</title>
+    {%- else -%}
     {%- endif -%}
     <link rel="canonical" href="{{site.url}}{{page.url}}" />
     <link rel="apple-touch-icon" href="{{ site.baseurl }}/assets/img/apple-touch-icon.png">
@@ -82,7 +85,7 @@
 	{%- if page.title -%}
 	<meta name="twitter:title" content="{{ page.title }}">
 	{% else %}
-	<meta name="twitter:title" content="{{ site.title }}">
+	<meta name="twitter:title" content="{{ site.heading }}">
 	{%- endif -%}
 	{% assign page_content = page.content | strip_html | xml_escape | truncate: 180 %}
 	{% if page.description %}

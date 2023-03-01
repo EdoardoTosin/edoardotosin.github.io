@@ -132,6 +132,7 @@ exclude:
   - debug.yml
   - docker-compose.yml
   - blog.code-workspace
+  - utilities
 #   - .sass-cache/
 #   - .jekyll-cache/
 #   - gemfiles/

@@ -42,7 +42,11 @@
 	<meta content="{{ site.description }}" property="og:description" name="description">
 	{%- endif -%}
     <meta content="{{ site.url }}/about/" property="article:author">
-    <meta property="og:image" content="{{ site.url }}/assets/img/OGImg.png">
+	{%- if page.ogimg -%}
+    <meta property="og:image" content="{{ page.ogimg }}">
+	{%- else -%}
+	<meta property="og:image" content="{{ site.url }}{{ site.ogimg }}">
+	{%- endif -%}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&display=swap"

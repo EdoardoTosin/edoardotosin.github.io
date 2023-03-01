@@ -39,7 +39,7 @@
 	<meta content="{{ page.description }}" property="og:description" name="description">
 	{%- else -%}
     <meta content="{{ site.content }}" property="og:tagline" name="tagline">
-	<meta content="{{ site.description }}" property="og:description" name="description">
+	<meta content="{{ site.description | strip_html | xml_escape | truncate: 200 }}" property="og:description" name="description">
 	{%- endif -%}
     <meta content="{{ site.url }}/about" property="article:author">
 	{%- if page.ogimg -%}

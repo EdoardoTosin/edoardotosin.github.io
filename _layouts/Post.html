@@ -41,7 +41,7 @@
     <meta content="{{ site.content }}" property="og:tagline" name="tagline">
 	<meta content="{{ site.description }}" property="og:description" name="description">
 	{%- endif -%}
-    <meta content="{{ site.url }}/about/" property="article:author">
+    <meta content="{{ site.url }}/about" property="article:author">
 	{%- if page.ogimg -%}
     <meta property="og:image" content="{{ page.ogimg }}">
 	{%- else -%}
@@ -59,6 +59,7 @@
     <meta content="website" property="og:type">
     <meta content="{{ site.url }}{{ page.url }}" property="og:url">
     {%- endif -%}
+	<meta name="twitter:card" content="summary_large_image">
 	
 	{%- if page.permalink == '/' -%}
     <title>{{site.heading}} - {{page.title}}</title>

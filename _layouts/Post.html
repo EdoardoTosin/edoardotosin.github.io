@@ -90,7 +90,7 @@
 	{% elsif page_content.size > 50 %}
 	<meta name="twitter:description" content="{{ page_content }}">
 	{% else %}
-	<meta name="twitter:description" content="{{ site.description | strip_html | xml_escape | truncate: 250 }}">
+	<meta name="twitter:description" content="{{ site.description | strip_html | xml_escape | truncate: 200 }}">
 	{% endif %}
 	{%- if page.ogimg -%}
     <meta property="twitter:image" content="{{ page.ogimg }}">

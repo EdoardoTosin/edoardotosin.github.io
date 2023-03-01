@@ -91,6 +91,11 @@
 	{% else %}
 	<meta name="twitter:description" content="{{ site.description | strip_html | xml_escape | truncate: 250 }}">
 	{% endif %}
+	{%- if page.ogimg -%}
+    <meta property="twitter:image" content="{{ page.ogimg }}">
+	{%- else -%}
+	<meta property="twitter:image" content="{{ site.url }}{{ site.ogimg }}">
+	{%- endif -%}
 
     <!--[if IE]>
         <link href="/assets/css/ie-target.css" rel="stylesheet" type="text/css"/>

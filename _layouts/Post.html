@@ -84,13 +84,13 @@
 	{% else %}
 	<meta name="twitter:title" content="{{ site.title }}">
 	{%- endif -%}
-	{% assign page_content = page.content | strip_html | xml_escape | truncate: 200 %}
+	{% assign page_content = page.content | strip_html | xml_escape | truncate: 180 %}
 	{% if page.description %}
 	<meta name="twitter:description" content="{{ page.description }}">
 	{% elsif page_content.size > 50 %}
 	<meta name="twitter:description" content="{{ page_content }}">
 	{% else %}
-	<meta name="twitter:description" content="{{ site.description | strip_html | xml_escape | truncate: 200 }}">
+	<meta name="twitter:description" content="{{ site.description | strip_html | xml_escape | truncate: 180 }}">
 	{% endif %}
 	{%- if page.ogimg -%}
     <meta property="twitter:image" content="{{ page.ogimg }}">

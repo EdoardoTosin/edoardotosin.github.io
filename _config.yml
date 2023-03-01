@@ -41,6 +41,7 @@ copyright:
 twitter: EdoardoTosin
 
 ogimg: "/assets/img/OGImg.png"
+ogimg_404: "/assets/img/OGImg_404.png"
 
 # Set title and content for private & broken link tooltop
 privatelinks:
@@ -132,6 +133,7 @@ exclude:
   - debug.yml
   - docker-compose.yml
   - blog.code-workspace
+  - utilities
 #   - .sass-cache/
 #   - .jekyll-cache/
 #   - gemfiles/

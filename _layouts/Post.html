@@ -35,14 +35,18 @@
 	{%- endif -%}
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <meta content="{{ page.title }}" property="og:site_name" />
-	{%- if page.description -%}
+    {%- if page.permalink == '/404.html' -%}
+    <meta content="Error 404 - Page not found" property="og:description" name="description">
+	{%- elsif page.description -%}
 	<meta content="{{ page.description }}" property="og:description" name="description">
 	{%- else -%}
     <meta content="{{ site.content }}" property="og:tagline" name="tagline">
 	<meta content="{{ site.description | strip_html | xml_escape | truncate: 200 }}" property="og:description" name="description">
 	{%- endif -%}
     <meta content="{{ site.url }}/about" property="article:author">
-	{%- if page.ogimg -%}
+    {%- if page.permalink == '/404.html' -%}
+    <meta property="og:image" content="{{ site.url }}{{ site.ogimg_404 }}">
+	{%- elsif page.ogimg -%}
     <meta property="og:image" content="{{ page.ogimg }}">
 	{%- else -%}
 	<meta property="og:image" content="{{ site.url }}{{ site.ogimg }}">
@@ -59,11 +63,16 @@
     <meta content="website" property="og:type">
     <meta content="{{ site.url }}{{ page.url }}" property="og:url">
     {%- endif -%}
+
 	
-	{%- if page.permalink == '/' -%}
+	{%- if page.permalink == '/' and page.title -%}
     <title>{{site.heading}} - {{page.title}}</title>
-    {%- else -%}
+    {%- elsif page.title -%}
     <title>{{page.title}} - {{site.heading}}</title>
+    {%- elsif page.permalink == '/404.html' -%}
+    <title>There's been a glitch...</title>
+    {%- else -%}
+	<title>{{site.heading}}</title>
     {%- endif -%}
     <link rel="canonical" href="{{site.url}}{{page.url}}" />
     <link rel="apple-touch-icon" href="{{ site.baseurl }}/assets/img/apple-touch-icon.png">
@@ -82,7 +91,7 @@
 	{%- if page.title -%}
 	<meta name="twitter:title" content="{{ page.title }}">
 	{% else %}
-	<meta name="twitter:title" content="{{ site.title }}">
+	<meta name="twitter:title" content="{{ site.heading }}">
 	{%- endif -%}
 	{% assign page_content = page.content | strip_html | xml_escape | truncate: 180 %}
 	{% if page.description %}

@@ -30,4 +30,6 @@ If you have any questions or concerns about this Privacy Policy, please **[conta
 
 ---
 
-*Cloudflare, the Cloudflare logo, and Cloudflare Workers are trademarks and/or registered trademarks of Cloudflare, Inc. in the United States and other jurisdictions.*								
+<sub>
+Cloudflare, the Cloudflare logo, and Cloudflare Workers are trademarks and/or registered trademarks of Cloudflare, Inc. in the United States and other jurisdictions.
+</sub>

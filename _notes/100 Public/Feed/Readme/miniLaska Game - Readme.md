@@ -3,7 +3,7 @@ title: miniLaska Game - Readme
 description: Variant of a game called lasca or laska
 feed: show
 date: 05-09-2021
-image: "https://raw.githubusercontent.com/EdoardoTosin/miniLaska-Game/main/doc/example.jpg"
+ogimg: "https://raw.githubusercontent.com/EdoardoTosin/miniLaska-Game/main/doc/example.jpg"
 ---
 
 This project is a variant of the game called Lasca (or Laska).

@@ -133,6 +133,14 @@ exclude:
   - docker-compose.yml
   - blog.code-workspace
   - utilities
+  - assets/img/1-how-to.png
+  - assets/img/2-how-to.png
+  - assets/img/3-how-to.png
+  - assets/img/4-how-to.png
+  - assets/img/5-how-to.png
+  - assets/img/6-how-to.png
+  - assets/img/7-how-to.png
+  - assets/img/screenshot-mixed.png
 #   - .sass-cache/
 #   - .jekyll-cache/
 #   - gemfiles/

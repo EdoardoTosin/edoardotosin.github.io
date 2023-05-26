@@ -3,7 +3,7 @@ title: SN 2023ixf in the Pinwheel galaxy
 description: Supernova in the galaxy Messier 101 (Pinwheel galaxy)
 feed: hide
 date: 26-05-2023
-ogimg: "https://live.staticflickr.com/65535/52926129447_5ac1821c37_o.png"
+ogimg: "https://live.staticflickr.com/65535/52926129447_8cd6bbc954_z.jpg"
 carousels:
   - images:
     - image: https://live.staticflickr.com/65535/52926129447_5ac1821c37_o.png

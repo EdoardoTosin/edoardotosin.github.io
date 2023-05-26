@@ -10,7 +10,7 @@ carousels:
     - image: https://live.staticflickr.com/65535/52926129447_5ac1821c37_o.png
 ---
 
-Supernova in the Pinwheel galaxy (Messier 101 or NGC 5457) called *SN 2023ixf* discovered by Koichi Itagaki on 19 May 2023.[^1]
+Supernova in the Pinwheel galaxy (Messier 101 or NGC 5457) called SN 2023ixf has been discovered by Koichi Itagaki on 19 May 2023.[^1]
 
 Located 21 million light years away, it's confirmed to be a type II supernova.[^2]
 

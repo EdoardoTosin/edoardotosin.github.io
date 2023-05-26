@@ -9,4 +9,4 @@ List of all my photos (reverse chronological order).
 
 #### May
 
-- [[SN 2023ixf in the Pinwheel galaxy]]
+- [[Supernova in the Pinwheel galaxy]]

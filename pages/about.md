@@ -24,9 +24,11 @@ description: Hi, I'm Edoardo Tosin - a developer with a passion for Cybersecurit
 
 ## About my page
 ---
-**[DevNotes]({{'/notes' | relative_url}}) :** Contains simple notes on some development knowledge I've obtained.
+**[Notes]({{'/notes' | relative_url}}) :** Contains simple notes on some development knowledge I've obtained and other stuff.
 
-**[DevLogs]({{'/posts' | relative_url}}) :** Blog posts and tutorials about technology.
+**[Posts]({{'/posts' | relative_url}}) :** Blog posts and tutorials mainly about technology.
+
+**[Photos]({{'/photos' | relative_url}}) :** List of photos in reverse chronological order.
 
 **[Github]({{ site.link.github }}) :**
 Visit my GitHub page to discover all my repositories!

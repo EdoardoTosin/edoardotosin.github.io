@@ -3,11 +3,11 @@ title: Supernova in the Pinwheel galaxy
 description: Supernova in the galaxy Messier 101 (Pinwheel galaxy)
 feed: hide
 date: 26-05-2023
-ogimg: "https://live.staticflickr.com/65535/52926129447_8cd6bbc954_z.jpg"
+ogimg: "https://live.staticflickr.com/65535/52926129447_b5b2a2e102_h.jpg"
 carousels:
   - images:
-    - image: https://live.staticflickr.com/65535/52927581723_e112bc2840_o.jpg
-    - image: https://live.staticflickr.com/65535/52926129447_5ac1821c37_o.png
+    - image: https://live.staticflickr.com/65535/52927581723_77449759fc_h.jpg
+    - image: https://live.staticflickr.com/65535/52926129447_b5b2a2e102_h.jpg
 ---
 
 Supernova in the Pinwheel galaxy (Messier 101 or NGC 5457) called SN 2023ixf has been discovered by Koichi Itagaki on 19 May 2023.[^1]

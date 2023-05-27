@@ -1043,7 +1043,7 @@ a.box-feed:active {
   justify-content: flex-start; }
   .buttons .button {
     margin-bottom: 0.3rem;
-    padding: 1rem 1rem 1rem 0rem; }
+    padding: 1rem 1rem 1rem 1rem; }
     .buttons .button:not(:last-child):not(.is-fullwidth) {
       margin-right: 0.5rem; }
   .buttons:last-child {

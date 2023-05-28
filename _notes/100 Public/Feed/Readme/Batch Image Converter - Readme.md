@@ -2,7 +2,7 @@
 title: Batch Image Converter - Readme
 description: Batch image converter written in Python
 feed: show
-date: 15-06-2022
+date: 2022-06-15
 ogimg: "https://raw.githubusercontent.com/EdoardoTosin/Batch-Image-Converter/main/doc/output.jpg"
 ---
 

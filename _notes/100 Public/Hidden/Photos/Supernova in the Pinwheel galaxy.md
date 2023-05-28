@@ -1,8 +1,8 @@
 ---
 title: Supernova in the Pinwheel galaxy
-description: Supernova in the galaxy Messier 101 (Pinwheel galaxy)
+description: Supernova discovered in the Pinwheel galaxy by an amateur astronomer
 feed: hide
-date: 26-05-2023
+date: 2023-05-26
 ogimg: "https://live.staticflickr.com/65535/52926129447_b5b2a2e102_h.jpg"
 carousels:
   - images:
@@ -15,9 +15,10 @@ Supernova in the Pinwheel galaxy (Messier 101 or NGC 5457) called SN 2023ixf has
 Located 21 million light years away, it's confirmed to be a type II supernova.[^2]
 
 {% include Carousel.html height="100" unit="%" duration="7" number="1" %}
-*Pinwheel galaxy and the supernova taken from my backyard. Original images available on [Flickr](https://www.flickr.com/photos/198410585@N04/albums/72177720308577781).*
+*Pinwheel galaxy and the supernova taken from my backyard.[^3]*
 
 ## References
 
 [^1]: [Discovery certificate for object 2023ixf](https://www.wis-tns.org/object/2023ixf/discovery-cert). Transient Name Server.
 [^2]: [AstroNote 2023-119](https://www.wis-tns.org/astronotes/astronote/2023-119). Transient Name Server.
+[^3]: [SN 2023ixf](https://www.flickr.com/photos/198410585@N04/albums/72177720308577781). Flickr.

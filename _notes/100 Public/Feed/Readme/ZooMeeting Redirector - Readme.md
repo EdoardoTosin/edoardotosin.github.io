@@ -2,7 +2,7 @@
 title: ZooMeeting Redirector - Readme
 description: Web extension that redirects zoom meetings to web client page
 feed: show
-date: 21-05-2021
+date: 2021-05-21
 ogimg: "https://raw.githubusercontent.com/EdoardoTosin/ZooMeeting-Redirector/main/assets/dashboard/on-dark.png"
 ---
 

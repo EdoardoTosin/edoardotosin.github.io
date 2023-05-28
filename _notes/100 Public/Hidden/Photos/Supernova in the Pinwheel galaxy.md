@@ -15,7 +15,7 @@ Supernova in the Pinwheel galaxy (Messier 101 or NGC 5457) called SN 2023ixf has
 Located 21 million light years away, it's confirmed to be a type II supernova.[^2]
 
 {% include Carousel.html height="100" unit="%" duration="7" number="1" %}
-*Pinwheel galaxy and the supernova taken from my backyard.[^3]*
+*Supernova in the Pinwheel galaxy taken from my backyard.[^3]*
 
 ## References
 

@@ -132,4 +132,4 @@ Ora il computer procederà al riavvio.
 
 ![Ubuntu Server 19](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/doc/1_Ubuntu_Server/Ubuntu_Server_19.jpg)
 
-**[Parte successiva](../post/ubuntu-server-pihole-unbound-part-2)**
+**[Parte successiva]({% post_url 2022-12-31-ubuntu-server-pihole-unbound-part-2 %})**

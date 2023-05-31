@@ -133,4 +133,4 @@ Se entrambi ritornano in modo corretto allora DNSSEC funziona.
 
 ![Unbound 18](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/doc/4_Unbound/Unbound_18.jpg)
 
-**[Parte successiva](../post/ubuntu-server-pihole-unbound-part-5)**
+**[Parte successiva]({% post_url 2022-12-31-ubuntu-server-pihole-unbound-part-5 %})**

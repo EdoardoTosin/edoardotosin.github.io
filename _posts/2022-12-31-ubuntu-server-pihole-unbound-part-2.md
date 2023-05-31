@@ -79,4 +79,4 @@ Riavviare il servizio sshd.service per caricare le modifiche con il comando `sud
 
 ![2FA 22](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/doc/2_2FA/2FA_22.jpg)
 
-**[Parte successiva](../post/ubuntu-server-pihole-unbound-part-3)**
+**[Parte successiva]({% post_url 2022-12-31-ubuntu-server-pihole-unbound-part-3 %})**

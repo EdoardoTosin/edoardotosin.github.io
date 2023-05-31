@@ -94,4 +94,4 @@ Se la procedura ha avuto successo comparirà la scritta `New password set`
 
 ![Pi-Hole 22](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/doc/3_Pi-Hole/Pi-Hole_22.jpg)
 
-**[Parte successiva](../post/ubuntu-server-pihole-unbound-part-4)**
+**[Parte successiva]({% post_url 2022-12-31-ubuntu-server-pihole-unbound-part-4 %})**

@@ -1,7 +1,7 @@
 ---
 title: Installazione e configurazione server DNS (Parte 3) - Installazione Pi-Hole
 description: Guida installazione e configurazione Ubuntu Server, Pi-Hole e Unbound
-date: 2022-12-31
+date: 2022-12-31 09:00:00 +0200
 ogimg: "https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/doc/3_Pi-Hole/Pi-Hole_7.jpg"
 ---
 

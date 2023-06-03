@@ -4,6 +4,7 @@ layout: Post
 content-type: static
 title: Privacy Policy
 date: 2023-03-01
+sitemap: false
 ---
 
 *This Privacy Policy is effective as of {{ page.date | date: "%B %d, %Y" }}*

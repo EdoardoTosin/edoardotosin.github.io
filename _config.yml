@@ -110,7 +110,7 @@ defaults:
       permalink: /note/:title
       content-type: notes
   - scope:
-      path: "keybase.txt"
+      path: "security.txt"
     values:
       sitemap: false
 

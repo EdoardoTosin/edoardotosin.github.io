@@ -5,6 +5,7 @@ permalink: /robots.txt
 User-agent: *
 Disallow: /assets/
 Disallow: /security.txt
+Disallow: /security.txt.asc
 Disallow: /SearchData.json
 Disallow: /autocomplete.txt
 Disallow: /CNAME

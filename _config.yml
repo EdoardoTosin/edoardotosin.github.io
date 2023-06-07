@@ -135,6 +135,8 @@ exclude:
   - docker-compose.yml
   - blog.code-workspace
   - utilities
+  - unsigned-security.txt
+  - unsigned-security.txt.asc
   - assets/img/1-how-to.png
   - assets/img/2-how-to.png
   - assets/img/3-how-to.png

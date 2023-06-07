@@ -1,5 +1,5 @@
 Contact: mailto:edoardotosindev@pm.me
-Expires: 2023-12-31T12:00:00.000Z
+Expires: 2023-12-31T23:59:59.000Z
 Encryption: https://raw.githubusercontent.com/EdoardoTosin/edoardotosin/main/signed-email-ac152a46f1868184d30ade866eb91f027c4070ec.asc
 Preferred-Languages: en, it
 Canonical: https://edoardo.tos-in.it/security.txt

@@ -10,3 +10,7 @@ feed: hide
 #### May
 
 - [[Supernova in the Pinwheel galaxy]]
+
+#### July
+
+- [[Sunspots July 8 2023]]

@@ -14,3 +14,4 @@ feed: hide
 #### July
 
 - [[Sunspots July 8 2023]]
+- [[Sunspots July 17 2023]]

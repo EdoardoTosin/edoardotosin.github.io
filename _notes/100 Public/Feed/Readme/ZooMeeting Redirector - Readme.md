@@ -39,8 +39,8 @@ According to system settings the extension's dashboard has the corresponding the
         <tr>
           <td><a href="https://addons.mozilla.org/firefox/addon/zoomeeting-redirector">
          <img alt="Mozilla Firefox" src="https://img.shields.io/amo/v/zoomeeting-redirector?label=firefox&logo=Firefox&style=for-the-badge"></a></td>
-          <td><a href="https://chrome.google.com/webstore/detail/bfkjcjmaimcoidkipkgochffmlbfhbfj">
-          <img alt="Chrome" src="https://img.shields.io/chrome-web-store/v/bfkjcjmaimcoidkipkgochffmlbfhbfj?label=chrome&logo=google-chrome&style=for-the-badge"></a></td>
+          <td><a href="https://chrome.google.com/webstore/detail/dammgkhaofolinipgnjjiocadmmhidch">
+          <img alt="Chrome" src="https://img.shields.io/chrome-web-store/v/dammgkhaofolinipgnjjiocadmmhidch?label=chrome&logo=google-chrome&style=for-the-badge"></a></td>
           <td><a href="https://microsoftedge.microsoft.com/addons/detail/kfpmepjfaolgcgabdmbpkfnicejbiggn">
        <img alt="Microsoft Edge" src="https://img.shields.io/badge/dynamic/json?label=Edge%09%09&logo=microsoft-edge&style=for-the-badge&prefix=v&query=%24.version&url=https%3A%2F%2Fmicrosoftedge.microsoft.com%2Faddons%2Fgetproductdetailsbycrxid%2Fkfpmepjfaolgcgabdmbpkfnicejbiggn"></a></td>
         </tr>

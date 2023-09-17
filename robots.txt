@@ -4,6 +4,7 @@ permalink: /robots.txt
 ---
 User-agent: *
 Disallow: /assets/
+Disallow: /security/
 Disallow: /security.txt
 Disallow: /SearchData.json
 Disallow: /autocomplete.txt

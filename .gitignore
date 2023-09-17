@@ -6,5 +6,5 @@ _site/
 pages/tags.md
 **/.obsidian
 tools/
-.ps1
-.sh
+*.ps1
+*.sh

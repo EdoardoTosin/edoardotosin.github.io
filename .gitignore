@@ -5,4 +5,6 @@ _site/
 **/.DS_Store
 pages/tags.md
 **/.obsidian
-tools
+tools/
+.ps1
+.sh

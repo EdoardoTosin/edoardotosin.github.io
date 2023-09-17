@@ -3,14 +3,14 @@ Hash: SHA256
 
 Contact: mailto:edoardotosindev@pm.me
 Expires: 2023-12-31T23:59:59.000Z
-Encryption: https://raw.githubusercontent.com/EdoardoTosin/edoardotosin/main/signed-email-ac152a46f1868184d30ade866eb91f027c4070ec.asc
+Encryption: https://edoardo.tos-in.it/security/signed-email-6eb91f027c4070ec.asc
 Preferred-Languages: en, it
 Canonical: https://edoardo.tos-in.it/security.txt
 Policy: https://edoardo.tos-in.it/security
 -----BEGIN PGP SIGNATURE-----
 
-iIwEARYIADQWIQSsFSpG8YaBhNMK3oZuuR8CfEBw7AUCZIBkbxYcZWRvYXJkb3Rv
-c2luZGV2QHBtLm1lAAoJEG65HwJ8QHDsRgIA/04vJfVvE9D9XRG8pMU99Vts6ECJ
-9Lu6ozTjMeRhfqndAP9hpp3lfyfo9FtqwJFVSVn/MzO/qD8WypRRIoSQw/ZuBA==
-=rHyk
+iIwEARYIADQWIQSsFSpG8YaBhNMK3oZuuR8CfEBw7AUCZQbfXBYcZWRvYXJkb3Rv
+c2luZGV2QHBtLm1lAAoJEG65HwJ8QHDsvdYA/3sMrgMUWxSWMoNit82PHZmCyOJv
+Aru5yDmTSGPmZ7+0AP0UiJYGxto9/+SuEdtqg80AXIEhWeuHWzWSgjrIgZeSCQ==
+=7UmT
 -----END PGP SIGNATURE-----

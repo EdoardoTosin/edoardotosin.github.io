@@ -228,7 +228,7 @@ Play alert sound when finished the conversion (default: True).
 | ------ | --------- |
 | --mute | --no-mute |
 
-Usage: `main.py --mute`
+Usage: `main.py --alert` or `main.py --no-alert`
 
 ### Wait ✋ [--wait, --no-wait]
 

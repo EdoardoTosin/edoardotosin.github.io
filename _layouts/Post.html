@@ -56,6 +56,16 @@
     <meta content="{{ site.url }}{{ page.url }}" property="og:url">
     {%- endif -%}
 	
+	{%- if page.noindex -%}
+	<!-- Robots -->
+	{%- if page.noindex == "follow" -%}
+	<meta name="robots" content="noindex">
+	{%- elsif page.noindex == "nofollow" -%}
+	<meta name="robots" content="noindex, nofollow">
+	{%- endif -%}
+	{%- endif -%}
+	
+	<!-- Title -->
 	{%- if page.permalink == '/' and page.title -%}
     <title>{{site.heading}} - {{page.title}}</title>
     {%- elsif page.title -%}
@@ -64,6 +74,7 @@
     <title>There's been a glitch...</title>
     {%- else -%}
     {%- endif -%}
+	<!-- Favicon -->
     <link rel="canonical" href="{{site.url}}{{page.url}}" />
     <link rel="apple-touch-icon" href="{{ site.baseurl }}/assets/img/apple-touch-icon.png">
     <link rel="icon" href="{{ site.baseurl }}/assets/img/favicon.png" type="image/png" sizes="48x48" />

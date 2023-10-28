@@ -5,6 +5,7 @@ content-type: static
 title: Security
 description: How to report a security issue
 sitemap: false
+noindex: nofollow
 ---
 
 ### {{ page.description }}

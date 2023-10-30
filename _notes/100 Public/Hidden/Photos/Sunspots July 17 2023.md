@@ -15,5 +15,5 @@ carousels:
 
 ## References
 
-[^1]: [Sun 2023-07-17](https://www.flickr.com/photos/198410585@N04/albums/72177720310019538). Flickr.
+[^1]: [Sun 2023-07-17](https://www.flickr.com/photos/edoardo_tosin/albums/72177720310019538). Flickr.
 [^2]: [Sun activity: CME glancing blow headed our way](https://earthsky.org/sun/sun-activity-solar-flare-cme-aurora-updates/). Earthsky.

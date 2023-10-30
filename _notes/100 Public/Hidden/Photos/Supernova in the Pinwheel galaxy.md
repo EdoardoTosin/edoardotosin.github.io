@@ -21,4 +21,4 @@ Located 21 million light years away, it's confirmed to be a type II supernova.[^
 
 [^1]: [Discovery certificate for object 2023ixf](https://www.wis-tns.org/object/2023ixf/discovery-cert). Transient Name Server.
 [^2]: [AstroNote 2023-119](https://www.wis-tns.org/astronotes/astronote/2023-119). Transient Name Server.
-[^3]: [SN 2023ixf](https://www.flickr.com/photos/198410585@N04/albums/72177720308577781). Flickr.
+[^3]: [SN 2023ixf](https://www.flickr.com/photos/edoardo_tosin/albums/72177720308577781). Flickr.

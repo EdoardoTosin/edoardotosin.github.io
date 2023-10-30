@@ -30,8 +30,6 @@ description: Hi, I'm Edoardo Tosin - a developer with a passion for Cybersecurit
 
 **[Projects]({{'/projects' | relative_url}}) :** Collection of links to documentation and landing pages for each personal project published on Github.
 
-**[Photos]({{'/photos' | relative_url}}) :** List of photos in reverse chronological order.
-
 **[Github]({{ site.link.github }}) :**
 Visit my GitHub page to discover all my repositories!
 

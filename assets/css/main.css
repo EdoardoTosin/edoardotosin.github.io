@@ -1022,7 +1022,7 @@ a.box-feed:active {
         }
       }
     .button.is-text:active, .button.is-text.is-active {
-      background-color: #e8e8e8;
+      background-color: var(--color-border-light);
       color: var(--color-border-dark); }
     .button.is-text[disabled],
     fieldset[disabled] .button.is-text {

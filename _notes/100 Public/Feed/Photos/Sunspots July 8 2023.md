@@ -1,7 +1,7 @@
 ---
 title: Sunspots July 8 2023
 description: Sunspots present on July 8 2023
-feed: hide
+feed: show
 date: 2023-07-08 09:30:00 +0200
 ogimg: "https://live.staticflickr.com/65535/53032427509_e2635b475c_k.jpg"
 carousels:

@@ -1,7 +1,7 @@
 ---
 title: Sunspots July 17 2023
 description: Sunspots present on July 17 2023
-feed: hide
+feed: show
 date: 2023-07-25 06:30:00 +0200
 ogimg: "https://live.staticflickr.com/65535/53070188830_875346d83e_k.jpg"
 carousels:

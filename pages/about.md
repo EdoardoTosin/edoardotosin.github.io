@@ -35,6 +35,9 @@ description: Hi, I'm Edoardo Tosin - a developer with a passion for Cybersecurit
 **[Github]({{ site.link.github }}) :**
 Visit my GitHub page to discover all my repositories!
 
+**[Flickr]({{ site.link.flickr }}) :**
+Check out my Flickr page for a collection of my photos!
+
 **[Contact Me]({{'/contact-me' | relative_url}}) :** All contact methods.
 
 <br>

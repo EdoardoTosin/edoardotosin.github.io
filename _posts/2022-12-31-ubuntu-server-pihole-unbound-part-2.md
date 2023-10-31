@@ -1,7 +1,7 @@
 ---
 title: Installazione e configurazione server DNS (Parte 2) - Installazione 2FA
 description: Guida installazione e configurazione Ubuntu Server, Pi-Hole e Unbound
-date: 2022-12-31 10:00:00 +0100
+date: 2022-12-31 11:00:00 +0100
 ogimg: "https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_13.jpg"
 ---
 

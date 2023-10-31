@@ -4,6 +4,7 @@ layout: Post
 content-type: static
 title: whoami
 description: Hi, I'm Edoardo Tosin - a developer with a passion for Cybersecurity and OSINT. On my page, you'll find posts and insights into my work. Connect with me to learn more!
+noindex: nofollow
 ---
 
 <br>

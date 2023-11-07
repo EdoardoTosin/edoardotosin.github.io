@@ -2446,6 +2446,10 @@ a.navbar-item,
     background-color: #fafafa;
     color: var(--color-text-link); }
 
+a.navbar-item:not(:hover) {
+    color: var(--color-text-main);
+}
+
 .navbar-item {
   flex-grow: 0;
   flex-shrink: 0; }

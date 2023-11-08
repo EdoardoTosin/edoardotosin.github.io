@@ -10,8 +10,8 @@ description: Collection of personal projects published on Github, including CLI-
 
 ## C
 
-* [xTetris-Game Documentation]({{'/xTetris-Game' | relative_url}})
-* [miniLaska-Game Documentation]({{'/miniLaska-Game' | relative_url}})
+* [xTetris-Game Documentation]({{'/xTetris-Game-Documentation' | relative_url}})
+* [miniLaska-Game Documentation]({{'/miniLaska-Game-Documentation' | relative_url}})
 
 ## Python
 

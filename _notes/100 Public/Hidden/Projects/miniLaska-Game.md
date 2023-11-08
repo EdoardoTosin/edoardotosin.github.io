@@ -1,5 +1,5 @@
 ---
-permalink: /miniLaska-Game
+permalink: /miniLaska-Game-Documentation
 layout: Post
 content-type: static
 feed: hide

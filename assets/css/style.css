@@ -220,6 +220,13 @@ main {
     padding: 0;
 }
 
+.meta-title:hover, .meta-title a:hover{
+	color: var(--color-text-link);
+}
+.meta-title:not(:hover), .meta-title a:not(:hover){
+	color: var(--color-text-sub);
+}
+
 .meta-title a {
     color: var(--color-text-link);
 }

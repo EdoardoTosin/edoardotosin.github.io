@@ -1,5 +1,5 @@
 ---
-permalink: /xTetris-Game
+permalink: /xTetris-Game-Documentation
 layout: Post
 content-type: static
 feed: hide

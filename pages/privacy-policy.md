@@ -12,7 +12,7 @@ noindex: nofollow
 
 <br>
 
-I, Edoardo Tosin, operate the [edoardo.tos-in.it]({{ '/' | relative_url }}) website (the "Service").
+I, Edoardo Tosin, operate the [{{ site.url | remove: page.url | split: "//" | last }}]({{ '/' | relative_url }}) website (the "Service").
 
 This page informs you of my policies regarding the collection, use, and disclosure of information when you use my Service and the choices you have associated with that information.
 

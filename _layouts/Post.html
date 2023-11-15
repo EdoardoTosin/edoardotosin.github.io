@@ -41,7 +41,13 @@
     <meta content="{{ site.content }}" property="og:tagline" name="tagline">
 	<meta content="{{ site.description | strip_html | xml_escape | truncate: 200 }}" property="og:description" name="description">
 	{%- endif -%}
-    <meta content="{{ site.url }}/about" property="article:author">
+	{%- if page.author -%}
+	<meta content="{{ page.author }}" property="article:author">
+	{%- elsif site.author -%}
+	<meta content="{{ site.author }}" property="article:author">
+	{%- else -%}
+	<meta content="{{ site.url }}/about" property="article:author">
+	{%- endif -%}
 	{%- if page.ogimg -%}
     <meta property="og:image" content="{{ page.ogimg }}">
 	{%- else -%}
@@ -78,6 +84,7 @@
     <link rel="canonical" href="{{site.url}}{{page.url}}" />
     <link rel="apple-touch-icon" href="{{ site.baseurl }}/assets/img/apple-touch-icon.png">
     <link rel="icon" href="{{ site.baseurl }}/assets/img/favicon.png" type="image/png" sizes="48x48" />
+	<!-- Style -->
     <link href="{{ site.baseurl }}/assets/css/style.css" rel="stylesheet" media="all" class="default" />
     <link href="{{ site.baseurl }}/assets/css/main.css" rel="stylesheet" media="all" class="default" />
     <link href="{{ site.baseurl }}/assets/css/Util.css" rel="stylesheet" media="all" class="default" />

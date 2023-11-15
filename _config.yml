@@ -30,6 +30,7 @@ baseurl: ""
 heading: Edoardo Tosin # Change this
 content: "Tech Blog and Portfolio"
 description: "This website was created by me, Edoardo Tosin, an Italian software developer. The website serves as a platform to showcase my skills, projects, and interests. Visitors can browse my past and current software development projects, which range from web applications to software applications and games. Additionally, I shares my knowledge and expertise through blog posts and tutorials on various topics related to programming. Overall, it is an informative website that offers insights into the world of software development and my passion and creativity."
+author: Edoardo Tosin
 link:
     license: "https://creativecommons.org/licenses/by-nc/4.0/"
     mastodon: "https://mastodon.social/@edoardotosin"

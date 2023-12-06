@@ -15,8 +15,12 @@ const iconMoon = "{{ site.baseurl }}/assets/img/moon.svg";
 
 
 function changeIconImgSrc(src) {
-	document.getElementById("theme-toggle-img").src = src;
-	document.getElementById("theme-toggle-img--mobile").src = src;
+	if (document.getElementById("theme-toggle-img") != null){
+		document.getElementById("theme-toggle-img").src = src;	
+	}
+	if (document.getElementById("theme-toggle-img--mobile") != null){
+		document.getElementById("theme-toggle-img--mobile").src = src;
+	}
 }
 
 function iconToggle() {

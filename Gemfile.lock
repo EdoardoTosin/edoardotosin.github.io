@@ -99,7 +99,7 @@ PLATFORMS
 
 DEPENDENCIES
   jekyll
-  jekyll-feed (~> 0.12)
+  jekyll-feed
   jekyll-sitemap
   jekyll-spaceship
   jekyll-tidy

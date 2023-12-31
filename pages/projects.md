@@ -13,6 +13,10 @@ description: Collection of personal projects published on Github, including CLI-
 * [xTetris-Game Documentation]({{'/xTetris-Game-Documentation' | relative_url}})
 * [miniLaska-Game Documentation]({{'/miniLaska-Game-Documentation' | relative_url}})
 
+## Flutter/Dart
+
+* [Chuck Norris Jokes Web App]({{'/Chuck-Norris-Jokes' | relative_url}})
+
 ## Python
 
 * [Batch Image Converter]({{'/Batch-Image-Converter' | relative_url}})

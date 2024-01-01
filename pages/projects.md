@@ -16,6 +16,7 @@ description: Collection of personal projects published on Github, including CLI-
 ## Flutter/Dart
 
 * [Chuck Norris Jokes Web App]({{'/Chuck-Norris-Jokes' | relative_url}})
+* [New Year Countdown Web App]({{'/New-Year-Countdown' | relative_url}})
 
 ## Python
 

@@ -1,5 +1,5 @@
 ---
-title: Installation and configuration of DNS server (Part 4) - Unbound installation (EN)
+title: DNS server installation and configuration (Part 4) - Unbound installation (EN)
 description: Welcome to this comprehensive guide on setting up a robust and secure DNS server using Ubuntu, Pi-Hole, and Unbound. This setup enhances your privacy and gives you better control over your network traffic.
 date: 2024-01-02 13:00:00 +0100
 ogimg: "https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_7.jpg"

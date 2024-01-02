@@ -1,54 +1,54 @@
 ---
-title: Installazione e configurazione server DNS (Parte 5) - Configurazione Pi-Hole
-description: Guida installazione e configurazione Ubuntu Server, Pi-Hole e Unbound
-date: 2022-12-31 14:00:00 +0100
+title: Installation and configuration of DNS server (Part 5) - Pi-Hole configuration
+description: Welcome to this comprehensive guide on setting up a robust and secure DNS server using Ubuntu, Pi-Hole, and Unbound. This setup enhances your privacy and gives you better control over your network traffic.
+date: 2024-01-02 14:00:00 +0100
 ogimg: "https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/5_Pi-Hole_Web_Interface/Pi-Hole_Web_Interface_1.jpg"
 ---
 
-*Nella [parte precedente]({% post_url 2022-12-31-ubuntu-server-pihole-unbound-part-4 %}) è stato spiegato come installare Unbound.*
+*In the [previous part]({% post_url 2022-12-31-ubuntu-server-pihole-unbound-part-4 %}) it was explained how to install Unbound.*
 
-## Configurazione Pi-Hole da interfaccia web
+## Pi-Hole Web Interface Configuration
 
-Aprire il browser e inserire l'IP del computer dove è installato Ubuntu Server seguito da `/admin` come nella seguente figura. Quando ha caricato la pagina cliccare la voce `Login` presente nel menù verticale a sinistra.
+Open the browser and enter the IP of the computer where Ubuntu Server is installed followed by `/admin` as shown in the following figure. When the page loads, click the `Login` item present in the left vertical menu.
 
 ![Pi-Hole Web Interface 2](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/5_Pi-Hole_Web_Interface/Pi-Hole_Web_Interface_2.jpg)
 
-Verrà chiesta la password di Pi-Hole per l'interfaccia web. Inserirla e cliccare `Login` per confermare ed entrare.
+The Pi-Hole web interface password will be asked. Enter it and click `Login` to confirm and enter.
 
 ![Pi-Hole Web Interface 3](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/5_Pi-Hole_Web_Interface/Pi-Hole_Web_Interface_3.jpg)
 
-La seguente schermata è quella prima di fare il login. La differenza è che ora c’è la possibilità di configurare Pi-Hole.
+The following screen is the one before logging in. The difference is that now there is the possibility of configuring Pi-Hole.
 
 ![Pi-Hole Web Interface 4](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/5_Pi-Hole_Web_Interface/Pi-Hole_Web_Interface_4.jpg)
 
-Cliccare nel menù a sinistra alla voce `Settings`. 
+Click the `Settings` item in the left menu.
 
 ![Pi-Hole Web Interface 5](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/5_Pi-Hole_Web_Interface/Pi-Hole_Web_Interface_5.jpg)
 
-Cliccare `DNS` dalle voci presenti in alto.
+Click `DNS` from the items present at the top.
 
 ![Pi-Hole Web Interface 6](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/5_Pi-Hole_Web_Interface/Pi-Hole_Web_Interface_6.jpg)
 
-Dal blocco intitolato `Upstream DNS Servers` a sinistra deselezionare qualsiasi spunta presente. In quello omonimo di destra, invece, selezionare `Custom 1 (IPv4)` e inserire `127.0.0.1#5353` che sono l'interfaccia e la porta che erano state precedentemente inserite nel file di configurazione di Unbound. Questo farà di che Pi-Hole chiede ad Unbound la risoluzione dns al posto di utilizzare un server esterno alla rete.
+In the block titled `Upstream DNS Servers` on the left, deselect any tick present. Instead, in the homonymous block on the right, select `Custom 1 (IPv4)` and enter `127.0.0.1#5353` which are the interface and the port that were previously entered in the Unbound configuration file. This will make Pi-Hole ask Unbound for DNS resolution instead of using an external server outside the network.
 
 ![Pi-Hole Web Interface 7](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/5_Pi-Hole_Web_Interface/Pi-Hole_Web_Interface_7.jpg)
 
-Nel blocco intitolato `Interface settings`, cliccare la voce `Bind only to interface ...`.
+In the block titled `Interface settings`, click the `Bind only to interface ...` voice.
 
 ![Pi-Hole Web Interface 8](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/5_Pi-Hole_Web_Interface/Pi-Hole_Web_Interface_8.jpg)
 
-Per salvare tutto ciò scrollare in giù con il mouse e cliccare `Save` presente in basso a destra nella schermata.
+To save all this, scroll down with the mouse and click `Save` located at the bottom right of the screen.
 
 ![Pi-Hole Web Interface 9](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/5_Pi-Hole_Web_Interface/Pi-Hole_Web_Interface_9.jpg)
 
-### Backup impostazioni Pi-Hole
+### Backup Pi-Hole Settings
 
-Per sicurezza scaricare l'attuale configurazione di Pi-Hole in modo tale che in caso di bisogno di ripristino delle impostazioni sia più veloce farlo da file.
-Per fare ciò premere cliccare dal menù orizzontale presente in alto la voce `Teleporter`. Infine cliccare `Backup` e confermare il salvataggio del file.
+For safety, download the current Pi-Hole configuration so that in case of need to restore the settings it is faster to do it from a file.
+To do this, press click from the horizontal menu present at the top the `Teleporter` voice. Finally, click `Backup` and confirm the file save.
 
 ![Pi-Hole Web Interface 10](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/5_Pi-Hole_Web_Interface/Pi-Hole_Web_Interface_10.jpg)
 
-## Configurazione router
+## Router Configuration
 
-Ora dalle impostazioni del router (consultare il manuale del router per capire dove trovare l'impostazione) si può cambiare il DNS all'IP del computer dove è stato installato Ubuntu Server. Questo farà si che ogni dispositivo collegato in rete con DNS automatico farà richiesta di risoluzione al router che a sua volte replicherà i pacchetti al sistema filtrando gran parte della pubblicità dai siti web e anche contenuti pericolosi.
+Now from the router settings (refer to the router manual to understand where to find the setting), you can change the DNS to the IP of the computer where Ubuntu Server is installed. This will make every device connected to the network with automatic DNS make a resolution request to the router which in turn will forward the packets to the system filtering most of the advertising from websites and also dangerous content.
 

@@ -1,135 +1,119 @@
 ---
-title: Installazione e configurazione server DNS (Parte 1) - Installazione Ubuntu Server
-description: Guida installazione e configurazione Ubuntu Server, Pi-Hole e Unbound
-date: 2022-12-31 10:00:00 +0100
+title: Installation and configuration of DNS server (Part 1) - Ubuntu Server installation
+description: Welcome to this comprehensive guide on setting up a robust and secure DNS server using Ubuntu, Pi-Hole, and Unbound. This setup enhances your privacy and gives you better control over your network traffic.
+date: 2024-01-02 10:00:00 +0100
 ogimg: "https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_19.jpg"
 ---
 
-In questa guida verrà illustrato come installare Ubuntu Server (sistema operativo) insieme ai tool FOSS [Pi-Hole](https://it.wikipedia.org/wiki/Pi-hole) (dns ad-blocker) e [Unbound](https://it.wikipedia.org/wiki/Unbound) (dns resolver).
-Inoltre viene fatto uso dell'autenticazione a due fattori (2FA) come ulteriore protezione da accessi non autorizzati.
+This guide will illustrate how to install Ubuntu Server (operating system) along with the FOSS tools [Pi-Hole](https://it.wikipedia.org/wiki/Pi-hole) (dns ad-blocker) and [Unbound](https://it.wikipedia.org/wiki/Unbound) (dns resolver). Furthermore, two-factor authentication (2FA) is used as an additional protection against unauthorized access.
 
-## Requisiti
+## Requirements
 
-Pi-Hole e Unbound posso essere installati in un sistema operativo diverso da Ubuntu Server. Nel caso si utilizzi un Raspberry Pi (Model B o Zero) o simili, è possibile installare un sistema operativo diverso (quindi saltando l'installazione di Ubuntu Server) e seguire il resto della guida.
-Se installato su un computer con OS Linux vanno bene anche 2GB di RAM.
+Pi-Hole and Unbound can be installed on an operating system other than Ubuntu Server. In case you use a Raspberry Pi (Model B or Zero) or similar, you can install a different operating system (thus skipping the installation of Ubuntu Server) and follow the rest of the guide. If installed on a computer with Linux OS, 2GB of RAM is also acceptable.
 
-## Preparazione installazione Ubuntu Server
+## Ubuntu Server installation preparation
 
-Per prima cosa si procede all'installazione della distro Ubuntu Server 22.04 scaricabile dal [sito ufficiale](https://ubuntu.com/download/server).
+First, proceed with the installation of the Ubuntu Server 22.04 distribution downloadable from the [official site](https://ubuntu.com/download/server).
 
-### Installazione nel drive USB
+### Installation on USB drive
 
-Dopo aver scaricato il file iso della distro bisogna montarlo in un drive USB. Come programmi per montare l’immagine, si può utilizzare Balena Etcher, UNetbootin oppure Rufus (tutti FOSS).
+After downloading the distribution iso file, it needs to be mounted on a USB drive. To mount the image, you can use Balena Etcher, UNetbootin or Rufus (all FOSS).
 
-### Boot da USB
+### Boot from USB
 
-Durante la fase di P.O.S.T. del computer bisogna selezionare il tasto per visualizzare il menu di boot, in modo da avviare il sistema operativo da drive USB.
-Selezionare con i tasti freccia la voce `Try or Install Ubuntu Server` e premere il tasto Invio.
+During the computer's POST phase, press the key to display the boot menu, in order to start the operating system from the USB drive. Select with the arrow keys the choice `Try or Install Ubuntu Server` and press the Enter key.
 
 ![Ubuntu Server 1](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_1.jpg)
 
-### Scelta lingua
+### Language selection
 
-La prima scelta di configurazione riguarda la lingua di sistema. Si può selezionare `English` perché non verrà installata nessuna interfaccia grafica nel computer e quindi diventa irrilevante.
+The first configuration choice concerns the system language. You can select `English` because no graphical interface will be installed on the computer and therefore becomes irrelevant.
 
 ![Ubuntu Server 2](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_2.jpg)
 
-### Aggiornamento installer
+### Updating installer
 
-Se la versione installata in chiavetta non è l'ultima allora chiede se si vuole aggiornare (in questo caso dalla 22.04 alla 22.07) prima di effettuare l'installazione.
-Non è importante perchè verrà comunque fatto l'aggiornamento da riga di comando alla fine dell'installazione del sistema operativo.
-Per ignorare l'aggiornamento basta confermare la voce `Continue without updating`.
+If the version installed on the stick is not the latest, it asks if you want to update (from 22.04 to 22.07) before performing the installation. It is not important because the update will still be done from the command line at the end of the operating system installation. To ignore the update, simply confirm the choice `Continue without updating`.
 
 ![Ubuntu Server 3](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_3.jpg)
 
-### Configurazione tastiera
+### Keyboard configuration
 
-Sciegliere il layout della tastiera usata. Verificare che alle voci `Layout` e `Variant` sia scritto `Italian`, altrimenti scieglierlo dal rispettivo menù.
-Confermare premendo la voce `Ok` e successivamente `Done`.
+Choose the keyboard layout used. Make sure that under `Layout` and `Variant` it says `English` (in my case `Italian` since mine has the italian layout), otherwise choose it from the respective menu. Confirm by pressing the `Ok` choice and then `Done`.
 
 ![Ubuntu Server 4](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_4.jpg)
 
 ![Ubuntu Server 5](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_5.jpg)
 
-### Tipo di installazione
+### Installation type
 
-Verificare che sia presente la spunta alla voce `Ubuntu Server`, altrimenti selezionarla utilizzando il tasto `Spazio`.
-Premendo invio alla voce `Done` per confermare.
+Make sure the box next to `Ubuntu Server` is checked, otherwise select it using the `Space` key. Press enter on `Done` to confirm.
 
 ![Ubuntu Server 6](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_6.jpg)
 
-### Connessioni di rete
+### Network connections
 
-Verificare che in almeno una interfaccia non sia presente la scritta `not connected`, e ricordarsi l'indirizzo IP (presente dopo DHCPv4 e senza lo slash e il numero successivo) perchè servirà per collegarsi con il protocollo ssh ed eseguire i comandi da remoto.
-Importante assegnare questo indirizzo come statico nelle impostazioni del router della rete in modo che non cambi.
-Premere inivio alla voce `Done`.
+Make sure at least one interface does not say `not connected`, and remember the IP address (which appears after DHCPv4 and without the following slash and number) because it will be needed to connect with the ssh protocol and execute commands remotely. It is important to assign this address as static in the router settings of the network so that it does not change. Press enter on `Done`.
 
 ![Ubuntu Server 7](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_7.jpg)
 
-### Configurazione proxy
+### Proxy configuration
 
-In questo caso non viene fatto uso del proxy, quindi, non va inserito nulla nello spazio bianco ma semplicemente confermiamo di nuovo la voce `Done`.
+In this case, no proxy is used, so nothing should be entered in the white space but simply confirm again the choice `Done`.
 
 ![Ubuntu Server 8](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_8.jpg)
 
-### Mirror alternativo repository
+### Alternative repository mirror
 
-Verificare che sia presente un mirror per ritrovare pacchetti e aggiornamenti del sistema operativo. In questo caso va bene `http://it.archive.ubuntu.com/ubuntu`.
-Confermare alla voce `Done`.
+Check that there is a mirror to find packages and updates for the operating system. In this case, `http://it.archive.ubuntu.com/ubuntu` is good. Confirm by choosing `Done`.
 
 ![Ubuntu Server 9](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_9.jpg)
 
-### Configurazione spazio su disco guidata
+### Disk space configuration
 
-Va bene la configurazione di default dello spazio come mostrato nel seguente screen. Per confermare premere `Done`.
-
-![Ubuntu Server 10](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_10.jpg)
-
-### Configurazione spazio su disco
-
-Nella seguente schermata si vede più in dettaglio la formattazione del disco. Per confermare selezionare `Done`e successivamente `Continue`.
+In the following screen, you can see the formatting of the disk in detail. To confirm, select `Done` and then `Continue`.
 
 ![Ubuntu Server 11](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_11.jpg)
 
 ![Ubuntu Server 12](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_12.jpg)
 
-### Impostazioni profilo
+### Profile settings
 
-Importare il nome, nome server, nome utente e password.
-È importante non perdere nome utente e la password altrimenti non è più possibile loggare all'interno del sistema operativo.
-I campi username e password serviranno successivamente per fare il login via SSH.
+Import the name, server name, username, and password.
+It is important not to lose the username and password, otherwise it is no longer possible to log in to the operating system.
+The username and password fields will be used later for SSH login.
 
 ![Ubuntu Server 13](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_13.jpg)
 
-### Impostazioni SSH
+### SSH settings
 
-Selezionare con il tasto `Spazio` la voce `Install OpenSSH server` in modo che installi e renda accessibile il server tramite il protocollo ssh (di default porta 22) per il controllo remoto.
-Per confermare selezionare `Done`.
+Select with the `Space` key the voice `Install OpenSSH server` so that it installs and makes the server accessible via the ssh protocol (default port 22) for remote control.
+To confirm, select `Done`.
 
 ![Ubuntu Server 14](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_14.jpg)
 
-### Componenti aggiuntivi per il server
+### Additional components for the server
 
-In questa schermata è possibile abilitare l’installazione di ulteriori componenti aggiuntivi per aggiungere funzionalità al server. In questo caso non serve nessuno di essi (quelli che installeremo successivamente non sono presenti in questa lista) quindi basta selezionare `Done` per iniziare l'installazione effettiva del sistema operativo.
+In this screen, it is possible to enable the installation of additional components to add functionality to the server. In this case, none of them are needed (those that we will install later are not present in this list) so just select `Done` to start the actual installation of the operating system.
 
 ![Ubuntu Server 15](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_15.jpg)
 
-## Installazione del sistema operativo
+## Operating system installation
 
-Ora il sistema operativo viene installato nel disco interno del computer.
+Now the operating system is installed on the internal hard drive of the computer.
 
 ![Ubuntu Server 16](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_16.jpg)
 
-Alla fine della procedura compare la voce `Reboot Now`. Premere `Invio`.
+At the end of the procedure, the `Reboot Now` option appears. Press `Enter`.
 
 ![Ubuntu Server 17](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_17.jpg)
 
-Verrà richiesto di rimuovere il drive USB che abbiamo usato per l'installazione. Dopo averlo scollegato premere il tasto `Invio` per riavviare il computer.
+It will be requested to remove the USB drive that we used for installation. After disconnecting it, press the `Enter` key to reboot the computer.
 
 ![Ubuntu Server 18](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_18.jpg)
 
-Ora il computer procederà al riavvio.
+Now the computer will proceed with the reboot.
 
 ![Ubuntu Server 19](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_19.jpg)
 
-**[Parte successiva]({% post_url 2022-12-31-ubuntu-server-pihole-unbound-part-2 %})**
+**[Next part]({% post_url 2022-12-31-ubuntu-server-pihole-unbound-part-2 %})**

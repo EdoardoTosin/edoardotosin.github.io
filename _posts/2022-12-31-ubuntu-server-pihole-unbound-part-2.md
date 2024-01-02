@@ -1,82 +1,137 @@
 ---
-title: Installazione e configurazione server DNS (Parte 2) - Installazione 2FA
-description: Guida installazione e configurazione Ubuntu Server, Pi-Hole e Unbound
-date: 2022-12-31 11:00:00 +0100
+title: Installation and configuration of DNS server (Part 2) - 2FA installation
+description: Welcome to this comprehensive guide on setting up a robust and secure DNS server using Ubuntu, Pi-Hole, and Unbound. This setup enhances your privacy and gives you better control over your network traffic.
+date: 2024-01-02 11:00:00 +0100
 ogimg: "https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_13.jpg"
 ---
 
-*Nella [parte precedente]({% post_url 2022-12-31-ubuntu-server-pihole-unbound-part-1 %}) è stato spiegato come installare il sistema operativo Ubuntu Server.*
+*In the [previous part]({% post_url 2022-12-31-ubuntu-server-pihole-unbound-part-1 %}) it was explained how to install the Ubuntu Server operating system.*
 
-## Installazione 2FA
+## SSH
 
-Nella seguente procedura verrà aggiunta l'autenticazione a due fattori per ridurre il rischio di accessi non autorizzati (Zero Trust).
+After installation, the system and installed packages are updated to their latest versions.
 
-### Installazione pacchetto
+### Login via SSH
 
-Effettuare di nuovo il login seguendo la procedura `Login via SSH` senza il paragrafo riguardante la chiave.
+To access, open the terminal on another computer in the same network (Powershell in the case of Windows) and type the following command:
 
-Eseguire il comando `sudo apt install libpam-google-authenticator` per installere il pacchetto richiesto per l'autenticazione a due fattori.
+```shell
+	ssh USERNAME@IP
+```
+`USERNAME` is replaced with the username entered during the Ubuntu Server installation phase (Profile settings)
+Replace `IP` with the IP address of the computer where Ubuntu Server is installed.
+`-p 22` is optional since by default ssh connects to port 22 of the device.
+
+![2FA 1](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_1.jpg)
+
+After pressing enter, it will ask to save the SHA256 key. Write `y` and confirm by pressing the `Enter` key.
+
+![2FA 2](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_2.jpg)
+
+Now enter the password set during the Ubuntu Server installation phase (Profile settings).
+
+![2FA 3](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_3.jpg)
+
+If everything has been entered correctly, it is possible to control Ubuntu Server remotely from CLI.
+
+![2FA 4](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_4.jpg)
+
+## System Update
+
+![2FA 5](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_5.jpg)
+
+### Update repositories and system
+
+To start the update, just run the line `sudo apt update && sudo apt upgrade`. Running both commands with `sudo` will ask for the user's password (the same used for login).
+
+![2FA 6](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_6.jpg)
+
+### Confirm updates
+
+To confirm the start of the updates, write `y` and press `Enter`.
+
+![2FA 7](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_7.jpg)
+
+### Restart services
+
+It is likely that a screen will appear asking which services to restart. Select `Ok` without changing anything from the list and then press `Enter` to confirm.
+
+![2FA 8](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_8.jpg)
+
+Now you can restart the computer to verify that with the latest updates the system works before proceeding with the installation of applications.
+
+![2FA 9](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_9.jpg)
+
+## 2FA Installation
+
+In the following procedure, two-factor authentication will be added to reduce the risk of unauthorized access (Zero Trust).
+
+### Package Installation
+
+Log in again following the `Login via SSH` procedure without the paragraph regarding the key.
+
+Execute the command `sudo apt install libpam-google-authenticator` to install the package required for two-factor authentication.
 
 ![2FA 10](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_10.jpg)
 
-Inserire la password utente confermandola. Successivamente verrà chiesta la conferma per installare il pacchetto. Scrivere `y` e premere `Invio`.
+Enter the user password confirming it. Subsequently, you will be asked to confirm the installation of the package. Write `y` and press `Enter`.
 
-### Configurazione 2FA
+### 2FA Configuration
 
-Ora si procede a configurare l'autenticazione con il codice a 6 cifre temporaneo (cambia ogni 30 secondi).
+Now proceed to configure authentication with the temporary 6-digit code (changes every 30 seconds).
 
 ![2FA 11](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_11.jpg)
 
-Verrà chiesto se si vuole che i token siano temporanei. Scrivere `y` e premere `Invio`.
+It will be asked whether you want the tokens to be temporary. Write `y` and press `Enter`.
 
 ![2FA 12](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_12.jpg)
 
-Verrà creata la chiave segreta (`Your new secret key is:`) per la generazione dei codici a tempo.
-È importante tenere un backup di questa chiave per ridurre il rischio di perderla.
-Scansionare il QR-Code oppure inserire la chiave in un'applicazione (per distro Debian e derivate va bene Authenticator già presente nei repository di sistema) e salvare.
-Dopo aver salvato si può vedere il codice. Inserirlo nel terminale e premere `Invio` per confermare.
+A secret key (`Your new secret key is:`) will be created for generating time-based codes.
+It is important to keep a backup of this key to reduce the risk of losing it.
+Scan the QR-Code or insert the key into an application (for Debian distros and derivatives, Authenticator is suitable already present in the system repositories) and save it.
+After saving, you can see the code. Insert it into the terminal and press `Enter` to confirm.
 
 ![2FA 13](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_13.jpg)
 
-Successivamente chiederà se si vuole aggiornare il file .google_authenticator. Confermare scrivendo `y` e premendo `Invio`.
+Subsequently, it will be asked whether you want to update the .google_authenticator file. Confirm by writing `y` and pressing `Enter`.
 
 ![2FA 14](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_14.jpg)
 
-Per aumentare la sicurezza aggiungiamo le restrizioni di login ogni 30 secondi (quindi un solo login con successo per ogni codice generato).
-Per confermare scrivere `y` e premere `Invio`.
+To increase security, we add restrictions to login every 30 seconds (so only one successful login per each generated code).
+To confirm, write `y` and press `Enter`.
 
 ![2FA 15](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_15.jpg)
 
-Verrà chiesto se si vuole estendere il login con il codice generato oltre il limite di tempo da 3 codici a 17 (8 precedenti, corrente e 8 successivi). Siccome 3 vanno già bene non va esteso ulteriormente quindi scrivere `n` e premere `Invio`.
+It will be asked whether you want to extend the login with the generated code beyond the time limit from 3 codes to 17 (8 previous, current and 8 subsequent). Since 3 are already enough, it does not need to be extended further so write `n` and press `Enter`.
 
 ![2FA 16](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_16.jpg)
 
-Ora verrà confermata l'aggiunta del rate-limit, in modo tale che siano possibili solo 3 tentativi di login ogni 30 secondi. Per far ciò scrivere `y` e premere `Invio`.
+Now the addition of the rate-limit will be confirmed, so that only 3 login attempts are possible every 30 seconds. To do this, write `y` and press `Enter`.
 
 ![2FA 17](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_17.jpg)
 
-### Aggiunta 2FA al login
+### Adding 2FA to login
 
-Per aggiungere l'autenticazione a due fattori appena configurata bisogna modificare il file common-session con il comando `sudo nano /etc/pan.d/common-session`. Se viene richiesta la password inserire quella dell'utente.
+To add the just configured two-factor authentication, the common-session file must be modified with the command `sudo nano /etc/pan.d/common-session`. If the password is requested, enter the user password.
 
 ![2FA 18](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_18.jpg)
 
-Premendo `Invio` comparirà il file da editare. Dopo la riga `# end of pam-auth-update config` bisogna aggiungere una nuova riga che contiene `auth required pam_google_authenticator.so` come quella evidenziata nello screen successivo.
-Per salvare le modifiche e uscire dall'editor, premere `CTRL+X` poi scrivere `y` e infine premere `Invio` per confermare.
+Pressing `Enter` the file to edit will appear. After the line `# end of pam-auth-update config` you must add a new line that contains `auth required pam_google_authenticator.so` as shown in the next screen.
+To save the changes and exit the editor, press `CTRL+X` then write `y` and finally press `Enter` to confirm.
 
 ![2FA 19](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_19.jpg)
 
-Altro file da modificare è `sshd_config`. Per fare ciò basta di nuovo aprirlo con il comando `sudo nano /etc/ssh/sshd_config`. Se chiede la password, inserire quella dell'utente.
+Another file to modify is `sshd_config`. To do this, just open it again with the command `sudo nano /etc/ssh/sshd_config`. If it asks for the password, enter the user password.
 
 ![2FA 20](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_20.jpg)
 
-Se alla voce `KbdInteractiveAuthentication` è presente l’opzione `no`, allora sostituirla con `yes`.
-Per salvare anche queste modifiche e uscire dall'editor, premere `CTRL+X` poi scrivere `y` e infine premere `Invio` per confermare.
+If the `KbdInteractiveAuthentication` option is set to `no`, replace it with `yes`.
+To save these changes and exit the editor, press `CTRL+X` then write `y` and finally press `Enter` to confirm.
 
 ![2FA 21](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_21.jpg)
 
-Riavviare il servizio sshd.service per caricare le modifiche con il comando `sudo systemctl restart sshd.service`
+Restart the sshd.service service to load the changes with the command `sudo systemctl restart sshd.service`
 
 ![2FA 22](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_22.jpg)
 
-**[Parte successiva]({% post_url 2022-12-31-ubuntu-server-pihole-unbound-part-3 %})**
+**[Next part]({% post_url 2022-12-31-ubuntu-server-pihole-unbound-part-3 %})**

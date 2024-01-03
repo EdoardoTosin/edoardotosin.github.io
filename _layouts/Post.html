@@ -63,7 +63,7 @@
     {%- endif -%}
 	
 	{%- if page.noindex -%}
-	<!-- Robots -->
+	<!-- Indexing rules -->
 	{%- if page.noindex == "follow" -%}
 	<meta name="robots" content="noindex">
 	{%- elsif page.noindex == "nofollow" -%}
@@ -78,10 +78,31 @@
     <title>{{page.title}} - {{site.heading}}</title>
     {%- elsif page.permalink == '/404.html' -%}
     <title>There's been a glitch...</title>
-    {%- else -%}
+	{%- else -%}
     {%- endif -%}
-	<!-- Favicon -->
-    <link rel="canonical" href="{{site.url}}{{page.url}}" />
+	
+	{% assign redirect_url = '' %}
+	{{ page.url | inspect }}
+	{%- if page.redirect and page.redirect != '' -%}
+	{% assign redirect_url = page.redirect %}
+	{% assign redirect_url = redirect_url | strip %}
+	{{ redirect_url | inspect }}
+    {% assign first_char = redirect_url | slice: 0 | strip %}
+    {%- if first_char == "/" -%}
+    {%- if page.redirect_domain and page.redirect_domain != '' -%}
+    {% assign redirect_url = redirect_url | prepend: page.redirect_domain %}
+    {%- else -%}
+    {% assign redirect_url = redirect_url | prepend: site.baseurl %}
+    {%- endif -%}
+    {%- endif -%}
+	<!-- Permanent redirect -->
+	<meta http-equiv="refresh" content="0; url={{ redirect_url }}">
+	<link rel="canonical" href="{{ redirect_url }}" />
+	{%- else -%}
+	<link rel="canonical" href="{{site.url}}{{page.url}}" />
+	{%- endif -%}
+    
+    <!-- Favicon -->
     <link rel="apple-touch-icon" href="{{ site.baseurl }}/assets/img/apple-touch-icon.png">
     <link rel="icon" href="{{ site.baseurl }}/assets/img/favicon.png" type="image/png" sizes="48x48" />
 	<!-- Style -->

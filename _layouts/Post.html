@@ -82,11 +82,9 @@
     {%- endif -%}
 	
 	{% assign redirect_url = '' %}
-	{{ page.url | inspect }}
 	{%- if page.redirect and page.redirect != '' -%}
 	{% assign redirect_url = page.redirect %}
 	{% assign redirect_url = redirect_url | strip %}
-	{{ redirect_url | inspect }}
     {% assign first_char = redirect_url | slice: 0 | strip %}
     {%- if first_char == "/" -%}
     {%- if page.redirect_domain and page.redirect_domain != '' -%}

@@ -1,4 +1,4 @@
-Contact: mailto:edoardotosindev@pm.me
+Contact: mailto:edoardotosindev@proton.me
 Expires: 2024-12-31T23:59:59.000Z
 Encryption: https://edoardotosin.com/security/signed-email-6eb91f027c4070ec.txt
 Preferred-Languages: en, it

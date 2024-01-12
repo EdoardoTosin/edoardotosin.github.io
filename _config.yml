@@ -32,13 +32,13 @@ content: "Computer Science Odyssey: Unraveling the Tech Maze"
 description: "Welcome to my personal tech hub! This website is a reflection of my journey in the fascinating world of technology. The blog section is a curated collection of posts demonstrating my ability to create and implement solutions that drive efficiency and innovation. The notes section is a treasure trove of knowledge. Lastly, the open source projects tab is a testament to my belief in the power of collective effort and the joy of contributing to the global tech community. Feel free to explore, learn, and connect!"
 author: Edoardo Tosin
 link:
-    license: "https://creativecommons.org/licenses/by-nc/4.0/"
+    license: "https://creativecommons.org/licenses/by/4.0/"
     mastodon: "https://mastodon.social/@edoardotosin"
     github: "https://github.com/edoardotosin"
     flickr: "https://www.flickr.com/photos/edoardo_tosin/"
 copyright:
   year: #2023
-  msg: Contents under CC-BY-NC
+  msg: Contents under CC-BY
 
 twitter: EdoardoTosin
 

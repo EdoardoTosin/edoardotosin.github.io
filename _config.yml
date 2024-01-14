@@ -76,11 +76,6 @@ plugins:
   - jekyll-sitemap
   - jekyll-tidy
   - jekyll-spaceship
-  - jekyll-last-modified-at
-
-# Optional. The default date format, used if none is specified in the tag.
-last-modified-at:
-  date-format: '%Y-%m-%d %H:%M:%S %Z'
 
 ## Enable Collections
 ## Suggested collects are "notes" "lists" and "blog"

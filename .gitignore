@@ -8,3 +8,4 @@ pages/tags.md
 tools/
 *.ps1
 *.sh
+Gemfile.lock

@@ -1,0 +1,20 @@
+{%- if page.date -%}
+{%- if page.last_modified_at and page.last_modified_at != page.date -%}
+{% assign year1 = date1 | date: "%Y" %}
+{% assign month1 = date1 | date: "%m" %}
+{% assign day1 = date1 | date: "%d" %}
+
+{% assign year2 = date2 | date: "%Y" %}
+{% assign month2 = date2 | date: "%m" %}
+{% assign day2 = date2 | date: "%d" %}
+
+{% assign pub_date = page.date | date: "%Y-%m-%d" %}
+{% assign upd_date = page.date | date: "%Y-%m-%d" %}
+
+{%- if year1 == year2 and month1 == month2 and day1 == day2 -%}
+{% assign upd_date = page.last_modified_at | date: "%Y-%m-%d" %}
+{%- endif -%}
+
+{%- endif -%}
+<p class="meta-time medium-small italic">Published <span class="bold">{{ page.date | date_offset: site.timezone | date: "%Y-%m-%d" }}</span>{% if page.last_modified_at and page.last_modified_at != page.date and pub_date != upd_date %} • Updated <span class="bold">{{ page.last_modified_at | date_offset: site.timezone | date: "%Y-%m-%d" }}</span>{% endif %}</p>
+{%- endif -%}

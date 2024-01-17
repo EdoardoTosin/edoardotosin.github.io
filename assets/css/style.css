@@ -211,6 +211,11 @@ main {
 
 /* 05. Text Styles */
 
+.meta-head {
+	display: flex;
+	justify-content: space-between;
+}
+
 .meta-title {
     font-size: var(--text-xs);
     font-weight: var(--text-weight-bold);
@@ -231,8 +236,14 @@ main {
     color: var(--color-text-link);
 }
 
-.meta-title h5 {
+.meta-title p {
     padding:0;
+}
+
+.meta-time {
+	/*
+	margin-right: 10em;
+	*/
 }
 
 .centre-title {

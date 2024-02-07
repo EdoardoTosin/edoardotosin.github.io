@@ -1546,7 +1546,7 @@ li {
     padding-bottom: var(--padding-thin);
 }
 
-a[href^="http"]:not(.navbar-item):not(.copyright-item):not(.reversefootnote) {
+a[href^="http"]:not(.navbar-item):not(.copyright-item):not(.reversefootnote):not(.footnote) {
     background-image: url(../img/external-link.svg);
     background-repeat: no-repeat;
     background-position: right;

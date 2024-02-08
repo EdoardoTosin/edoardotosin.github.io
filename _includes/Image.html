@@ -29,4 +29,4 @@
 *
 {%- endcomment -%}
 
-<a href="{{ include.src }}" data-lightbox="{% if include.data %}{{ include.data }}{% else %}image{% endif %}" data-title="{{ include.title }}"><img src="{{ include.src }}" alt="{{ include.title }}"/></a>
+<a href="{{ include.src }}" data-lightbox="{% if include.data and include.data != "" %}{{ include.data }}{% else %}image-gallery{% endif %}" data-title="{{ include.title }}"><img src="{{ include.src }}" alt="{{ include.title }}"/></a>

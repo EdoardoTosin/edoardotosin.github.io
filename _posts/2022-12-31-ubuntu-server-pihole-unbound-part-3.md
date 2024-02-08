@@ -15,11 +15,11 @@ In this phase, Pi-Hole, an open-source software, will be installed. It acts as a
 
 As the first step, download the Pi-Hole repository: `git clone --depth 1 https://github.com/pi-hole/pi-hole.git Pi-hole`.
 
-![Pi-Hole 2](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_2.jpg)
+{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_2.jpg" title="Pi-Hole 2" %}
 
 At the end of the download, enter the folder: `cd 'Pi-hole/automated install/'`.
 
-![Pi-Hole 4](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_4.jpg)
+{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_4.jpg" title="Pi-Hole 4" %}
 
 ### Prepare Pi-Hole installation
 
@@ -27,70 +27,70 @@ From this directory, launch the bash script: `sudo bash basic-install.sh`.
 It may ask for the user password as it is launched with administrator privileges.
 If so, enter it and press `Enter`.
 
-![Pi-Hole 6](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_6.jpg)
+{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_6.jpg" title="Pi-Hole 6" %}
 
 Wait for a moment for compatibility checks and conflicts.
 
-![Pi-Hole 7](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_7.jpg)
+{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_7.jpg" title="Pi-Hole 7" %}
 
 Press `Enter` for each of the two screens to start the configuration.
 
-![Pi-Hole 8](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_8.jpg)
+{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_8.jpg" title="Pi-Hole 8" %}
 
-![Pi-Hole 9](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_9.jpg)
+{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_9.jpg" title="Pi-Hole 9" %}
 
 ### Configure Pi-Hole installation
 
 Since the router has been set as a static IP, we can confirm by selecting `Continue` and pressing `Enter`.
 
-![Pi-Hole 10](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_10.jpg)
+{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_10.jpg" title="Pi-Hole 10" %}
 
 Select the same interface to which the IP used throughout the entire procedure was assigned. In this case, the first one. Press `Enter` to confirm.
 
-![Pi-Hole 11](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_11.jpg)
+{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_11.jpg" title="Pi-Hole 11" %}
 
 Select a temporary DNS provider. Later it will be removed as the computer with Ubuntu Server will become its own DNS resolver at port `5353` and address `127.0.0.1`.
 
-![Pi-Hole 12](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_12.jpg)
+{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_12.jpg" title="Pi-Hole 12" %}
 
 Select `Yes` to include third-party lists to filter content and confirm by pressing `Enter`.
 
-![Pi-Hole 13](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_13.jpg)
+{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_13.jpg" title="Pi-Hole 13" %}
 
 Confirm the installation of the web interface for making further changes to the settings. Select `Yes` and press `Enter`.
 
-![Pi-Hole 14](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_14.jpg)
+{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_14.jpg" title="Pi-Hole 14" %}
 
 Confirm the installation of the lightweight web server lighttpd to make the web interface functional. Select `Yes` and press `Enter`.
 
-![Pi-Hole 15](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_15.jpg)
+{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_15.jpg" title="Pi-Hole 15" %}
 
 Enable logging of queries for potential debugging of problems. Select `Yes` and press `Enter`.
 
-![Pi-Hole 16](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_16.jpg)
+{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_16.jpg" title="Pi-Hole 16" %}
 
 In this screen, you can choose how many contents are visible from the admin web interface. Leave the default `Show everything`. Select `Continue` and press `Enter`.
 
-![Pi-Hole 17](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_17.jpg)
+{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_17.jpg" title="Pi-Hole 17" %}
 
 Here, the auto-generated password for logging into the web interface via the computer's IP will be displayed. It's not important to remember it since it will be changed with a longer one for security reasons later. Press `Enter` to continue.
 
-![Pi-Hole 18](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_18.jpg)
+{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_18.jpg" title="Pi-Hole 18" %}
 
 Once the Pi-Hole configuration procedure is completed, you can proceed to change the admin interface password (not to be confused with the user password).
 
-![Pi-Hole 19](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_19.jpg)
+{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_19.jpg" title="Pi-Hole 19" %}
 
 To change the Pi-Hole web interface password, use the command `pihole -a -p`.
 
-![Pi-Hole 20](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_20.jpg)
+{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_20.jpg" title="Pi-Hole 20" %}
 
 After pressing `Enter`, enter the password, press `Enter` again, re-enter the password, and finally confirm with the `Enter` key.
 
-![Pi-Hole 21](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_21.jpg)
+{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_21.jpg" title="Pi-Hole 21" %}
 
 If the procedure was successful, the text `New password set` will appear.
 
-![Pi-Hole 22](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_22.jpg)
+{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_22.jpg" title="Pi-Hole 22" %}
 
 **[Next part]({% post_url 2022-12-31-ubuntu-server-pihole-unbound-part-4 %})**

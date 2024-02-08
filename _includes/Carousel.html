@@ -27,7 +27,7 @@
         <div class="carousel__track">
           <ul>
             {% for item in page.carousels[number].images %}
-            <li class="carousel__slide"><a href="{{ item.image }}" data-lightbox="image-set-{{ number }}"><img src="{{ item.image }}" /></a></li>
+            <li class="carousel__slide"><a href="{{ item.image }}" {% if item.title %}title="{{ item.title }}"{% endif %} data-lightbox="image-set-{{ number }}"><img src="{{ item.image }}" {% if item.alt %}alt="{{ item.alt }}"{% endif %}/></a></li>
             {% endfor %}
           </ul>
         </div>

@@ -670,6 +670,10 @@ hr {
 
 /* Common custom components between Main Site and Notes: Searchbar, Backbutton, ContentBox, Related Posts/Notes, Copyright,  */
 
+.block:has(input#search-input) {
+  margin-top: 1rem;
+}
+
 .searchbar input[type="text"] {
     position: relative;
     padding-left: 50px;

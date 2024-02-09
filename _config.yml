@@ -116,6 +116,15 @@ defaults:
     values:
       sitemap: false
 
+# Robots.txt
+robots:
+  - /assets/
+  - /security/
+  - /security.txt
+  - /SearchData.json
+  - /autocomplete.txt
+  - /CNAME
+
 
 # Exclude from processing.
 # The following items will not be processed, by default.

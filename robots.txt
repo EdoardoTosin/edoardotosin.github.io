@@ -3,12 +3,9 @@ layout: none
 permalink: /robots.txt
 ---
 User-agent: *
-Disallow: /assets/
-Disallow: /security/
-Disallow: /security.txt
-Disallow: /SearchData.json
-Disallow: /autocomplete.txt
-Disallow: /CNAME
+{% for item in site.robots %}
+Disallow: {{ item }}
+{% endfor %}
 Sitemap: {{ site.url }}/sitemap.xml
 #
 # aHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1kUXc0dzlXZ1hjUQ==

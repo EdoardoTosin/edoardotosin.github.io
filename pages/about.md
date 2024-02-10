@@ -3,13 +3,15 @@ permalink: /about
 layout: Post
 content-type: static
 title: About
-description: Hi, I'm Edoardo Tosin - a developer with a passion for Cybersecurity and OSINT. On my page, you'll find posts and insights into my work. Connect with me to learn more!
+description: Explore my portfolio to find insights into my development journey, read my latest blog posts, view my projects on GitHub, browse through my photography on Flickr, and reach out for any collaborations or inquiries.
 ---
 
 <br>
 
 ## Hi there!
+
 ---
+
 **My name is :** Edoardo Tosin.
 
 **I am from :** Italy.
@@ -23,19 +25,21 @@ description: Hi, I'm Edoardo Tosin - a developer with a passion for Cybersecurit
 <br>
 
 ## About my page
+
 ---
-**[Notes]({{'/notes' | relative_url}}) :** Contains simple notes on some development knowledge I've obtained and other stuff.
 
-**[Posts]({{'/posts' | relative_url}}) :** Blog posts and tutorials mainly about technology.
+**[Notes]({{'/notes' | relative_url}}) :** Simple notes on computer science and other topics.
 
-**[Projects]({{'/projects' | relative_url}}) :** Collection of links to documentation and landing pages for each personal project published on Github.
+**[Posts]({{'/posts' | relative_url}}) :** Technology blog posts and tutorials.
+
+**[Projects]({{'/projects' | relative_url}}) :** List of personal projects hosted on GitHub.
 
 **[Github]({{ site.link.github }}) :**
-Visit my GitHub page to discover all my repositories!
+Explore my repositories.
 
 **[Flickr]({{ site.link.flickr }}) :**
-Check out my Flickr page for a collection of my photos!
+View my photo gallery.
 
-**[Contact Me]({{'/contact-me' | relative_url}}) :** All contact methods.
+**[Contact Me]({{'/contact-me' | relative_url}}) :** Reach out to me through various channels.
 
 <br>

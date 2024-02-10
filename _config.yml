@@ -124,6 +124,11 @@ robots:
   - /SearchData.json
   - /autocomplete.txt
   - /CNAME
+  - /security
+  - /credits
+  - /contact-me
+  - /privacy-policy
+  - /404
 
 
 # Exclude from processing.

@@ -47,5 +47,5 @@
 {%- endif -%}
 
 {%- endif -%}
-<p class="meta-time medium-small italic">Published <span class="bold">{{ page.date | date_offset: site.timezone | date: "%Y-%m-%d" }}</span>{% if page.last_modified_at and page.last_modified_at != page.date and pub_date != upd_date %} • Updated <span class="bold">{{ page.last_modified_at | date_offset: site.timezone | date: "%Y-%m-%d" }}</span>{% endif %}</p>
+<p class="meta-time medium-small italic">{% if page.last_modified_at and page.last_modified_at != page.date and pub_date != upd_date %}Updated <span class="bold">{{ page.last_modified_at | date_offset: site.timezone | date: "%d %b %Y" }}{% else %}Published <span class="bold">{{ page.date | date_offset: site.timezone | date: "%d %b %Y" }}{% endif %}</span></p>
 {%- endif -%}

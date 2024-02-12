@@ -113,6 +113,10 @@ layout: Stylesheet
     border-radius: 5px;
 }
 
+.default {
+	cursor: default;
+}
+
 .default-color {
     color: var(--primary-text-color) !important;
 }

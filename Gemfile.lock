@@ -13,7 +13,7 @@ GEM
     ffi (1.16.3)
     forwardable-extended (2.6.0)
     gemoji (3.0.1)
-    htmlbeautifier (1.4.2)
+    htmlbeautifier (1.4.3)
     htmlcompressor (0.4.0)
     http_parser.rb (0.8.0)
     i18n (1.14.1)

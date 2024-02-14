@@ -1888,8 +1888,8 @@ a.tag:hover {
 .card .media:not(:last-child) {
   margin-bottom: 1rem; }
 
-.navbar-item img {
-  margin-right:  0.5rem;
+.navbar-brand .navbar-item img {
+  margin-right: 1rem;
 }
 
 .navbar {

@@ -4,6 +4,7 @@ layout: Post
 content-type: static
 feed: hide
 date: 2021-09-05
+last_modified_at:
 title: miniLaska Game Documentation
 description: Variant of a game called lasca or laska
 ogimg: "https://raw.githubusercontent.com/EdoardoTosin/miniLaska-Game/main/doc/example.jpg"

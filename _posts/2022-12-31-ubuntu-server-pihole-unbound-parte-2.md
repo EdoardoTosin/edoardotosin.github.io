@@ -2,7 +2,7 @@
 title: Installazione e configurazione server DNS (Parte 2) - Installazione 2FA (IT)
 description: Imposta un robusto e sicuro server DNS utilizzando Ubuntu, Pi-Hole e Unbound, offrendo un miglioramento della privacy e un maggiore controllo sul traffico della tua rete.
 date: 2022-12-31 11:00:00 +0100
-last_modified_at:
+last_modified_at: 2024-03-03 12:30:00 +0100
 ogimg: "https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_13.jpg"
 ---
 

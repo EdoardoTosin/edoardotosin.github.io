@@ -2,6 +2,7 @@
 title: Installazione e configurazione server DNS (Parte 3) - Installazione Pi-Hole (IT)
 description: Imposta un robusto e sicuro server DNS utilizzando Ubuntu, Pi-Hole e Unbound, offrendo un miglioramento della privacy e un maggiore controllo sul traffico della tua rete.
 date: 2022-12-31 12:00:00 +0100
+last_modified_at:
 ogimg: "https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_7.jpg"
 ---
 

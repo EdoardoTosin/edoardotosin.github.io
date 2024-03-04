@@ -1,6 +1,6 @@
 # Jekyll Garden
 
-This repository is a fork of the original [Jekyll Garden Theme](https://github.com/Jekyll-Garden/jekyll-garden.github.io) for my personal GitHub page.
+This repository is a fork of the original [Jekyll Garden Theme](https://github.com/Jekyll-Garden/jekyll-garden.github.io).
 
 ## Features
 

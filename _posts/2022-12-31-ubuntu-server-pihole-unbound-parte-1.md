@@ -2,7 +2,7 @@
 title: Installazione e configurazione server DNS (Parte 1) - Installazione Ubuntu Server (IT)
 description: Imposta un robusto e sicuro server DNS utilizzando Ubuntu, Pi-Hole e Unbound, offrendo un miglioramento della privacy e un maggiore controllo sul traffico della tua rete.
 date: 2022-12-31 10:00:00 +0100
-last_modified_at: 2024-03-03 12:30:00 +0100
+last_modified_at: 2024-03-13 18:43:58 +0100
 ogimg: "https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_19.jpg"
 ---
 
@@ -20,7 +20,7 @@ Per prima cosa si procede all'installazione della distro Ubuntu Server 22.04 sca
 
 ### Installazione nel drive USB
 
-Dopo aver scaricato il file iso della distro bisogna montarlo in un drive USB. Come programmi per montare l’immagine, si può utilizzare Balena Etcher, UNetbootin oppure Rufus (tutti FOSS).
+Dopo aver scaricato il file iso della distro bisogna montarlo in un drive USB. Come programmi per montare l’immagine, si può utilizzare Balena Etcher, UNetbootin oppure Rufus (tutti [FOSS](https://it.wikipedia.org/wiki/Free_and_Open_Source_Software)).
 
 ### Boot da USB
 

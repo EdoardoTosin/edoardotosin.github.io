@@ -3909,4 +3909,14 @@ a.tag:hover {
   input {
     color:(--color-text-sub) !important;
   }
-  
+
+@media print {
+  .navbar, #copyright, .meta-title {
+    display: none;
+  }
+  .column {
+    width: 100% !important;
+	padding: 0.5rem;
+  }
+}
+ 

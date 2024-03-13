@@ -2,11 +2,11 @@
 title: DNS server installation and configuration (Part 1) - Ubuntu Server installation (EN)
 description: Welcome to this comprehensive guide on setting up a robust and secure DNS server using Ubuntu, Pi-Hole, and Unbound. This setup enhances your privacy and gives you better control over your network traffic.
 date: 2024-01-02 10:00:00 +0100
-last_modified_at: 2024-03-03 12:30:00 +0100
+last_modified_at: 2024-03-13 18:43:58 +0100
 ogimg: "https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_19.jpg"
 ---
 
-This guide will illustrate how to install Ubuntu Server (operating system) along with the FOSS tools [Pi-Hole](https://it.wikipedia.org/wiki/Pi-hole) (dns ad-blocker) and [Unbound](https://it.wikipedia.org/wiki/Unbound) (dns resolver). Furthermore, two-factor authentication (2FA) is used as an additional protection against unauthorized access.
+This guide will illustrate how to install Ubuntu Server (operating system) along with the FOSS tools [Pi-Hole](https://en.wikipedia.org/wiki/Pi-hole) (dns ad-blocker) and [Unbound](https://en.wikipedia.org/wiki/Unbound_(DNS_server)) (dns resolver). Furthermore, two-factor authentication (2FA) is used as an additional protection against unauthorized access.
 
 ## Requirements
 
@@ -18,7 +18,7 @@ First, proceed with the installation of the Ubuntu Server 22.04 distribution dow
 
 ### Installation on USB drive
 
-After downloading the distribution iso file, it needs to be mounted on a USB drive. To mount the image, you can use Balena Etcher, UNetbootin or Rufus (all FOSS).
+After downloading the distribution iso file, it needs to be mounted on a USB drive. To mount the image, you can use Balena Etcher, UNetbootin or Rufus (all [FOSS](https://en.wikipedia.org/wiki/Free_and_open-source_software)).
 
 ### Boot from USB
 

@@ -1,14 +1,4 @@
 /*! bulma.io v0.8.2 | MIT License | github.com/jgthms/bulma */
-
-@media print {
-  .navbar, #copyright, .meta-head, .meta-title {
-    display: none;
-  }
-  .column {
-    width: 100% !important;
-  }
-}
-
 @keyframes spinAround {
   from {
     transform: rotate(0deg); }

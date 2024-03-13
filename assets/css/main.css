@@ -3911,12 +3911,37 @@ a.tag:hover {
   }
 
 @media print {
-  .navbar, #copyright, .meta-title {
+  @page {
+    margin-top: 1cm;
+    margin-bottom: 1cm;
+  }
+  .no-print {
     display: none;
   }
-  .column {
-    width: 100% !important;
+  
+  section {
 	padding: 0.5rem;
   }
+  
+  .column {
+    width: 100% !important;
+  }
+  
+  #copyright {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 0px;
+  }
+  
+  .content-block, p {
+    page-break-inside: avoid;
+  }
+  
+  pre code {
+	display: block;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+  }
 }
- 

@@ -156,7 +156,7 @@
                     {%- else -%}
                             <!--- Show Feed Part -->
                 <div class="column is-6-widescreen  is-8-desktop is-8-tablet is-12-mobile">
-                            <p class="meta-title very-small"><a href="/">← Home</a></p>
+                            <p class="meta-title very-small no-print"><a href="/">← Home</a></p>
                             <div class="jumbo">{{page.title}}</div>
                             {%- include FeedContent.html -%}
                             {%- include Feed.html -%}
@@ -168,7 +168,7 @@
             <!--- Notes Feed Layout-->
             {%- if page.feedformat -%}
             <div class="column is-6-widescreen  is-8-desktop is-8-tablet is-12-mobile">
-                <p class="meta-title very-small"><a href="/">← Home</a></p>
+                <p class="meta-title very-small no-print"><a href="/">← Home</a></p>
                     <div class="jumbo">{{page.title}}</div>
                     {%- include Content.html -%}
                     {%- include Feed.html -%}
@@ -184,7 +184,7 @@
                             {%- else -%}
                             <a onclick="window.location.assign('/');">
                             {%- endif -%}
-								<p class="meta-title very-small">← BACK</p>
+								<p class="meta-title very-small no-print">← BACK</p>
                             </a>
 							{%- include Datetime.html -%}
                         </div>
@@ -207,7 +207,7 @@
             <!--- Post Feed Layout-->
             {%- if page.permalink == "/posts" -%}
             <div class="column is-6-widescreen  is-8-desktop is-8-tablet is-12-mobile">
-                <p class="meta-title very-small"><a href="/">← Home</a></p>
+                <p class="meta-title very-small no-print"><a href="/">← Home</a></p>
                 <div class="jumbo">{{page.title}}</div>
                     {%- include Content.html -%}
                     {% for post in site.posts %}
@@ -233,7 +233,7 @@
                              {%- else -%}
                              <a onclick="window.location.assign('/');">
                              {%- endif -%}
-								<p class="meta-title very-small">← BACK</p>
+								<p class="meta-title very-small no-print">← BACK</p>
                              </a>
 							 {%- include Datetime.html -%}
                          </div>

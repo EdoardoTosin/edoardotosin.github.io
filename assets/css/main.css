@@ -3915,6 +3915,7 @@ a.tag:hover {
     margin-top: 1cm;
     margin-bottom: 1cm;
   }
+  
   .no-print {
     display: none;
   }
@@ -3925,14 +3926,6 @@ a.tag:hover {
   
   .column {
     width: 100% !important;
-  }
-  
-  #copyright {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 0px;
   }
   
   .content-block, p {

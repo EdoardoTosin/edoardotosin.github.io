@@ -24,8 +24,8 @@
 * File: Image.html
 * Edoardo Tosin
 *
-* This file contains the markup for the context menu thingy you see when you right
-* click on the post titles on the home page.
+* This file contains the markup for a reusable component for displaying images
+* within a Lightbox gallery
 *
 {%- endcomment -%}
 <p align="center"><a href="{{ include.src }}" data-lightbox="{% if include.data and include.data != "" %}{{ include.data }}{% else %}image-gallery{% endif %}" data-title="{{ include.title }}"><img src="{{ include.src }}" alt="{{ include.title }}"/></a></p>

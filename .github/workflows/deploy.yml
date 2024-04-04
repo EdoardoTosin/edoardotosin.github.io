@@ -15,7 +15,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.x
+          ruby-version: latest
 
       - name: Install Bundler
         run: gem install bundler

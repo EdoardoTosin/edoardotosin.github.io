@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<!-------------------------------------------------------------------------------------
+*
+* MIT License
+* Copyright (c) 2020 Raghuveer S, Hiran Venugopalan, Asim K T
+*
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+*
+* The above copyright notice and this permission notice shall be included in all
+* copies or substantial portions of the Software.
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
+*
+------------------------------------------------------------------------------------><html lang="en">
+  <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+<body>
+<div style="visibility: hidden; height: 0px;"><a rel="me" href="https://mastodon.social/@edoardotosin">Mastodon</a></div>
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <meta content="Installazione e configurazione server DNS (Parte 1) - Installazione Ubuntu Server (IT)" property="og:site_name">
+<meta content="Imposta un robusto e sicuro server DNS utilizzando Ubuntu, Pi-Hole e Unbound, offrendo un miglioramento della privacy e un maggiore controllo sul traffico della tua rete." property="og:description" name="description">
+<meta content="Edoardo Tosin" property="article:author">
+<meta property="og:image" content="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_19.jpg">
+<meta content="Installazione e configurazione server DNS (Parte 1) - Installazione Ubuntu Server (IT)" property="og:title">
+    <meta content="article" property="og:type">
+    <meta content="https://edoardotosin.com/post/ubuntu-server-pihole-unbound-parte-1" property="og:url">
+<!-- Title --><title>Installazione e configurazione server DNS (Parte 1) - Installazione Ubuntu Server (IT) - Edoardo Tosin</title>
+<link rel="canonical" href="https://edoardotosin.com/post/ubuntu-server-pihole-unbound-parte-1">
+<!-- Favicon -->
+    <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+    <link rel="icon" href="/assets/img/favicon.png" type="image/png" sizes="48x48">
+    <!-- Style -->
+    <link href="/assets/css/style.css" rel="stylesheet" media="all" class="default">
+    <link href="/assets/css/main.css" rel="stylesheet" media="all" class="default">
+    <link href="/assets/css/Util.css" rel="stylesheet" media="all" class="default">
+    <link href="/assets/css/vendor/Katex.css" rel="stylesheet" media="all" class="default">
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@EdoardoTosin">
+    <meta name="twitter:creator" content="@EdoardoTosin">
+<meta name="twitter:title" content="Installazione e configurazione server DNS (Parte 1) - Installazione Ubuntu Server (IT)">
+    <meta name="twitter:description" content="Imposta un robusto e sicuro server DNS utilizzando Ubuntu, Pi-Hole e Unbound, offrendo un miglioramento della privacy e un maggiore controllo sul traffico della tua rete.">
+    <meta property="twitter:image" content="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_19.jpg">
+<!--[if IE]>
+      <link href="/assets/css/ie-target.css" rel="stylesheet" type="text/css"/>
+    <![endif]-->
+    <!--<link href="/assets/css/prism.css" rel="stylesheet" />-->
+    <link rel="alternate" type="application/rss+xml" href="https://edoardotosin.com/feed.xml">
+  
+  
+    <main><nav class="navbar is-transparent no-print" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+          <a class="navbar-item" style="padding-left: 0;" href="/">
+            <img src="/assets/img/favicon.png" alt="Logo" width="24" height="24">
+            <h6> Edoardo Tosin</h6>
+          </a>
+          <script src="/assets/js/modeswitcher.js"></script>
+          <script src="/assets/js/Hamburger.js"></script>
+          <div class="navbar-item navbar-dark-mode__mobile is-hidden-tablet" onclick="modeSwitcher()">
+            <div class="buttons">
+              <a class="button is-text">
+                <span class="icon is-small">
+                  <img src="/assets/img/sun.svg" id="theme-toggle-img--mobile">
+                </span>
+              </a>
+            </div>
+          </div>
+          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+        <div id="navbarBasicExample" class="navbar-menu no-print">
+          <div class="navbar-start">
+            <a href="/about" target="_self" class="navbar-item" title="About">
+              About
+            </a>
+            <a href="/notes" target="_self" class="navbar-item" title="Notes">
+              Notes
+            </a>
+            <a href="/posts" target="_self" class="navbar-item" title="Posts">
+              Posts
+            </a>
+            <a href="/projects" target="_self" class="navbar-item" title="Projects">
+              Projects
+            </a>
+            <a href="/contact-me" target="_self" class="navbar-item" title="Contact Me">
+              Contact Me
+            </a>
+          </div>
+          <div class="navbar-item"></div>
+          <div class="navbar-end is-hidden-mobile" onclick="modeSwitcher()">
+            <div class="navbar-item">
+              <div class="buttons">
+                <a class="button is-text">
+                  <span class="icon is-small">
+                    <img src="/assets/img/sun.svg" id="theme-toggle-img">
+                  </span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <script>
+        iconToggle();
+      </script>
+      <section class="section">
+        <div class="columns is-centered">
+          <!-- Homepage Layout--><!--- Notes Feed Layout--><!--- Notes Layout--><!--- Post Feed Layout--><!--- Post Layout-->
+          <div class="column is-5-widescreen  is-6-desktop is-8-tablet is-12-mobile">
+            <div class="note-page-section">
+              <div class="meta-head">
+<a onclick="window.history.back();">
+                  <p class="meta-title very-small no-print">← BACK</p>
+                </a>
+                <p class="meta-time medium-small italic default">Updated <span class="bold">13 Mar 2024</span></p>
+              </div>
+              <h1>Installazione e configurazione server DNS (Parte 1) - Installazione Ubuntu Server (IT)</h1>
+              <!-- Parse internal links, external links, transclusions etc and manipuate the content to reflect it accordingly -->
+              <div class="content">
+                <p>In questa guida verrà illustrato come installare Ubuntu Server (sistema operativo) insieme ai tool FOSS <a href="https://it.wikipedia.org/wiki/Pi-hole">Pi-Hole</a> (dns ad-blocker) e <a href="https://it.wikipedia.org/wiki/Unbound">Unbound</a> (dns resolver).
+                  Inoltre viene fatto uso dell'autenticazione a due fattori (2FA) come ulteriore protezione da accessi non autorizzati.</p>
+                <h2 id="requisiti">Requisiti</h2>
+                <p>Pi-Hole e Unbound posso essere installati in un sistema operativo diverso da Ubuntu Server. Nel caso si utilizzi un Raspberry Pi (Model B o Zero) o simili, è possibile installare un sistema operativo diverso (quindi saltando l'installazione di Ubuntu Server) e seguire il resto della guida.
+                  Se installato su un computer con OS Linux vanno bene anche 2GB di RAM.</p>
+                <h2 id="preparazione-installazione-ubuntu-server">Preparazione installazione Ubuntu Server</h2>
+                <p>Per prima cosa si procede all'installazione della distro Ubuntu Server 22.04 scaricabile dal <a href="https://ubuntu.com/download/server">sito ufficiale</a>.</p>
+                <h3 id="installazione-nel-drive-usb">Installazione nel drive USB</h3>
+                <p>Dopo aver scaricato il file iso della distro bisogna montarlo in un drive USB. Come programmi per montare l’immagine, si può utilizzare Balena Etcher, UNetbootin oppure Rufus (tutti <a href="https://it.wikipedia.org/wiki/Free_and_Open_Source_Software">FOSS</a>).</p>
+                <h3 id="boot-da-usb">Boot da USB</h3>
+                <p>Durante la fase di P.O.S.T. del computer bisogna selezionare il tasto per visualizzare il menu di boot, in modo da avviare il sistema operativo da drive USB.
+                  Selezionare con i tasti freccia la voce <code class="highlighter-rouge">Try or Install Ubuntu Server</code> e premere il tasto Invio.</p>
+                <p align="center"><a href="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_1.jpg" data-lightbox="image-gallery" data-title="Ubuntu Server 1"><img src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_1.jpg" alt="Ubuntu Server 1"></a></p>
+                <h3 id="scelta-lingua">Scelta lingua</h3>
+                <p>La prima scelta di configurazione riguarda la lingua di sistema. Si può selezionare <code class="highlighter-rouge">English</code> perché non verrà installata nessuna interfaccia grafica nel computer e quindi diventa irrilevante (inoltre gli screen mostrano la versione in inglese, quindi potrebbe risultare più semplice da seguire).</p>
+                <p align="center"><a href="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_2.jpg" data-lightbox="image-gallery" data-title="Ubuntu Server 2"><img src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_2.jpg" alt="Ubuntu Server 2"></a></p>
+                <h3 id="aggiornamento-installer">Aggiornamento installer</h3>
+                <p>Se la versione installata in chiavetta non è l'ultima allora chiede se si vuole aggiornare (in questo caso dalla 22.04 alla 22.07) prima di effettuare l'installazione.
+                  Non è importante perchè verrà comunque fatto l'aggiornamento da riga di comando alla fine dell'installazione del sistema operativo.
+                  Per ignorare l'aggiornamento basta confermare la voce <code class="highlighter-rouge">Continue without updating</code>.</p>
+                <p align="center"><a href="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_3.jpg" data-lightbox="image-gallery" data-title="Ubuntu Server 3"><img src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_3.jpg" alt="Ubuntu Server 3"></a></p>
+                <h3 id="configurazione-tastiera">Configurazione tastiera</h3>
+                <p>Sciegliere il layout della tastiera usata. Verificare che alle voci <code class="highlighter-rouge">Layout</code> e <code class="highlighter-rouge">Variant</code> sia scritto <code class="highlighter-rouge">Italian</code>, altrimenti scieglierlo dal rispettivo menù.
+                  Confermare premendo la voce <code class="highlighter-rouge">Ok</code> e successivamente <code class="highlighter-rouge">Done</code>.</p>
+                <p align="center"><a href="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_4.jpg" data-lightbox="image-gallery" data-title="Ubuntu Server 4"><img src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_4.jpg" alt="Ubuntu Server 4"></a></p>
+                <p align="center"><a href="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_5.jpg" data-lightbox="image-gallery" data-title="Ubuntu Server 5"><img src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_5.jpg" alt="Ubuntu Server 5"></a></p>
+                <h3 id="tipo-di-installazione">Tipo di installazione</h3>
+                <p>Verificare che sia presente la spunta alla voce <code class="highlighter-rouge">Ubuntu Server</code>, altrimenti selezionarla utilizzando il tasto <code class="highlighter-rouge">Spazio</code>.
+                  Premendo invio alla voce <code class="highlighter-rouge">Done</code> per confermare.</p>
+                <p align="center"><a href="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_6.jpg" data-lightbox="image-gallery" data-title="Ubuntu Server 6"><img src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_6.jpg" alt="Ubuntu Server 6"></a></p>
+                <h3 id="connessioni-di-rete">Connessioni di rete</h3>
+                <p>Verificare che in almeno una interfaccia non sia presente la scritta <code class="highlighter-rouge">not connected</code>, e ricordarsi l'indirizzo IP (presente dopo DHCPv4 e senza lo slash e il numero successivo) perchè servirà per collegarsi con il protocollo ssh ed eseguire i comandi da remoto.
+                  Importante assegnare questo indirizzo come statico nelle impostazioni del router della rete in modo che non cambi.
+                  Premere inivio alla voce <code class="highlighter-rouge">Done</code>.</p>
+                <p align="center"><a href="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_7.jpg" data-lightbox="image-gallery" data-title="Ubuntu Server 7"><img src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_7.jpg" alt="Ubuntu Server 7"></a></p>
+                <h3 id="configurazione-proxy">Configurazione proxy</h3>
+                <p>In questo caso non viene fatto uso del proxy, quindi, non va inserito nulla nello spazio bianco ma semplicemente confermiamo di nuovo la voce <code class="highlighter-rouge">Done</code>.</p>
+                <p align="center"><a href="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_8.jpg" data-lightbox="image-gallery" data-title="Ubuntu Server 8"><img src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_8.jpg" alt="Ubuntu Server 8"></a></p>
+                <h3 id="mirror-alternativo-repository">Mirror alternativo repository</h3>
+                <p>Verificare che sia presente un mirror per ritrovare pacchetti e aggiornamenti del sistema operativo. In questo caso va bene <code class="highlighter-rouge">http://it.archive.ubuntu.com/ubuntu</code>.
+                  Confermare alla voce <code class="highlighter-rouge">Done</code>.</p>
+                <p align="center"><a href="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_9.jpg" data-lightbox="image-gallery" data-title="Ubuntu Server 9"><img src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_9.jpg" alt="Ubuntu Server 9"></a></p>
+                <h3 id="configurazione-spazio-su-disco-guidata">Configurazione spazio su disco guidata</h3>
+                <p>Va bene la configurazione di default dello spazio come mostrato nel seguente screen. Per confermare premere <code class="highlighter-rouge">Done</code>.</p>
+                <p align="center"><a href="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_10.jpg" data-lightbox="image-gallery" data-title="Ubuntu Server 10"><img src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_10.jpg" alt="Ubuntu Server 10"></a></p>
+                <h3 id="configurazione-spazio-su-disco">Configurazione spazio su disco</h3>
+                <p>Nella seguente schermata si vede più in dettaglio la formattazione del disco. Per confermare selezionare <code class="highlighter-rouge">Done</code>e successivamente <code class="highlighter-rouge">Continue</code>.</p>
+                <p align="center"><a href="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_11.jpg" data-lightbox="image-gallery" data-title="Ubuntu Server 11"><img src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_11.jpg" alt="Ubuntu Server 11"></a></p>
+                <p align="center"><a href="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_12.jpg" data-lightbox="image-gallery" data-title="Ubuntu Server 12"><img src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_12.jpg" alt="Ubuntu Server 12"></a></p>
+                <h3 id="impostazioni-profilo">Impostazioni profilo</h3>
+                <p>Importare il nome, nome server, nome utente e password.
+                  È importante non perdere nome utente e la password altrimenti non è più possibile loggare all'interno del sistema operativo.
+                  I campi username e password serviranno successivamente per fare il login via SSH.</p>
+                <p align="center"><a href="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_13.jpg" data-lightbox="image-gallery" data-title="Ubuntu Server 13"><img src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_13.jpg" alt="Ubuntu Server 13"></a></p>
+                <h3 id="impostazioni-ssh">Impostazioni SSH</h3>
+                <p>Selezionare con il tasto <code class="highlighter-rouge">Spazio</code> la voce <code class="highlighter-rouge">Install OpenSSH server</code> in modo che installi e renda accessibile il server tramite il protocollo ssh (di default porta 22) per il controllo remoto.
+                  Per confermare selezionare <code class="highlighter-rouge">Done</code>.</p>
+                <p align="center"><a href="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_14.jpg" data-lightbox="image-gallery" data-title="Ubuntu Server 14"><img src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_14.jpg" alt="Ubuntu Server 14"></a></p>
+                <h3 id="componenti-aggiuntivi-per-il-server">Componenti aggiuntivi per il server</h3>
+                <p>In questa schermata è possibile abilitare l’installazione di ulteriori componenti aggiuntivi per aggiungere funzionalità al server. In questo caso non serve nessuno di essi (quelli che installeremo successivamente non sono presenti in questa lista) quindi basta selezionare <code class="highlighter-rouge">Done</code> per iniziare l'installazione effettiva del sistema operativo.</p>
+                <p align="center"><a href="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_15.jpg" data-lightbox="image-gallery" data-title="Ubuntu Server 15"><img src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_15.jpg" alt="Ubuntu Server 15"></a></p>
+                <h2 id="installazione-del-sistema-operativo">Installazione del sistema operativo</h2>
+                <p>Ora il sistema operativo viene installato nel disco interno del computer.</p>
+                <p align="center"><a href="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_16.jpg" data-lightbox="image-gallery" data-title="Ubuntu Server 16"><img src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_16.jpg" alt="Ubuntu Server 16"></a></p>
+                <p>Alla fine della procedura compare la voce <code class="highlighter-rouge">Reboot Now</code>. Premere <code class="highlighter-rouge">Invio</code>.</p>
+                <p align="center"><a href="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_17.jpg" data-lightbox="image-gallery" data-title="Ubuntu Server 17"><img src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_17.jpg" alt="Ubuntu Server 17"></a></p>
+                <p>Verrà richiesto di rimuovere il drive USB che abbiamo usato per l'installazione. Dopo averlo scollegato premere il tasto <code class="highlighter-rouge">Invio</code> per riavviare il computer.</p>
+                <p align="center"><a href="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_18.jpg" data-lightbox="image-gallery" data-title="Ubuntu Server 18"><img src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_18.jpg" alt="Ubuntu Server 18"></a></p>
+                <p>Ora il computer procederà al riavvio.</p>
+                <p align="center"><a href="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_19.jpg" data-lightbox="image-gallery" data-title="Ubuntu Server 19"><img src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_19.jpg" alt="Ubuntu Server 19"></a></p>
+                <p><strong><a href="/post/ubuntu-server-pihole-unbound-part-2">Parte successiva</a></strong></p>
+              </div>
+              <!-- Add backlinks to the current page -->
+</div>
+          </div>
+          <!--- Static Page Layout-->
+</div>
+      </section>
+      <div id="copyright" class="no-print">
+        <p id="copyright-notice"><a href="https://github.com/edoardotosin" class="copyright-item">© 2022-24 Edoardo Tosin</a> • <a href="https://creativecommons.org/licenses/by/4.0/" class="copyright-item">Contents under CC BY 4.0</a> • <a href="/feed.xml" class="copyright-item">Subscribe via RSS</a> • <a href="/privacy-policy" class="copyright-item">Privacy Policy</a> • <a href="/credits" class="copyright-item">Credits</a></p>
+      </div>
+      <!-- Lightbox2 -->
+      <script src="/assets/js/lightbox-plus-jquery.min.js"></script>
+      <link rel="stylesheet" href="/assets/css/lightbox.min.css">
+      <script>
+        lightbox.option({
+        	'alwaysShowNavOnTouchDevices': true,
+        	'disableScrolling': true,
+        	'fadeDuration': 400,
+        	'imageFadeDuration': 400,
+        	'resizeDuration': 400
+        })
+      </script>
+    </main>
+  
+</body>
+</html>

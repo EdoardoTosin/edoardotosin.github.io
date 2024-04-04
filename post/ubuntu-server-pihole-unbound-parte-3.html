@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<!-------------------------------------------------------------------------------------
+*
+* MIT License
+* Copyright (c) 2020 Raghuveer S, Hiran Venugopalan, Asim K T
+*
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+*
+* The above copyright notice and this permission notice shall be included in all
+* copies or substantial portions of the Software.
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
+*
+------------------------------------------------------------------------------------><html lang="en">
+  <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+<body>
+<div style="visibility: hidden; height: 0px;"><a rel="me" href="https://mastodon.social/@edoardotosin">Mastodon</a></div>
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <meta content="Installazione e configurazione server DNS (Parte 3) - Installazione Pi-Hole (IT)" property="og:site_name">
+<meta content="Imposta un robusto e sicuro server DNS utilizzando Ubuntu, Pi-Hole e Unbound, offrendo un miglioramento della privacy e un maggiore controllo sul traffico della tua rete." property="og:description" name="description">
+<meta content="Edoardo Tosin" property="article:author">
+<meta property="og:image" content="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_7.jpg">
+<meta content="Installazione e configurazione server DNS (Parte 3) - Installazione Pi-Hole (IT)" property="og:title">
+    <meta content="article" property="og:type">
+    <meta content="https://edoardotosin.com/post/ubuntu-server-pihole-unbound-parte-3" property="og:url">
+<!-- Title --><title>Installazione e configurazione server DNS (Parte 3) - Installazione Pi-Hole (IT) - Edoardo Tosin</title>
+<link rel="canonical" href="https://edoardotosin.com/post/ubuntu-server-pihole-unbound-parte-3">
+<!-- Favicon -->
+    <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+    <link rel="icon" href="/assets/img/favicon.png" type="image/png" sizes="48x48">
+    <!-- Style -->
+    <link href="/assets/css/style.css" rel="stylesheet" media="all" class="default">
+    <link href="/assets/css/main.css" rel="stylesheet" media="all" class="default">
+    <link href="/assets/css/Util.css" rel="stylesheet" media="all" class="default">
+    <link href="/assets/css/vendor/Katex.css" rel="stylesheet" media="all" class="default">
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@EdoardoTosin">
+    <meta name="twitter:creator" content="@EdoardoTosin">
+<meta name="twitter:title" content="Installazione e configurazione server DNS (Parte 3) - Installazione Pi-Hole (IT)">
+    <meta name="twitter:description" content="Imposta un robusto e sicuro server DNS utilizzando Ubuntu, Pi-Hole e Unbound, offrendo un miglioramento della privacy e un maggiore controllo sul traffico della tua rete.">
+    <meta property="twitter:image" content="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_7.jpg">
+<!--[if IE]>
+      <link href="/assets/css/ie-target.css" rel="stylesheet" type="text/css"/>
+    <![endif]-->
+    <!--<link href="/assets/css/prism.css" rel="stylesheet" />-->
+    <link rel="alternate" type="application/rss+xml" href="https://edoardotosin.com/feed.xml">
+  
+  
+    <main><nav class="navbar is-transparent no-print" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+          <a class="navbar-item" style="padding-left: 0;" href="/">
+            <img src="/assets/img/favicon.png" alt="Logo" width="24" height="24">
+            <h6> Edoardo Tosin</h6>
+          </a>
+          <script src="/assets/js/modeswitcher.js"></script>
+          <script src="/assets/js/Hamburger.js"></script>
+          <div class="navbar-item navbar-dark-mode__mobile is-hidden-tablet" onclick="modeSwitcher()">
+            <div class="buttons">
+              <a class="button is-text">
+                <span class="icon is-small">
+                  <img src="/assets/img/sun.svg" id="theme-toggle-img--mobile">
+                </span>
+              </a>
+            </div>
+          </div>
+          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+        <div id="navbarBasicExample" class="navbar-menu no-print">
+          <div class="navbar-start">
+            <a href="/about" target="_self" class="navbar-item" title="About">
+              About
+            </a>
+            <a href="/notes" target="_self" class="navbar-item" title="Notes">
+              Notes
+            </a>
+            <a href="/posts" target="_self" class="navbar-item" title="Posts">
+              Posts
+            </a>
+            <a href="/projects" target="_self" class="navbar-item" title="Projects">
+              Projects
+            </a>
+            <a href="/contact-me" target="_self" class="navbar-item" title="Contact Me">
+              Contact Me
+            </a>
+          </div>
+          <div class="navbar-item"></div>
+          <div class="navbar-end is-hidden-mobile" onclick="modeSwitcher()">
+            <div class="navbar-item">
+              <div class="buttons">
+                <a class="button is-text">
+                  <span class="icon is-small">
+                    <img src="/assets/img/sun.svg" id="theme-toggle-img">
+                  </span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <script>
+        iconToggle();
+      </script>
+      <section class="section">
+        <div class="columns is-centered">
+          <!-- Homepage Layout--><!--- Notes Feed Layout--><!--- Notes Layout--><!--- Post Feed Layout--><!--- Post Layout-->
+          <div class="column is-5-widescreen  is-6-desktop is-8-tablet is-12-mobile">
+            <div class="note-page-section">
+              <div class="meta-head">
+<a onclick="window.history.back();">
+                  <p class="meta-title very-small no-print">← BACK</p>
+                </a>
+                <p class="meta-time medium-small italic default">Updated <span class="bold">23 Mar 2024</span></p>
+              </div>
+              <h1>Installazione e configurazione server DNS (Parte 3) - Installazione Pi-Hole (IT)</h1>
+              <!-- Parse internal links, external links, transclusions etc and manipuate the content to reflect it accordingly -->
+              <div class="content">
+                <p><em>Nella <a href="/post/ubuntu-server-pihole-unbound-parte-2">parte precedente</a> è stato spiegato come aggiungere l'autenticazione a due fattori (2FA) per l'accesso via SSH.</em></p>
+                <h2 id="installazione-pi-hole">Installazione Pi-Hole</h2>
+                <p>In questa fase verrà installato Pi-Hole, un software open source che agisce come <a href="https://it.wikipedia.org/wiki/DNS_sinkhole">DNS sinkhole</a> e volendo anche come server DHCP. Questa applicazione filtrerà le richieste DNS per ridurre drasticamente la pubblicità presente nelle pagine web.</p>
+                <h3 id="download-repository-ufficiale">Download repository ufficiale</h3>
+                <p>Come primo passo c'è da scaricare il repository di Pi-Hole: <code class="highlighter-rouge">git clone --depth 1 https://github.com/pi-hole/pi-hole.git Pi-hole</code>.</p>
+                <p align="center"><a href="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_2.jpg" data-lightbox="image-gallery" data-title="Pi-Hole 2"><img src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_2.jpg" alt="Pi-Hole 2"></a></p>
+                <p>Alla fine del download entriamo all'interno della cartella: <code class="highlighter-rouge">cd 'Pi-hole/automated install/'</code>.</p>
+                <p align="center"><a href="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_4.jpg" data-lightbox="image-gallery" data-title="Pi-Hole 4"><img src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_4.jpg" alt="Pi-Hole 4"></a></p>
+                <h3 id="preparazione-installazione-pi-hole">Preparazione installazione Pi-Hole</h3>
+                <p>Da questa directory lanciare lo script bash: <code class="highlighter-rouge">sudo bash basic-install.sh</code>.
+                  È possibile che chieda la password utente poiché viene lanciato con i privilegi di amministratore.
+                  In caso affermativo inserirla e premere <code class="highlighter-rouge">Invio</code>.</p>
+                <p align="center"><a href="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_6.jpg" data-lightbox="image-gallery" data-title="Pi-Hole 6"><img src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_6.jpg" alt="Pi-Hole 6"></a></p>
+                <p>Si attende qualche momento per il controllo che sia tutto compatibile e non ci siano conflitti.</p>
+                <p align="center"><a href="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_7.jpg" data-lightbox="image-gallery" data-title="Pi-Hole 7"><img src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_7.jpg" alt="Pi-Hole 7"></a></p>
+                <p>Premete <code class="highlighter-rouge">Invio</code> per ciascuna delle due schermate per iniziare la configurazione.</p>
+                <p align="center"><a href="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_8.jpg" data-lightbox="image-gallery" data-title="Pi-Hole 8"><img src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_8.jpg" alt="Pi-Hole 8"></a></p>
+                <p align="center"><a href="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_9.jpg" data-lightbox="image-gallery" data-title="Pi-Hole 9"><img src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_9.jpg" alt="Pi-Hole 9"></a></p>
+                <h3 id="configurazione-installazione-pi-hole">Configurazione installazione Pi-Hole</h3>
+                <p>Siccome da router è stato impostato come ip statico possiamo confermare, selezionando <code class="highlighter-rouge">Continue</code> e premendo <code class="highlighter-rouge">Invio</code>.</p>
+                <p align="center"><a href="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_10.jpg" data-lightbox="image-gallery" data-title="Pi-Hole 10"><img src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_10.jpg" alt="Pi-Hole 10"></a></p>
+                <p>Selezionare la stessa interfaccia a cui era stato assegnato l'ip usato durante tutta la procedura. In questo caso la prima. Premere <code class="highlighter-rouge">Invio</code> per confermare.</p>
+                <p align="center"><a href="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_11.jpg" data-lightbox="image-gallery" data-title="Pi-Hole 11"><img src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_11.jpg" alt="Pi-Hole 11"></a></p>
+                <p>Selezionare un provider DNS provvisorio. Successivamente verrà tolto siccome il computer con Ubuntu Server diventerà un DNS resolver lui stesso alla porta <code class="highlighter-rouge">5353</code> e indirizzo <code class="highlighter-rouge">127.0.0.1</code>.</p>
+                <p align="center"><a href="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_12.jpg" data-lightbox="image-gallery" data-title="Pi-Hole 12"><img src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_12.jpg" alt="Pi-Hole 12"></a></p>
+                <p>Selezionare <code class="highlighter-rouge">Yes</code> per includere liste di terzi per filtrare i contenuti e confermare premendo <code class="highlighter-rouge">Invio</code>.</p>
+                <p align="center"><a href="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_13.jpg" data-lightbox="image-gallery" data-title="Pi-Hole 13"><img src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_13.jpg" alt="Pi-Hole 13"></a></p>
+                <p>Confermare l'installazione dell'interfaccia web per dove fare ulteriori modifiche alle impostazioni. Selezionare <code class="highlighter-rouge">Yes</code> e premere <code class="highlighter-rouge">Invio</code>.</p>
+                <p align="center"><a href="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_14.jpg" data-lightbox="image-gallery" data-title="Pi-Hole 14"><img src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_14.jpg" alt="Pi-Hole 14"></a></p>
+                <p>Confermare l'installazione del server web lighttpd per rendere l'interfaccia web funzionante. Selezionare <code class="highlighter-rouge">Yes</code> e premere <code class="highlighter-rouge">Invio</code>.</p>
+                <p align="center"><a href="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_15.jpg" data-lightbox="image-gallery" data-title="Pi-Hole 15"><img src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_15.jpg" alt="Pi-Hole 15"></a></p>
+                <p>Abilitare il logging delle query per eventuali debug di problemi. Selezionare <code class="highlighter-rouge">Yes</code> e premere <code class="highlighter-rouge">Invio</code>.</p>
+                <p align="center"><a href="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_16.jpg" data-lightbox="image-gallery" data-title="Pi-Hole 16"><img src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_16.jpg" alt="Pi-Hole 16"></a></p>
+                <p>In questa schermata si può scegliere  quanti contenuti sono visualizzabili da interfaccia web dell'admin. Lasciare a default <code class="highlighter-rouge">Show everything</code>. Selezionare <code class="highlighter-rouge">Continue</code> e premere <code class="highlighter-rouge">Invio</code>.</p>
+                <p align="center"><a href="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_17.jpg" data-lightbox="image-gallery" data-title="Pi-Hole 17"><img src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_17.jpg" alt="Pi-Hole 17"></a></p>
+                <p>Qui verrà visualizzata la password autogenerata per loggare nell'interfaccia web tramite l'ip del computer. Non è importante ricordarla siccome verrà successivamente cambiare con una più lunga per sicurezza. Premere <code class="highlighter-rouge">Invio</code> per continuare.</p>
+                <p align="center"><a href="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_18.jpg" data-lightbox="image-gallery" data-title="Pi-Hole 18"><img src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_18.jpg" alt="Pi-Hole 18"></a></p>
+                <p>Terminata la procedura di configurazione di Pi-Hole, si può procedere a cambiare la password dell'interfaccia admin (da non confondere con la password utente).</p>
+                <p align="center"><a href="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_19.jpg" data-lightbox="image-gallery" data-title="Pi-Hole 19"><img src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_19.jpg" alt="Pi-Hole 19"></a></p>
+                <p>Per cambiare la password dell'interfaccia web di Pi-Hole usare il comando <code class="highlighter-rouge">pihole -a -p</code>.</p>
+                <p align="center"><a href="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_20.jpg" data-lightbox="image-gallery" data-title="Pi-Hole 20"><img src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_20.jpg" alt="Pi-Hole 20"></a></p>
+                <p>Dopo aver premuto <code class="highlighter-rouge">Invio</code> inserire la password, premere di nuovo <code class="highlighter-rouge">Invio</code>, reinserire la password e confermare infine sempre con il tasto <code class="highlighter-rouge">Invio</code>.</p>
+                <p align="center"><a href="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_21.jpg" data-lightbox="image-gallery" data-title="Pi-Hole 21"><img src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_21.jpg" alt="Pi-Hole 21"></a></p>
+                <p>Se la procedura ha avuto successo comparirà la scritta <code class="highlighter-rouge">New password set</code></p>
+                <p align="center"><a href="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_22.jpg" data-lightbox="image-gallery" data-title="Pi-Hole 22"><img src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_22.jpg" alt="Pi-Hole 22"></a></p>
+                <p><strong><a href="/post/ubuntu-server-pihole-unbound-parte-4">Parte successiva</a></strong></p>
+              </div>
+              <!-- Add backlinks to the current page -->
+</div>
+          </div>
+          <!--- Static Page Layout-->
+</div>
+      </section>
+      <div id="copyright" class="no-print">
+        <p id="copyright-notice"><a href="https://github.com/edoardotosin" class="copyright-item">© 2022-24 Edoardo Tosin</a> • <a href="https://creativecommons.org/licenses/by/4.0/" class="copyright-item">Contents under CC BY 4.0</a> • <a href="/feed.xml" class="copyright-item">Subscribe via RSS</a> • <a href="/privacy-policy" class="copyright-item">Privacy Policy</a> • <a href="/credits" class="copyright-item">Credits</a></p>
+      </div>
+      <!-- Lightbox2 -->
+      <script src="/assets/js/lightbox-plus-jquery.min.js"></script>
+      <link rel="stylesheet" href="/assets/css/lightbox.min.css">
+      <script>
+        lightbox.option({
+        	'alwaysShowNavOnTouchDevices': true,
+        	'disableScrolling': true,
+        	'fadeDuration': 400,
+        	'imageFadeDuration': 400,
+        	'resizeDuration': 400
+        })
+      </script>
+    </main>
+  
+</body>
+</html>

@@ -162,6 +162,7 @@
                             {%- include Feed.html -%}
                 </div>
                     {%- endif -%}
+				{%- include Footer.html -%}
             </div>
             {%- endif -%}
 
@@ -172,6 +173,7 @@
                     <div class="jumbo">{{page.title}}</div>
                     {%- include Content.html -%}
                     {%- include Feed.html -%}
+					{%- include Footer.html -%}
             {%- endif -%}
 
             <!--- Notes Layout-->
@@ -253,7 +255,9 @@
             {%- endif -%}
         </div>
     </section>
-    {%- include Footer.html -%}
+    {% unless page.feedformat or page.permalink == "/" %}
+		{%- include Footer.html -%}
+	{% endunless %}
     <!-- Lightbox2 -->
     <script src="{{ site.baseurl }}/assets/js/lightbox-plus-jquery.min.js"></script>
     <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/lightbox.min.css">

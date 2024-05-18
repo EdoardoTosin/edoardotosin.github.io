@@ -5,8 +5,8 @@ Creative Commons Attribution 4.0 International License
 */
 let systemInitiatedDark = window.matchMedia("(prefers-color-scheme: dark)"); 
 let theme = sessionStorage.getItem('theme');
-const iconSun = "../assets/img/sun.svg";
-const iconMoon = "../assets/img/moon.svg";
+const iconSun = "https://edoardotosin.com/assets/img/sun.svg";
+const iconMoon = "https://edoardotosin.com/assets/img/moon.svg";
 function changeIconImgSrc(src) {
 if (document.getElementById("theme-toggle-img") != null){
 document.getElementById("theme-toggle-img").src = src;	

@@ -141,6 +141,7 @@ robots:
 exclude:
   - .github
   - .gitattributes
+  - .gitignore
   - _notes/000 Inbox
   - _notes/200 Private
   - _notes/300 Templates

@@ -28,17 +28,15 @@ description: Explore my portfolio to find insights into my development journey, 
 
 ---
 
-**[Notes]({{'/notes' | relative_url}}) :** Simple notes on computer science and other topics.
+**[Notes]({{ '/notes' | relative_url }}) :** Simple notes on computer science and other topics.
 
-**[Posts]({{'/posts' | relative_url}}) :** Technology blog posts and tutorials.
+**[Posts]({{ '/posts' | relative_url }}) :** Technology blog posts and tutorials.
 
-**[Projects]({{'/projects' | relative_url}}) :** List of personal projects hosted on GitHub.
+**[Projects]({{ '/projects' | relative_url }}) :** List of personal projects hosted on GitHub.
 
-**[Github]({{ site.link.github }}) :**
-Explore my repositories.
+**[Github]({{ site.link.github }}) :** Explore my repositories.
 
-**[Flickr]({{ site.link.flickr }}) :**
-View my photo gallery.
+**[Flickr]({{ site.link.flickr }}) :** View my photo gallery.
 
 **[Contact Me]({{ '/contact' | relative_url }}) :** Reach out to me through various channels.
 

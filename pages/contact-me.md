@@ -1,5 +1,5 @@
 ---
-permalink: /contact-me
+permalink: /contact
 layout: Post
 content-type: static
 title: Contact Me

@@ -40,6 +40,6 @@ Explore my repositories.
 **[Flickr]({{ site.link.flickr }}) :**
 View my photo gallery.
 
-**[Contact Me]({{'/contact-me' | relative_url}}) :** Reach out to me through various channels.
+**[Contact Me]({{ '/contact' | relative_url }}) :** Reach out to me through various channels.
 
 <br>

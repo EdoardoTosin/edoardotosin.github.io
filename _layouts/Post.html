@@ -61,6 +61,8 @@
     <meta content="website" property="og:type">
     <meta content="{{ site.url }}{{ page.url }}" property="og:url">
     {%- endif -%}
+	<!-- Datetime -->
+	{%- include DatetimeMeta.html -%}
 	
 	{%- if page.noindex -%}
 	<!-- Indexing rules -->

@@ -3,7 +3,7 @@ permalink: /collections
 layout: Post
 content-type: static
 title: Collections
-description: Curated collection of resources
+description: A curated collection of valuable resources, aggregated for convenience.
 sitemap: false
 ---
 

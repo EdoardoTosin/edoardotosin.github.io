@@ -24,7 +24,7 @@ description: Explore my portfolio to find insights into my development journey, 
 
 <br>
 
-## About my page
+## About my site
 
 ---
 
@@ -33,6 +33,8 @@ description: Explore my portfolio to find insights into my development journey, 
 **[Posts]({{ '/posts' | relative_url }}) :** Technology blog posts and tutorials.
 
 **[Projects]({{ '/projects' | relative_url }}) :** List of personal projects hosted on GitHub.
+
+**[Collections]({{ '/collections' | relative_url }}) :**: A curated collection of valuable resources, aggregated for convenience.
 
 **[Github]({{ site.link.github }}) :** Explore my repositories.
 

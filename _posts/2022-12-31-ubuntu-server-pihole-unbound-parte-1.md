@@ -2,8 +2,15 @@
 title: Installazione e configurazione server DNS (Parte 1) - Installazione Ubuntu Server (IT)
 description: Imposta un robusto e sicuro server DNS utilizzando Ubuntu, Pi-Hole e Unbound, offrendo un miglioramento della privacy e un maggiore controllo sul traffico della tua rete.
 date: 2022-12-31 10:00:00 +0100
-last_modified_at: 2024-03-13 18:43:58 +0100
-ogimg: "https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_19.jpg"
+last_modified_at: 2024-08-07 16:30:08 +0200
+ogimg: https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_19.jpg
+tags:
+  - ubuntu
+  - unbound
+  - pi-hole
+  - dns
+  - server
+  - adblocker
 ---
 
 In questa guida verrà illustrato come installare Ubuntu Server (sistema operativo) insieme ai tool FOSS [Pi-Hole](https://it.wikipedia.org/wiki/Pi-hole) (dns ad-blocker) e [Unbound](https://it.wikipedia.org/wiki/Unbound) (dns resolver).

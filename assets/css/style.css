@@ -970,10 +970,6 @@ hr {
     font-size: 15px;
 }
 
-.tags {
-    margin-bottom: 0rem !important;
-}
-
 .tags li {
     float: left;
 }

@@ -83,6 +83,9 @@ collections:
     notes:
       output: true
       permalink: /note/:title
+    tags:
+      output: true
+      permalink: /notes/:path
 
 markdown: kramdown
 

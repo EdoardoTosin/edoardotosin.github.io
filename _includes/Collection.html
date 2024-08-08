@@ -1,14 +1,47 @@
-<br />
+{%- comment -%}
+ *
+ * MIT License
+ * Copyright (c) 2024 Edoardo Tosin
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ * 
+ * File: Collection.html
+ * Author Edoardo Tosin
+ 
+ * This file contains the markup for the links that refer back to this file.
+ * You can find the final thing at the end of every post inside a small greyish box
+ *
+{%- endcomment -%}
 
-<div class="home-wrapper">
-    <div class="home-nav-wrapper">
-        {% assign counter = 0 %} {% assign sortedNotes = site.notes | sort: 'order' %} {% for post in sortedNotes %} {% if post.title != "Collections" and post.format == "list" %} {% assign counter = counter | plus: 1 %} {% assign
-        formattedCounter = counter | prepend: "0" | prepend: "0" | prepend: "0" %}
-        <a class="home-nav-item" href="{{ post.url }}">
-            <div class="home-colln-title arrow-link margin-top-10">
-                <span class="text"> {{ post.title }}</span>
-            </div>
-        </a>
-        {% endif %} {% endfor %}
-    </div>
+{% if post.title == "Collections" and post.format == "list" %}
+<br />
+{% endif %}
+
+{% assign counter = 0 %} {% assign sortedNotes = site.notes | sort: 'order' %} {% for post in sortedNotes %} {% if post.title != "Collections" and post.format == "list" %} {% assign counter = counter | plus: 1 %} {% assign
+formattedCounter = counter | prepend: "0" | prepend: "0" | prepend: "0" %}
+<div class="list-feed">
+	<a href="{{ post.url }}" style="text-decoration: none;display: flex;justify-content: space-between;flex-direction: row;width: 100%;">
+		<div class="writinglist-title">{{ post.title }}</div>
+	</a>
 </div>
+{% endif %} {% endfor %}
+
+<style>
+.content a {color: var(--color-text-main);}
+</style>

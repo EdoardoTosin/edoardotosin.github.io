@@ -971,28 +971,48 @@ hr {
 }
 
 .tags {
-    list-style: none;
-    margin: 0;
-    overflow: hidden;
-    padding: 0;
+    margin-bottom: 0rem !important;
 }
 
 .tags li {
     float: left;
 }
 
-.tag {
-    color: var(--color-text-main);
-    background: var(--color-bg-main);
+.tags-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.tag-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.tag-item {
+    background-color: var(--color-text-link);
+    color: var(--color-bg-sub);
+    padding: 0.35rem 0.7rem;
+    font-size: 0.875rem;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.tag-item a {
+    color: var(--color-bg-sub);
     text-decoration: none;
-    display: inline-block;
-    padding: 0 12px;
-    border-radius: 32px;
-    height: auto;
-    vertical-align: middle;
-    font-family: var(--primary-font-family);
-    font-weight: normal !important;
-    font-size: 13px;
+}
+
+.tag-item:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.tag-item:active {
+    background-color: #004080;
 }
 
 .content {}

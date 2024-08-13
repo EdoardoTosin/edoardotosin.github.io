@@ -8,7 +8,7 @@ sitemap: false
 noindex: nofollow
 ---
 
-*This Privacy Policy is effective as of {{ page.date | date: "%B %d, %Y" }}*
+*This Privacy Policy is effective as of {{ page.date | date: "%d %b %Y" }}*
 
 <br>
 

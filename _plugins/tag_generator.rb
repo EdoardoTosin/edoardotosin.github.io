@@ -26,10 +26,15 @@ module Jekyll
         end
       end
 
+      # Generate tag pages
       tags.each do |tag, items|
         page = TagPage.new(site, tag, items)
         site.pages << page
       end
+
+      # Generate index page for tags
+      index_page = TagsIndexPage.new(site, tags.keys)
+      site.pages << index_page
     end
 
     private
@@ -53,6 +58,22 @@ module Jekyll
       self.data['tag'] = tag_slug
       self.data['items'] = items
       self.data['permalink'] = "/tags/#{tag_slug}/"
+    end
+  end
+
+  class TagsIndexPage < Page
+    def initialize(site, tags)
+      @site = site
+      @base = site.source
+      @dir = "tags"
+      @name = "index.html"
+
+      self.process(@name)
+      self.read_yaml(File.join(@base, '_layouts'), 'tags.html')
+      self.data['title'] = "All Tags"
+      self.data['description'] = "List of all tags"
+      self.data['tags'] = tags
+      self.data['permalink'] = "/tags/"
     end
   end
 end

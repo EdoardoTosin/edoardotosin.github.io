@@ -1,0 +1,21 @@
+---
+layout: Post
+content-type: static
+sitemap: false
+---
+
+<br>
+
+{% assign sorted_tags = page.tags | sort %}
+{% for tag in sorted_tags %}
+<div class="list-feed">
+  <a href='{{ "/tags/" | append: tag | append: "/" | relative_url }}' style="text-decoration: none;display: flex;justify-content: space-between;flex-direction: row;width: 100%;">
+    <div class="writinglist-title">{{ tag }}</div>
+  </a>
+</div>
+{% endfor %}
+
+<style>
+li {border-bottom: 1px solid var(--color-border-light); list-style: none; padding: 0.4rem 0 0.4rem 0;}
+.content a {color: var(--color-text-main);}
+</style>

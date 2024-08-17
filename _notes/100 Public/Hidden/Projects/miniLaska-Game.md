@@ -12,6 +12,5 @@ redirect: /miniLaska-Game/html/index.html
 tags:
   - game
   - documentation
-  - programming
   - lasca
 ---

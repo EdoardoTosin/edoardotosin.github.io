@@ -11,5 +11,6 @@ ogimg: https://raw.githubusercontent.com/EdoardoTosin/chuck_jokes/main/assets/sc
 redirect: /chuck_jokes/
 tags:
   - app
+  - api
   - flutter
 ---

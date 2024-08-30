@@ -11,6 +11,7 @@ ogimg: https://raw.githubusercontent.com/EdoardoTosin/xTetris-Game/main/doc/soci
 redirect: /xTetris-Game/html/index.html
 tags:
   - game
-  - documentation
   - tetris
+  - documentation
+  - programming
 ---

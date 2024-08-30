@@ -22,7 +22,6 @@ Located 21 million light years away, it's confirmed to be a type II supernova.[^
 {% include Carousel.html number="1" %}
 *Supernova in the Pinwheel galaxy taken from my backyard 6 days after being discovered.[^3]*
 
-## References
 
 [^1]: [Discovery certificate for object 2023ixf](https://www.wis-tns.org/object/2023ixf/discovery-cert). Transient Name Server.
 [^2]: [AstroNote 2023-119](https://www.wis-tns.org/astronotes/astronote/2023-119). Transient Name Server.

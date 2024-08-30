@@ -1578,6 +1578,15 @@ a[href^="http"]:not(.navbar-item):not(.copyright-item):not(.reversefootnote):not
     padding-right: 1.3rem;
 }
 
+.footnotes {
+    margin-top: 3rem;
+    font-size: 0.875rem !important;
+}
+
+.footnotes li p {
+    font-size: 0.875rem !important;
+}
+
 .home-sub-text {
     padding-top: 2rem;
     color: var(--color-text-sub);

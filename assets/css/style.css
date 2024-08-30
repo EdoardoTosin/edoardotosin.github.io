@@ -240,6 +240,11 @@ main {
     padding:0;
 }
 
+.meta-title.centre-title:hover {
+    color: var(--color-text-sub);
+    text-decoration: none;
+}
+
 .meta-time {
 	/*
 	margin-right: 10em;

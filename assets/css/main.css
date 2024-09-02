@@ -284,7 +284,7 @@ pre {
   color: var(--color-text-main);
   font-size: 0.875em;
   overflow-x: auto;
-  padding: 1.25rem 1.5rem;
+  /*padding: 1.25rem 1.5rem;*/
   white-space: pre;
   word-wrap: normal; }
 
@@ -3937,4 +3937,32 @@ a.tag:hover {
 	white-space: pre-wrap;
 	word-wrap: break-word;
   }
+}
+
+/* General styling for the Copy to Clipboard button */
+.code-header {
+    border-bottom-style: solid;
+    border-bottom-color: transparent;
+}
+
+.copy-code-button {
+    position: absolute;
+    right: 0.7rem;
+    margin-top: 1.85rem;
+    margin-bottom: 0.5em;
+    padding: 0.6em 1.0em;
+    cursor: pointer;
+    border: none;
+    border-radius: 0.5em;
+    background-color: var(--button-bg-color);
+    color: var(--button-text-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.code-block:hover .copy-code-button {
+    background-color: var(--color-text-link);
+}
+
+.copy-code-button:is(.copied, :hover) {
+    background-color: var(--color-text-link);
 }

@@ -26,6 +26,7 @@ To access, open the terminal on another computer in the same network (Powershell
 ```shell
 	ssh USERNAME@IP
 ```
+
 `USERNAME` is replaced with the username entered during the Ubuntu Server installation phase (Profile settings)
 Replace `IP` with the IP address of the computer where Ubuntu Server is installed.
 `-p 22` is optional since by default ssh connects to port 22 of the device.

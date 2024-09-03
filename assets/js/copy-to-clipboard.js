@@ -9,9 +9,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (codeBlock) {
       copyCodeButton.addEventListener('click', () => {
-        // Copy the code to the user's clipboard
-        const code = codeBlock.innerText;
-        window.navigator.clipboard.writeText(code);
+        // Get and trim the code, then copy it to the clipboard
+        const code = codeBlock.innerText.trim(); // Trim leading and trailing spaces
+        window.navigator.clipboard.writeText(code).catch(err => {
+          console.error('Failed to copy: ', err);
+        });
 
         // Update the button text visually
         const originalText = copyCodeButton.innerText;

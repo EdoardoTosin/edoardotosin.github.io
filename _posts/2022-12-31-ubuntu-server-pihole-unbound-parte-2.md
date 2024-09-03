@@ -22,6 +22,7 @@ Dopo l'installazione si procede ad aggiornare il sistema e i pacchetti installat
 ### Login via SSH
 
 Per accedere aprire il terminale in un altro computer nella stessa rete (Powershell nel caso di Windows) e digitare il seguente comando:
+
 ```shell
 	ssh USERNAME@IP
 ```

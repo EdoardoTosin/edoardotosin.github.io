@@ -24,7 +24,7 @@ Dopo l'installazione si procede ad aggiornare il sistema e i pacchetti installat
 Per accedere aprire il terminale in un altro computer nella stessa rete (Powershell nel caso di Windows) e digitare il seguente comando:
 
 ```shell
-	ssh USERNAME@IP
+ssh USERNAME@IP
 ```
 
 `USERNAME` è da sostituire con il nome utente inserito durante la fase di installazione di Ubuntu Server (Impostazioni profilo)

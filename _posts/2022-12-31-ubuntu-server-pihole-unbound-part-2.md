@@ -24,7 +24,7 @@ After installation, the system and installed packages are updated to their lates
 To access, open the terminal on another computer in the same network (Powershell in the case of Windows) and type the following command:
 
 ```shell
-	ssh USERNAME@IP
+ssh USERNAME@IP
 ```
 
 `USERNAME` is replaced with the username entered during the Ubuntu Server installation phase (Profile settings)

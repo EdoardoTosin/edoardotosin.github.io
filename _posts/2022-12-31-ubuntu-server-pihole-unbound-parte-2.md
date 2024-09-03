@@ -15,6 +15,61 @@ tags:
 
 *Nella [parte precedente]({% post_url 2022-12-31-ubuntu-server-pihole-unbound-parte-1 %}) è stato spiegato come installare il sistema operativo Ubuntu Server.*
 
+## SSH
+
+Dopo l'installazione si procede ad aggiornare il sistema e i pacchetti installati alla loro ultima versione.
+
+### Login via SSH
+
+Per accedere aprire il terminale in un altro computer nella stessa rete (Powershell nel caso di Windows) e digitare il seguente comando:
+```shell
+	ssh USERNAME@IP
+```
+
+`USERNAME` è da sostituire con il nome utente inserito durante la fase di installazione di Ubuntu Server (Impostazioni profilo)
+Al posto di `IP` va inserito l'indirizzo ip del computerdove è installato Ubuntu Server.
+`-p 22` è opzionale dato che di default ssh si collega alla porta 22 del dispositivo.
+
+{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_1.jpg" title="2FA 1" %}
+
+Dopo aver premuto invio chiederà di salvare la chiave SHA256. Scrivere `y` e confermare premento il tasto `Invio`.
+
+{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_2.jpg" title="2FA 2" %}
+
+Ora inserire la password impostata durante la fase di installazione di Ubuntu Server (Impostazioni profilo).
+
+{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_3.jpg" title="2FA 3" %}
+
+Se è stato inserito tutto correttamente allora è possibile controllare Ubuntu Server da remoto da CLI.
+
+{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_4.jpg" title="2FA 4" %}
+
+## Aggiornamento sistema
+
+{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_5.jpg" title="2FA 5" %}
+
+### Aggiornare repository e sistema
+
+Per avviare l'aggiornamento basta eseguire la riga `sudo apt update && sudo apt upgrade`. Eseguendo entrambi i comandi con `sudo` verrà chiesta la password dell'utente (la stessa usata per fare il login).
+
+{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_6.jpg" title="2FA 6" %}
+
+### Conferma aggiornamenti
+
+Per confermare l'avvio degli aggiornamenti scrivere `y` e premere `Invio`.
+
+{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_7.jpg" title="2FA 7" %}
+
+### Riavvio servizi
+
+È probabile che compaia una schermata come la seguente che chiede quali servizi riavviare. Selezionare `Ok` senza cambiare nulla dalla lista e successivamente premere `Invio` per confermare.
+
+{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_8.jpg" title="2FA 8" %}
+
+Ora si può riavviare il computer per verificare che con gli ultimi aggiornamenti il sistema funziona prima di procedere all’installazione delle applicazioni.
+
+{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_9.jpg" title="2FA 9" %}
+
 ## Installazione 2FA
 
 Nella seguente procedura verrà aggiunta l'autenticazione a due fattori per ridurre il rischio di accessi non autorizzati (Zero Trust).

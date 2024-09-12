@@ -30,9 +30,11 @@
 <html lang="en">
 
 <head>
-	{%- if site.link.mastodon -%}
-	<div style="visibility: hidden; height: 0px;"><a rel="me" href="{{ site.link.mastodon }}">Mastodon</a></div>
-	{%- endif -%}
+	{% if site.link and site.link.mastodon %}
+		{% for mastodon_link in site.link.mastodon %}
+			<link rel="me" href="{{ mastodon_link }}">
+		{% endfor %}
+	{% endif %}
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <meta content="{{ page.title }}" property="og:site_name" />
 	{%- if page.description -%}

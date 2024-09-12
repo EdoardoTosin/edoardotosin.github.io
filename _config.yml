@@ -33,7 +33,9 @@ description: "Welcome to my personal tech hub! This website is a reflection of m
 author: Edoardo Tosin
 link:
     license: "https://creativecommons.org/licenses/by/4.0/"
-    mastodon: "https://mastodon.social/@edoardotosin"
+    mastodon:
+        - "https://mastodon.social/@edoardotosin"
+        - "https://infosec.exchange/@EdoardoTosin"
     github: "https://github.com/edoardotosin"
     flickr: "https://www.flickr.com/photos/edoardo_tosin/"
 copyright:

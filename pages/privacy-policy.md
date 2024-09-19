@@ -3,7 +3,7 @@ permalink: /privacy-policy
 layout: Post
 content-type: static
 title: Privacy Policy
-date: 2023-09-19
+date: 2024-09-19
 sitemap: false
 noindex: nofollow
 ---

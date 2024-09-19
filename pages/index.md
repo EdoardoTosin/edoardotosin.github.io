@@ -4,5 +4,5 @@
 
 layout: Post
 permalink: /
-title: "Computer Science Odyssey"
+title: "CS Odyssey"
 ---

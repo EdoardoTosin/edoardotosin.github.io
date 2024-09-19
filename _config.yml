@@ -28,8 +28,8 @@ baseurl: ""
 # Website Header, Description, Footer year and text.
 # If you are deleting this, make sure you remove it from HTML files too
 heading: Edoardo Tosin # Change this
-content: "Computer Science Odyssey: Unraveling the Tech Maze"
-description: "Welcome to my personal tech hub! This website is a reflection of my journey in the fascinating world of technology. The blog section is a curated collection of posts demonstrating my ability to create and implement solutions that drive efficiency and innovation. The notes section is a treasure trove of knowledge. Lastly, the open source projects tab is a testament to my belief in the power of collective effort and the joy of contributing to the global tech community. Feel free to explore, learn, and connect!"
+content: "CS Odyssey: Tech Insights & Adventures"
+description: "Welcome aboard to the computer science playground! I'm thrilled to have you here as we embark on this digital adventure together. My name is Edoardo Tosin, and I am a passionate coder and tech enthusiast, deeply immersed in the world of computer science. Here you will find a collection of my explorations across various domains, primarily focusing on computer science but also venturing into other intriguing realms that spark my curiosity. These are my digital footprints, documenting the insights, learnings, and cool stuff I come across in the ever-evolving field of computer science and beyond."
 author: Edoardo Tosin
 link:
     license: "https://creativecommons.org/licenses/by/4.0/"

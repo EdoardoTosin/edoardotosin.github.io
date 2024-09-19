@@ -24,7 +24,7 @@ Should I update this Privacy Policy, I will notify you by posting the new versio
 
 ### Contact Me
 
-If you have any questions or require further information about this Privacy Policy, please feel free to [contact me]({{ '/contact-me' | relative_url }}).
+If you have any questions or require further information about this Privacy Policy, please feel free to [contact me]({{ '/contact' | relative_url }}).
 
 <br>
 

@@ -8,38 +8,28 @@ description: Explore my portfolio to find insights into my development journey, 
 
 <br>
 
-## Hi there!
+### A Little Bit About Me
 
 ---
 
-**My name is :** Edoardo Tosin.
+Hello! I'm Edoardo Tosin, a passionate coder and tech enthusiast with roots in Italy but a global mindset shaped by my experiences abroad. My journey into the world of Computer Science is fueled by an insatiable curiosity for technology, innovation, and problem-solving across various disciplines. From coding to cybersecurity, machine learning to data analysis, I'm deeply invested in exploring these areas that challenge me intellectually but also has the potential to make a profound positive impact on society globally.
 
-**I am from :** Italy.
+### My Website Aims To:
 
-**I love :** learning about InfoSec and OSINT.
+- **Educate**: Provide clear, concise notes and tutorials across a wide range of topics.
+- **Inspire**: Discover real-world applications that spark curiosity and practical engagement in the field.
 
-**I lived in :** London (during my 2011 high-school year, for 3 weeks).
+### Explore My Content:
 
-**I speak :** Italian and English.
+- **[Notes]({{ '/notes' | relative_url }})**: Dive into quick, digestible pieces covering a variety of subjects.
+- **[Posts]({{ '/posts' | relative_url }})**:  Engage with in-depth blog posts and tutorials on various technological aspects.
+- **[Projects]({{ '/projects' | relative_url }})**: Witness the practical application of my learning through side projects that you can explore on GitHub.
+- **[Collections]({{ '/collections' | relative_url }})**: Access a curated collection of valuable resources for your convenience.
 
-<br>
+### Connect With Me:
 
-## About my site
-
----
-
-**[Notes]({{ '/notes' | relative_url }}) :** Simple notes on computer science and other topics.
-
-**[Posts]({{ '/posts' | relative_url }}) :** Technology blog posts and tutorials.
-
-**[Projects]({{ '/projects' | relative_url }}) :** List of personal projects hosted on GitHub.
-
-**[Collections]({{ '/collections' | relative_url }}) :**: A curated collection of valuable resources, aggregated for convenience.
-
-**[Github]({{ site.link.github }}) :** Explore my repositories.
-
-**[Flickr]({{ site.link.flickr }}) :** View my photo gallery.
-
-**[Contact Me]({{ '/contact' | relative_url }}) :** Reach out to me through various channels.
+- **[Github]({{ site.link.github }})**: Link to my repositories where I share more about my coding and project work.
+- **[Flickr]({{ site.link.flickr }})**: A visual journey through my photography.
+- **[Contact Me]({{ '/contact' | relative_url }})**: Whether for collaboration opportunities or just to say hi, I'm all ears!
 
 <br>

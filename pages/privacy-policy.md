@@ -3,7 +3,7 @@ permalink: /privacy-policy
 layout: Post
 content-type: static
 title: Privacy Policy
-date: 2023-03-01
+date: 2023-09-19
 sitemap: false
 noindex: nofollow
 ---
@@ -12,21 +12,19 @@ noindex: nofollow
 
 <br>
 
-I, Edoardo Tosin, operate the [{{ site.url | remove: page.url | split: "//" | last }}]({{ '/' | relative_url }}) website (the "Service").
-
-This page informs you of my policies regarding the collection, use, and disclosure of information when you use my Service and the choices you have associated with that information.
+I, Edoardo Tosin, operate the [{{ site.url | remove: page.url | split: "//" | last }}]({{ '/' | relative_url }}) website (the "Service"). This Privacy Policy informs you of my policies regarding the collection, use, and disclosure of information when you use my Service and provides details about how I protect your data.
 
 ### Information Collection and Use
 
-I use Cloudflare® as a content delivery network and to protect my website from security threats. Cloudflare® may collect information about your use of the website in accordance with their own [privacy policy](https://www.cloudflare.com/privacypolicy/).
+I use Cloudflare® as a content delivery network and to safeguard my website against security threats. Cloudflare® may collect certain information based on their own [privacy policy](https://www.cloudflare.com/privacypolicy/).
 
 ### Changes to This Privacy Policy
 
-I may update my Privacy Policy from time to time. I will notify you of any changes by posting the new Privacy Policy on this page.
+Should I update this Privacy Policy, I will notify you by posting the new version on this page.
 
 ### Contact Me
 
-If you have any questions or concerns about this Privacy Policy, please **[contact me]({{ '/contact-me' | relative_url }})**.
+If you have any questions or require further information about this Privacy Policy, please feel free to [contact me]({{ '/contact-me' | relative_url }}).
 
 <br>
 

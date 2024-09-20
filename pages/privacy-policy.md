@@ -3,12 +3,13 @@ permalink: /privacy-policy
 layout: Post
 content-type: static
 title: Privacy Policy
-date: 2024-09-19
+date: 2023-03-01
+last_modified_at: 2024-09-20
 sitemap: false
 noindex: nofollow
 ---
 
-*This Privacy Policy is effective as of {{ page.date | date: "%d %b %Y" }}*
+*This Privacy Policy is effective as of {{ page.last_modified_at | date: "%d %b %Y" }}*
 
 <br>
 

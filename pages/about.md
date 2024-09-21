@@ -24,7 +24,7 @@ Hello! I'm Edoardo Tosin, a passionate coder and tech enthusiast with roots in I
 - **[Notes]({{ '/notes' | relative_url }})**: Dive into quick, digestible pieces covering a variety of subjects.
 - **[Posts]({{ '/posts' | relative_url }})**:  Engage with in-depth blog posts and tutorials on various technological aspects.
 - **[Projects]({{ '/projects' | relative_url }})**: Witness the practical application of my learning through side projects that you can explore on GitHub.
-- **[Collections]({{ '/collections' | relative_url }})**: Access a curated collection of valuable resources for your convenience.
+- **[Collections]({{ '/collections' | relative_url }})**: A curated collection of valuable resources, aggregated for convenience.
 
 ### Connect With Me:
 

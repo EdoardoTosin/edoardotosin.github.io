@@ -28,4 +28,5 @@
 * within a Lightbox gallery
 *
 {%- endcomment -%}
+
 <p align="center"><a href="{{ include.src }}" data-lightbox="{% if include.data and include.data != "" %}{{ include.data }}{% else %}image-gallery{% endif %}" data-title="{{ include.title }}"><img src="{{ include.src }}" alt="{{ include.title }}"/></a></p>

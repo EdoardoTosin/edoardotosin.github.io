@@ -204,18 +204,7 @@
                     </style>
                     {%- endif -%}
                     <h1>{{page.title}}</h1>
-					<!-- Display tags -->
-					{%- if page.tags -%}
-					<div class="tags">
-						<ul class="tag-list">
-							{%- for tag in page.tags -%}
-							 <li class="tag-item">
-								<a href="{{ site.baseurl }}/tags/{{ tag | slugify }}/">{{ tag }}</a>
-							</li>
-							 {%- endfor -%}
-						</ul>
-					</div>
-					{%- endif -%}
+                    {%- include Tags.html -%}
                     {%- include Content.html -%}
                     {%- include Backlinks.html -%}
                     </div>
@@ -254,18 +243,7 @@
 							 {%- include Datetime.html -%}
                         </div>
                     <h1>{{page.title}}</h1>
-					<!-- Display tags -->
-					{%- if page.tags -%}
-					<div class="tags">
-						<ul class="tag-list">
-							{%- for tag in page.tags -%}
-							<li class="tag-item">
-								<a href="{{ site.baseurl }}/tags/{{ tag | slugify }}/">{{ tag }}</a>
-							</li>
-							{%- endfor -%}
-						</ul>
-					</div>
-					{%- endif -%}
+                    {%- include Tags.html -%}
                     {%- include Content.html -%}
                     {%- include Backlinks.html -%}
                     </div>

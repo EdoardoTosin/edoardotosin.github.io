@@ -10,7 +10,7 @@ GEM
       http_parser.rb (~> 0)
     eventmachine (1.2.7)
     execjs (2.9.1)
-    ffi (1.17.0-x86_64-linux-gnu)
+    ffi (1.17.0)
     forwardable-extended (2.6.0)
     gemoji (3.0.1)
     htmlbeautifier (1.4.3)
@@ -106,4 +106,4 @@ DEPENDENCIES
   webrick (~> 1.7)
 
 BUNDLED WITH
-   2.5.18
+   2.5.20

@@ -1,5 +1,5 @@
 -----BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
+Hash: SHA512
 
 Contact: mailto:edoardotosindev@proton.me
 Expires: 2024-12-31T23:59:59.000Z
@@ -9,9 +9,8 @@ Canonical: https://edoardotosin.com/security.txt
 Policy: https://edoardotosin.com/security
 -----BEGIN PGP SIGNATURE-----
 
-iJAEARYIADgWIQQcAFgtUSENyBUWbWfS2meNuZ3HhwUCZZZ8+hocZWRvYXJkb3Rv
-c2luZGV2QHByb3Rvbi5tZQAKCRDS2meNuZ3Hh0EjAPwPs84EDka35suG7/WDYQaL
-JW+Xjj/ayyKDwJ4IrqC6uwEAuMCrfeuHQvwNyBQ6DPsP9FIpOXbpxm4qmAEXHjvu
-gwE=
-=iisC
+iHUEARYKAB0WIQSsFSpG8YaBhNMK3oZuuR8CfEBw7AUCZv0gjwAKCRBuuR8CfEBw
+7L8iAQCXCfH6YkRNRqy82owxPOxykixBpYGVZkkSIGngMv4PIgEAv7fsRQTZYGEl
+/LEuDHpW046vgW73NEQYs7c3Zh4cxA0=
+=63DN
 -----END PGP SIGNATURE-----

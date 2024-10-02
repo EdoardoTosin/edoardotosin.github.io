@@ -21,10 +21,10 @@ module Jekyll
       File.exist?(File.join(includes_dir, 'Copy-to-Clipboard.html'))
     end
 
-    # Processes all Markdown files (pages and posts) in the site
+    # Processes all Markdown files from specified collections
     def process_all_markdown_files(site)
-      # Combine pages and posts into one collection and process each document
-      (site.pages + site.posts.docs).each do |document|
+      # Process posts and notes collections
+      (site.posts.docs + site.collections['notes'].docs).each do |document|
         process_markdown_content(document)
       end
     end
@@ -33,6 +33,9 @@ module Jekyll
     def process_markdown_content(document)
       # Proceed only if the document has content, is a Markdown file, and the include file exists
       return unless document.content && document.extname == ".md" && @include_exists
+
+      # Skip the README.md file
+      return if document.path == "README.md"
 
       original_content = document.content
       updated_content = add_copy_to_clipboard(original_content)

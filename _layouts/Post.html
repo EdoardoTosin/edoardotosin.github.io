@@ -48,8 +48,10 @@ layout: compress
     {%- endif -%}
     {%- if page.ogimg -%}
     <meta property="og:image" content="{{ page.ogimg }}">
+    <link rel="image_src" href="{{ page.ogimg }}">
     {%- else -%}
     <meta property="og:image" content="{{ site.url }}{{ site.ogimg }}">
+    <link rel="image_src" href="{{ site.url }}{{ site.ogimg }}">
     {%- endif -%}
     {%- if page.title -%}
     <meta content="{{ page.title }}" property="og:title">

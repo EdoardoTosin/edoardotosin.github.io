@@ -14,7 +14,7 @@ tags:
 
 Firefox users with Beta and Developer Edition versions may encounter the disappearance of the bookmarks bar, toolbar buttons, and pinned extensions[^1][^2] due to [bug 1919721](https://bugzilla.mozilla.org/show_bug.cgi?id=1919721). This issue arises from a flawed logical condition that affects toolbar management in Firefox.
 
-Mozilla has addressed this bug in version 132.0b2 by modifying the logical condition with `gFuturePlacements.get(area)?.size`[^3]. However, affected users must manually adjust their preferences to restore these features. The following steps will help you resolve this issue:
+Mozilla has addressed this bug in version 132.0b2[^3] by modifying the logical condition with `gFuturePlacements.get(area)?.size`[^4]. However, affected users must manually adjust their preferences to restore these features. The following steps will help you resolve this issue:
 
 :warning: ***Make a copy of your profile folder before making any changes. This precaution ensures that you can revert any modifications if issues arise.*** :warning:
 
@@ -60,4 +60,6 @@ By following these steps, you should be able to effectively restore and customiz
 
 [^2]: [Users of Firefox Beta / Developer Edition 132, anybody else got messed up toolbar? : r/firefox](https://www.reddit.com/r/firefox/comments/1ftrm12/users_of_firefox_beta_developer_edition_132/). Reddit.
 
-[^3]: [mozilla-beta: changeset 832927:2f1eeae41cad2f7e2d4cd4f6f80b2cff17318745](https://hg.mozilla.org/releases/mozilla-beta/rev/2f1eeae41cad). Mozilla.
+[^3]: [mozilla-beta: pushlog](https://hg.mozilla.org/releases/mozilla-beta/pushloghtml?fromchange=FIREFOX_132_0b1_RELEASE&tochange=FIREFOX_132_0b2_RELEASE). Mozilla.
+
+[^4]: [mozilla-beta: changeset 832927:2f1eeae41cad2f7e2d4cd4f6f80b2cff17318745](https://hg.mozilla.org/releases/mozilla-beta/rev/2f1eeae41cad). Mozilla.

@@ -123,13 +123,16 @@ defaults:
 
 # Robots.txt
 robots:
+  - /assets
   - /assets/
+  - /security
   - /security/
+  - /tags
+  - /tags/
   - /security.txt
   - /SearchData.json
   - /autocomplete.txt
   - /CNAME
-  - /security
   - /credits
   - /contact-me
   - /privacy-policy

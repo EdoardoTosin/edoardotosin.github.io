@@ -29,4 +29,18 @@
 *
 {%- endcomment -%}
 
-<p align="center"><a href="{{ include.src }}" data-lightbox="{% if include.data and include.data != "" %}{{ include.data }}{% else %}image-gallery{% endif %}" data-title="{{ include.title }}"><img src="{{ include.src }}" alt="{{ include.title }}"/></a></p>
+<p align="center">
+  <a href="{{ include.src }}"
+     data-lightbox="{{ include.data | default: 'image-gallery' }}"
+     data-title="{{ include.title | default: '' }}">
+
+    <img src="{{ include.src }}"
+         srcset="{{ include.src }}"
+         alt="{{ include.title | default: 'Image' }}"
+         {% if include.class %} class="{{ include.class }}" {% endif %}
+         {% if include.width %} width="{{ include.width }}" {% endif %}
+         {% if include.height %} height="{{ include.height }}" {% endif %}
+         loading="lazy"
+         {% if include.style %} style="{{ include.style }}" {% endif %} />
+  </a>
+</p>

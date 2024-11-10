@@ -268,7 +268,7 @@ window.addEventListener('load', function() {
 	carousels.forEach(function(carouselHolder) {
 		const firstImage = carouselHolder.querySelector('img');
 		if (firstImage) {
-			let aspectRatio = firstImage.naturalHeight / firstImage.naturalWidth *  100;
+			let aspectRatio = firstImage.naturalHeight / firstImage.naturalWidth * 100;
 			carouselHolder.style.paddingBottom = `${aspectRatio}%`;
 		}
 	});

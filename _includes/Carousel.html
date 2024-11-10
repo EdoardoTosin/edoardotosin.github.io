@@ -227,48 +227,39 @@
 
 <script>
 function isVisible(el) {
-	while (el) {
-		if (el === document) {
-			return true;
+	while (el && el !== document) {
+		const style = window.getComputedStyle(el);
+		if (
+			style.display === 'none' || 
+			style.visibility === 'hidden' || 
+			+style.opacity === 0 || 
+			((style.display === 'block' || style.display === 'inline-block') &&
+			 style.height === '0px' && style.overflow === 'hidden')
+		) {
+			return false;
 		}
+		el = el.parentNode;
+	}
+	return true;
+}
 
-		var $style = window.getComputedStyle(el, null);
-
-		if (!el) {
-			return false;
-		} else if (!$style) {
-			return false;
-		} else if ($style.display === 'none') {
-			return false;
-		} else if ($style.visibility === 'hidden') {
-			return false;
-		} else if (+$style.opacity === 0) {
-			return false;
-		} else if (($style.display === 'block' || $style.display === 'inline-block') &&
-			$style.height === '0px' && $style.overflow === 'hidden') {
-			return false;
-		} else {
-			return $style.position === 'fixed' || isVisible(el.parentNode);
+{% if include.duration %}
+setInterval(() => {
+	const elements = document.querySelectorAll('#carousel{{ number}} .carousel__control--forward');
+	for (let i = elements.length - 1; i >= 0; i--) {
+		if (isVisible(elements[i])) {
+			elements[i].click();
+			break;
 		}
 	}
-}
-{% if include.duration %}
-setInterval(function(){
-var j=0;
-var elements = document.querySelectorAll('#carousel{{ number}} .carousel__control--forward');
-for(i=(elements.length - 1);i>-1;i--) {
-	if(isVisible(elements[i])) j=i;
-}
-elements[j].click();
-},{{ include.duration }}000);
+}, {{ include.duration }} * 1000);
 {% endif %}
-  
-window.addEventListener('load', function() {
-	const carousels = document.querySelectorAll('.carousel__holder');
-	carousels.forEach(function(carouselHolder) {
+
+window.addEventListener('load', () => {
+	document.querySelectorAll('.carousel__holder').forEach(carouselHolder => {
 		const firstImage = carouselHolder.querySelector('img');
 		if (firstImage) {
-			let aspectRatio = firstImage.naturalHeight / firstImage.naturalWidth * 100;
+			const aspectRatio = (firstImage.naturalHeight / firstImage.naturalWidth) * 100;
 			carouselHolder.style.paddingBottom = `${aspectRatio}%`;
 		}
 	});

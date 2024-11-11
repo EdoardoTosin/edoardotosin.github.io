@@ -18,7 +18,7 @@ module Jekyll
     # Checks if the clipboard include file exists in the _includes folder
     def include_file_exists?(site)
       includes_dir = site.in_source_dir('_includes')
-      File.exist?(File.join(includes_dir, 'Copy-to-Clipboard.html'))
+      File.exist?(File.join(includes_dir, 'CopyToClipboard.html'))
     end
 
     # Processes all Markdown files from specified collections
@@ -53,7 +53,7 @@ module Jekyll
       newline_format = content.include?("\r\n") ? "\r\n" : "\n"
 
       # Define the string to add before each code block
-      clipboard_string = "{% include Copy-to-Clipboard.html %}"
+      clipboard_string = "{% include CopyToClipboard.html %}"
 
       # Counter to track code block index
       block_index = 0

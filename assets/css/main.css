@@ -3920,6 +3920,10 @@ a.tag:hover {
     display: none;
   }
   
+  .only-print {
+    display: initial !important;
+  }
+  
   section {
 	padding: 0.5rem;
   }

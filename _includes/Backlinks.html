@@ -59,9 +59,9 @@
 {%- if site.preferences.backlinks.enabled -%}
 {%- assign display_class = 'show' -%}
 {%- endif -%}
-<div class="related {{display_class}}" id="jekyll-seamless-backlinks">
-    <h5 class="meta-title centre-title">Links to this note</h5>
-    <div class="related-wrapper">
+<div class="related {{display_class}} no-print" id="jekyll-seamless-backlinks">
+    <h5 class="meta-title centre-title no-print">Links to this note</h5>
+    <div class="related-wrapper no-print">
         {%- for note in site.notes -%}
         {%- if note.url != page.url -%}
             {%- if note.content contains wiki_link_title -%}

@@ -5,12 +5,12 @@ description: Imposta un robusto e sicuro server DNS utilizzando Ubuntu, Pi-Hole 
 ogimg: "https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_19.jpg"
 ---
 
-[Installazione e configurazione server DNS (Parte 1) - Installazione Ubuntu Server (IT)](https://edoardotosin.com/post/ubuntu-server-pihole-unbound-parte-1)
+[[Installazione e configurazione server DNS (Parte 1) - Installazione Ubuntu Server (IT)]]
 
-[Installazione e configurazione server DNS (Parte 2) - Installazione 2FA (IT)](https://edoardotosin.com/post/ubuntu-server-pihole-unbound-parte-2)
+[[Installazione e configurazione server DNS (Parte 2) - Installazione 2FA (IT)]]
 
-[Installazione e configurazione server DNS (Parte 3) - Installazione Pi-Hole (IT)](https://edoardotosin.com/post/ubuntu-server-pihole-unbound-parte-3)
+[[Installazione e configurazione server DNS (Parte 3) - Installazione Pi-Hole (IT)]]
 
-[Installazione e configurazione server DNS (Parte 4) - Installazione Unbound (IT)](https://edoardotosin.com/post/ubuntu-server-pihole-unbound-parte-4)
+[[Installazione e configurazione server DNS (Parte 4) - Installazione Unbound (IT)]]
 
-[Installazione e configurazione server DNS (Parte 5) - Configurazione Pi-Hole (IT)](https://edoardotosin.com/post/ubuntu-server-pihole-unbound-parte-5)
+[[Installazione e configurazione server DNS (Parte 5) - Configurazione Pi-Hole (IT)]]

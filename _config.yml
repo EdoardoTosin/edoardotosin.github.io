@@ -125,7 +125,7 @@ defaults:
 robots:
   - /assets
   - /assets/
-  - /security
+  - /security-policy
   - /security/
   - /tags
   - /tags/

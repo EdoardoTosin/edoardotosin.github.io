@@ -6,11 +6,11 @@ Expires: 2024-12-31T23:59:59.000Z
 Encryption: https://edoardotosin.com/security/signed-email-6eb91f027c4070ec.txt
 Preferred-Languages: en, it
 Canonical: https://edoardotosin.com/security.txt
-Policy: https://edoardotosin.com/security
+Policy: https://edoardotosin.com/security-policy
 -----BEGIN PGP SIGNATURE-----
 
-iHUEARYKAB0WIQSsFSpG8YaBhNMK3oZuuR8CfEBw7AUCZv0gjwAKCRBuuR8CfEBw
-7L8iAQCXCfH6YkRNRqy82owxPOxykixBpYGVZkkSIGngMv4PIgEAv7fsRQTZYGEl
-/LEuDHpW046vgW73NEQYs7c3Zh4cxA0=
-=63DN
+iHUEARYKAB0WIQSsFSpG8YaBhNMK3oZuuR8CfEBw7AUCZzR6rQAKCRBuuR8CfEBw
+7Du8AP9NOrN2ow1cJNeFZG1JBy2PXKP38cGLaemoDMz6fGkcEQD+P/nO60aCNrYb
+ZPzLidxzvkPnlKgR0tnnudd61RoyCQM=
+=eL/e
 -----END PGP SIGNATURE-----

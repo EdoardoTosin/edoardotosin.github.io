@@ -3,8 +3,9 @@ permalink: /privacy-policy
 layout: Post
 content-type: static
 title: Privacy Policy
+description: "Information on data collection, usage, and privacy practices for this website."
 date: 2023-03-01
-last_modified_at: 2024-09-20
+last_modified_at: 2024-11-13
 sitemap: false
 noindex: nofollow
 ---
@@ -13,19 +14,48 @@ noindex: nofollow
 
 <br>
 
-I, Edoardo Tosin, operate the [{{ site.url | remove: page.url | split: "//" | last }}]({{ '/' | relative_url }}) website (the "Service"). This Privacy Policy informs you of my policies regarding the collection, use, and disclosure of information when you use my Service and provides details about how I protect your data.
+Thank you for visiting my website! I respect your privacy and am committed to protecting any data that may be collected. This Privacy Policy explains what information is gathered when you visit this website and how it is used.
 
-### Information Collection and Use
+---
 
-I use Cloudflare® as a content delivery network and to safeguard my website against security threats. Cloudflare® may collect certain information based on their own [privacy policy](https://www.cloudflare.com/privacypolicy/).
+## Hosting and Content Delivery
 
-### Changes to This Privacy Policy
+This site is hosted on GitHub Pages, a static hosting platform, with a custom domain managed through Cloudflare to enhance performance and security. Cloudflare acts as a content delivery network (CDN) and provides additional protections, including HTTPS encryption and defense against malicious traffic.
 
-Should I update this Privacy Policy, I will notify you by posting the new version on this page.
+## Data Collection
 
-### Contact Me
+Since this is a static website with no account registrations, comments, or forms, I do not collect any personal information directly. However, limited data may be collected through third-party services as outlined below:
 
-If you have any questions or require further information about this Privacy Policy, please feel free to [contact me]({{ '/contact' | relative_url }}).
+- **Cloudflare**: To ensure fast and secure delivery, Cloudflare may collect some anonymized usage data, such as IP addresses and page load times, to improve site performance and identify security threats. This information is collected and managed by Cloudflare, and their privacy practices are governed by the [Cloudflare Privacy Policy](https://www.cloudflare.com/privacypolicy/).
+- **GitHub Pages**: GitHub may log basic visitor information, such as IP addresses and timestamps, as part of serving this site. This information is managed by GitHub, and you can review their privacy policy [here](https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement).
+
+## Cookies
+
+This website itself does not set any cookies. However, Cloudflare may use cookies for security and performance optimization. You can manage cookie settings through your browser.
+
+## Third-Party Links
+
+This site may link to third-party websites for additional content, sources, or tools. Please note that once you leave my site, I have no control over these external sites, and their own privacy policies apply.
+
+## Data Security
+
+While I take reasonable measures to secure this site, please be aware that data transmitted over the internet may not be entirely secure. Cloudflare provides security protections, including HTTPS encryption, to help keep data secure while you browse.
+
+## Updates to This Policy
+
+This Privacy Policy may be updated periodically to reflect changes to the website or applicable laws. Please check back for updates from time to time.
+
+## Contact Information
+
+If you have any questions or concerns about this Privacy Policy, feel free to [contact me]({{ '/contact' | relative_url }}).
+
+---
+
+<br>
+
+<p align="center">
+By using this website, you agree to this Privacy Policy.
+</p>
 
 <br>
 

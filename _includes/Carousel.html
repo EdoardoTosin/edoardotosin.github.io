@@ -32,8 +32,13 @@
 {% assign letters = letterstring | split: ',' %}
 {% assign number = include.number | minus: 1 %}
 
-<div class="carousel__holder">
-    <div id="carousel{{ number }}" class="carousel">
+<div class="only-print">
+  {% assign first_image = page.carousels[number].images[0].image %}
+  {% include Image.html src=first_image %}
+</div>
+
+<div class="carousel__holder no-print">
+    <div id="carousel{{ number }}" class="carousel no-print">
         {% for item in page.carousels[number].images %}
           <input class="carousel__activator" type="radio" name="carousel{{ number }}" id="{{ number }}{{ letters[forloop.index0] }}" {% if forloop.first %}checked="checked"{% endif %} />
         {% endfor %}

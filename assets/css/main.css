@@ -3943,6 +3943,10 @@ a.tag:hover {
   }
 }
 
+.only-print {
+    display: none;
+}
+
 /* Copy to Clipboard button */
 .code-header {
     border-bottom-style: solid;

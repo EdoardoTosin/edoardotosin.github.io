@@ -3943,7 +3943,7 @@ a.tag:hover {
   }
 }
 
-/* General styling for the Copy to Clipboard button */
+/* Copy to Clipboard button */
 .code-header {
     border-bottom-style: solid;
     border-bottom-color: transparent;
@@ -3963,10 +3963,13 @@ a.tag:hover {
     transition: background-color 0.3s, color 0.3s;
 }
 
-.code-block:hover .copy-code-button {
-    background-color: var(--color-text-link);
+.copy-code-button:is(:hover):not(:active) {
+    background-color: var(--button-bg-link-hover);
 }
 
-.copy-code-button:is(.copied, :hover) {
-    background-color: var(--color-text-link);
+.copy-code-button:is(:active) {
+    background-color: var(--button-bg-link-active);
+    svg {
+        color: var(--color-border-light);
+    }
 }

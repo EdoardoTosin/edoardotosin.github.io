@@ -2,9 +2,18 @@
 layout: none
 permalink: /robots.txt
 ---
-User-agent: *
-{% for item in site.robots %}
-Disallow: {{ item }}
+{% for rule in site.robots %}
+User-agent: {{ rule.user_agent }}
+{% if rule.allow %}
+{% for path in rule.allow %}
+Allow: {{ path }}
+{% endfor %}
+{% endif %}
+{% if rule.disallow %}
+{% for path in rule.disallow %}
+Disallow: {{ path }}
+{% endfor %}
+{% endif %}
 {% endfor %}
 Sitemap: {{ site.url }}/sitemap.xml
 #

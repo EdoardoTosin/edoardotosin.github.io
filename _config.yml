@@ -123,19 +123,23 @@ defaults:
 
 # Robots.txt
 robots:
-  - /assets
-  - /assets/
-  - /security-policy
-  - /security/
-  - /tags
-  - /tags/
-  - /security.txt
-  - /SearchData.json
-  - /autocomplete.txt
-  - /CNAME
-  - /credits
-  - /contact
-  - /privacy-policy
+  - user_agent: "*"
+    allow:
+      - "/"
+    disallow:
+      - /assets
+      - /assets/
+      - /security-policy
+      - /security/
+      - /tags
+      - /tags/
+      - /security.txt
+      - /SearchData.json
+      - /autocomplete.txt
+      - /CNAME
+      - /credits
+      - /contact
+      - /privacy-policy
 
 
 # Exclude from processing.

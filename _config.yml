@@ -140,6 +140,7 @@ robots:
       - /credits
       - /contact
       - /privacy-policy
+      - /tools
 
 
 # Exclude from processing.

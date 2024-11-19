@@ -31,7 +31,10 @@ Mozilla has addressed this bug in version 132.0b2[^3] by modifying the logical c
 1. Open Firefox and type `about:profiles` in the address bar, then press **Enter**. You may see a warning; confirm your action to proceed.
 2. Locate the profile that is set as "Default Profile".
 3. Click on "Open Folder" next to where it shows "Root Directory".
-4. In the opened directory, open `prefs.js` with a text editor and delete the line that starts with `user_pref("browser.uiCustomization.state"` (entire line).
+4. In the opened directory, open `prefs.js` with a text editor and delete the entire line that starts with:
+   ```js
+   user_pref("browser.uiCustomization.state"
+   ```
 
 ### Method 2: Restore basic toolbar elements
 

@@ -1660,6 +1660,7 @@ a[href^="http"]:not([href^="https://edoardotosin.com/"]):not(.navbar-item):not(.
 .footnotes {
     margin-top: 3rem;
     font-size: 0.875rem !important;
+    overflow-wrap: break-word;
 }
 
 .footnotes li p {

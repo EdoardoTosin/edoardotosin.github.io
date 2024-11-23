@@ -1,5 +1,3 @@
-# _plugins/add_copy_to_clipboard.rb
-
 module Jekyll
   class AddCopyToClipboard < Jekyll::Generator
     safe true

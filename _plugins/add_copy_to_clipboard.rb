@@ -5,75 +5,59 @@ module Jekyll
     safe true
     priority :low
 
-    # This method is called by Jekyll to generate content
     def generate(site)
       puts "AddCopyToClipboard plugin:"
-      # Check if the clipboard include file exists
-      @include_exists = include_file_exists?(site)
-      process_all_markdown_files(site)
+
+      # Exit early if the include file is missing
+      return unless include_file_exists?(site)
+
+      # Process relevant markdown files
+      process_markdown_files(site.posts.docs + site.collections.fetch('notes', []).docs, site)
     end
 
     private
 
-    # Checks if the clipboard include file exists in the _includes folder
+    # Checks if the clipboard include file exists
     def include_file_exists?(site)
-      includes_dir = site.in_source_dir('_includes')
-      File.exist?(File.join(includes_dir, 'CopyToClipboard.html'))
+      File.exist?(site.in_source_dir('_includes', 'CopyToClipboard.html'))
     end
 
-    # Processes all Markdown files from specified collections
-    def process_all_markdown_files(site)
-      # Process posts and notes collections
-      (site.posts.docs + site.collections['notes'].docs).each do |document|
-        process_markdown_content(document)
+    # Processes all Markdown documents
+    def process_markdown_files(documents, site)
+      documents.each do |document|
+        next unless markdown_file?(document)
+
+        updated_content = add_copy_to_clipboard(document.content)
+        if updated_content != document.content
+          document.content = updated_content
+          print_debug_info(site, document)
+        end
       end
     end
 
-    # Processes the content of a given Markdown document
-    def process_markdown_content(document)
-      # Proceed only if the document has content, is a Markdown file, and the include file exists
-      return unless document.content && document.extname == ".md" && @include_exists
-
-      # Skip the README.md file
-      return if document.path == "README.md"
-
-      original_content = document.content
-      updated_content = add_copy_to_clipboard(original_content)
-
-      # Update the document content and print debug info if changes were made
-      if original_content != updated_content
-        document.content = updated_content
-        print_debug_info(document.path)
-      end
+    # Verifies if a document is a markdown file and should be processed
+    def markdown_file?(document)
+      document.extname == ".md" && document.path != "README.md"
     end
 
     # Adds the clipboard include string before even-numbered code blocks
     def add_copy_to_clipboard(content)
-      # Detect the newline format used in the original content (CRLF or LF)
-      newline_format = content.include?("\r\n") ? "\r\n" : "\n"
+      return content unless content
 
-      # Define the string to add before each code block
       clipboard_string = "{% include CopyToClipboard.html %}"
-
-      # Counter to track code block index
       block_index = 0
 
-      # Use a custom regex to match all code blocks and apply the clipboard string based on index
-      content.gsub(/(\r?\n```)/m) do |match|
-        # Add clipboard string before opening code blocks
-        if block_index.even?
-          "#{newline_format}#{clipboard_string}#{newline_format}#{match.strip}"
-        else
-          match
-        end.tap { block_index += 1 }  # Increment the block index
+      content.gsub(/^(```)/) do |match|
+        insert = block_index.even? ? "#{clipboard_string}\n" : ""
+        block_index += 1
+        "#{insert}#{match}"
       end
     end
 
-    # Prints a compact debug message with the relative path for each updated file
-    def print_debug_info(path)
-      # Calculate the relative path from the project's root
-      relative_path = Pathname.new(path).relative_path_from(Pathname.pwd).to_s
-      puts "- Updated #{relative_path}"
+    # Prints debug information for updated posts by URL
+    def print_debug_info(site, document)
+      base_url = site.config['url'] || ""
+      puts "- Updated #{base_url}#{document.url}"
     end
   end
 end

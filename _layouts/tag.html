@@ -7,20 +7,24 @@ noindex: nofollow
 
 <br>
 
-{% assign items = page.items %}
+{% assign items = page.items | sort: "title" %}
 {% if items.size > 0 %}
+<div class="related-wrapper">
 {% for item in items %}
-<div class="list-feed">
-	<a href="{{ item.url }}" style="text-decoration: none;display: flex;justify-content: space-between;flex-direction: row;width: 100%;">
-		<div class="writinglist-title">{{ item.title }}</div>
+<div class="notelist-feed">
+	<a href="{{ site.baseurl }}{{item.url}}" style="text-decoration: none;">
+		<h6>{{ item.title }}</h6>
+		<p class="excerpt">
+			{{ item.content | strip_html | strip | remove: "[[" | remove: "]]" | remove: "-" | escape | truncate: 200 }}
+		</p>
 	</a>
 </div>
 {% endfor %}
+</div>
 {% else %}
 <p>No posts or notes found with this tag.</p>
 {% endif %}
 
 <style>
-li {border-bottom: 1px solid var(--color-border-light); list-style: none; padding: 0.4rem 0 0.4rem 0;}
 .content a {color: var(--color-text-main);}
 </style>

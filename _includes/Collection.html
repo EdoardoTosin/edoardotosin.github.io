@@ -32,14 +32,19 @@
 <br />
 {% endif %}
 
+<div class="related-wrapper">
 {% assign counter = 0 %} {% assign sortedNotes = site.notes | sort: 'order' %} {% for post in sortedNotes %} {% if post.title != "Collections" and post.format == "list" %} {% assign counter = counter | plus: 1 %} {% assign
 formattedCounter = counter | prepend: "0" | prepend: "0" | prepend: "0" %}
-<div class="list-feed">
-	<a href="{{ post.url }}" style="text-decoration: none;display: flex;justify-content: space-between;flex-direction: row;width: 100%;">
-		<div class="writinglist-title">{{ post.title }}</div>
+<div class="notelist-feed">
+	<a href="{{post.url}}" style="text-decoration: none;">
+		<h6>{{ post.title }}</h6>
+		<p class="excerpt">
+			{{ post.content | strip_html | strip | remove: "[[" | remove: "]]" | remove: "-" | escape | truncate: 200 }}
+		</p>
 	</a>
 </div>
 {% endif %} {% endfor %}
+</div>
 
 <style>
 .content a {color: var(--color-text-main);}

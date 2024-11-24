@@ -1657,6 +1657,10 @@ a[href^="http"]:not([href^="https://edoardotosin.com/"]):not(.navbar-item):not(.
 
 /* Footnotes styling */
 
+sup .footnote, sub .footnote {
+    user-select: none; /* Prevent sup and sub elements from being selected (and copied) */
+}
+
 .footnotes {
     margin-top: 3rem;
     font-size: 0.875rem !important;

@@ -13,8 +13,6 @@ GEM
     ffi (1.17.0)
     forwardable-extended (2.6.0)
     gemoji (3.0.1)
-    htmlbeautifier (1.4.3)
-    htmlcompressor (0.4.0)
     http_parser.rb (0.8.0)
     i18n (1.14.6)
       concurrent-ruby (~> 1.0)
@@ -45,10 +43,6 @@ GEM
       jekyll (>= 3.6, < 5.0)
       nokogiri (~> 1.6)
       rainbow (~> 3.0)
-    jekyll-tidy (0.2.2)
-      htmlbeautifier
-      htmlcompressor
-      jekyll
     jekyll-watch (2.2.1)
       listen (~> 3.0)
     katex (0.10.0)
@@ -99,7 +93,6 @@ DEPENDENCIES
   jekyll-feed (~> 0.12)
   jekyll-sitemap
   jekyll-spaceship
-  jekyll-tidy
   kramdown-math-katex
   tzinfo (~> 1.2)
   tzinfo-data

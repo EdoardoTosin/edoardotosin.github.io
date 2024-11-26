@@ -82,7 +82,6 @@ theme: null
 plugins:
   - jekyll-feed
   - jekyll-sitemap
-  - jekyll-tidy
   - jekyll-spaceship
 
 ## Enable Collections

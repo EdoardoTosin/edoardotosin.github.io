@@ -80,7 +80,6 @@ encoding: utf-8
 # Build settings
 theme: null
 plugins:
-  - jekyll-feed
   - jekyll-sitemap
   - jekyll-spaceship
 

@@ -53,6 +53,7 @@ lang: en
 
 feed:
   icon: /assets/img/favicon.png
+  posts_limit: 50
 
 # Set title and content for private & broken link tooltop
 privatelinks:

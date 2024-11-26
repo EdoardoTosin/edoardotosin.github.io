@@ -49,6 +49,8 @@ ogimg: "/assets/img/OGImg.jpg"
 
 timezone: Europe/Rome
 
+lang: en
+
 feed:
   icon: /assets/img/favicon.png
 

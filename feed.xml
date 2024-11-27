@@ -1,5 +1,6 @@
 ---
 permalink: /feed.xml
+layout: compress
 ---
 
 {%- comment -%}

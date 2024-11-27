@@ -32,11 +32,20 @@
 <p align="center">
   <a href="{{ include.src }}"
      data-lightbox="{{ include.data | default: 'image-gallery' }}"
-     data-title="{{ include.title | default: '' }}">
+     data-title="{{ include.title | markdownify | replace: '<p>', '' | replace: '</p>', '' | xml_escape | default: '' }}"
+     {% if include.alt %}
+       data-alt="{{ include.alt }}"
+     {% else %}
+       data-alt="{{ include.title | markdownify | strip_html | strip | default: 'Image' }}"
+     {% endif %}>
 
     <img src="{{ include.src }}"
          srcset="{{ include.src }}"
-         alt="{{ include.title | default: 'Image' }}"
+         {% if include.alt %}
+           alt="{{ include.alt }}"
+         {% else %}
+           alt="{{ include.title | markdownify | strip_html | strip | default: 'Image' }}"
+         {% endif %}
          {% if include.class %} class="{{ include.class }}" {% endif %}
          {% if include.width %} width="{{ include.width }}" {% endif %}
          {% if include.height %} height="{{ include.height }}" {% endif %}

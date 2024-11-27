@@ -33,8 +33,11 @@
 {% assign number = include.number | minus: 1 %}
 
 <div class="only-print">
-  {% assign first_image = page.carousels[number].images[0].image %}
-  {% include Image.html src=first_image %}
+  {% assign item = page.carousels[number].images[0] %}
+  {% assign image = item.image %}
+  {% assign title = item.title | markdownify | replace: '<p>', '' | replace: '</p>', '' | xml_escape | default: '' %}
+  {% assign alt = item.title | markdownify | strip_html | strip | default: 'Image' %}
+  {% include Image.html src=image title=title alt=alt %}
 </div>
 
 <div class="carousel__holder no-print">
@@ -63,7 +66,7 @@
         <div class="carousel__track">
           <ul>
             {% for item in page.carousels[number].images %}
-            <li class="carousel__slide"><a href="{{ item.image }}" title="{{ item.title }}" data-lightbox="image-set-{{ number }}"><img src="{{ item.image }}" alt="{{ item.title }}" /></a></li>
+            <li class="carousel__slide"><a href="{{ item.image }}" title="{{ item.title | markdownify | replace: '<p>', '' | replace: '</p>', '' | xml_escape | default: '' }}" data-lightbox="image-set-{{ number }}" {% if include.alt %}data-alt="{{ item.alt }}"{% else %}data-alt="{{ item.title | markdownify | strip_html | strip | default: 'Image' }}"{% endif %} ><img src="{{ item.image }}" {% if include.alt %}alt="{{ include.alt }}"{% else %}alt="{{ include.title | markdownify | strip_html | strip | default: 'Image' }}"{% endif %} /></a></li>
             {% endfor %}
           </ul>
         </div>

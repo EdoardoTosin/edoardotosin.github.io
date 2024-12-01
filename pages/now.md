@@ -5,7 +5,7 @@ content-type: static
 title: Now
 description: What I'm Currently Up To
 date: 2024-08-12 21:00:00 +0200
-last_modified_at: 2024-09-20 21:00:00 +0200
+last_modified_at: 2024-12-01 20:00:00 +0200
 sitemap: false
 noindex: nofollow
 ---
@@ -14,6 +14,6 @@ noindex: nofollow
 
 <br>
 
-
+Currently participating in the [Advent of Code](https://adventofcode.com/), solving daily programming puzzles and sharpening my coding skills one day at a time.
 
 <br>

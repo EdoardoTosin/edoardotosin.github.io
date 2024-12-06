@@ -21,5 +21,6 @@ Sharing my progress on the [Advent of Code 2024](https://adventofcode.com/2024),
 |  3 | [Mull It Over](https://adventofcode.com/2024/day/3) | ⭐⭐ | ✅ | 2024-12-03 |
 |  4 | [Ceres Search](https://adventofcode.com/2024/day/4) | ⭐⭐ | ✅ | 2024-12-04 |
 |  5 | [Print Queue](https://adventofcode.com/2024/day/5) | ⭐⭐ | ✅ | 2024-12-05 |
+|  6 | [Guard Gallivant](https://adventofcode.com/2024/day/6) | ⭐⭐ | ✅ | 2024-12-06 |
 
 [^1]: [About - Advent of Code 2024](https://adventofcode.com/2024/about). Advent of Code

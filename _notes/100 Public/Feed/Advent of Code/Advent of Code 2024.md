@@ -3,7 +3,7 @@ title: Advent of Code 2024
 description: As I embark on the adventure of completing the daily puzzles for Advent of Code 2024, I want to keep track of my progress.
 feed: show
 date: 2024-12-01 18:00:00 +0100
-last_modified_at: 2024-12-08 10:00:00 +0100
+last_modified_at: 2024-12-08 18:00:00 +0100
 lang: en
 ogimg: https://raw.githubusercontent.com/EdoardoTosin/web-assets/refs/heads/main/Notes/100%20Public/Feed/Advent%20of%20Code/Advent-of-Code-2024.png
 tags:
@@ -13,7 +13,9 @@ tags:
   - puzzle
 ---
 
-Sharing my progress on the [Advent of Code 2024](https://adventofcode.com/2024), a beloved holiday tradition of daily coding puzzles each December[^1].
+Advent of Code, created by Eric Wastl, is an annual coding event that brings the spirit of an advent calendar to programming through 25 programming puzzles, released daily from December 1 to December 25[^1]. Each puzzle varies in difficulty, providing a great opportunity to refine coding skills, explore new ideas, and improve problem-solving abilities.
+
+The [Advent of Code 2024](https://adventofcode.com/2024) experience has been filled with intriguing challenges and valuable insights. Below is an updated table that tracks my progress in this year's event:
 
 | Day  | Puzzle Name         | Stars Earned | Completed | Completion Date       |
 |:----:|:--------------------|:------------:|:---------:|:---------------------:|

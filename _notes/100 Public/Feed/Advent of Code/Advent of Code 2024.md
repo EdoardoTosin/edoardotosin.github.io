@@ -13,7 +13,7 @@ tags:
   - puzzle
 ---
 
-Advent of Code, created by Eric Wastl, is an annual coding event that brings the spirit of an advent calendar to programming through 25 programming puzzles, released daily from December 1 to December 25[^1]. Each puzzle varies in difficulty, providing a great opportunity to refine coding skills, explore new ideas, and improve problem-solving abilities.
+Advent of Code, created by Eric Wastl, is an annual coding event that brings the spirit of an advent calendar to programming through 25 puzzles released daily from December 1 to December 25[^1]. Each puzzle varies in difficulty, providing a great opportunity to refine coding skills, explore new ideas, and improve problem-solving abilities.
 
 The [Advent of Code 2024](https://adventofcode.com/2024) experience has been filled with intriguing challenges and valuable insights. Below is an updated table that tracks my progress in this year's event:
 

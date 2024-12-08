@@ -2,8 +2,8 @@
 title: Advent of Code 2024
 description: As I embark on the adventure of completing the daily puzzles for Advent of Code 2024, I want to keep track of my progress.
 feed: show
-date: 2024-12-01 17:00:00 +0200
-last_modified_at: 2024-12-07 17:00:00 +0200
+date: 2024-12-01 18:00:00 +0100
+last_modified_at: 2024-12-08 10:00:00 +0100
 lang: en
 ogimg: https://raw.githubusercontent.com/EdoardoTosin/web-assets/refs/heads/main/Notes/100%20Public/Feed/Advent%20of%20Code/Advent-of-Code-2024.png
 tags:
@@ -24,5 +24,6 @@ Sharing my progress on the [Advent of Code 2024](https://adventofcode.com/2024),
 |  5 | [Print Queue](https://adventofcode.com/2024/day/5) | ⭐⭐ | ✅ | 2024-12-05 |
 |  6 | [Guard Gallivant](https://adventofcode.com/2024/day/6) | ⭐⭐ | ✅ | 2024-12-06 |
 |  7 | [Bridge Repair](https://adventofcode.com/2024/day/7) | ⭐⭐ | ✅ | 2024-12-07 |
+|  8 | [Resonant Collinearity](https://adventofcode.com/2024/day/8) | ⭐⭐ | ✅ | 2024-12-08 |
 
 [^1]: [About - Advent of Code 2024](https://adventofcode.com/2024/about). Advent of Code

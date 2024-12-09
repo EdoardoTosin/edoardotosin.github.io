@@ -122,3 +122,23 @@ jobs:
             console.error(`Failed to merge, delete branch, and close pull request: ${error.message}`);
             throw error;
           }
+
+    - name: Trigger another workflow
+      if: env.can_merge == 'true'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const { owner, repo } = context.repo;
+          try {
+            console.log('Triggering another workflow...');
+            const workflowResponse = await github.rest.actions.createWorkflowDispatch({
+              owner,
+              repo,
+              workflow_id: 'jekyll.yml',
+              ref: context.ref
+            });
+            console.log(`Triggered workflow successfully: ${workflowResponse.data.workflow_run_id}`);
+          } catch (error) {
+            console.error(`Failed to trigger workflow: ${error.message}`);
+            throw error;
+          }

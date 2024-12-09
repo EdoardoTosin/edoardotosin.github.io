@@ -1,0 +1,112 @@
+name: Auto Merge and Cleanup for Synced Files
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+jobs:
+  automerge:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Check PR conditions
+      id: check_pr
+      run: |
+        echo "Checking if the PR title starts with '🔄 synced file(s) with'..."
+        echo "Checking if the PR creator matches the repository owner..."
+
+        if [[ "${{ github.event.pull_request.title }}" == "🔄 synced file(s) with"* &&
+              "${{ github.event.pull_request.user.id }}" == "${{ github.repository_owner_id }}" ]]; then
+          echo "Conditions met."
+          echo "can_merge=true" >> $GITHUB_ENV
+        else
+          echo "Conditions not met."
+          echo "can_merge=false" >> $GITHUB_ENV
+        fi
+
+    - name: Check if PR is mergeable
+      if: env.can_merge == 'true'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const { owner, repo } = context.repo;
+          const pull_number = context.payload.pull_request.number;
+
+          try {
+            const prResponse = await github.rest.pulls.get({
+              owner,
+              repo,
+              pull_number
+            });
+
+            if (!prResponse.data.mergeable) {
+              console.log(`PR #${pull_number} is not mergeable. Exiting workflow.`);
+              process.exit(1);
+            }
+
+            console.log(`PR #${pull_number} is mergeable.`);
+
+          } catch (error) {
+            console.error(`Error checking if PR #${pull_number} is mergeable: ${error.message}`);
+            throw error;
+          }
+
+    - name: Merge PR
+      if: env.can_merge == 'true'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const { owner, repo } = context.repo;
+          const pull_number = context.payload.pull_request.number;
+          const branch = context.payload.pull_request.head.ref;
+
+          try {
+            // Merge the pull request using the GitHub REST API
+            const mergeResponse = await github.rest.pulls.merge({
+              owner,
+              repo,
+              pull_number,
+              merge_method: 'merge'
+            });
+
+            console.log(`Merged PR #${pull_number}: ${mergeResponse.data.message}`);
+
+            // Ensure the branch is not the default branch
+            const defaultBranch = context.payload.repository.default_branch;
+            if (branch === defaultBranch) {
+              console.log(`Skipping branch deletion: ${branch} is the default branch.`);
+              return;
+            }
+
+            // Delete the branch after merging
+            if (!context.payload.pull_request.head.repo.fork) {
+              console.log(`Deleting branch ${branch}...`);
+              await github.rest.git.deleteRef({
+                owner,
+                repo,
+                ref: `heads/${branch}`
+              });
+              console.log(`Branch ${branch} deleted successfully.`);
+            } else {
+              console.log(`Branch not deleted because it belongs to a fork.`);
+            }
+
+            // Close the pull request after merging and branch deletion
+            const closeResponse = await github.rest.pulls.update({
+              owner,
+              repo,
+              pull_number,
+              state: 'closed'
+            });
+            console.log(`Closed PR #${pull_number}: ${closeResponse.data.state}`);
+
+          } catch (error) {
+            console.error(`Failed to merge, delete branch, and close pull request: ${error.message}`);
+            throw error;
+          }

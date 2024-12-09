@@ -15,6 +15,9 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
+    - name: Wait for 20 seconds to ensure all checks are complete
+      run: sleep 20
+
     - name: Check PR conditions
       id: check_pr
       run: |
@@ -135,14 +138,14 @@ jobs:
           echo "trigger_jekyll=false" >> $GITHUB_ENV
         fi
 
-    - name: Trigger another workflow
+    - name: Trigger jekyll.yml workflow
       if: env.can_merge == 'true' && env.trigger_jekyll == 'true'
       uses: actions/github-script@v7
       with:
         script: |
           const { owner, repo } = context.repo;
           try {
-            console.log('Triggering another workflow...');
+            console.log('Triggering jekyll.yml workflow...');
             const workflowResponse = await github.rest.actions.createWorkflowDispatch({
               owner,
               repo,

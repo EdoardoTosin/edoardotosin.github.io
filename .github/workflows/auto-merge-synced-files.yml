@@ -123,8 +123,20 @@ jobs:
             throw error;
           }
 
-    - name: Trigger another workflow
+    - name: Check if the target branch is main
       if: env.can_merge == 'true'
+      run: |
+        target_branch="${{ github.event.pull_request.base.ref }}"
+        if [ "$target_branch" == "main" ]; then
+          echo "Target branch is main. Proceeding to trigger jekyll.yml workflow."
+          echo "trigger_jekyll=true" >> $GITHUB_ENV
+        else
+          echo "Target branch is not main. Skipping workflow trigger."
+          echo "trigger_jekyll=false" >> $GITHUB_ENV
+        fi
+
+    - name: Trigger another workflow
+      if: env.can_merge == 'true' && env.trigger_jekyll == 'true'
       uses: actions/github-script@v7
       with:
         script: |

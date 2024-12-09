@@ -3,7 +3,7 @@ title: Advent of Code 2024
 description: As I embark on the adventure of completing the daily puzzles for Advent of Code 2024, I want to keep track of my progress.
 feed: show
 date: 2024-12-01 18:00:00 +0100
-last_modified_at: 2024-12-09 12:30:00 +0100
+last_modified_at: 2024-12-09 12:00:00 +0100
 lang: en
 ogimg: https://raw.githubusercontent.com/EdoardoTosin/web-assets/refs/heads/main/Notes/100%20Public/Feed/Advent%20of%20Code/Advent-of-Code-2024.png
 tags:

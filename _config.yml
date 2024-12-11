@@ -75,6 +75,11 @@ preferences:
 # If enable : false, notes feed will be as homepage.
   homepage:
     enabled: true ##If you need a homepage, change this to true and edit _includes/Homepage.html
+  related:
+    notes:
+      enabled: true
+    pages:
+      enabled: false
 
 encoding: utf-8
 

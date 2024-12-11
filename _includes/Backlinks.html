@@ -30,8 +30,13 @@
 {%- endcomment -%}
 
 <!-- Add backlinks to the current page --> 
+{%- assign content-type = "Note" -%}
+{%- if page.content-type == "post" -%}
+{%- assign content-type = "Post" -%}
+{%- endif -%}
 {%- assign link_count = 0 -%}
 {%- assign wiki_link_title = '[' | append: page.title | append: ']' -%}
+{%- if site.preferences.related.notes.enabled -%}
 {%- for note in site.notes -%}
         {%- if note.url != page.url -%}
             {%- if note.content contains wiki_link_title -%}
@@ -39,6 +44,7 @@
             {%- endif -%}
     {%- endif -%}
 {%- endfor -%}
+{%- endif -%}
 {%- for note in site.posts -%}
         {%- if note.url != page.url -%}
             {%- if note.content contains wiki_link_title -%}
@@ -46,6 +52,7 @@
             {%- endif -%}
     {%- endif -%}
 {%- endfor -%}
+{%- if site.preferences.related.pages.enabled -%}
 {%- for note in site.pages -%}
         {%- if note.url != page.url -%}
             {%- if note.content contains wiki_link_title -%}
@@ -53,6 +60,7 @@
             {%- endif -%}
     {%- endif -%}
 {%- endfor -%}
+{%- endif -%}
 {%- if link_count > 0 -%}
 {%- assign wiki_link_title = '[' | append: page.title | append: ']' -%}
 {%- assign display_class = 'hide' -%}
@@ -60,8 +68,9 @@
 {%- assign display_class = 'show' -%}
 {%- endif -%}
 <div class="related {{display_class}} no-print" id="jekyll-seamless-backlinks">
-    <h5 class="meta-title centre-title no-print">Links to this note</h5>
+    <h5 class="meta-title centre-title no-print">Links to this {{ content-type }}</h5>
     <div class="related-wrapper no-print">
+        {%- if site.preferences.related.notes.enabled -%}
         {%- for note in site.notes -%}
         {%- if note.url != page.url -%}
             {%- if note.content contains wiki_link_title -%}
@@ -72,10 +81,9 @@
             {%- endif -%}
         {%- endif -%}
         {%- endfor -%}
-        <!--
-        This code is to show other pages (note under collection) as Backlink. 
-        Disabled as I don't see a need for this right now. 
-
+        {%- endif -%}
+        <!--This code is to show other pages (note under collection) as Backlink.-->
+        {%- if site.preferences.related.pages.enabled -%}
         {%- for note in site.pages -%}
         {%- if note.url != page.url -%}
             {%- if note.content contains wiki_link_title -%}
@@ -86,8 +94,7 @@
             {%- endif -%}
         {%- endif -%}
         {%- endfor -%}
-
-        -->
+        {%- endif -%}
     </div>
     <br/>
 </div>

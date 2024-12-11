@@ -147,6 +147,15 @@ robots:
       - /privacy-policy
       - /tools
 
+# compress.html
+compress_html:
+  clippings: all
+  endings: all
+  #ignore:
+    #envs: [local]
+  blanklines: false
+  profile: false
+  #startings: [html, head, body]
 
 # Exclude from processing.
 # The following items will not be processed, by default.

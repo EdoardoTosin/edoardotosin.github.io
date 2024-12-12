@@ -17,6 +17,15 @@ on:
     types:
       - completed
 
+  # Runs when a PR is merge, closed and has label `sync`
+  pull_request:
+    types:
+      - closed
+    branches:
+      - main
+    condition: |
+      github.event.pull_request.merged == true && contains(github.event.pull_request.labels.*.name, 'sync')
+
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 

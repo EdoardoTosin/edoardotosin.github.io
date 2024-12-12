@@ -162,7 +162,7 @@ compress_html:
   profile: false
   #startings: [html, head, body]
 
-# Include in processing.
+# Include it in the processing.
 # The following items will be processed, by default.
 include:
   - .well-known

@@ -143,7 +143,7 @@ robots:
       - /security/
       - /tags
       - /tags/
-      - /security.txt
+      - /.well-known/
       - /SearchData.json
       - /autocomplete.txt
       - /CNAME
@@ -161,6 +161,11 @@ compress_html:
   blanklines: false
   profile: false
   #startings: [html, head, body]
+
+# Include in processing.
+# The following items will be processed, by default.
+include:
+  - .well-known
 
 # Exclude from processing.
 # The following items will not be processed, by default.
@@ -185,8 +190,8 @@ exclude:
   - docker-compose.yml
   - blog.code-workspace
   - utilities
-  - unsigned-security.txt
-  - unsigned-security.txt.asc
+  - .well-known/unsigned-security.txt
+  - .well-known/unsigned-security.txt.asc
   - assets/img/1-how-to.png
   - assets/img/2-how-to.png
   - assets/img/3-how-to.png

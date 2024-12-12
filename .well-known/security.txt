@@ -5,12 +5,12 @@ Contact: mailto:edoardotosindev@proton.me
 Expires: 2024-12-31T23:59:59.000Z
 Encryption: https://edoardotosin.com/security/signed-email-6eb91f027c4070ec.txt
 Preferred-Languages: en, it
-Canonical: https://edoardotosin.com/security.txt
+Canonical: https://edoardotosin.com/.well-known/security.txt
 Policy: https://edoardotosin.com/security-policy
 -----BEGIN PGP SIGNATURE-----
 
-iHUEARYKAB0WIQSsFSpG8YaBhNMK3oZuuR8CfEBw7AUCZzR6rQAKCRBuuR8CfEBw
-7Du8AP9NOrN2ow1cJNeFZG1JBy2PXKP38cGLaemoDMz6fGkcEQD+P/nO60aCNrYb
-ZPzLidxzvkPnlKgR0tnnudd61RoyCQM=
-=eL/e
+iHUEARYKAB0WIQSsFSpG8YaBhNMK3oZuuR8CfEBw7AUCZ1suGwAKCRBuuR8CfEBw
+7MTxAQDI9WhTDNF0bqmgNaVFT4UsojNGaoUNA8btQgakzNq7ZgD9E37ZNNRIn6Ub
+NGhDb40KloRMDY8F2TPfNffRCdDTHQ4=
+=MSpt
 -----END PGP SIGNATURE-----

@@ -17,6 +17,12 @@ on:
     types:
       - completed
 
+  # Runs when the "Jekyll CI Checks" workflow is completed
+  workflow_run:
+    workflows: ["Jekyll CI Checks"]
+    types:
+      - completed
+
   # Runs when a PR is merge, closed and has label `sync`
   pull_request:
     types:

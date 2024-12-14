@@ -3,7 +3,7 @@ title: Advent of Code 2024
 description: As I embark on the adventure of completing the daily puzzles for Advent of Code 2024, I want to keep track of my progress.
 feed: show
 date: 2024-12-01 18:00:00 +0100
-last_modified_at: 2024-12-13 11:00:00 +0100
+last_modified_at: 2024-12-14 11:00:00 +0100
 lang: en
 ogimg: https://raw.githubusercontent.com/EdoardoTosin/web-assets/refs/heads/main/Notes/100%20Public/Feed/Advent%20of%20Code/Advent-of-Code-2024.png
 tags:
@@ -32,5 +32,6 @@ The [Advent of Code 2024](https://adventofcode.com/2024) experience has been fil
 | 11 | [Plutonian Pebbles](https://adventofcode.com/2024/day/11) | ⭐⭐ | ✅ | 2024-12-11 |
 | 12 | [Garden Groups](https://adventofcode.com/2024/day/12) | ⭐⭐ | ✅ | 2024-12-12 |
 | 13 | [Claw Contraption](https://adventofcode.com/2024/day/13) | ⭐⭐ | ✅ | 2024-12-13 |
+| 14 | [Restroom Redoubt](https://adventofcode.com/2024/day/14) | ⭐⭐ | ✅ | 2024-12-14 |
 
 [^1]: [About - Advent of Code 2024](https://adventofcode.com/2024/about). Advent of Code

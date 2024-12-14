@@ -11,15 +11,9 @@ on:
   push:
     branches: ["main"]
 
-  # Runs when the "Auto-merge Trusted PRs" workflow is completed
+  # Runs when the "Auto-merge Trusted PRs" or "Jekyll CI Checks" workflow is completed
   workflow_run:
-    workflows: ["Auto-merge Trusted PRs"]
-    types:
-      - completed
-
-  # Runs when the "Jekyll CI Checks" workflow is completed
-  workflow_run:
-    workflows: ["Jekyll CI Checks"]
+    workflows: ["Auto-merge Trusted PRs", "Jekyll CI Checks"]
     types:
       - completed
 

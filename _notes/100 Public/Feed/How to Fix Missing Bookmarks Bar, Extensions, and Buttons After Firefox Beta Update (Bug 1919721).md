@@ -17,7 +17,7 @@ Firefox users with Beta and Developer Edition versions may encounter the disappe
 
 {% include Image.html src=page.ogimg title="[Bug 1919721](https://bugzilla.mozilla.org/show_bug.cgi?id=1919721) on Firefox Beta 132.0b1" %}
 
-Mozilla has addressed this bug in version 132.0b2[^3][^4]. However, affected users must manually adjust their preferences to restore these features. The following steps will help you resolve this issue:
+Mozilla has addressed this bug in version 132.0b2.[^3][^4] However, affected users must manually adjust their preferences to restore these features. The following steps will help you resolve this issue:
 
 ---
 

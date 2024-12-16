@@ -19,7 +19,7 @@ tags:
 A remarkable breakthrough in astronomy unfolded on 19 May 2023 with the discovery of a supernova in the Pinwheel Galaxy, also known as Messier 101 (M101).[^1][^2] This supernova, named SN 2023ixf, is not only a stunning cosmic event but also the closest observed supernova in recent years, offering scientists a rare opportunity to study such an explosion up close.[^3][^4]
 
 {% include Carousel.html number="1" %}
-*Supernova in the Pinwheel galaxy taken from my backyard, captured six days after its discovery[^5].*
+*Supernova in the Pinwheel galaxy taken from my backyard, captured six days after its discovery.[^5]*
 
 ### What is SN 2023ixf?
 

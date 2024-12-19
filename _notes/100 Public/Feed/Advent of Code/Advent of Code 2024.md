@@ -3,7 +3,7 @@ title: Advent of Code 2024
 description: As I embark on the adventure of completing the daily puzzles for Advent of Code 2024, I want to keep track of my progress.
 feed: show
 date: 2024-12-01 18:00:00 +0100
-last_modified_at: 2024-12-18 11:00:00 +0100
+last_modified_at: 2024-12-19 11:00:00 +0100
 lang: en
 ogimg: https://raw.githubusercontent.com/EdoardoTosin/web-assets/refs/heads/main/Notes/100%20Public/Feed/Advent%20of%20Code/Advent-of-Code-2024.png
 tags:
@@ -17,8 +17,8 @@ Advent of Code, created by Eric Wastl, is an annual coding event that brings the
 
 The [Advent of Code 2024](https://adventofcode.com/2024) experience has been filled with intriguing challenges and valuable insights. Below is an updated table that tracks my progress in this year's event:
 
-| Day  | Puzzle Name         | Stars Earned | Completed | Completion Date       |
-|:----:|:--------------------|:------------:|:---------:|:---------------------:|
+| Day | Puzzle Name         | Stars Earned | Completed | Completion Date       |
+|----:|:--------------------|:------------:|:---------:|:---------------------:|
 |  1 | [Historian Hysteria](https://adventofcode.com/2024/day/1) | ⭐⭐ | ✅ | 2024-12-01 |
 |  2 | [Red-Nosed Reports](https://adventofcode.com/2024/day/2) | ⭐⭐ | ✅ | 2024-12-02 |
 |  3 | [Mull It Over](https://adventofcode.com/2024/day/3) | ⭐⭐ | ✅ | 2024-12-03 |
@@ -37,5 +37,6 @@ The [Advent of Code 2024](https://adventofcode.com/2024) experience has been fil
 | 16 | [Reindeer Maze](https://adventofcode.com/2024/day/16) | ⭐⭐ | ✅ | 2024-12-16 |
 | 17 | [Chronospatial Computer](https://adventofcode.com/2024/day/17) | ⭐⭐ | ✅ | 2024-12-17 |
 | 18 | [RAM Run](https://adventofcode.com/2024/day/18) | ⭐⭐ | ✅ | 2024-12-18 |
+| 19 | [Linen Layout](https://adventofcode.com/2024/day/19) | ⭐⭐ | ✅ | 2024-12-19 |
 
 [^1]: [About - Advent of Code 2024](https://adventofcode.com/2024/about). Advent of Code

@@ -3,7 +3,7 @@ title: Advent of Code 2024
 description: As I embark on the adventure of completing the daily puzzles for Advent of Code 2024, I want to keep track of my progress.
 feed: show
 date: 2024-12-01 18:00:00 +0100
-last_modified_at: 2024-12-19 11:00:00 +0100
+last_modified_at: 2024-12-20 17:00:00 +0100
 lang: en
 ogimg: https://raw.githubusercontent.com/EdoardoTosin/web-assets/refs/heads/main/Notes/100%20Public/Feed/Advent%20of%20Code/Advent-of-Code-2024.png
 tags:
@@ -38,5 +38,6 @@ The [Advent of Code 2024](https://adventofcode.com/2024) experience has been fil
 | 17 | [Chronospatial Computer](https://adventofcode.com/2024/day/17) | ⭐⭐ | ✅ | 2024-12-17 |
 | 18 | [RAM Run](https://adventofcode.com/2024/day/18) | ⭐⭐ | ✅ | 2024-12-18 |
 | 19 | [Linen Layout](https://adventofcode.com/2024/day/19) | ⭐⭐ | ✅ | 2024-12-19 |
+| 20 | [Race Condition](https://adventofcode.com/2024/day/20) | ⭐⭐ | ✅ | 2024-12-20 |
 
 [^1]: [About - Advent of Code 2024](https://adventofcode.com/2024/about). Advent of Code

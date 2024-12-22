@@ -1,6 +1,6 @@
 ---
 title: Advent of Code 2024
-description: As I embark on the adventure of completing the daily puzzles for Advent of Code 2024, I want to keep track of my progress.
+description: Follow my journey through Advent of Code 2024, celebrating its 10th anniversary with 25 daily programming challenges from December 1-25. Discover my detailed progress table, showcasing puzzle names, stars earned, and completion dates as I tackle this exciting annual event.
 feed: show
 date: 2024-12-01 18:00:00 +0100
 last_modified_at: 2024-12-22 08:50:00 +0100

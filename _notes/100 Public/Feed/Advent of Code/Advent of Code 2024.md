@@ -3,7 +3,7 @@ title: Advent of Code 2024
 description: Follow my journey through Advent of Code 2024, celebrating its 10th anniversary with 25 daily programming challenges from December 1-25. Discover my detailed progress table, showcasing puzzle names, stars earned, and completion dates as I tackle this exciting annual event.
 feed: show
 date: 2024-12-01 18:00:00 +0100
-last_modified_at: 2024-12-23 12:00:00 +0100
+last_modified_at: 2024-12-24 16:00:00 +0100
 lang: en
 ogimg: https://raw.githubusercontent.com/EdoardoTosin/web-assets/refs/heads/main/Notes/100%20Public/Feed/Advent%20of%20Code/Advent-of-Code-2024.png
 tags:
@@ -42,5 +42,6 @@ The [Advent of Code 2024](https://adventofcode.com/2024) experience has been fil
 | 21 | [Keypad Conundrum](https://adventofcode.com/2024/day/21) | ⭐⭐ | ✅ | 2024-12-21 |
 | 22 | [Monkey Market](https://adventofcode.com/2024/day/22) | ⭐⭐ | ✅ | 2024-12-22 |
 | 23 | [LAN Party](https://adventofcode.com/2024/day/23) | ⭐⭐ | ✅ | 2024-12-23 |
+| 24 | [Crossed Wires](https://adventofcode.com/2024/day/24) | ⭐⭐ | ✅ | 2024-12-24 |
 
 [^1]: [About - Advent of Code 2024](https://adventofcode.com/2024/about). Advent of Code

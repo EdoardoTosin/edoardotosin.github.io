@@ -10,7 +10,7 @@ GEM
       http_parser.rb (~> 0)
     eventmachine (1.2.7)
     execjs (2.10.0)
-    ffi (1.17.0)
+    ffi (1.17.1)
     forwardable-extended (2.6.0)
     gemoji (3.0.1)
     http_parser.rb (0.8.0)

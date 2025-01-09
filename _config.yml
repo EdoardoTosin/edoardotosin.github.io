@@ -79,6 +79,8 @@ preferences:
   related:
     notes:
       enabled: true
+    post:
+      enabled: true
     pages:
       enabled: false
 

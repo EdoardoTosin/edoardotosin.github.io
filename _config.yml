@@ -71,6 +71,7 @@ preferences:
   pagepreview:
     enabled: true
   backlinks:
+    enabled: true
     notes:
       enabled: true
     pages:

@@ -1,7 +1,7 @@
 {%- comment -%}
 *
 * MIT License
-* Copyright (c) 2020 Raghuveer S
+* Copyright (c) 2025 Raghuveer S, Edoardo Tosin
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -22,7 +22,7 @@
 * SOFTWARE.
 *
 * File: Related.html
-* Author@Raghuveer S
+* Author Raghuveer S, Edoardo Tosin
 *
 * This file contains the markup for the small greyish box that you see at the end
 * of all blogposts. It contains the markup to create a small of all the posts
@@ -30,15 +30,16 @@
 *
 {%- endcomment -%}
 
-<!-- Add related posts to the current page -->
-{%- if page.content-type == "post" -%}
+<!-- Add related posts and notes to the current page -->
+{%- if page.content-type == "post" or page.content-type == "notes" -%}
   {%- assign sameTagCount = 0 -%}
   {%- assign minCommonTags =  1 -%}
-  {%- for post in site.posts -%}
-    {%- for tag in post.tags -%}
-      {%- if post.url != page.url -%}
+  {%- assign relatedItems = site.posts | concat: site.notes -%} <!-- Combine posts and notes -->
+  {%- for item in relatedItems -%}
+    {%- for tag in item.tags -%}
+      {%- if item.url != page.url -%}
         {%- if page.tags contains tag -%}
-          {%- unless post.content contains page.title -%}
+          {%- unless item.content contains page.title -%}
             {%- assign sameTagCount = sameTagCount | plus: 1 -%}
           {%- endunless -%}
         {%- endif -%}
@@ -46,24 +47,24 @@
     {%- endfor -%}
   {%- endfor -%}
 
-  {%- if sameTagCount >= minCommonTags-%}
+  {%- if sameTagCount >= minCommonTags -%}
     {%- assign display_class = 'hide' -%}
-      {%- if site.preferences.related.post.enabled -%}
-        {%- assign display_class = 'show' -%}
-      {%- endif -%}
+    {%- if site.preferences.related.enabled -%}
+      {%- assign display_class = 'show' -%}
+    {%- endif -%}
     <div class="related {{display_class}}" id="jekyll-seamless-relatedposts">
-      <h5 class="block-title">Related Posts</h5>
+      <h5 class="block-title">Similar Content</h5>
       <div class="related-wrapper">
-      {%- assign maxRelated = 8 -%}
-      {%- assign minCommonTags =  1 -%}
-      {%- assign maxRelatedCounter = 0 -%}
-      {%- for post in site.posts -%}
+        {%- assign maxRelated = 8 -%}
+        {%- assign minCommonTags =  1 -%}
+        {%- assign maxRelatedCounter = 0 -%}
+        {%- for item in relatedItems -%}
           {%- assign sameTagCount = 0 -%}
           {%- assign commonTags = '' -%}
-          {%- for tag in post.tags -%}
-            {%- if post.url != page.url -%}
+          {%- for tag in item.tags -%}
+            {%- if item.url != page.url -%}
               {%- if page.tags contains tag -%}
-                {%- unless post.content contains page.title -%}
+                {%- unless item.content contains page.title -%}
                   {%- assign sameTagCount = sameTagCount | plus: 1 -%}
                   {%- capture tagmarkup -%} <span class="label label-default">{{ tag }}</span> {%- endcapture -%}
                   {%- assign commonTags = commonTags | append: tagmarkup -%}
@@ -72,18 +73,22 @@
             {%- endif -%}
           {%- endfor -%}
           {%- if sameTagCount >= minCommonTags -%}
-            <div class="related-group"><a class="no-external-link-icon" href="{{ post.url | absolute_url }}">
-                <h6>{{ post.title }}</h6>
-                <p class="excerpt" style="margin: 0px; color: var(--color-text-main) !important;">{{ post.content | strip_html | strip | remove: "[[" | remove: "]]" | remove: "-" | escape | truncate: 100 }}</p>
-            </a></div>
+            <div class="related-group">
+              <a class="no-external-link-icon" href="{{ item.url | absolute_url }}">
+                <h6>{{ item.title }}</h6>
+                <p class="excerpt" style="margin: 0px; color: var(--color-text-main) !important;">
+                  {{ item.content | strip_html | strip | remove: "[[" | remove: "]]" | remove: "-" | escape | truncate: 100 }}
+                </p>
+              </a>
+            </div>
             {%- assign maxRelatedCounter = maxRelatedCounter | plus: 1 -%}
             {%- if maxRelatedCounter >= maxRelated -%}
               {%- break -%}
             {%- endif -%}
           {%- endif -%}
-      {%- endfor -%}
+        {%- endfor -%}
       </div>
-        <br/>
+      <br/>
     </div>
   {%- endif -%}
 {%- endif -%}

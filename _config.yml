@@ -71,18 +71,16 @@ preferences:
   pagepreview:
     enabled: true
   backlinks:
-    enabled: true
+    notes:
+      enabled: true
+    pages:
+      enabled: false
 # To enable a homepage, change the value to true and add content to _includes/Homepage.html
 # If enable : false, notes feed will be as homepage.
   homepage:
     enabled: true ##If you need a homepage, change this to true and edit _includes/Homepage.html
   related:
-    notes:
-      enabled: true
-    post:
-      enabled: true
-    pages:
-      enabled: false
+    enabled: true
 
 encoding: utf-8
 

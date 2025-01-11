@@ -52,9 +52,9 @@
     {%- if site.preferences.related.enabled -%}
       {%- assign display_class = 'show' -%}
     {%- endif -%}
-    <div class="related {{display_class}}" id="jekyll-seamless-relatedposts">
-      <h5 class="block-title">Similar Content</h5>
-      <div class="related-wrapper">
+    <div class="related {{display_class}} no-print" id="jekyll-seamless-relatedposts">
+      <h5 class="block-title no-print">Similar Content</h5>
+      <div class="related-wrapper no-print">
         {%- assign maxRelated = 8 -%}
         {%- assign minCommonTags =  1 -%}
         {%- assign maxRelatedCounter = 0 -%}

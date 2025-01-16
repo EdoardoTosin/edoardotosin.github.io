@@ -7,6 +7,12 @@ require 'yaml'
 require 'time'
 require 'date'
 
+# Skip the plugin if the environment is set to development
+if ENV['JEKYLL_ENV'] == 'development'
+  Jekyll.logger.info "Skipping `last_modified_at` update plugin in development mode."
+  return
+end
+
 Jekyll::Hooks.register :site, :post_read do |site|
   Jekyll.logger.info "Running `last_modified_at` update plugin..."
   

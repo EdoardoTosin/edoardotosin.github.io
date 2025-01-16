@@ -125,4 +125,4 @@ Now the computer will proceed with the reboot.
 
 {% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_19.jpg" title="Ubuntu Server 19" %}
 
-**[Next part]({% post_url 2022-12-31-ubuntu-server-pihole-unbound-part-2 %})**
+**[Next part]({% post_url Ubuntu-Server-Pi-Hole-Unbound/en-US/2022-12-31-ubuntu-server-pihole-unbound-part-2 %})**

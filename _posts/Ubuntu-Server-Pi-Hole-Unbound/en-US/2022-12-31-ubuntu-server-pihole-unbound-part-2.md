@@ -14,7 +14,7 @@ tags:
   - adblocker
 ---
 
-*In the [previous part]({% post_url 2022-12-31-ubuntu-server-pihole-unbound-part-1 %}) it was explained how to install the Ubuntu Server operating system.*
+*In the [previous part]({% post_url Ubuntu-Server-Pi-Hole-Unbound/en-US/2022-12-31-ubuntu-server-pihole-unbound-part-1 %}) it was explained how to install the Ubuntu Server operating system.*
 
 ## SSH
 
@@ -144,4 +144,4 @@ Restart the sshd.service service to load the changes with the command `sudo syst
 
 {% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_22.jpg" title="2FA 22" %}
 
-**[Next part]({% post_url 2022-12-31-ubuntu-server-pihole-unbound-part-3 %})**
+**[Next part]({% post_url Ubuntu-Server-Pi-Hole-Unbound/en-US/2022-12-31-ubuntu-server-pihole-unbound-part-3 %})**

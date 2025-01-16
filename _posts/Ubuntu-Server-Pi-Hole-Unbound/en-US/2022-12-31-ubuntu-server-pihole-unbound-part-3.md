@@ -14,7 +14,7 @@ tags:
   - adblocker
 ---
 
-*In the [previous part]({% post_url 2022-12-31-ubuntu-server-pihole-unbound-part-2 %}) it was explained how to add two-factor authentication (2FA) for SSH access.*
+*In the [previous part]({% post_url Ubuntu-Server-Pi-Hole-Unbound/en-US/2022-12-31-ubuntu-server-pihole-unbound-part-2 %}) it was explained how to add two-factor authentication (2FA) for SSH access.*
 
 ## Pi-Hole Installation
 
@@ -102,4 +102,4 @@ If the procedure was successful, the text `New password set` will appear.
 
 {% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_22.jpg" title="Pi-Hole 22" %}
 
-**[Next part]({% post_url 2022-12-31-ubuntu-server-pihole-unbound-part-4 %})**
+**[Next part]({% post_url Ubuntu-Server-Pi-Hole-Unbound/en-US/2022-12-31-ubuntu-server-pihole-unbound-part-4 %})**

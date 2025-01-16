@@ -14,7 +14,7 @@ tags:
   - adblocker
 ---
 
-*Nella [parte precedente]({% post_url 2022-12-31-ubuntu-server-pihole-unbound-parte-3 %}) è stato spiegato come installare Pi-Hole.*
+*Nella [parte precedente]({% post_url Ubuntu-Server-Pi-Hole-Unbound/it-IT/2022-12-31-ubuntu-server-pihole-unbound-parte-3 %}) è stato spiegato come installare Pi-Hole.*
 
 ## Installazione Unbound
 
@@ -142,4 +142,4 @@ Se entrambi ritornano in modo corretto allora DNSSEC funziona.
 
 {% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_18.jpg" title="Unbound 18" %}
 
-**[Parte successiva]({% post_url 2022-12-31-ubuntu-server-pihole-unbound-parte-5 %})**
+**[Parte successiva]({% post_url Ubuntu-Server-Pi-Hole-Unbound/it-IT/2022-12-31-ubuntu-server-pihole-unbound-parte-5 %})**

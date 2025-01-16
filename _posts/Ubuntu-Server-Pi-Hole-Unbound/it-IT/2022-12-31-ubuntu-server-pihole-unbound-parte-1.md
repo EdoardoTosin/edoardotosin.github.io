@@ -141,4 +141,4 @@ Ora il computer procederà al riavvio.
 
 {% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_19.jpg" title="Ubuntu Server 19" %}
 
-**[Parte successiva]({% post_url 2022-12-31-ubuntu-server-pihole-unbound-part-2 %})**
+**[Parte successiva]({% post_url Ubuntu-Server-Pi-Hole-Unbound/it-IT/2022-12-31-ubuntu-server-pihole-unbound-parte-2 %})**

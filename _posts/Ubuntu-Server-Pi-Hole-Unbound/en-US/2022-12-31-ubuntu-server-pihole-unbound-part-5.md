@@ -14,7 +14,7 @@ tags:
   - adblocker
 ---
 
-*In the [previous part]({% post_url 2022-12-31-ubuntu-server-pihole-unbound-part-4 %}) it was explained how to install Unbound.*
+*In the [previous part]({% post_url Ubuntu-Server-Pi-Hole-Unbound/en-US/2022-12-31-ubuntu-server-pihole-unbound-part-4 %}) it was explained how to install Unbound.*
 
 ## Pi-Hole Web Interface Configuration
 

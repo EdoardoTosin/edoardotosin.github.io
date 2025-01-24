@@ -1,0 +1,128 @@
+{%- comment -%}
+ *
+ * MIT License
+ * Copyright (c) 2025 Edoardo Tosin
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ * 
+ * File: EmbedWebpageIframe.html
+ * Author: Edoardo Tosin
+ *
+ * This file contains the markup for the embedding a webpage as an iframe in
+ * the markdown.
+ *
+{%- endcomment -%}
+
+{% assign iframe_height = include.iframe_height | default: 100 %}
+{% assign iframe_height_is_percentage = iframe_height contains "%" %}
+{% assign iframe_height_is_pixel = iframe_height contains "px" %}
+{% assign iframe_height_value = iframe_height | remove: "%" | remove: "px" %}
+
+{% if iframe_height_is_percentage %}
+  {% assign iframe_height = iframe_height_value | append: "%" %}
+{% elsif iframe_height_is_pixel %}
+  {% assign iframe_height = iframe_height_value | append: "px" %}
+{% else %}
+  {% assign iframe_height = iframe_height_value | append: "%" %}
+{% endif %}
+
+{% assign iframe_url = include.iframe_url %}
+{% assign iframe_sandbox = include.iframe_sandbox | default: 'allow-scripts allow-popups' %}
+{% assign is_full_url = iframe_url contains 'http' %}
+{% assign site_domain = site.url | remove: 'http://' | remove: 'https://' %}
+
+{% assign is_trusted_url = false %}
+
+{%- comment -%}
+  Check if the iframe URL is from the same domain as site.url (production domain)
+  or if it's a relative path (local domain or same domain).
+{%- endcomment -%}
+
+{% if is_full_url %}
+  {% if iframe_url contains site_domain %}
+    {% assign is_trusted_url = true %}
+  {% endif %}
+{% else %}
+  {% assign is_trusted_url = true %}
+{% endif %}
+
+{%- comment -%}
+  Check for localhost or 127.0.0.1 to allow local development environment to bypass the domain check
+{%- endcomment -%}
+{% assign is_localhost = site.url contains "localhost" or site.url contains "127.0.0.1" %}
+{% if is_localhost %}
+  {% assign is_trusted_url = true %}
+{% endif %}
+
+{% assign allowfullscreen = include.allowfullscreen | default: false %}
+
+<div class="iframe-container" style="padding-top: {{ iframe_height }}">
+  {% if is_trusted_url %}
+    <iframe
+      src="{% if is_full_url %}{{ iframe_url }}{% else %}{{ site.baseurl }}{{ iframe_url }}{% endif %}"
+      frameborder="0"
+      sandbox="{{ iframe_sandbox }}"
+      title="Embedded Webpage"
+      referrerpolicy="no-referrer"
+      {% if allowfullscreen %}allowfullscreen{% endif %}
+    ></iframe>
+  {% else %}
+    <p><strong>Warning:</strong> The iframe URL is not from the trusted domain ({{ site.url }}) and will not be displayed for security reasons.</p>
+  {% endif %}
+</div>
+
+<style>
+.iframe-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.iframe-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+</style>
+
+{% comment %}
+### Sandbox Options Explained:
+
+The sandbox attribute enables an extra set of restrictions for the content in the iframe. You can pass multiple space-separated values, depending on what features you want to allow. Below are all the options:
+
+- `allow-forms`: Allows the iframe to submit forms. Without this, form submission will be blocked.
+- `allow-modals`: Allows the iframe to display modal dialogs (e.g., `alert()`, `confirm()`, `prompt()`).
+- `allow-popups`: Allows the iframe to open new pop-up windows using `window.open()`.
+- `allow-popups-to-escape-sandbox`: Allows pop-ups to escape the sandbox and open outside the iframe.
+- `allow-same-origin`: Allows the iframe content to be treated as being from the same origin as the parent document. This enables access to cookies and localStorage.
+- `allow-scripts`: Allows the iframe to run JavaScript.
+- `allow-top-navigation`: Allows the iframe to navigate the top-level browsing context (i.e., the parent window).
+- `allow-top-navigation-by-user-activation`: Allows navigation of the top-level browsing context, but only after a user action (e.g., clicking).
+- `allow-downloads`: Allows the iframe to initiate downloads (e.g., using `download` attributes or `window.location`).
+- `allow-presentation`: Allows the iframe to present fullscreen content (typically for presentation-like apps).
+
+You can combine these values as needed, depending on what you want to allow inside the iframe. For example:
+
+- `sandbox="allow-scripts allow-popups"` would allow scripts and pop-ups, but still enforce restrictions on other actions (such as form submissions).
+- `sandbox="allow-scripts allow-forms allow-same-origin"` would allow scripts, form submissions, and same-origin access, but still block other potentially risky actions.
+
+Use caution when relaxing sandbox restrictions to ensure that you're not introducing security vulnerabilities.
+{% endcomment %}

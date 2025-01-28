@@ -1033,7 +1033,6 @@ hr {
 
 .tag-item:hover {
     background-color: var(--button-bg-link-hover);
-    transform: scale(1.05);
 }
 
 .tag-item:active {

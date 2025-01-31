@@ -143,7 +143,7 @@ layout: compress
         <summary type="html"><![CDATA[{{ post_summary | strip_html | normalize_whitespace }}]]></summary>
       {% endif %}
 
-      {% assign post_image = post.image.path | default: post.image %}
+      {% assign post_image = post.ogimg | default: site.ogimg %}
       {% if post_image %}
         {% unless post_image contains "://" %}
           {% assign post_image = post_image | absolute_url %}

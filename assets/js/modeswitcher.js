@@ -7,84 +7,83 @@ https://github.com/derekkedziora/jekyll-demo
 Creative Commons Attribution 4.0 International License
 */
 
-let systemInitiatedDark = window.matchMedia("(prefers-color-scheme: dark)"); 
-let theme = sessionStorage.getItem('theme');
-
-const iconSun = "{{ '/assets/img/sun.svg' | absolute_url }}";
-const iconMoon = "{{ '/assets/img/moon.svg' | absolute_url }}";
-
-
-function changeIconImgSrc(src) {
-	if (document.getElementById("theme-toggle-img") != null){
-		document.getElementById("theme-toggle-img").src = src;	
+(() => {
+	const systemInitiatedDark = window.matchMedia("(prefers-color-scheme: dark)");
+	let theme = localStorage.getItem('theme');
+	
+	const themeConfig = {
+		icons: {
+			light: "{{ '/assets/img/sun.svg' | absolute_url }}",
+			dark: "{{ '/assets/img/moon.svg' | absolute_url }}",
+		},
+		errorImages: {
+			light: "{{ '/assets/img/404_light.gif' | absolute_url }}",
+			dark: "{{ '/assets/img/404.gif' | absolute_url }}",
+		},
+	};
+	
+	const ThemeManager = {
+		setTheme(theme) {
+			document.documentElement.setAttribute('data-theme', theme);
+			localStorage.setItem('theme', theme);
+			this.updateAssets(theme);
+		},
+		
+		updateAssets(theme) {
+			this.changeImgSrc("theme-toggle-img", themeConfig.icons[theme]);
+			this.changeImgSrc("theme-toggle-img--mobile", themeConfig.icons[theme]);
+			this.changeImgSrc("error-404", themeConfig.errorImages[theme]);
+		},
+		
+		changeImgSrc(id, src) {
+			const element = document.getElementById(id);
+			if (element) {
+				element.setAttribute("src", src);
+			}
+		},
+		
+		determineTheme() {
+			const userTheme = localStorage.getItem('theme');
+			if (userTheme) {
+				this.setTheme(userTheme);
+			} else {
+				this.setTheme(systemInitiatedDark.matches ? "dark" : "light");
+			}
+		},
+		
+		toggleTheme() {
+			const currentTheme = localStorage.getItem('theme') === "dark" ? "light" : "dark";
+			this.setTheme(currentTheme);
+		},
+	};
+	
+	function iconToggle() {
+		let theme = localStorage.getItem('theme');
+		if (theme === "dark") {
+			ThemeManager.setTheme("dark");
+		} else if (theme === "light") {
+			ThemeManager.setTheme("light");
+		} else {
+			ThemeManager.setTheme(systemInitiatedDark.matches ? "dark" : "light");
+		}
 	}
-	if (document.getElementById("theme-toggle-img--mobile") != null){
-		document.getElementById("theme-toggle-img--mobile").src = src;
+	
+	function debounce(func, wait) {
+		let timeout;
+		return function(...args) {
+			clearTimeout(timeout);
+			timeout = setTimeout(() => func.apply(this, args), wait);
+		};
 	}
-}
-
-function iconToggle() {
-	let theme = sessionStorage.getItem('theme');
-	if (theme === "dark") {
-		document.documentElement.setAttribute('data-theme', 'dark');
-		sessionStorage.setItem('theme', 'dark');
-		changeIconImgSrc(iconMoon);
-	}	else if (theme === "light") {
-		document.documentElement.setAttribute('data-theme', 'light');
-		sessionStorage.setItem('theme', 'light');
-		changeIconImgSrc(iconSun);
-	} else if (systemInitiatedDark.matches) {	
-		document.documentElement.setAttribute('data-theme', 'dark');
-		sessionStorage.setItem('theme', 'dark');
-		changeIconImgSrc(iconMoon);
-	} else {
-		document.documentElement.setAttribute('data-theme', 'light');
-		sessionStorage.setItem('theme', 'light');
-		changeIconImgSrc(iconSun);
-	}
-}
-
-function prefersColorTest(systemInitiatedDark) {
-  if (systemInitiatedDark.matches) {
-  	document.documentElement.setAttribute('data-theme', 'dark');		
-   	changeIconImgSrc(iconMoon);
-   	sessionStorage.setItem('theme', '');
-  } else {
-  	document.documentElement.setAttribute('data-theme', 'light');
-    changeIconImgSrc(iconSun);
-    sessionStorage.setItem('theme', '');
-  }
-}
-systemInitiatedDark.addListener(prefersColorTest);
-
-
-function modeSwitcher() {
-	let theme = sessionStorage.getItem('theme');
-	if (theme === "dark") {
-		document.documentElement.setAttribute('data-theme', 'light');
-		sessionStorage.setItem('theme', 'light');
-		changeIconImgSrc(iconSun);
-	}	else if (theme === "light") {
-		document.documentElement.setAttribute('data-theme', 'dark');
-		sessionStorage.setItem('theme', 'dark');
-		changeIconImgSrc(iconMoon);
-	} else if (systemInitiatedDark.matches) {	
-		document.documentElement.setAttribute('data-theme', 'light');
-		sessionStorage.setItem('theme', 'light');
-		changeIconImgSrc(iconSun);
-	} else {
-		document.documentElement.setAttribute('data-theme', 'dark');
-		sessionStorage.setItem('theme', 'dark');
-		changeIconImgSrc(iconMoon);
-	}
-}
-
-if (theme === "dark") {
-	document.documentElement.setAttribute('data-theme', 'dark');
-	sessionStorage.setItem('theme', 'dark');
-	changeIconImgSrc(iconMoon);
-} else if (theme === "light") {
-	document.documentElement.setAttribute('data-theme', 'light');
-	sessionStorage.setItem('theme', 'light');
-	changeIconImgSrc(iconSun);
-}
+	
+	document.addEventListener("DOMContentLoaded", () => ThemeManager.determineTheme());
+	
+	systemInitiatedDark.addEventListener("change", debounce(() => {
+		if (!localStorage.getItem('theme')) {
+			ThemeManager.setTheme(systemInitiatedDark.matches ? "dark" : "light");
+		}
+	}, 300));
+	
+	window.modeSwitcher = () => ThemeManager.toggleTheme();
+	window.iconToggle = iconToggle;
+})();

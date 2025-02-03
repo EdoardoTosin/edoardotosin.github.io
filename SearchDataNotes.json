@@ -1,9 +1,9 @@
 ---
-permalink: /SearchData.json
+permalink: /SearchDataNotes.json
 ---
 
 {
-  {%- assign all_items = site.notes | concat: site.posts | where_exp: "item", "item.format != 'list'" | sort: 'date' | reverse -%}
+  {%- assign all_items = site.notes | where_exp: "item", "item.format != 'list'" | sort: 'date' | reverse -%}
   {%- assign i = 0 -%}
   {%- for item in all_items -%}
 

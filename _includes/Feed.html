@@ -29,23 +29,27 @@
 *
 {%- endcomment -%}
 
+{%- if page.permalink == "/notes" -%}
+{%- assign items = site.notes | where_exp: "item", "item.format != 'list'" | sort: 'date' | reverse -%}
+{%- elsif page.permalink == "/posts" -%}
+{%- assign items = site.posts | sort: 'date' | reverse -%}
+{%- endif -%}
+
 <!--Notes Feed-->
 <!--Static Page : pages/notes.md-->
-
 {%- if page.feedformat == "card" -%}
-    {%- if site.preferences.search.enabled -%}
+    {%- if site.preferences.search.feed.enabled -%}
     {%- include SearchBar.html -%}
     {%- endif -%}
     <!-- feed with filter-->
     <div class="related-wrapper">
-    {% assign note_items = site.notes | sort: "date" | reverse %}
-    {% for note_items in note_items %}
-        {%- if note_items.feed == "show" -%}
+    {% for item in items %}
+        {%- if item.feed == "show" or item.collection == "posts" -%}
                 <div class="notelist-feed">
-                    <a href="{{ site.baseurl }}{{note_items.url}}">
-                        <h6>{{ note_items.title }}</h6>
+                    <a href="{{ site.baseurl }}{{item.url}}">
+                        <h6>{{ item.title }}</h6>
                         <p class="excerpt">
-                            {{ note_items.content | strip_footnotes | strip_html | strip | remove: "[[" | remove: "]]" | remove: "-" | escape | truncate: 200 }}
+                            {{ item.content | strip_footnotes | strip_html | strip | remove: "[[" | remove: "]]" | remove: "-" | escape | truncate: 200 }}
                         </p>
                     </a>
                 </div>
@@ -59,13 +63,12 @@
 
 {%- if page.feedformat == "row" -%}
 <div class="block">
-    {% assign note_items = site.notes | sort: "date" | reverse %}
-    {% for note_items in note_items %}
-        {%- if note_items.format == "list" -%}
+    {% for item in items %}
+        {%- if item.format == "list" or item.collection == "posts" -%}
             <div class="list-feed">
-                    <a href="{{ site.baseurl }}{{note_items.url}}" style="text-decoration: none;display: flex;justify-content: space-between;flex-direction: row;width: 100%;">
+                    <a href="{{ site.baseurl }}{{item.url}}" style="text-decoration: none;display: flex;justify-content: space-between;flex-direction: row;width: 100%;">
                         <div class="writinglist-title">
-                            {{note_items.title }}
+                            {{item.title }}
                         </div>
                     </a>
             </div>

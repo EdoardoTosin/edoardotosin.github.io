@@ -74,6 +74,12 @@
     function searchInit() {
         var dataUrl = "SearchData.json";
 
+        if (window.location.pathname == "/posts") {
+            dataUrl = "SearchDataPosts.json";
+        } else if (window.location.pathname == "/notes") {
+            dataUrl = "SearchDataNotes.json";
+        }
+
         getSearchData(dataUrl)
             .then(function(responseText) {
             var docs = JSON.parse(responseText);
@@ -85,6 +91,7 @@
                 this.field('title', {boost: 200});
                 this.field('content', {boost: 2});
                 this.field('url');
+                this.field('tags', {boost: 20});
                 this.metadataWhitelist = ['position']
 
                 for (var i in docs) {
@@ -92,7 +99,8 @@
                         id: i,
                         title: docs[i].title,
                         content: docs[i].content,
-                        url: docs[i].url
+                        url: docs[i].url,
+                        tags: docs[i].tags
                     });
                 }
             });

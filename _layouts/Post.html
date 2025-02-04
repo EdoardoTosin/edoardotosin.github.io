@@ -83,23 +83,18 @@ layout: compress
     {%- else -%}
     {%- endif -%}
     
-    {% assign redirect_url = '' %}
-    {%- if page.redirect and page.redirect != '' -%}
-    {% assign redirect_url = page.redirect %}
-    {% assign redirect_url = redirect_url | strip %}
-    {% assign first_char = redirect_url | slice: 0 | strip %}
-    {%- if first_char == "/" -%}
-    {%- if page.redirect_domain and page.redirect_domain != '' -%}
-    {% assign redirect_url = redirect_url | prepend: page.redirect_domain %}
+    {%- assign redirect_url = page.redirect | default: '' | strip -%}
+    {%- if redirect_url != '' -%}
+        {%- if redirect_url contains "://" -%}
+            <!-- Absolute URL -->
+        {%- else -%}
+            {%- assign redirect_url = redirect_url | prepend: site.baseurl | absolute_url -%}
+        {%- endif -%}
+        <!-- Permanent redirect -->
+        <meta http-equiv="refresh" content="0; url={{ redirect_url }}">
+        <link rel="canonical" href="{{ redirect_url }}" />
     {%- else -%}
-    {% assign redirect_url = redirect_url | prepend: site.baseurl %}
-    {%- endif -%}
-    {%- endif -%}
-    <!-- Permanent redirect -->
-    <meta http-equiv="refresh" content="0; url={{ redirect_url }}">
-    <link rel="canonical" href="{{ redirect_url }}" />
-    {%- else -%}
-    <link rel="canonical" href="{{site.url}}{{page.url}}" />
+        <link rel="canonical" href="{{ page.url | absolute_url }}" />
     {%- endif -%}
     
     <!-- Favicon -->

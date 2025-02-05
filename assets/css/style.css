@@ -20,6 +20,7 @@ html[data-theme="light"] {
     --button-bg-link-hover: #0056b3;
     --button-bg-link-active: #004080;
     --copy-notification-bg: #22b772;
+    --copy-notification-bg-error: #b82368;
 }
 
 html[data-theme="dark"] {
@@ -37,6 +38,7 @@ html[data-theme="dark"] {
     --button-bg-link-hover: #0056b3;
     --button-bg-link-active: #004080;
     --copy-notification-bg: #198754;
+    --copy-notification-bg-error: #871a4d;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -57,6 +59,7 @@ html[data-theme="dark"] {
         --button-bg-link-hover: #0056b3;
         --button-bg-link-active: #004080;
         --copy-notification-bg: #198754;
+        --copy-notification-bg-error: #871a4d;
     }
 
     html[data-theme="light"] {
@@ -74,6 +77,7 @@ html[data-theme="dark"] {
         --button-bg-link-hover: #0056b3;
         --button-bg-link-active: #004080;
         --copy-notification-bg: #22b772;
+        --copy-notification-bg-error: #b82368;
     }
 }
 

@@ -72,12 +72,15 @@
     }
 
     function searchInit() {
+        var searchInput = document.getElementById("search-input");
         var dataUrl = "SearchData.json";
 
-        if (window.location.pathname == "/posts") {
-            dataUrl = "SearchDataPosts.json";
-        } else if (window.location.pathname == "/notes") {
-            dataUrl = "SearchDataNotes.json";
+        if (searchInput) {
+            if (searchInput.classList.contains("search-posts")) {
+                dataUrl = "SearchDataPosts.json";
+            } else if (searchInput.classList.contains("search-notes")) {
+                dataUrl = "SearchDataNotes.json";
+            }
         }
 
         getSearchData(dataUrl)

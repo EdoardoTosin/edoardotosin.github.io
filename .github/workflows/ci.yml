@@ -1,12 +1,19 @@
 name: Jekyll CI Checks
+
 on:
   pull_request:
     branches: [main]
+
+permissions: read-all
 
 jobs:
   test:
     name: Build Site
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -26,6 +33,10 @@ jobs:
     if: always()
     needs: [test]
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: none
+
     steps:
       - name: Ensure all jobs passed
         uses: re-actors/alls-green@release/v1

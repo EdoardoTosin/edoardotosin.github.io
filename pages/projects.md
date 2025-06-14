@@ -24,7 +24,7 @@ description: Collection of personal projects published on Github, including CLI-
 
 - [Batch-Image-Converter](https://github.com/EdoardoTosin/Batch-Image-Converter): Streamline your image editing process with this Python script, capable of converting large batches of images to desired formats and specifications, including DPI, resolution, and color space.
 - [ObjectTracker](https://github.com/EdoardoTosin/ObjectTracker): Lightweight, real-time object detection and video recording tool.
-- [GitHub - EdoardoTosin/Observatory-Booking](https://github.com/EdoardoTosin/Observatory-Booking): A Flask-based, self-hostable observatory booking web app with role-based access control, weather-aware event booking, and encrypted user data.
+- [Observatory-Booking](https://github.com/EdoardoTosin/Observatory-Booking): A Flask-based, self-hostable observatory booking web app with role-based access control, weather-aware event booking, and encrypted user data.
 
 ### HTML/CSS/JS
 

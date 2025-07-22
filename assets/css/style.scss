@@ -704,6 +704,18 @@ hr {
 
 /* Common custom components between Main Site and Notes: Searchbar, Backbutton, ContentBox, Related Posts/Notes, Copyright,  */
 
+#search-input {
+    background-image: url("{{ '/assets/img/magnifying-glass-solid-full.svg' | relative_url }}");
+    background-repeat: no-repeat;
+    background-position: 0.75em center;
+    background-size: 1em auto;
+    padding-left: 2.25em;
+}
+
+#search-input {
+    color: var(--text-color);
+}
+
 .block:has(input#search-input) {
   margin-top: 1rem;
 }

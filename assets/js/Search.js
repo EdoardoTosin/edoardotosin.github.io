@@ -129,6 +129,10 @@
       document.documentElement.classList.add("search-active");
     }
 
+    if (!searchInput || !searchResults) {
+      return;
+    }
+
     function hideSearch() {
       document.documentElement.classList.remove("search-active");
     }

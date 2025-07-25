@@ -3,17 +3,29 @@ permalink: /SearchData.json
 ---
 
 {
-  {%- assign all_items = site.notes | concat: site.posts | where_exp: "item", "item.format != 'list'" | sort: 'date' | reverse -%}
-  {%- assign i = 0 -%}
-  {%- for item in all_items -%}
+  {%- assign all_items = "" | split: "" -%}
 
+  {%- assign notes = site.notes | where_exp: "item", "item.format != 'list'" -%}
+  {%- for item in notes -%}
+    {%- assign all_items = all_items | push: item -%}
+  {%- endfor -%}
+
+  {%- assign posts = site.posts | where_exp: "item", "item.format != 'list'" -%}
+  {%- for item in posts -%}
+    {%- assign all_items = all_items | push: item -%}
+  {%- endfor -%}
+
+  {%- assign sorted_items = all_items | sort: "date" | reverse -%}
+  {%- assign i = 0 -%}
+  {%- for item in sorted_items -%}
     "{{ i }}": {
        "doc":  {{ item.title | strip_html | escape | jsonify }},
        "title": {{ item.title | strip_html | escape | jsonify }},
+       "type": "{% if item.collection == 'posts' %}post{% else %}note{% endif %}",
        "content": {{ item.content | replace: '</h', ' . </h' | replace: '<hr', ' . <hr' | replace: '</p', ' . </p' | replace: '<ul', ' . <ul' | replace: '</ul', ' . </ul' | replace: '<ol', ' . <ol' | replace: '</ol', ' . </ol' | replace: '</tr', ' . </tr' | replace: '<li', ' | <li' | replace: '</li', ' | </li' | replace: '</td', ' | </td' | replace: '<td', ' | <td' | replace: '</th', ' | </th' | replace: '<th', ' | <th' | strip_html | remove: 'Table of contents' | normalize_whitespace | replace: '. . .', '.' | replace: '. .', '.' | replace: '| |', '|' | append: ' ' | strip_html | strip_newline | strip | escape | jsonify }},
        "url": "{{ site.baseurl }}{{ item.url }}",
        "tags": {{ item.tags | jsonify }}
-    }{%- unless forloop.last -%},{%- endunless -%}{%- assign i = i | plus: 1 -%}
-    
-  {% endfor %}
+    }{%- unless forloop.last -%},{%- endunless -%}
+    {%- assign i = i | plus: 1 -%}
+  {%- endfor -%}
 }

@@ -68,25 +68,36 @@
       });
   };
 
-  async function getSearchData(dataUrl) {
+  async function getSearchData(dataUrl, searchInput) {
     let response = await fetch(dataUrl);
-    let responseText = response.text();
-    return responseText;
+    let rawData = await response.text();
+    let allData = JSON.parse(rawData);
+
+    let filterType = null;
+    if (searchInput) {
+      if (searchInput.classList.contains("search-posts")) {
+        filterType = "post";
+      } else if (searchInput.classList.contains("search-notes")) {
+        filterType = "note";
+      }
+    }
+
+    const filteredData = {};
+    let i = 0;
+    for (const key in allData) {
+      const item = allData[key];
+      if (filterType && item.type !== filterType) continue;
+      filteredData[i++] = item;
+    }
+
+    return JSON.stringify(filteredData);
   }
 
   function searchInit() {
     var searchInput = document.getElementById("search-input");
     var dataUrl = "SearchData.json";
 
-    if (searchInput) {
-      if (searchInput.classList.contains("search-posts")) {
-        dataUrl = "SearchDataPosts.json";
-      } else if (searchInput.classList.contains("search-notes")) {
-        dataUrl = "SearchDataNotes.json";
-      }
-    }
-
-    getSearchData(dataUrl)
+    getSearchData(dataUrl, searchInput)
       .then(function (responseText) {
         var docs = JSON.parse(responseText);
 

@@ -101,27 +101,23 @@
       .then(function (responseText) {
         var docs = JSON.parse(responseText);
 
-        lunr.tokenizer.separator = /[\s/]+/;
+        const docsArray = Object.entries(docs).map(([id, doc]) => ({ ...doc, id }));
 
-        var index = lunr(function () {
-          this.ref("id");
-          this.field("title", { boost: 200 });
-          this.field("content", { boost: 2 });
-          this.field("url");
-          this.field("tags", { boost: 20 });
-          this.metadataWhitelist = ["position"];
-
-          for (var i in docs) {
-            this.add({
-              id: i,
-              title: docs[i].title,
-              content: docs[i].content,
-              url: docs[i].url,
-              tags: docs[i].tags,
-            });
-          }
+        var index = new Fuse(docsArray, {
+          keys: [
+            { name: "title", weight: 1.0 },
+            { name: "tags", weight: 0.1 },
+            { name: "content", weight: 0.01 },
+            { name: "url", weight: 0.005 },
+          ],
+          includeMatches: true,
+          threshold: 0.4,
+          minMatchCharLength: 2,
+          ignoreLocation: true,
         });
-        searchLoaded(index, docs);
+
+        searchLoaded(index, docsArray);
+
       })
       .catch(function (err) {
         console.warn("Error processing the search-data for lunrjs", err);
@@ -172,29 +168,7 @@
         return;
       }
 
-      var results = index.query(function (query) {
-        var tokens = lunr.tokenizer(input);
-        query.term(tokens, {
-          boost: 10,
-        });
-        query.term(tokens, {
-          wildcard: lunr.Query.wildcard.TRAILING,
-        });
-      });
-
-      if (results.length == 0 && input.length > 2) {
-        var tokens = lunr.tokenizer(input).filter(function (token, i) {
-          return token.str.length < 20;
-        });
-
-        if (tokens.length > 0) {
-          results = index.query(function (query) {
-            query.term(tokens, {
-              editDistance: Math.round(Math.sqrt(input.length / 2 - 1)),
-            });
-          });
-        }
-      }
+      var results = index.search(input);
 
       if (results.length == 0) {
         var noResultsDiv = document.createElement("div");
@@ -239,7 +213,19 @@
       }
 
       function addResult(resultsList, result) {
-        var doc = docs[result.ref];
+        var doc = result.item;
+
+        result.matchData = { metadata: {} };
+        for (const match of result.matches || []) {
+          const key = match.key;
+          const val = match.value;
+          const positions = match.indices.map(([start, end]) => [start, end - start]);
+          if (!result.matchData.metadata[val]) {
+            result.matchData.metadata[val] = {};
+          }
+          result.matchData.metadata[val][key] = { position: positions };
+        }
+
         var resultsListItem = document.createElement("li");
         resultsListItem.classList.add("search-results-list-item");
         resultsList.appendChild(resultsListItem);

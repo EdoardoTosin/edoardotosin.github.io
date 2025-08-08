@@ -3,9 +3,9 @@ permalink: /security-policy
 layout: Post
 content-type: static
 title: Security Policy
-description: "An overview of the security measures and responsible disclosure policy for this website."
+description: "Security measures, vulnerability management, and responsible disclosure policy for this website."
 date: 2023-01-29
-last_modified_at: 2024-11-13
+last_modified_at: 2025-08-08
 sitemap: false
 noindex: nofollow
 ---
@@ -14,41 +14,134 @@ noindex: nofollow
 
 <br>
 
-Thanks for visiting my website! I take your security and privacy seriously, and while this is a personal site primarily for sharing content, I still work to keep things secure. This page outlines the measures I take to safeguard this site and any data involved. 
+Thank you for visiting my website! Security and privacy are important to me, and while this is a personal static website, I maintain appropriate security measures to protect both the site and its visitors. This page outlines my security approach and provides guidance for reporting security issues.
 
 ---
 
-## Security Approach
+## Website Architecture and Security Model
 
-This website is hosted as an open-source project on GitHub using Jekyll, which is a static site generator. Because it's a static site, there is minimal user data collection or complex server interaction. Here are the main points I follow to keep things secure:
+This website is built using a security-focused architecture:
 
-- **HTTPS Encryption:** The site is served over HTTPS, ensuring that the connection between you and my website is encrypted.
-- **No User Accounts or Sensitive Data:** This website does not have user accounts, forms, or login requirements, so no sensitive user data is collected or stored.
-- **Data on GitHub:** The source code for this site is available on GitHub at [EdoardoTosin/edoardotosin.github.io](https://github.com/EdoardoTosin/edoardotosin.github.io). Only publicly accessible content is hosted here, and no personal information is stored.
+- **Static Site Generation**: Built with Jekyll, eliminating server-side vulnerabilities
+- **Version Control**: Source code hosted on GitHub with full transparency
+- **Automated Deployment**: GitHub Actions builds and deploys the site automatically
+- **No Dynamic Components**: No databases, user authentication, or server-side scripting
+- **Minimal Attack Surface**: Static files only, reducing potential security risks
+
+## Infrastructure Security
+
+### GitHub Pages Security
+- **Platform Security**: Benefit from GitHub's enterprise-grade security infrastructure
+- **Automatic Updates**: Platform security patches applied automatically by GitHub
+- **Access Controls**: Repository access controlled via GitHub's permission system
+- **Audit Logging**: All changes tracked through Git version control
+
+### Cloudflare Security Layer
+- **DDoS Protection**: Automatic mitigation of distributed denial-of-service attacks
+- **Web Application Firewall (WAF)**: Protection against common web vulnerabilities
+- **Bot Management**: Advanced bot detection and mitigation
+- **SSL/TLS Encryption**: Automatic HTTPS with modern TLS protocols
+- **Security Headers**: Implementation of security headers (HSTS, CSP, etc.)
+- **Rate Limiting**: Protection against abuse and excessive requests
+
+## Transport Security
+
+- **HTTPS Everywhere**: All traffic encrypted using TLS 1.2+ with strong cipher suites
+- **HTTP Strict Transport Security (HSTS)**: Browser enforcement of HTTPS connections
+- **Certificate Management**: Automated SSL certificate provisioning and renewal
+- **Perfect Forward Secrecy**: Protection of past communications even if keys are compromised
+
+## Content Security
+
+### Dependency Management
+- **Automated Scanning**: GitHub Dependabot monitors all dependencies for vulnerabilities
+- **Regular Updates**: Jekyll, gems, and other dependencies updated promptly
+- **Security Patches**: Critical security updates applied as soon as available
+- **Minimal Dependencies**: Only essential dependencies used to reduce attack surface
+
+### Content Security Policy (CSP)
+- **Strict Policies**: Content Security Policy headers prevent XSS attacks
+- **Resource Whitelisting**: Only approved external resources allowed
+- **Inline Script Restrictions**: Prevention of malicious script injection
 
 ## Vulnerability Management
 
-Even though this is a static site, I still keep an eye on potential vulnerabilities:
+### Proactive Security Measures
+- **Regular Security Reviews**: Periodic assessment of security configurations
+- **Dependency Auditing**: Continuous monitoring of all project dependencies
+- **Security Best Practices**: Following OWASP guidelines and security standards
+- **Automated Testing**: Security checks integrated into deployment pipeline
 
-- **Regular Updates:** I regularly update the Jekyll platform and any dependencies to make sure they include the latest security patches.
-- **Dependency Management:** I use GitHub's Dependabot alerts to stay informed of any security issues in the dependencies and address them promptly.
+### Vulnerability Assessment Scope
+Security considerations apply to:
+- Jekyll site configuration and build process
+- All dependencies and gems used in the project
+- Cloudflare security settings and configurations
+- DNS and domain security settings
+- Any client-side JavaScript (if present)
 
-## Responsible Disclosure
+## Responsible Disclosure Policy
 
-If you discover a security issue on this site, I would appreciate it if you let me know. Here's how you can do that:
+I appreciate security researchers who help identify and report vulnerabilities responsibly.
 
-- **Report the Issue:** You can open an issue on GitHub if it's a non-sensitive matter, or you can email me directly at [edoardotosindev@proton.me](mailto:edoardotosindev@proton.me) for more serious issues.
-- **Please Don't Publicly Disclose:** Give me a chance to fix the issue before disclosing it publicly.
-- **Recognition:** If your report helps me improve security, I'd be happy to credit you here on the Security Policy page (with your permission).
+### Reporting Process
+1. **Email Disclosure**: Send security reports to [edoardotosindev@proton.me](mailto:edoardotosindev@proton.me)
+   - Use "Security Vulnerability Report" in the subject line
+   - Encrypt sensitive reports using my PGP key (if available)
+   
+2. **GitHub Issues**: For non-sensitive matters, open an issue at [EdoardoTosin/edoardotosin.github.io](https://github.com/EdoardoTosin/edoardotosin.github.io)
 
-## Scope
+### Report Requirements
+Please include:
+- **Vulnerability Description**: Clear explanation of the security issue
+- **Steps to Reproduce**: Detailed reproduction steps
+- **Impact Assessment**: Potential security impact and affected components
+- **Proof of Concept**: Evidence of the vulnerability (if applicable)
+- **Suggested Fix**: Recommendations for remediation (if known)
 
-This Security Policy applies only to my website at [{{ site.url | split: "//" | last }}]({{ '/' | relative_url }}). If I link to external websites or services, please refer to their own security and privacy policies, as I don't control their security practices.
+### Disclosure Timeline
+- **Initial Response**: Within 48-72 hours of report receipt
+- **Investigation**: Up to 14 days for assessment and reproduction
+- **Resolution**: Target fix deployment within 30 days for critical issues
+- **Public Disclosure**: Coordinated after fix deployment, with reporter credit (if desired)
 
-## Contact
+### Recognition
+Security researchers who responsibly report valid vulnerabilities will be:
+- Credited on this Security Policy page (with permission)
+- Acknowledged in commit messages for security fixes
+- Listed in security advisories (if applicable)
 
-If you have any questions about this Security Policy or want to report a security concern, feel free to [contact me]({{ '/contact' | relative_url }}).
+## Out of Scope
+
+The following are outside the scope of this security policy:
+- **Third-party Services**: External websites linked from this site
+- **User Devices**: Client-side security issues not related to website content
+- **Social Engineering**: Attacks targeting the site owner personally
+- **Physical Security**: Non-digital security concerns
+
+## Security Contacts and Resources
+
+- **Primary Contact**: [edoardotosindev@proton.me](mailto:edoardotosindev@proton.me)
+- **GitHub Repository**: [EdoardoTosin/edoardotosin.github.io](https://github.com/EdoardoTosin/edoardotosin.github.io)
+- **General Contact**: [Contact page]({{ '/contact' | relative_url }})
+
+## Compliance and Standards
+
+This website aims to comply with:
+- **OWASP Top 10**: Protection against common web application security risks
+- **Security Headers**: Implementation of recommended HTTP security headers
+- **TLS Best Practices**: Modern encryption standards and protocols
+- **GDPR/Privacy**: Appropriate data protection measures (see Privacy Policy)
 
 ---
 
-Thank you for helping me keep this website secure for everyone!
+## Security Updates
+
+Security-related updates to this policy or the website will be documented here:
+
+- **{{ page.last_modified_at | date: "%d %b %Y" }}**: Policy updated with enhanced technical details
+- Future updates will be listed chronologically
+
+---
+
+Thank you for helping maintain the security of this website. Your responsible disclosure helps protect all visitors and contributes to a safer internet for everyone.

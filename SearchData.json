@@ -27,5 +27,5 @@ permalink: /SearchData.json
        "tags": {{ item.tags | jsonify }}
     }{%- unless forloop.last -%},{%- endunless -%}
     {%- assign i = i | plus: 1 -%}
-  {%- endfor -%}
+  {% endfor %}
 }

@@ -10,7 +10,7 @@ sitemap: false
 
 <br>
 
-<p>{{ page.description }}</p>
+{{ page.description }}
 
 <br>
 

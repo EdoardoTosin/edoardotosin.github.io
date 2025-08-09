@@ -2,8 +2,8 @@
 permalink: /projects
 layout: Post
 content-type: static
-title: Projects
-description: Collection of personal projects published on Github, including CLI-based games, image conversion tool, and more. This webpage provides links to each project.
+title: Projects Portfolio
+description: "Collection of personal projects published on Github, including CLI-based games, image conversion tool, and more. This webpage provides links to each project."
 ---
 
 <br>

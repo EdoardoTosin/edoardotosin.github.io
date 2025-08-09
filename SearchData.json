@@ -17,7 +17,7 @@ permalink: /SearchData.json
 
   {%- assign sorted_items = all_items | sort: "date" | reverse -%}
   {%- assign i = 0 -%}
-  {%- for item in sorted_items -%}
+  {% for item in sorted_items %}
     "{{ i }}": {
        "doc":  {{ item.title | strip_html | escape | jsonify }},
        "title": {{ item.title | strip_html | escape | jsonify }},

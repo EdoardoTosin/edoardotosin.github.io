@@ -6,11 +6,7 @@ date: 2024-12-01 18:00:00 +0100
 last_modified_at: 2024-12-25 09:00:00 +0100
 lang: en
 ogimg: https://raw.githubusercontent.com/EdoardoTosin/web-assets/refs/heads/main/Notes/100%20Public/Feed/Advent%20of%20Code/Advent-of-Code-2024.png
-tags:
-  - advent-of-code
-  - programming
-  - challenge
-  - puzzle
+tags: ["advent-of-code", "programming", "challenge", "puzzle"]
 ---
 
 Advent of Code, created by Eric Wastl, is an annual coding event that brings the spirit of an advent calendar to programming through 25 puzzles released daily from December 1 to December 25.[^1] Each puzzle varies in difficulty, providing a great opportunity to refine coding skills, explore new ideas, and improve problem-solving abilities.

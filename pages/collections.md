@@ -12,4 +12,6 @@ sitemap: false
 
 <p>{{ page.description }}</p>
 
+<br>
+
 {%- include Collection.html -%}

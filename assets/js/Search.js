@@ -106,7 +106,9 @@
         var index = new Fuse(docsArray, {
           keys: [
             { name: "title", weight: 1.0 },
+            { name: "keywords", weight: 0.08 },
             { name: "tags", weight: 0.1 },
+            { name: "description", weight: 0.05 },
             { name: "content", weight: 0.01 },
             { name: "url", weight: 0.005 },
           ],

@@ -6,6 +6,7 @@ last_modified_at: 2024-08-07 16:30:08 +0200
 lang: en
 ogimg: https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/5_Pi-Hole_Web_Interface/Pi-Hole_Web_Interface_1.jpg
 tags: ["ubuntu", "unbound", "pi-hole", "dns", "server", "adblocker"]
+keywords: ["pi-hole web interface", "pi-hole configuration", "dns server configuration", "pi-hole unbound setup", "router dns settings", "network dns configuration", "pi-hole admin panel"]
 ---
 
 *In the [previous part]({% post_url Ubuntu-Server-Pi-Hole-Unbound/en-US/2022-12-31-ubuntu-server-pihole-unbound-part-4 %}) it was explained how to install Unbound.*

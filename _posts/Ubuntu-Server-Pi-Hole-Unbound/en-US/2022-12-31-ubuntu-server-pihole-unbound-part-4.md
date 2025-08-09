@@ -6,6 +6,7 @@ last_modified_at: 2024-08-07 16:30:08 +0200
 lang: en
 ogimg: https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_7.jpg
 tags: ["ubuntu", "unbound", "pi-hole", "dns", "server", "adblocker"]
+keywords: ["unbound dns installation", "recursive dns server", "unbound ubuntu setup", "dns resolver configuration", "unbound pi-hole integration", "private dns server", "dnssec configuration"]
 ---
 
 *In the [previous part]({% post_url Ubuntu-Server-Pi-Hole-Unbound/en-US/2022-12-31-ubuntu-server-pihole-unbound-part-3 %}) it was explained how to install Pi-Hole.*

@@ -6,6 +6,7 @@ last_modified_at: 2024-08-07 16:30:08 +0200
 lang: it
 ogimg: https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_7.jpg
 tags: ["ubuntu", "unbound", "pi-hole", "dns", "server", "adblocker"]
+keywords: ["installazione pi-hole ubuntu", "blocco pubblicità dns", "pi-hole ubuntu server", "blocco ads rete", "dns pi-hole installazione", "configurazione pi-hole", "server blocco pubblicità"]
 ---
 
 *Nella [parte precedente]({% post_url Ubuntu-Server-Pi-Hole-Unbound/it-IT/2022-12-31-ubuntu-server-pihole-unbound-parte-2 %}) è stato spiegato come aggiungere l'autenticazione a due fattori (2FA) per l'accesso via SSH.*

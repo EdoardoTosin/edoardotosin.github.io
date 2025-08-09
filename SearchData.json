@@ -25,6 +25,15 @@ permalink: /SearchData.json
        "content": {{ item.content | replace: '</h', ' . </h' | replace: '<hr', ' . <hr' | replace: '</p', ' . </p' | replace: '<ul', ' . <ul' | replace: '</ul', ' . </ul' | replace: '<ol', ' . <ol' | replace: '</ol', ' . </ol' | replace: '</tr', ' . </tr' | replace: '<li', ' | <li' | replace: '</li', ' | </li' | replace: '</td', ' | </td' | replace: '<td', ' | <td' | replace: '</th', ' | </th' | replace: '<th', ' | <th' | strip_html | remove: 'Table of contents' | normalize_whitespace | replace: '. . .', '.' | replace: '. .', '.' | replace: '| |', '|' | append: ' ' | strip_html | strip_newline | strip | escape | jsonify }},
        "url": "{{ site.baseurl }}{{ item.url }}",
        "tags": {{ item.tags | jsonify }}
+       {%- if item.keywords -%},
+       "keywords": {{ item.keywords | jsonify }}
+       {%- endif -%}
+       {%- if item.description -%},
+       "description": {{ item.description | strip_html | escape | jsonify }}
+       {%- endif -%}
+       {%- if item.categories and item.categories > 0 -%},
+       "categories": {{ item.categories | jsonify }}
+       {%- endif -%}
     }{%- unless forloop.last -%},{%- endunless -%}
     {%- assign i = i | plus: 1 -%}
   {% endfor %}

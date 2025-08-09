@@ -15,3 +15,6 @@ noindex: nofollow
 <br>
 
 <br>
+---
+
+*This is a [now page](https://nownownow.com/about) inspired by Derek Sivers.*

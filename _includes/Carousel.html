@@ -30,22 +30,45 @@
 
 {% assign letterstring = "a,b,c,d,e,f,g,h,i,j,k,l,m,n" %}
 {% assign letters = letterstring | split: ',' %}
-{% assign number = include.number | minus: 1 %}
+
+{% comment %} Support both new id-based and legacy number-based carousel selection {% endcomment %}
+{% if include.id %}
+  {% for carousel in page.carousels %}
+    {% if carousel.id == include.id %}
+      {% assign carousel_data = carousel %}
+      {% assign carousel_index = forloop.index0 %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
+{% elsif include.number %}
+  {% assign carousel_index = include.number | minus: 1 %}
+  {% assign carousel_data = page.carousels[carousel_index] %}
+{% else %}
+  {% assign carousel_index = 0 %}
+  {% assign carousel_data = page.carousels[0] %}
+{% endif %}
+
+{% comment %} Set up carousel ID for HTML elements {% endcomment %}
+{% if include.id %}
+  {% assign carousel_id = include.id %}
+{% else %}
+  {% assign carousel_id = carousel_index %}
+{% endif %}
 
 <div class="only-print">
-  {% assign item = page.carousels[number].images[0] %}
+  {% assign item = carousel_data.images[0] %}
   {% assign image = item.image %}
   {% assign title = item.title | markdownify | replace: '<p>', '' | replace: '</p>', '' | xml_escape | default: '' %}
-  {% assign alt = item.title | markdownify | strip_html | strip | default: 'Image' %}
+  {% assign alt = item.alt | default: item.title | markdownify | strip_html | strip | default: 'Image' %}
   {% include Image.html src=image title=title alt=alt %}
 </div>
 
 <div class="carousel__holder no-print">
-    <div id="carousel{{ number }}" class="carousel no-print">
-        {% for item in page.carousels[number].images %}
-          <input class="carousel__activator" type="radio" name="carousel{{ number }}" id="{{ number }}{{ letters[forloop.index0] }}" {% if forloop.first %}checked="checked"{% endif %} />
+    <div id="carousel{{ carousel_id }}" class="carousel no-print">
+        {% for item in carousel_data.images %}
+          <input class="carousel__activator" type="radio" name="carousel{{ carousel_id }}" id="{{ carousel_id }}{{ letters[forloop.index0] }}" {% if forloop.first %}checked="checked"{% endif %} />
         {% endfor %}
-        {% for item in page.carousels[number].images %}
+        {% for item in carousel_data.images %}
           {% if forloop.index == forloop.length %}
             {% assign nextindex = 0 %}
           {% else %}
@@ -59,20 +82,20 @@
           {% endif %}
           {% assign prevletter = letters[previndex] %}
           <div class="carousel__controls">
-              <label class="carousel__control carousel__control--backward" for="{{ number }}{{ prevletter }}"></label>
-              <label class="carousel__control carousel__control--forward" for="{{ number }}{{ nextletter }}"></label>
+              <label class="carousel__control carousel__control--backward" for="{{ carousel_id }}{{ prevletter }}"></label>
+              <label class="carousel__control carousel__control--forward" for="{{ carousel_id }}{{ nextletter }}"></label>
           </div>
         {% endfor %}
         <div class="carousel__track">
           <ul>
-            {% for item in page.carousels[number].images %}
-            <li class="carousel__slide"><a href="{{ item.image }}" title="{{ item.title | markdownify | replace: '<p>', '' | replace: '</p>', '' | xml_escape | default: '' }}" data-lightbox="image-set-{{ number }}" {% if include.alt %}data-alt="{{ item.alt }}"{% else %}data-alt="{{ item.title | markdownify | strip_html | strip | default: 'Image' }}"{% endif %} ><img src="{{ item.image }}" {% if include.alt %}alt="{{ include.alt }}"{% else %}alt="{{ include.title | markdownify | strip_html | strip | default: 'Image' }}"{% endif %} /></a></li>
+            {% for item in carousel_data.images %}
+            <li class="carousel__slide"><a href="{{ item.image }}" title="{{ item.title | markdownify | replace: '<p>', '' | replace: '</p>', '' | xml_escape | default: '' }}" data-lightbox="image-set-{{ carousel_id }}" data-alt="{{ item.alt | default: item.title | markdownify | strip_html | strip | default: 'Image' }}" ><img src="{{ item.image }}" alt="{{ item.alt | default: item.title | markdownify | strip_html | strip | default: 'Image' }}" /></a></li>
             {% endfor %}
           </ul>
         </div>
         <div class="carousel__indicators">
-            {% for item in page.carousels[number].images %}
-              <label class="carousel__indicator" for="{{ number }}{{ letters[forloop.index0] }}"></label>
+            {% for item in carousel_data.images %}
+              <label class="carousel__indicator" for="{{ carousel_id }}{{ letters[forloop.index0] }}"></label>
             {% endfor %}
         </div>
     </div>
@@ -100,7 +123,7 @@
 .carousel__activator {
   display: none;
 }
-{% for item in page.carousels[number].images %}
+{% for item in carousel_data.images %}
 .carousel__activator:nth-of-type({{ forloop.index }}):checked ~ .carousel__track {
   -webkit-transform: translateX(-{{ forloop.index0 }}00%);
           transform: translateX(-{{ forloop.index0 }}00%);
@@ -193,7 +216,7 @@
   right: 0;
   opacity: 1;
 }
-{% for item in page.carousels[number].images %}
+{% for item in carousel_data.images %}
 .carousel__track .carousel__slide:nth-of-type({{ forloop.index }}) {
   -webkit-transform: translateX({{ forloop.index0 }}00%);
           transform: translateX({{ forloop.index0 }}00%);
@@ -218,7 +241,7 @@
 .carousel__indicator {
   background-color: #fafafa;
 }
-{% for item in page.carousels[number].images %}
+{% for item in carousel_data.images %}
 .carousel__slide:nth-of-type({{ forloop.index }}),
 .carousel--thumb .carousel__indicators .carousel__indicator:nth-of-type({{ forloop.index }}) {
   background-size: cover;
@@ -251,16 +274,30 @@ function isVisible(el) {
 	return true;
 }
 
-{% if include.duration %}
+{% comment %} Handle auto-play from settings or legacy include parameter {% endcomment %}
+{% assign auto_play = false %}
+{% assign duration = 5 %}
+
+{% if carousel_data.settings.auto_play %}
+  {% assign auto_play = carousel_data.settings.auto_play %}
+{% endif %}
+
+{% if carousel_data.settings.duration %}
+  {% assign duration = carousel_data.settings.duration %}
+{% elsif include.duration %}
+  {% assign duration = include.duration %}
+{% endif %}
+
+{% if auto_play or include.duration %}
 setInterval(() => {
-	const elements = document.querySelectorAll('#carousel{{ number}} .carousel__control--forward');
+	const elements = document.querySelectorAll('#carousel{{ carousel_id }} .carousel__control--forward');
 	for (let i = elements.length - 1; i >= 0; i--) {
 		if (isVisible(elements[i])) {
 			elements[i].click();
 			break;
 		}
 	}
-}, {{ include.duration }} * 1000);
+}, {{ duration }} * 1000);
 {% endif %}
 
 window.addEventListener('load', () => {

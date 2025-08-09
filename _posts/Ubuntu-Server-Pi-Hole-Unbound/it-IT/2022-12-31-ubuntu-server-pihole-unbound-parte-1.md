@@ -5,13 +5,7 @@ date: 2022-12-31 10:00:00 +0100
 last_modified_at: 2024-08-07 16:30:08 +0200
 lang: it
 ogimg: https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_19.jpg
-tags:
-  - ubuntu
-  - unbound
-  - pi-hole
-  - dns
-  - server
-  - adblocker
+tags: ["ubuntu", "unbound", "pi-hole", "dns", "server", "adblocker"]
 ---
 
 In questa guida verrà illustrato come installare Ubuntu Server (sistema operativo) insieme ai tool FOSS [Pi-Hole](https://it.wikipedia.org/wiki/Pi-hole) (dns ad-blocker) e [Unbound](https://it.wikipedia.org/wiki/Unbound) (dns resolver).

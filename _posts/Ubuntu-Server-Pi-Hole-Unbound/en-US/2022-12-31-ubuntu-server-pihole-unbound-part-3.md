@@ -5,13 +5,7 @@ date: 2024-01-02 12:00:00 +0100
 last_modified_at: 2024-08-07 16:30:08 +0200
 lang: en
 ogimg: https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_7.jpg
-tags:
-  - ubuntu
-  - unbound
-  - pi-hole
-  - dns
-  - server
-  - adblocker
+tags: ["ubuntu", "unbound", "pi-hole", "dns", "server", "adblocker"]
 ---
 
 *In the [previous part]({% post_url Ubuntu-Server-Pi-Hole-Unbound/en-US/2022-12-31-ubuntu-server-pihole-unbound-part-2 %}) it was explained how to add two-factor authentication (2FA) for SSH access.*

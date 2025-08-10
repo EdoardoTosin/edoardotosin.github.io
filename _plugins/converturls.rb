@@ -1,15 +1,28 @@
 require 'nokogiri'
+require 'cgi'
 
 module Jekyll
   module ConvertUrlsFilter
+    MARKDOWN_LINK_REGEX = /\[([^\[\]]+)\]\((https?:\/\/[^\)]+)\)/.freeze
+
     def convert_urls(raw)
-      doc = Nokogiri::HTML.fragment(raw.encode('UTF-8', :invalid => :replace, :undef => :replace, :replace => ''))
-      
+      return raw unless raw
+
+      # Clean up invalid characters in-place
+      raw = raw.dup
+      raw.encode!('UTF-8', invalid: :replace, undef: :replace, replace: '')
+
+      doc = Nokogiri::HTML.fragment(raw)
+
       doc.css('td').each do |cell|
-        cell.inner_html = cell.inner_html.gsub(/\[([^\[\]]+)\]\((https?:\/\/[^\)]+)\)/) do
-          text, url = Regexp.last_match(1), Regexp.last_match(2)
-          "<a href=\"#{url}\">#{text}</a>"
+        original_html = cell.inner_html
+        new_html = original_html.gsub(MARKDOWN_LINK_REGEX) do
+          text = CGI.escapeHTML(Regexp.last_match(1))
+          url  = Regexp.last_match(2)
+          %(<a href="#{url}">#{text}</a>)
         end
+
+        cell.inner_html = new_html unless new_html == original_html
       end
       
       doc.to_html

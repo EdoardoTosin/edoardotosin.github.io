@@ -4,14 +4,19 @@ require 'nokogiri'
 
 module Jekyll
   module StripFootnotesFilter
+    FOOTNOTE_TAGS = %w[div sup a].freeze
+    FOOTNOTE_CLASSES = %w[footnotes footnote].freeze
 
     def strip_footnotes(raw)
-      doc = Nokogiri::HTML.fragment(raw.encode('UTF-8', :invalid => :replace, :undef => :replace, :replace => ''))
+      return raw if raw.nil? || raw.empty?
 
-      for block in ['div', 'sup', 'a'] do
-        doc.css(block).each do |ele|
-          ele.remove if (ele['class'] == 'footnotes' or ele['class'] == 'footnote')
-        end
+      raw = raw.dup
+      raw.encode!('UTF-8', invalid: :replace, undef: :replace, replace: '')
+
+      doc = Nokogiri::HTML.fragment(raw)
+
+      doc.css(FOOTNOTE_TAGS.join(',')).each do |ele|
+        ele.remove if FOOTNOTE_CLASSES.include?(ele['class'])
       end
 
       doc.inner_html

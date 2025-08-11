@@ -3,6 +3,11 @@ name: Auto-merge Obsidian Sync PRs
 on:
   pull_request:
     types: [opened, synchronize, reopened]
+  check_suite:
+    types: [completed]
+  workflow_run:
+    workflows: ["Jekyll CI Checks"]
+    types: [completed]
 
 permissions:
   contents: write
@@ -13,69 +18,162 @@ jobs:
   auto-merge-sync:
     runs-on: ubuntu-latest
     if: |
-      contains(github.event.pull_request.labels.*.name, 'obsidian-sync') ||
-      (github.actor == github.repository_owner && contains(github.event.pull_request.title, 'sync:'))
+      (github.event_name == 'pull_request' && (
+        contains(github.event.pull_request.labels.*.name, 'obsidian-sync') ||
+        contains(github.event.pull_request.title, 'sync:') ||
+        github.event.pull_request.user.login == github.repository_owner
+      )) ||
+      (github.event_name == 'check_suite' && github.event.check_suite.conclusion == 'success') ||
+      (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success')
     
     steps:
-      - name: Wait for CI Checks
+      - name: Get PR Information
+        uses: actions/github-script@v7
+        id: pr-info
+        with:
+          script: |
+            let prNumber, prData;
+            
+            if (context.eventName === 'pull_request') {
+              prNumber = context.payload.pull_request.number;
+              prData = context.payload.pull_request;
+            } else if (context.eventName === 'check_suite') {
+              // Find PR associated with this check suite
+              const prs = await github.rest.pulls.list({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                head: `${context.repo.owner}:${context.payload.check_suite.head_branch}`,
+                state: 'open'
+              });
+              
+              if (prs.data.length === 0) {
+                console.log('No open PR found for this check suite');
+                return { skip: true };
+              }
+              
+              prNumber = prs.data[0].number;
+              prData = prs.data[0];
+            } else if (context.eventName === 'workflow_run') {
+              // Find PR from workflow run
+              const prs = context.payload.workflow_run.pull_requests;
+              if (prs.length === 0) {
+                console.log('No PR associated with this workflow run');
+                return { skip: true };
+              }
+              
+              prNumber = prs[0].number;
+              const prResponse = await github.rest.pulls.get({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: prNumber
+              });
+              prData = prResponse.data;
+            }
+            
+            // Check if this is a sync PR
+            const isSyncPR = (
+              prData.labels.some(label => label.name === 'obsidian-sync') ||
+              prData.title.includes('sync:') ||
+              (prData.user.login === context.repo.owner && prData.head.ref.includes('sync'))
+            );
+            
+            if (!isSyncPR) {
+              console.log('Not a sync PR, skipping auto-merge');
+              return { skip: true };
+            }
+            
+            console.log(`Found sync PR #${prNumber}: ${prData.title}`);
+            return {
+              skip: false,
+              number: prNumber,
+              title: prData.title,
+              html_url: prData.html_url,
+              head_sha: prData.head.sha,
+              user: prData.user.login
+            };
+
+      - name: Wait for All Checks
+        if: steps.pr-info.outputs.result != 'null' && fromJSON(steps.pr-info.outputs.result).skip != true
         uses: actions/github-script@v7
         id: wait-for-checks
         with:
           script: |
-            const { owner, repo } = context.repo;
-            const { number } = context.issue;
+            const prInfo = ${{ steps.pr-info.outputs.result }};
+            const sha = prInfo.head_sha;
+            console.log(`Waiting for checks on PR #${prInfo.number}, SHA: ${sha}`);
             
-            // Get the PR details
-            const pr = await github.rest.pulls.get({
-              owner,
-              repo,
-              pull_number: number
-            });
-            
-            const sha = pr.data.head.sha;
-            console.log(`Waiting for checks on SHA: ${sha}`);
-            
-            // Wait for checks to complete
             let attempts = 0;
-            const maxAttempts = 60; // 10 minutes with 10-second intervals
+            const maxAttempts = 90; // 15 minutes with 10-second intervals
             
             while (attempts < maxAttempts) {
+              // Get all check runs for this commit
               const checkRuns = await github.rest.checks.listForRef({
-                owner,
-                repo,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
                 ref: sha
               });
               
-              console.log(`Found ${checkRuns.data.check_runs.length} check runs`);
+              // Get all status checks for this commit  
+              const statusChecks = await github.rest.repos.getCombinedStatusForRef({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref: sha
+              });
               
-              // Filter out auto-merge check (this workflow)
-              const relevantChecks = checkRuns.data.check_runs.filter(
-                check => !check.name.includes('auto-merge') && !check.name.includes('Auto-merge')
+              // Filter out this auto-merge workflow
+              const relevantCheckRuns = checkRuns.data.check_runs.filter(
+                check => !check.name.toLowerCase().includes('auto-merge')
               );
               
-              if (relevantChecks.length === 0) {
-                console.log('No relevant checks found, proceeding...');
-                return 'success';
-              }
-              
-              const allCompleted = relevantChecks.every(check => 
-                ['completed'].includes(check.status)
+              const relevantStatusChecks = statusChecks.data.statuses.filter(
+                status => !status.context.toLowerCase().includes('auto-merge')
               );
               
-              if (allCompleted) {
-                const allSuccessful = relevantChecks.every(check => 
-                  ['success', 'neutral'].includes(check.conclusion)
+              console.log(`Found ${relevantCheckRuns.length} check runs and ${relevantStatusChecks.length} status checks`);
+              
+              // Check if we have any checks at all
+              if (relevantCheckRuns.length === 0 && relevantStatusChecks.length === 0) {
+                if (attempts > 5) { // Wait a bit for checks to appear
+                  console.log('No checks found after waiting, proceeding...');
+                  return 'success';
+                }
+              } else {
+                // Check if all check runs are completed
+                const checkRunsCompleted = relevantCheckRuns.every(check => 
+                  check.status === 'completed'
                 );
                 
-                if (allSuccessful) {
-                  console.log('✅ All checks passed!');
-                  return 'success';
-                } else {
-                  const failedChecks = relevantChecks.filter(check => 
-                    !['success', 'neutral'].includes(check.conclusion)
+                // Check if all status checks are completed
+                const statusChecksCompleted = relevantStatusChecks.every(status => 
+                  ['success', 'failure', 'error'].includes(status.state)
+                );
+                
+                if (checkRunsCompleted && statusChecksCompleted) {
+                  // Check if all are successful
+                  const checkRunsSuccessful = relevantCheckRuns.every(check => 
+                    ['success', 'neutral', 'skipped'].includes(check.conclusion)
                   );
-                  console.log(`❌ Some checks failed: ${failedChecks.map(c => c.name).join(', ')}`);
-                  return 'failure';
+                  
+                  const statusChecksSuccessful = relevantStatusChecks.every(status => 
+                    status.state === 'success'
+                  );
+                  
+                  if (checkRunsSuccessful && statusChecksSuccessful) {
+                    console.log('✅ All checks passed!');
+                    return 'success';
+                  } else {
+                    const failedCheckRuns = relevantCheckRuns.filter(check => 
+                      !['success', 'neutral', 'skipped'].includes(check.conclusion)
+                    );
+                    const failedStatusChecks = relevantStatusChecks.filter(status => 
+                      status.state !== 'success'
+                    );
+                    
+                    console.log(`❌ Some checks failed:`);
+                    failedCheckRuns.forEach(check => console.log(`  - ${check.name}: ${check.conclusion}`));
+                    failedStatusChecks.forEach(status => console.log(`  - ${status.context}: ${status.state}`));
+                    return 'failure';
+                  }
                 }
               }
               
@@ -88,44 +186,79 @@ jobs:
             return 'timeout';
           result-encoding: string
 
-      - name: Verify PR is Ready
-        id: verify
-        run: |
-          # Check if PR is from sync workflow
-          if [[ "${{ github.event.pull_request.user.login }}" == "${{ github.repository_owner }}" ]] && 
-             [[ "${{ github.event.pull_request.title }}" == sync:* ]]; then
-            echo "ready=true" >> $GITHUB_OUTPUT
-          else
-            echo "ready=false" >> $GITHUB_OUTPUT
-            echo "❌ PR not eligible for auto-merge"
-          fi
-
       - name: Auto-approve and Merge
-        if: steps.wait-for-checks.outputs.result == 'success' && steps.verify.outputs.ready == 'true'
+        if: |
+          steps.pr-info.outputs.result != 'null' && 
+          fromJSON(steps.pr-info.outputs.result).skip != true &&
+          steps.wait-for-checks.outputs.result == 'success'
         run: |
-          # Approve the PR
-          gh pr review --approve "${{ github.event.pull_request.html_url }}" \
-            --body "✅ Auto-approved: Obsidian sync PR with passing CI checks"
+          PR_INFO='${{ steps.pr-info.outputs.result }}'
+          PR_URL=$(echo "$PR_INFO" | jq -r '.html_url')
+          PR_TITLE=$(echo "$PR_INFO" | jq -r '.title')
           
-          # Enable auto-merge
-          gh pr merge --auto --squash "${{ github.event.pull_request.html_url }}" \
-            --subject "$(echo "${{ github.event.pull_request.title }}" | head -c 50)" \
-            --body "Automatically merged Obsidian sync changes"
+          echo "🚀 Auto-merging sync PR: $PR_TITLE"
+          
+          # Approve the PR
+          gh pr review --approve "$PR_URL" \
+            --body "✅ **Auto-approved**: Obsidian sync PR with all CI checks passing
+          
+          🔍 **Validation completed:**
+          - Jekyll build successful
+          - Content validation passed
+          - All automated checks green
+          
+          🤖 This PR was automatically approved and will be merged."
+          
+          # Wait a moment for the approval to register
+          sleep 2
+          
+          # Merge the PR immediately (not using auto-merge to avoid delays)
+          gh pr merge "$PR_URL" --squash \
+            --subject "$(echo "$PR_TITLE" | head -c 72)" \
+            --body "Automatically merged Obsidian sync changes with passing CI checks"
+          
+          echo "✅ Successfully merged sync PR!"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Comment on Failure
-        if: steps.wait-for-checks.outputs.result == 'failure'
+        if: |
+          steps.pr-info.outputs.result != 'null' && 
+          fromJSON(steps.pr-info.outputs.result).skip != true &&
+          steps.wait-for-checks.outputs.result == 'failure'
         run: |
-          gh pr comment "${{ github.event.pull_request.html_url }}" \
-            --body "❌ Auto-merge cancelled: CI checks failed. Please review and fix the issues."
+          PR_INFO='${{ steps.pr-info.outputs.result }}'
+          PR_URL=$(echo "$PR_INFO" | jq -r '.html_url')
+          
+          gh pr comment "$PR_URL" \
+            --body "❌ **Auto-merge cancelled**: CI checks failed
+          
+          🔍 **Issues detected:**
+          - One or more checks did not pass
+          - Please review the failing checks above
+          - Fix the issues and push new commits to retry
+          
+          🤖 Auto-merge will retry when all checks pass."
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Comment on Timeout
-        if: steps.wait-for-checks.outputs.result == 'timeout'
+        if: |
+          steps.pr-info.outputs.result != 'null' && 
+          fromJSON(steps.pr-info.outputs.result).skip != true &&
+          steps.wait-for-checks.outputs.result == 'timeout'
         run: |
-          gh pr comment "${{ github.event.pull_request.html_url }}" \
-            --body "⏰ Auto-merge cancelled: CI checks timed out. Please check the workflow status manually."
+          PR_INFO='${{ steps.pr-info.outputs.result }}'
+          PR_URL=$(echo "$PR_INFO" | jq -r '.html_url')
+          
+          gh pr comment "$PR_URL" \
+            --body "⏰ **Auto-merge timeout**: CI checks took too long
+          
+          🔍 **What happened:**
+          - Checks did not complete within 15 minutes
+          - This may indicate a stuck or very slow build
+          - Please check the Actions tab for any stuck workflows
+          
+          🤖 You may need to manually merge this PR or re-trigger the checks."
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

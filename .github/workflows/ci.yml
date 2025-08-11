@@ -29,7 +29,7 @@ jobs:
           echo "✅ Build successful"
 
   alls-green:
-    name: All checks passed
+    name: alls-green
     if: always()
     needs: [test]
     runs-on: ubuntu-latest

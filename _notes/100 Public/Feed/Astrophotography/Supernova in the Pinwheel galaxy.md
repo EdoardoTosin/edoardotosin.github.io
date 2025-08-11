@@ -7,18 +7,27 @@ last_modified_at: 2024-08-07 16:30:07 +0200
 lang: en
 ogimg: https://live.staticflickr.com/65535/52926129447_b5b2a2e102_h.jpg
 carousels:
-  - id: "supernova_photo"
+  - id: supernova_photo
     settings:
       auto_play: false
     images:
-      - image: "https://live.staticflickr.com/65535/52927581723_77449759fc_h.jpg"
-        title: "Supernova six days after discovery - 25 May 2023"
-        alt: "Supernova visible in Pinwheel galaxy"
-      - image: "https://live.staticflickr.com/65535/52926129447_b5b2a2e102_h.jpg"
-        title: "Supernova six days after discovery - 25 May 2023"
-        alt: "Supernova visible in Pinwheel galaxy"
-tags: ["astrophotography", "galaxy", "supernova"]
-keywords: ["supernova pinwheel galaxy", "messier 101 supernova", "sn 2023ixf", "galaxy photography", "supernova discovery", "deep space photography"]
+      - image: https://live.staticflickr.com/65535/52927581723_77449759fc_h.jpg
+        title: Supernova six days after discovery - 25 May 2023
+        alt: Supernova visible in Pinwheel galaxy
+      - image: https://live.staticflickr.com/65535/52926129447_b5b2a2e102_h.jpg
+        title: Supernova six days after discovery - 25 May 2023
+        alt: Supernova visible in Pinwheel galaxy
+tags:
+  - astrophotography
+  - galaxy
+  - supernova
+keywords:
+  - supernova pinwheel galaxy
+  - messier 101 supernova
+  - sn 2023ixf
+  - galaxy photography
+  - supernova discovery
+  - deep space photography
 ---
 
 A remarkable breakthrough in astronomy unfolded on 19 May 2023 with the discovery of a supernova in the Pinwheel Galaxy, also known as Messier 101 (M101).[^1][^2] This supernova, named SN 2023ixf, is not only a stunning cosmic event but also the closest observed supernova in recent years, offering scientists a rare opportunity to study such an explosion up close.[^3][^4]

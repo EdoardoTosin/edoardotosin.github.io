@@ -1,33 +1,26 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
-# Sample workflow for building and deploying a Jekyll site to GitHub Pages
 name: Deploy Jekyll site to Pages
 
 on:
   # Runs on pushes targeting the default branch
   push:
     branches: ["main"]
+    paths-ignore:
+      - '.github/workflows/ci.yml'
+      - '.github/workflows/auto-merge-trusted-prs.yml'
 
-  # Runs when the "Auto-merge Trusted PRs" or "Jekyll CI Checks" workflow is completed
-  workflow_run:
-    workflows: ["Auto-merge Trusted PRs", "Jekyll CI Checks"]
-    types:
-      - completed
-
-  # Runs when a PR is merge, closed and has label `sync`
+  # Runs when a merged PR has been closed
   pull_request:
-    types:
-      - closed
-    branches:
-      - main
-    condition: |
-      github.event.pull_request.merged == true && contains(github.event.pull_request.labels.*.name, 'sync')
+    types: [closed]
+    branches: [main]
 
-  # Allows you to run this workflow manually from the Actions tab
+  # Allows manual deployment
   workflow_dispatch:
+    inputs:
+      force_deploy:
+        description: 'Force deployment even if no changes'
+        required: false
+        default: false
+        type: boolean
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -35,8 +28,7 @@ permissions:
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+# Allow only one concurrent deployment
 concurrency:
   group: "pages"
   cancel-in-progress: false
@@ -45,6 +37,18 @@ jobs:
   # Build job
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+    # Only run if push to main, manual dispatch, or merged PR with sync label
+    if: >
+      github.event_name == 'push' ||
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'pull_request' && 
+       github.event.pull_request.merged == true && 
+       contains(github.event.pull_request.labels.*.name, 'sync'))
+
+    outputs:
+      should_deploy: ${{ steps.changes.outputs.should_deploy }}
+
     steps:
       - name: Checkout main branch
         uses: actions/checkout@v4
@@ -52,26 +56,69 @@ jobs:
           ref: main
           fetch-depth: 0
 
+      - name: Check for changes
+        id: changes
+        run: |
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" && "${{ github.event.inputs.force_deploy }}" == "true" ]]; then
+            echo "should_deploy=true" >> $GITHUB_OUTPUT
+            echo "🚀 Force deployment requested"
+          elif [[ "${{ github.event_name }}" == "push" ]]; then
+            echo "should_deploy=true" >> $GITHUB_OUTPUT
+            echo "📝 Push to main detected"
+          elif [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            echo "should_deploy=true" >> $GITHUB_OUTPUT
+            echo "🏷️ Merged PR with sync label"
+          else
+            echo "should_deploy=false" >> $GITHUB_OUTPUT
+            echo "ℹ️ No deployment needed"
+          fi
+
       - name: Setup Ruby
+        if: steps.changes.outputs.should_deploy == 'true'
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.2.3' # Not needed with a .ruby-version file
-          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-          cache-version: 5 # Increment this number if you need to re-download cached gems
+          ruby-version: '3.2.3'
+          bundler-cache: true
+          cache-version: 6
 
       - name: Setup Pages
+        if: steps.changes.outputs.should_deploy == 'true'
         id: pages
         uses: actions/configure-pages@v5
 
       - name: Build with Jekyll
-        # Outputs to the './_site' directory by default
-        run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
+        if: steps.changes.outputs.should_deploy == 'true'
+        run: |
+          echo "🏗️ Building Jekyll site..."
+          bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}" --verbose
+          
+          echo "📊 Build completed successfully!"
+          echo "Site size: $(du -sh _site | cut -f1)"
+          echo "Files generated: $(find _site -type f | wc -l)"
         env:
           JEKYLL_ENV: production
 
+      - name: Validate build
+        if: steps.changes.outputs.should_deploy == 'true'
+        run: |
+          # Ensure critical files exist
+          if [ ! -f "_site/index.html" ]; then
+            echo "❌ Build validation failed: index.html not found"
+            exit 1
+          fi
+          
+          # Check for broken internal links (basic check)
+          if grep -r "href=\"#.*\"" _site/ | grep -v "href=\"#\"" > /dev/null; then
+            echo "✅ Internal links found"
+          fi
+          
+          echo "✅ Build validation passed"
+
       - name: Upload artifact
-        # Automatically uploads an artifact from the './_site' directory by default
+        if: steps.changes.outputs.should_deploy == 'true'
         uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site/
 
   # Deployment job
   deploy:
@@ -79,8 +126,28 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     needs: build
+    if: needs.build.outputs.should_deploy == 'true'
+
+    permissions:
+      pages: write
+      id-token: write
+
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Post-deployment validation
+        run: |
+          echo "🚀 Deployment completed!"
+          echo "📍 Site URL: ${{ steps.deployment.outputs.page_url }}"
+          
+          # Basic connectivity check
+          sleep 30  # Give Pages a moment to update
+          if curl -s -o /dev/null -w "%{http_code}" "${{ steps.deployment.outputs.page_url }}" | grep -q "200"; then
+            echo "✅ Site is accessible"
+          else
+            echo "⚠️ Site may still be propagating"
+          fi

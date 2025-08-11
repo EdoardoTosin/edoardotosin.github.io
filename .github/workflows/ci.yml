@@ -27,3 +27,21 @@ jobs:
           test -d "_site"
           test -f "_site/index.html"
           echo "✅ Build successful"
+
+  alls-green:
+    name: All checks passed
+    if: always()
+    needs: [test]
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Check all job results
+        run: |
+          if [[ "${{ needs.test.result }}" == "success" ]]; then
+            echo "✅ All required checks passed successfully"
+            exit 0
+          else
+            echo "❌ Some required checks failed"
+            echo "Test job result: ${{ needs.test.result }}"
+            exit 1
+          fi

@@ -18,75 +18,13 @@ jobs:
     
     steps:
       - name: Wait for CI Checks
-        uses: actions/github-script@v7
+        uses: fountainhead/action-wait-for-check@v1.1.0
         id: wait-for-checks
         with:
-          script: |
-            const { owner, repo } = context.repo;
-            const { number } = context.issue;
-            
-            // Get the PR details
-            const pr = await github.rest.pulls.get({
-              owner,
-              repo,
-              pull_number: number
-            });
-            
-            const sha = pr.data.head.sha;
-            console.log(`Waiting for checks on SHA: ${sha}`);
-            
-            // Wait for checks to complete
-            let attempts = 0;
-            const maxAttempts = 60; // 10 minutes with 10-second intervals
-            
-            while (attempts < maxAttempts) {
-              const checkRuns = await github.rest.checks.listForRef({
-                owner,
-                repo,
-                ref: sha
-              });
-              
-              console.log(`Found ${checkRuns.data.check_runs.length} check runs`);
-              
-              // Filter out auto-merge check (this workflow)
-              const relevantChecks = checkRuns.data.check_runs.filter(
-                check => !check.name.includes('auto-merge') && !check.name.includes('Auto-merge')
-              );
-              
-              if (relevantChecks.length === 0) {
-                console.log('No relevant checks found, proceeding...');
-                return 'success';
-              }
-              
-              const allCompleted = relevantChecks.every(check => 
-                ['completed'].includes(check.status)
-              );
-              
-              if (allCompleted) {
-                const allSuccessful = relevantChecks.every(check => 
-                  ['success', 'neutral'].includes(check.conclusion)
-                );
-                
-                if (allSuccessful) {
-                  console.log('✅ All checks passed!');
-                  return 'success';
-                } else {
-                  const failedChecks = relevantChecks.filter(check => 
-                    !['success', 'neutral'].includes(check.conclusion)
-                  );
-                  console.log(`❌ Some checks failed: ${failedChecks.map(c => c.name).join(', ')}`);
-                  return 'failure';
-                }
-              }
-              
-              console.log(`Waiting for checks to complete... (${attempts + 1}/${maxAttempts})`);
-              await new Promise(resolve => setTimeout(resolve, 10000)); // Wait 10 seconds
-              attempts++;
-            }
-            
-            console.log('⏰ Timeout waiting for checks');
-            return 'timeout';
-          result-encoding: string
+          token: ${{ secrets.GITHUB_TOKEN }}
+          checkName: "Build and Test Site"
+          timeoutSeconds: 600
+          intervalSeconds: 10
 
       - name: Verify PR is Ready
         id: verify
@@ -101,7 +39,7 @@ jobs:
           fi
 
       - name: Auto-approve and Merge
-        if: steps.wait-for-checks.outputs.result == 'success' && steps.verify.outputs.ready == 'true'
+        if: steps.wait-for-checks.outputs.conclusion == 'success' && steps.verify.outputs.ready == 'true'
         run: |
           # Approve the PR
           gh pr review --approve "${{ github.event.pull_request.html_url }}" \
@@ -115,17 +53,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Comment on Failure
-        if: steps.wait-for-checks.outputs.result == 'failure'
+        if: steps.wait-for-checks.outputs.conclusion == 'failure'
         run: |
           gh pr comment "${{ github.event.pull_request.html_url }}" \
             --body "❌ Auto-merge cancelled: CI checks failed. Please review and fix the issues."
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Comment on Timeout
-        if: steps.wait-for-checks.outputs.result == 'timeout'
-        run: |
-          gh pr comment "${{ github.event.pull_request.html_url }}" \
-            --body "⏰ Auto-merge cancelled: CI checks timed out. Please check the workflow status manually."
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

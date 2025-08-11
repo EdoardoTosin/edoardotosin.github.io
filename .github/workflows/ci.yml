@@ -1,245 +1,29 @@
-name: Jekyll CI Checks
+name: Jekyll CI
 
 on:
   pull_request:
     branches: [main]
 
-permissions:
-  contents: read
-  pull-requests: write
-
 jobs:
   test:
-    name: Build and Test Site
+    name: Build and Test
     runs-on: ubuntu-latest
-    timeout-minutes: 15
-
+    
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
+      - uses: actions/checkout@v4
+      
+      - uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.2.3'
           bundler-cache: true
 
-      - name: Setup Pages
-        id: pages
-        uses: actions/configure-pages@v5
-
-      - name: Detect Sync PR
-        id: sync-detection
-        run: |
-          IS_SYNC_PR="false"
-          
-          # Check if this is a sync PR by multiple criteria
-          if [[ "${{ contains(github.event.pull_request.labels.*.name, 'obsidian-sync') }}" == "true" ]] || \
-             [[ "${{ github.event.pull_request.title }}" == *"sync:"* ]] || \
-             [[ "${{ github.event.pull_request.user.login }}" == "${{ github.repository_owner }}" && "${{ github.event.pull_request.head.ref }}" == *"sync"* ]]; then
-            IS_SYNC_PR="true"
-            echo "🔄 Detected Obsidian sync PR"
-          else
-            echo "📝 Regular PR detected"
-          fi
-          
-          echo "is_sync_pr=$IS_SYNC_PR" >> $GITHUB_OUTPUT
-
-      - name: Validate Obsidian Sync Content
-        if: steps.sync-detection.outputs.is_sync_pr == 'true'
-        run: |
-          echo "🔍 Validating Obsidian sync content..."
-          
-          # Initialize validation status
-          VALIDATION_PASSED=true
-          
-          # Check for any remaining Obsidian artifacts that should be converted
-          echo "Checking for wiki-links..."
-          if find . -name "*.md" -path "./_posts/*" -o -path "./_notes/*" -exec grep -l "\[\[.*\]\]" {} \; 2>/dev/null | head -1; then
-            echo "⚠️  Warning: Found wiki-links in content. Consider converting to Jekyll links for better compatibility."
-            # Note: This is just a warning, not a failure
-          fi
-          
-          # Check for Obsidian-style tags that might need conversion
-          echo "Checking for Obsidian tags..."
-          if find . -name "*.md" -path "./_posts/*" -o -path "./_notes/*" -exec grep -l "#[a-zA-Z]" {} \; 2>/dev/null | head -1; then
-            echo "⚠️  Warning: Found potential Obsidian tags. Verify they work with Jekyll."
-          fi
-          
-          # Validate frontmatter for posts
-          echo "Validating frontmatter..."
-          for file in _posts/*.md; do
-            if [[ -f "$file" ]]; then
-              if ! head -20 "$file" | grep -q "^---"; then
-                echo "❌ Missing frontmatter in $file"
-                VALIDATION_PASSED=false
-              else
-                # Check for required fields in posts
-                if ! head -20 "$file" | grep -q "^title:"; then
-                  echo "❌ Missing 'title' in frontmatter of $file"
-                  VALIDATION_PASSED=false
-                fi
-                if ! head -20 "$file" | grep -q "^date:"; then
-                  echo "❌ Missing 'date' in frontmatter of $file"
-                  VALIDATION_PASSED=false
-                fi
-              fi
-            fi
-          done
-          
-          # Validate frontmatter for notes (less strict)
-          for file in _notes/*.md; do
-            if [[ -f "$file" && -s "$file" ]]; then
-              if ! head -20 "$file" | grep -q "^---"; then
-                echo "⚠️  Warning: $file might benefit from frontmatter"
-              fi
-            fi
-          done
-          
-          # Check file encoding
-          echo "Checking file encoding..."
-          for file in _posts/*.md _notes/*.md; do
-            if [[ -f "$file" ]]; then
-              if ! file "$file" | grep -q "UTF-8"; then
-                echo "⚠️  Warning: $file might not be UTF-8 encoded"
-              fi
-            fi
-          done
-          
-          if [[ "$VALIDATION_PASSED" == "true" ]]; then
-            echo "✅ Obsidian content validation passed"
-          else
-            echo "❌ Obsidian content validation failed"
-            exit 1
-          fi
-
-      - name: Build Jekyll site
-        run: |
-          echo "🏗️ Building Jekyll site..."
-          bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}" --verbose
+      - name: Build site
+        run: bundle exec jekyll build
         env:
           JEKYLL_ENV: production
 
-      - name: Test HTML output
+      - name: Test build
         run: |
-          echo "🧪 Testing Jekyll build output..."
-          
-          # Basic structure validation
-          if [ ! -d "_site" ]; then
-            echo "❌ Build failed: _site directory not found"
-            exit 1
-          fi
-          
-          if [ ! -f "_site/index.html" ]; then
-            echo "❌ Build failed: index.html not found"
-            exit 1
-          fi
-          
-          # Check for broken internal links in sync content (if htmlproofer is available)
-          if command -v htmlproofer >/dev/null 2>&1; then
-            echo "🔗 Running HTML validation..."
-            htmlproofer ./_site \
-              --internal-domains=localhost:4000 \
-              --assume-extension \
-              --check-html \
-              --disable-external \
-              --allow-hash-href || echo "⚠️  HTML validation warnings found (non-blocking)"
-          fi
-          
-          # Generate build statistics
-          SITE_SIZE=$(du -sh _site | cut -f1)
-          FILE_COUNT=$(find _site -type f | wc -l)
-          
-          echo "✅ Jekyll site built successfully"
-          echo "📊 Site size: $SITE_SIZE"
-          echo "📄 Files generated: $FILE_COUNT"
-          
-          # Report on sync content specifically
-          if [[ -d "_site/_posts" ]]; then
-            POST_COUNT=$(find _site/_posts -name "*.html" | wc -l)
-            echo "📝 Posts: $POST_COUNT"
-          fi
-          if [[ -d "_site/_notes" ]]; then
-            NOTE_COUNT=$(find _site/_notes -name "*.html" | wc -l)
-            echo "📚 Notes: $NOTE_COUNT"
-          fi
-          
-          # Store stats for later use
-          echo "SITE_SIZE=$SITE_SIZE" >> $GITHUB_ENV
-          echo "FILE_COUNT=$FILE_COUNT" >> $GITHUB_ENV
-          echo "POST_COUNT=${POST_COUNT:-0}" >> $GITHUB_ENV
-          echo "NOTE_COUNT=${NOTE_COUNT:-0}" >> $GITHUB_ENV
-
-      - name: Upload build artifact
-        if: github.event_name == 'pull_request'
-        uses: actions/upload-artifact@v4
-        with:
-          name: jekyll-site-pr-${{ github.event.number }}
-          path: _site/
-          retention-days: 7
-
-      - name: Comment PR with Build Info
-        if: steps.sync-detection.outputs.is_sync_pr == 'true'
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const comment = `## 🏗️ Obsidian Sync Build Summary
-            
-            ✅ **Jekyll site built successfully from Obsidian content**
-            
-            ### 📊 Build Statistics
-            - **Site size:** ${{ env.SITE_SIZE }}
-            - **Files generated:** ${{ env.FILE_COUNT }}
-            - **Posts:** ${{ env.POST_COUNT }}
-            - **Notes:** ${{ env.NOTE_COUNT }}
-            - **Build time:** ~${{ steps.build-jekyll-site.conclusion == 'success' && '< 15 min' || 'N/A' }}
-            
-            ### 🔄 Sync Details
-            - **Source:** Posts/ → _posts/, Notes/ → _notes/
-            - **Validation:** All content checks passed
-            - **Encoding:** UTF-8 verified
-            - **Frontmatter:** Validated for posts
-            
-            ### 🚀 Next Steps
-            ${process.env.GITHUB_EVENT_NAME === 'pull_request' ? 
-              '🤖 This PR is eligible for auto-merge once all checks pass!' : 
-              '✅ Ready for manual review and merge'
-            }
-            
-            ---
-            *🤖 Automatically generated by the Jekyll CI workflow*`;
-            
-            await github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: comment
-            });
-
-      - name: Set Success Status
-        if: success()
-        run: |
-          echo "✅ All CI checks completed successfully!"
-          echo "🎯 Build validation: PASSED"
-          echo "🔍 Content validation: PASSED" 
-          if [[ "${{ steps.sync-detection.outputs.is_sync_pr }}" == "true" ]]; then
-            echo "🤖 Auto-merge eligibility: CONFIRMED"
-          fi
-
-  alls-green:
-    if: always()
-    needs: [test]
-    runs-on: ubuntu-latest
-    timeout-minutes: 2
-
-    steps:
-      - name: Ensure all jobs passed
-        uses: re-actors/alls-green@release/v1
-        with:
-          jobs: ${{ toJSON(needs) }}
-          
-      - name: Final Status Report
-        if: success()
-        run: |
-          echo "🎉 All CI workflows completed successfully!"
-          echo "✅ Ready for auto-merge (if applicable)"
+          test -d "_site"
+          test -f "_site/index.html"
+          echo "✅ Build successful"

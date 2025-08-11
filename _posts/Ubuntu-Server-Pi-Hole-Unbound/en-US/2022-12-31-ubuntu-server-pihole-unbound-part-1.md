@@ -5,21 +5,8 @@ date: 2024-01-02 10:00:00 +0100
 last_modified_at: 2024-08-07 16:30:08 +0200
 lang: en
 ogimg: https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/1_Ubuntu_Server/Ubuntu_Server_19.jpg
-tags:
-  - ubuntu
-  - unbound
-  - pi-hole
-  - dns
-  - server
-  - adblocker
-keywords:
-  - ubuntu server installation
-  - ubuntu server setup
-  - linux server install
-  - ubuntu 22.04 installation
-  - server operating system
-  - ubuntu server tutorial
-  - linux server configuration
+tags: ["ubuntu", "unbound", "pi-hole", "dns", "server", "adblocker"]
+keywords: ["ubuntu server installation", "ubuntu server setup", "linux server install", "ubuntu 22.04 installation", "server operating system", "ubuntu server tutorial", "linux server configuration"]
 ---
 
 This guide will illustrate how to install Ubuntu Server (operating system) along with the FOSS tools [Pi-Hole](https://en.wikipedia.org/wiki/Pi-hole) (dns ad-blocker) and [Unbound](https://en.wikipedia.org/wiki/Unbound_(DNS_server)) (dns resolver). Furthermore, two-factor authentication (2FA) is used as an additional protection against unauthorized access.

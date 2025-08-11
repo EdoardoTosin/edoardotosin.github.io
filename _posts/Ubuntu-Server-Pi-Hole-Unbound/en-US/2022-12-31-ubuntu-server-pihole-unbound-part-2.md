@@ -5,21 +5,8 @@ date: 2024-01-02 11:00:00 +0100
 last_modified_at: 2024-08-07 16:30:08 +0200
 lang: en
 ogimg: https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_13.jpg
-tags:
-  - ubuntu
-  - unbound
-  - pi-hole
-  - dns
-  - server
-  - adblocker
-keywords:
-  - ubuntu 2fa setup
-  - ssh two factor authentication
-  - google authenticator ubuntu
-  - ssh security
-  - ubuntu server security
-  - two factor authentication linux
-  - ssh 2fa configuration
+tags: ["ubuntu", "unbound", "pi-hole", "dns", "server", "adblocker"]
+keywords: ["ubuntu 2fa setup", "ssh two factor authentication", "google authenticator ubuntu", "ssh security", "ubuntu server security", "two factor authentication linux", "ssh 2fa configuration"]
 ---
 
 *In the [previous part]({% post_url Ubuntu-Server-Pi-Hole-Unbound/en-US/2022-12-31-ubuntu-server-pihole-unbound-part-1 %}) it was explained how to install the Ubuntu Server operating system.*

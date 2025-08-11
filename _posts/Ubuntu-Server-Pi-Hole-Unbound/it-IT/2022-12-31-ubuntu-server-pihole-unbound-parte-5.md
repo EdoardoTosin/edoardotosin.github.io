@@ -5,21 +5,8 @@ date: 2022-12-31 14:00:00 +0100
 last_modified_at: 2024-08-07 16:30:09 +0200
 lang: it
 ogimg: https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/5_Pi-Hole_Web_Interface/Pi-Hole_Web_Interface_1.jpg
-tags:
-  - ubuntu
-  - unbound
-  - pi-hole
-  - dns
-  - server
-  - adblocker
-keywords:
-  - interfaccia web pi-hole
-  - configurazione pi-hole
-  - configurazione server dns
-  - configurazione pi-hole unbound
-  - impostazioni dns router
-  - configurazione dns rete
-  - pannello admin pi-hole
+tags: ["ubuntu", "unbound", "pi-hole", "dns", "server", "adblocker"]
+keywords: ["interfaccia web pi-hole", "configurazione pi-hole", "configurazione server dns", "configurazione pi-hole unbound", "impostazioni dns router", "configurazione dns rete", "pannello admin pi-hole"]
 ---
 
 *Nella [parte precedente]({% post_url Ubuntu-Server-Pi-Hole-Unbound/it-IT/2022-12-31-ubuntu-server-pihole-unbound-parte-4 %}) è stato spiegato come installare Unbound.*
@@ -68,3 +55,4 @@ Per fare ciò premere cliccare dal menù orizzontale presente in alto la voce `T
 ## Configurazione router
 
 Ora dalle impostazioni del router (consultare il manuale del router per capire dove trovare l'impostazione) si può cambiare il DNS all'IP del computer dove è stato installato Ubuntu Server. Questo farà si che ogni dispositivo collegato in rete con DNS automatico farà richiesta di risoluzione al router che a sua volte replicherà i pacchetti al sistema filtrando gran parte della pubblicità dai siti web e anche contenuti pericolosi.
+

@@ -248,8 +248,8 @@ body {
   font-size: var(--text-m);
   font-weight: 400;
   line-height: 1.4;
-  padding: 0 1rem 1rem 1rem;
- }
+  padding: 1rem;
+}
 
 a {
   color: var(--color-text-link);
@@ -287,7 +287,7 @@ pre {
   color: var(--color-text-main);
   font-size: 0.875em;
   overflow-x: auto;
-  /*padding: 1.25rem 1.5rem;*/
+  padding: 1.25rem 1.5rem;
   white-space: pre;
   word-wrap: normal; }
 
@@ -1025,7 +1025,7 @@ a.box-feed:active {
         }
       }
     .button.is-text:active, .button.is-text.is-active {
-      background-color: var(--color-border-light);
+      background-color: #e8e8e8;
       color: var(--color-border-dark); }
     .button.is-text[disabled],
     fieldset[disabled] .button.is-text {
@@ -1046,7 +1046,7 @@ a.box-feed:active {
   justify-content: flex-start; }
   .buttons .button {
     margin-bottom: 0.3rem;
-    padding: 1rem 1rem 1rem 1rem; }
+    padding: 1rem 1rem 1rem 0rem; }
     .buttons .button:not(:last-child):not(.is-fullwidth) {
       margin-right: 0.5rem; }
   .buttons:last-child {
@@ -1144,13 +1144,13 @@ ol p {
         display: contents;
     }      
 .content ul {
-  list-style: inside;
+  list-style-type: circle;
   margin-top: 1rem; 
   padding-left: 0.4rem;
   margin-block: 0;
 }
   .content ul ul {
-    /*list-style-type: ;*/
+    list-style-type: circle;
     margin-top: 0.5em;
     margin-bottom: -1rem;
     padding-left: 1.5rem;}
@@ -1891,10 +1891,6 @@ a.tag:hover {
 .card .media:not(:last-child) {
   margin-bottom: 1rem; }
 
-.navbar-brand .navbar-item img {
-  margin-right: 1rem;
-}
-
 .navbar {
   min-height: 3.25rem;
   position: relative;
@@ -2435,7 +2431,7 @@ body.has-navbar-fixed-bottom {
   color: var(--color-text-main);
   display: block;
   line-height: 1.5;
-  padding: 0 0.75rem 0 0.75rem;
+  padding: 0.75rem;
   position: relative; }
   .navbar-item .icon:only-child,
   .navbar-link .icon:only-child {
@@ -2452,10 +2448,6 @@ a.navbar-item,
   .navbar-link.is-active {
     background-color: #fafafa;
     color: var(--color-text-link); }
-
-a.navbar-item:not(:hover) {
-    color: var(--color-text-main);
-}
 
 .navbar-item {
   flex-grow: 0;
@@ -3813,7 +3805,7 @@ a.navbar-item:not(:hover) {
 
 
 .footer {
-  /*background-color: #fafafa;*/
+  background-color: #fafafa;
   padding: 3rem 1.5rem 6rem; }
 
 .box-feed {
@@ -3912,40 +3904,4 @@ a.tag:hover {
   input {
     color:(--color-text-sub) !important;
   }
-
-@media print {
-  @page {
-    margin-top: 1cm;
-    margin-bottom: 1cm;
-  }
   
-  .no-print {
-    display: none;
-  }
-  
-  .only-print {
-    display: initial !important;
-  }
-  
-  section {
-	padding: 0.5rem;
-  }
-  
-  .column {
-    width: 100% !important;
-  }
-  
-  .content-block, p {
-    page-break-inside: avoid;
-  }
-  
-  pre code {
-	display: block;
-	white-space: pre-wrap;
-	word-wrap: break-word;
-  }
-}
-
-.only-print {
-    display: none;
-}

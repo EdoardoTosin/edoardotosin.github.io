@@ -48,7 +48,7 @@ jobs:
         with:
           ruby-version: '3.2.3'
           bundler-cache: true
-          cache-version: 6
+          cache-version: ${{ hashFiles('**/Gemfile.lock') }}
 
       - name: Setup Pages
         id: pages

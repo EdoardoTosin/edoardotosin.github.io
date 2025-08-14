@@ -6,7 +6,7 @@ layout: Stylesheet
 @import "stylesheet.css";
 
 
-html.lb-disable-scrolling {
+html:has(body.lb-disable-scrolling) {
   overflow: hidden;
 }
 

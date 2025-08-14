@@ -1,0 +1,89 @@
+---
+layout: Stylesheet
+---
+
+@use "fruity";
+@import "stylesheet.css";
+
+
+@media print {
+  @page {
+    margin-top: 1cm;
+    margin-bottom: 1cm;
+  }
+  
+  .no-print {
+    display: none;
+  }
+  
+  .only-print {
+    display: initial;
+  }
+  
+  section {
+	padding: 0.5rem;
+  }
+  
+  .column {
+    width: 100%;
+  }
+  
+  .content-block, p {
+    page-break-inside: avoid;
+  }
+  
+  pre code {
+	display: block;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+  }
+}
+
+.only-print {
+    display: none;
+}
+
+.navbar-brand .navbar-item img {
+  margin-right: 1rem;
+}
+
+a.navbar-item:not(:hover) {
+    color: var(--color-text-main);
+}
+
+body {
+  padding: 0 1rem 1rem 1rem;
+}
+
+pre {
+  padding: 0rem 0rem;
+}
+
+.highlight pre {
+  margin: .5em;
+}
+
+.buttons {
+  .button {
+   padding: 1rem 1rem 1rem 1rem;
+   margin-bottom: -0.1rem;
+  }
+}
+
+.buttons:last-child {
+  margin-bottom: -0.25rem;
+}
+
+.button.is-text:active, .button.is-text.is-active {
+  background-color: var(--color-border-light);
+}
+
+.navbar-item.is-hidden-tablet {
+  .buttons {
+   margin-bottom: 0.25rem;
+  }
+}
+
+.footer {
+  background-color: inherit;
+}

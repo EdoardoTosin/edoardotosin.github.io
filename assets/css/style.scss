@@ -1809,12 +1809,18 @@ pre {
 .buttons {
   .button {
    padding: 1rem 1rem 1rem 1rem !important;
-   margin-bottom: -0.1rem !important;
+   margin-bottom: -0.1rem;
   }
 }
 
 .button.is-text:active, .button.is-text.is-active {
   background-color: var(--color-border-light) !important;
+}
+
+.navbar-item.is-hidden-tablet {
+  .buttons {
+   margin-bottom: -0.25rem !important;
+  }
 }
 
 .footer {

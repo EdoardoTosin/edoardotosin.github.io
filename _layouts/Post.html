@@ -166,9 +166,9 @@ layout: compress
         {%- include Footer.html -%}
     {% endunless %}
     <!-- Lightbox2 -->
-    <script src="{{ site.baseurl }}/assets/js/lightbox-plus-jquery.min.js"></script>
-    <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/lightbox.min.css">
-    <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/lightbox-override.css">
+    <link rel="preload" href="{{ site.baseurl }}/assets/css/lightbox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ site.baseurl }}/assets/css/lightbox-override.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <script src="{{ site.baseurl }}/assets/js/lightbox-plus-jquery.min.js" defer></script>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
         if (typeof lightbox !== 'undefined') {

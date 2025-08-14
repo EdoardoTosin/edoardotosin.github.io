@@ -1813,13 +1813,17 @@ pre {
   }
 }
 
+.buttons:last-child {
+  margin-bottom: -0.25rem !important;
+}
+
 .button.is-text:active, .button.is-text.is-active {
   background-color: var(--color-border-light) !important;
 }
 
 .navbar-item.is-hidden-tablet {
   .buttons {
-   margin-bottom: -0.25rem !important;
+   margin-bottom: 0.25rem !important;
   }
 }
 

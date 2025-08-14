@@ -1806,6 +1806,17 @@ pre {
   margin: .5em;
 }
 
+.buttons {
+  .button {
+   padding: 1rem 1rem 1rem 1rem !important;
+   margin-bottom: -0.1rem !important;
+  }
+}
+
 .button.is-text:active, .button.is-text.is-active {
   background-color: var(--color-border-light) !important;
+}
+
+.footer {
+  background-color: inherit !important;
 }

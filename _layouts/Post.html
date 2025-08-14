@@ -170,13 +170,17 @@ layout: compress
     <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/lightbox.min.css">
     <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/lightbox-override.css">
     <script>
-    lightbox.option({
-        'alwaysShowNavOnTouchDevices': true,
-        'disableScrolling': true,
-        'fadeDuration': 400,
-        'imageFadeDuration': 400,
-        'resizeDuration': 400
-    })
+    document.addEventListener('DOMContentLoaded', function() {
+        if (typeof lightbox !== 'undefined') {
+            lightbox.option({
+                'alwaysShowNavOnTouchDevices': true,
+                'disableScrolling': true,
+                'fadeDuration': 400,
+                'imageFadeDuration': 400,
+                'resizeDuration': 400
+            });
+        }
+    });
     </script>
     
 </main>

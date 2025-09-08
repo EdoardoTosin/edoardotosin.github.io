@@ -1,6 +1,6 @@
 Contact: mailto:edoardotosindev@proton.me
 Expires: 2025-12-31T23:59:59.000Z
-Encryption: https://edoardotosin.com/security/signed-email-6eb91f027c4070ec.txt
+Encryption: https://edoardotosin.com/security/signed-email-d2da678db99dc787.txt
 Preferred-Languages: en, it
 Canonical: https://edoardotosin.com/.well-known/security.txt
 Policy: https://edoardotosin.com/security-policy

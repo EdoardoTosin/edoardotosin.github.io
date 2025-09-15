@@ -14,6 +14,8 @@ noindex: nofollow
 
 <br>
 
+Currently investigating security issues across multiple websites and preparing responsible disclosures.
+
 <br>
 ---
 

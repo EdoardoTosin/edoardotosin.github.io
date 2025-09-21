@@ -87,7 +87,7 @@ I appreciate security researchers who help identify and report vulnerabilities r
 ### Reporting Process
 1. **Email Disclosure**: Send security reports to [edoardotosindev@proton.me](mailto:edoardotosindev@proton.me)
    - Use "Security Vulnerability Report" in the subject line
-   - Encrypt sensitive reports using my PGP key (if available)
+   - Encrypt sensitive reports using my [PGP key]({{ 'security/signed-email-d2da678db99dc787.txt' | absolute_url }})
    
 2. **GitHub Issues**: For non-sensitive matters, open an issue at [EdoardoTosin/edoardotosin.github.io](https://github.com/EdoardoTosin/edoardotosin.github.io)
 

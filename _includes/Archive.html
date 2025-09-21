@@ -1,0 +1,176 @@
+{%- comment -%}
+ *
+ * MIT License
+ * Copyright (c) 2025 Edoardo Tosin
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ * 
+ * File: Archive.html
+ * Author: Edoardo Tosin
+ *
+ * This file contains the markup for displaying a chronological archive of all
+ * posts and notes, organized by year.
+ *
+{%- endcomment -%}
+
+{%- assign all_items = site.notes | concat: site.posts | where_exp: "item", "item.format != 'list'" | sort: 'date' | reverse -%}
+
+<div id="archives" class="ml-3">
+  {%- assign current_year = "" -%}
+  
+  {%- for item in all_items -%}
+    {%- assign item_year = item.date | date: "%Y" -%}
+    
+    {%- if item_year != current_year -%}
+      {%- if current_year != "" -%}
+        </div> <!-- Close previous year's items -->
+      {%- endif -%}
+      
+      {%- assign current_year = item_year -%}
+      
+      <!-- Year Header -->
+      <time class="year-header is-size-3 has-text-weight-light is-block mb-4 margin-top-30 py-2">
+        {{ current_year }}
+      </time>
+      
+      <div class="year-items">
+    {%- endif -%}
+    
+    <!-- Archive Item -->
+    <a href="{{ site.baseurl }}{{ item.url }}" class="archive-item is-flex is-align-items-center py-3 px-2 mb-1">
+      <div class="date-container is-flex is-align-items-center mr-3">
+        <span class="has-text-weight-bold is-size-5 has-text-right archive-day" style="min-width: 2rem;">
+          {{ item.date | date: "%d" }}
+        </span>
+        <span class="is-size-7 is-uppercase ml-2 archive-month" style="min-width: 3rem; letter-spacing: 0.5px;">
+          {{ item.date | date: "%b" }}
+        </span>
+      </div>
+      
+      <span class="has-text-weight-medium is-flex-grow-1 mr-2 archive-title">
+        {{ item.title | escape }}
+      </span>
+      
+      {%- if item.collection == "posts" -%}
+        <span class="tag is-info is-small">Post</span>
+      {%- else -%}
+        <span class="tag is-success is-small">Note</span>
+      {%- endif -%}
+    </a>
+  {%- endfor -%}
+  
+  {%- if current_year != "" -%}
+    </div> <!-- Close last year's items -->
+  {%- endif -%}
+</div>
+
+{%- if all_items.size == 0 -%}
+  <div class="notification is-warning has-text-centered">
+    <span class="icon is-large">
+      <i class="fas fa-inbox fa-2x"></i>
+    </span>
+    <p class="is-size-5 mt-3">No posts or notes found.</p>
+    <p class="has-text-grey">Start writing to see your archive here!</p>
+  </div>
+{%- endif -%}
+
+<style>
+  /* Essential positioning and interactions only */
+  .year-header {
+    position: sticky;
+    top: 1rem;
+    background: var(--color-bg-main);
+    backdrop-filter: blur(5px);
+    z-index: 10;
+    margin-left: -1rem;
+    padding-left: 1rem !important;
+    margin-right: -1rem;
+    padding-right: 1rem !important;
+    color: var(--color-text-sub);
+    border-bottom: 1px solid var(--color-border-light);
+  }
+  
+  .archive-item {
+    border-bottom: 1px solid var(--color-border-light);
+    transition: background-color 0.2s ease;
+    border-radius: 4px;
+    color: var(--color-text-main) !important;
+    text-decoration: none !important;
+    display: flex;
+  }
+  
+  .archive-item:hover {
+    background-color: var(--color-bg-sub);
+    color: var(--color-text-main) !important;
+    text-decoration: none !important;
+  }
+  
+  .archive-item:focus {
+    text-decoration: none !important;
+  }
+  
+  .archive-item:active {
+    text-decoration: none !important;
+  }
+  
+  .archive-item:last-child {
+    border-bottom: none;
+  }
+  
+  .archive-title {
+    color: var(--color-text-main);
+    transition: color 0.2s ease;
+  }
+  
+  .archive-item:hover .archive-title {
+    color: var(--color-text-link);
+  }
+  
+  .archive-day {
+    color: var(--color-text-main);
+  }
+  
+  .archive-month {
+    color: var(--color-text-sub);
+  }
+  
+  /* Mobile responsiveness */
+  @media screen and (max-width: 768px) {
+    .archive-item {
+      flex-wrap: wrap !important;
+      align-items: flex-start !important;
+    }
+    
+    .date-container {
+      flex-basis: 100%;
+      margin-bottom: 0.25rem;
+      margin-right: 0 !important;
+    }
+    
+    .archive-title {
+      flex-basis: 100% !important;
+      margin-right: 0 !important;
+      margin-bottom: 0.25rem;
+    }
+    
+    .year-header {
+      font-size: 1.75rem !important;
+    }
+  }
+</style>

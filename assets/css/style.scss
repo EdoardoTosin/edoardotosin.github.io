@@ -159,7 +159,7 @@ p {
 }
 
 code {
-    font-size: var(--text-m);
+    font-size: var(--text-s);
     font-weight: var(--text-leading-normal);
     padding: 0.25em 0.5em 0.25em;
 }
@@ -415,9 +415,8 @@ code {
     display: inline-block;
     overflow: auto !important;
     word-wrap: break-word !important;
-    padding: 2px 2px 2px 2px;
+    padding: 1px 4px 1px 4px;
     vertical-align: middle;
-    padding: 2px 2px 2px 2px;
     border: 1px solid var(--secondary-border-color);
     /*border-radius: 4px;*/
 	background-color: var(--color-border-light);
@@ -443,7 +442,7 @@ pre code {
     display: inline-block;
     overflow: auto !important;
     word-wrap: break-word !important;
-    padding: 15px 15px 15px 15px;
+    padding: 0 4px 0 4px;
     vertical-align: middle;
     font-size: 1em;
 

@@ -66,7 +66,7 @@
 <div class="carousel__holder no-print">
     <div id="carousel{{ carousel_id }}" class="carousel no-print">
         {% for item in carousel_data.images %}
-          <input class="carousel__activator" type="radio" name="carousel{{ carousel_id }}" id="{{ carousel_id }}{{ letters[forloop.index0] }}" {% if forloop.first %}checked="checked"{% endif %} />
+          <input class="carousel__activator" type="radio" name="carousel{{ carousel_id }}" id="{{ carousel_id }}{{ letters[forloop.index0] }}" {% if forloop.first %}checked="checked"{% endif %} aria-hidden="true" />
         {% endfor %}
         {% for item in carousel_data.images %}
           {% if forloop.index == forloop.length %}
@@ -82,8 +82,8 @@
           {% endif %}
           {% assign prevletter = letters[previndex] %}
           <div class="carousel__controls">
-              <label class="carousel__control carousel__control--backward" for="{{ carousel_id }}{{ prevletter }}"></label>
-              <label class="carousel__control carousel__control--forward" for="{{ carousel_id }}{{ nextletter }}"></label>
+              <label class="carousel__control carousel__control--backward" for="{{ carousel_id }}{{ prevletter }}" aria-label="Previous slide"></label>
+              <label class="carousel__control carousel__control--forward" for="{{ carousel_id }}{{ nextletter }}" aria-label="Next slide"></label>
           </div>
         {% endfor %}
         <div class="carousel__track">

@@ -33,6 +33,7 @@
   <a href="{{ include.src }}"
      data-lightbox="{{ include.data | default: 'image-gallery' }}"
      data-title="{{ include.title | markdownify | replace: '<p>', '' | replace: '</p>', '' | xml_escape | default: '' }}"
+     aria-label="{{ include.alt | default: include.title | markdownify | strip_html | strip | default: 'Image' }}"
      {% if include.alt %}
        data-alt="{{ include.alt }}"
      {% else %}
@@ -41,11 +42,7 @@
 
     <img src="{{ include.src }}"
          srcset="{{ include.src }}"
-         {% if include.alt %}
-           alt="{{ include.alt }}"
-         {% else %}
-           alt="{{ include.title | markdownify | strip_html | strip | default: 'Image' }}"
-         {% endif %}
+         alt="{{ include.alt | default: include.title | markdownify | strip_html | strip | default: 'Image' }}"
          {% if include.class %} class="{{ include.class }}" {% endif %}
          {% if include.width %} width="{{ include.width }}" {% endif %}
          {% if include.height %} height="{{ include.height }}" {% endif %}

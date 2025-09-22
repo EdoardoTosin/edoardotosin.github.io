@@ -31,7 +31,7 @@
 {%- if page.tags -%}
 <div class="no-print">
     <div class="related-wrapper tags no-print disable-select">
-		<ul class="tag-list">
+		<ul class="tag-list" aria-label="Tags">
 			{%- for tag in page.tags -%}
 			<li class="tag-item">
 				<a href="{{ site.baseurl }}/tags/{{ tag | slugify }}/">#{{ tag }}</a>

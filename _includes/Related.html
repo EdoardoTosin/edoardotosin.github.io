@@ -52,9 +52,9 @@
     {%- if site.preferences.related.enabled -%}
       {%- assign display_class = 'show' -%}
     {%- endif -%}
-    <div class="related {{display_class}} no-print" id="jekyll-seamless-relatedposts">
+    <div class="related {{display_class}} no-print" id="jekyll-seamless-relatedposts" role="complementary" aria-labelledby="related-heading">
       <h5 class="block-title no-print">Similar Content</h5>
-      <div class="related-wrapper no-print">
+      <div class="related-wrapper no-print" role="navigation" aria-label="Related content navigation">
         {%- assign maxRelated = 8 -%}
         {%- assign minCommonTags =  1 -%}
         {%- assign maxRelatedCounter = 0 -%}
@@ -74,7 +74,7 @@
           {%- endfor -%}
           {%- if sameTagCount >= minCommonTags -%}
             <div class="related-group">
-              <a class="no-external-link-icon" href="{{ item.url | absolute_url }}">
+              <a class="no-external-link-icon" href="{{ item.url | absolute_url }}" aria-describedby="related-{{ maxRelatedCounter }}-excerpt">
                 <h6>{{ item.title }}</h6>
                 <p class="excerpt" style="margin: 0px; color: var(--color-text-main) !important;">
                   {{ item.content | strip_html | strip | remove: "[[" | remove: "]]" | remove: "-" | escape | truncate: 100 }}

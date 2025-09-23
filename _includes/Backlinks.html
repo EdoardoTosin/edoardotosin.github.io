@@ -67,14 +67,14 @@
 {%- if site.preferences.backlinks.enabled -%}
 {%- assign display_class = 'show' -%}
 {%- endif -%}
-<div class="related {{display_class}} no-print" id="jekyll-seamless-backlinks">
+<div class="related {{display_class}} no-print" id="jekyll-seamless-backlinks" aria-label="Backlinks to this {{ content-type }}">
     <h5 class="meta-title centre-title no-print">Links to this {{ content-type }}</h5>
     <div class="related-wrapper no-print">
         {%- if site.preferences.backlinks.notes.enabled -%}
         {%- for note in site.notes -%}
         {%- if note.url != page.url -%}
             {%- if note.content contains wiki_link_title -%}
-            <div class="related-group"><a class="no-external-link-icon" href="{{ note.url | absolute_url }}">
+            <div class="related-group"><a class="no-external-link-icon" href="{{ note.url | absolute_url }}" aria-label="Link to {{ note.title }}">
                 <h6>{{ note.title }}</h6>
                 <p class="excerpt" style="margin: 0px; color: var(--color-text-main) !important;">{{ note.content | strip_html | strip | remove: "[[" | remove: "]]" | remove: "-" | escape | truncate: 100 }}</p>
             </a></div>
@@ -87,7 +87,7 @@
         {%- for note in site.pages -%}
         {%- if note.url != page.url -%}
             {%- if note.content contains wiki_link_title -%}
-            <div class="related-group"><a class="no-external-link-icon" href="{{ note.url | absolute_url }}">
+            <div class="related-group"><a class="no-external-link-icon" href="{{ note.url | absolute_url }}" aria-label="Link to {{ note.title }}">
                 <h6>{{ note.title }}</h6>
                 <p class="excerpt" style="margin: 0px; color: var(--color-text-main) !important;">{{ note.content | strip_html | strip | remove: "[[" | remove: "]]" | remove: "-" | escape | truncate: 100 }}</p>
             </a></div>

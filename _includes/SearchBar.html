@@ -4,16 +4,19 @@
 {%- if search_data == "posts" -%}
   {%- assign search_data = "search-posts" -%}
   {%- assign search_placeholder = "Search posts" -%}
+  {%- assign aria_label = "Search through blog posts" -%}
 {%- elsif search_data == "notes" -%}
   {%- assign search_data = "search-notes" -%}
   {%- assign search_placeholder = "Search notes" -%}
+  {%- assign aria_label = "Search through notes" -%}
 {%- else -%}
   {%- assign search_data = '' -%}
   {%- assign search_placeholder = "Search" -%}
+  {%- assign aria_label = "Search though notes and posts" -%}
 {%- endif -%}
 
 <div class="block">
-	<input class="input is-medium{% if search_data != '' %} {{ search_data }}{% endif %}" type="text" placeholder="{{search_placeholder}} ..." id="search-input" autocomplete="off">
+	<input class="input is-medium{% if search_data != '' %} {{ search_data }}{% endif %}" type="text" placeholder="{{search_placeholder}} ..." id="search-input" autocomplete="off" aria-label="{{aria_label}}" aria-describedby="search-results" aria-expanded="false" aria-haspopup="listbox">
 	<div id="search-results" class="search-results" role="listbox" aria-live="polite"></div>
 </div>
 <script type="text/javascript" src="{{ site.baseurl }}/assets/js/vendor/fuse.min.js"></script>

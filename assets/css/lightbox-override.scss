@@ -10,6 +10,10 @@ html:has(body.lb-disable-scrolling) {
   overflow: hidden;
 }
 
+.lb-outerContainer{
+  background-color:#000000cc
+}
+
 .lb-cancel {
   background: url(../img/lightbox/loading.svg) no-repeat;
 }

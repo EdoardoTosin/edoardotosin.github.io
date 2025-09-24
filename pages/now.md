@@ -5,7 +5,7 @@ content-type: static
 title: Now
 description: What I'm Currently Up To
 date: 2024-08-12 21:00:00 +0200
-last_modified_at: 2025-01-10
+last_modified_at: 2025-09-06
 sitemap: false
 noindex: nofollow
 ---

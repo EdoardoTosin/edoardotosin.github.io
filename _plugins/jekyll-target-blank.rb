@@ -44,7 +44,7 @@ module Jekyll
         @should_add_css_classes                = false
         @css_classes_to_add                    = nil
         @should_add_noopener                   = true
-        @should_add_noreferrrer                = true
+        @should_add_noreferrer                = true
         @should_add_extra_rel_attribute_values = false
         @extra_rel_attribute_values            = nil
 
@@ -140,7 +140,7 @@ module Jekyll
       def add_default_rel_attributes?
         @should_add_noopener = false if should_not_include_noopener?
 
-        @should_add_noreferrrer = false if should_not_include_noreferrer?
+        @should_add_noreferrer = false if should_not_include_noreferrer?
       end
 
       # Private: Sets any extra rel attribute values
@@ -177,7 +177,7 @@ module Jekyll
         rel = link["rel"] || ""
         rel = add_noopener_to_rel(rel)
 
-        if @should_add_noreferrrer
+        if @should_add_noreferrer
           rel += " " unless rel.empty?
           rel += "noreferrer"
         end

@@ -3,7 +3,7 @@ permalink: /about
 layout: Post
 content-type: static
 title: About
-description: Explore my portfolio to find insights into my development journey, read my latest blog posts, view my projects on GitHub, browse through my photography on Flickr, and reach out for any collaborations or inquiries.
+description: "Explore my portfolio to read blog posts, check out coding projects on GitHub, browse my photography on Flickr, and connect for collaborations or inquiries."
 ---
 
 <br>
@@ -12,24 +12,26 @@ description: Explore my portfolio to find insights into my development journey, 
 
 ---
 
-Hello! I'm Edoardo Tosin, a passionate coder and tech enthusiast with roots in Italy but a global mindset shaped by my experiences abroad. My journey into the world of Computer Science is fueled by an insatiable curiosity for technology, innovation, and problem-solving across various disciplines. From coding to cybersecurity, machine learning to data analysis, I'm deeply invested in exploring these areas that challenge me intellectually but also has the potential to make a profound positive impact on society globally.
+Hello! I'm {{ site.author }}, a passionate coder and tech enthusiast from Italy with a global perspective shaped by my experiences abroad.
 
-### My Website Aims To:
+I enjoy exploring coding, cybersecurity, machine learning, and data analysis-fields that challenge me and continually spark my curiosity. Through my work, I aim to create practical solutions and projects that make a positive impact in technology and beyond.
 
-- **Educate**: Provide clear, concise notes and tutorials across a wide range of topics.
-- **Inspire**: Discover real-world applications that spark curiosity and practical engagement in the field.
+### My Website Aims To
 
-### Explore My Content:
+- **Educate**: Share notes and tutorials across a variety of topics.
+- **Inspire**: Highlight real-world applications that encourage curiosity and practical engagement in tech.
 
-- **[Notes]({{ '/notes' | relative_url }})**: Dive into quick, digestible pieces covering a variety of subjects.
-- **[Posts]({{ '/posts' | relative_url }})**: Engage with in-depth blog posts and tutorials on various technological aspects.
-- **[Projects]({{ '/projects' | relative_url }})**: Witness the practical application of my learning through side projects that you can explore on GitHub.
-- **[Collections]({{ '/collections' | relative_url }})**: A curated collection of valuable resources, aggregated for convenience.
+### Explore My Content
 
-### Connect With Me:
+- **[Notes]({{ '/notes' | relative_url }})**: Quick, digestible pieces covering a variety of subjects.
+- **[Posts]({{ '/posts' | relative_url }})**: In-depth blog posts and tutorials on technological topics.
+- **[Projects]({{ '/projects' | relative_url }})**: Practical side projects demonstrating my learning and skills, often available on GitHub.
+- **[Collections]({{ '/collections' | relative_url }})**: Curated resources aggregated for convenience.
 
-- **[Github]({{ site.link.github }})**: Link to my repositories where I share more about my coding and project work.
+### Connect With Me
+
+- **[GitHub]({{ site.link.github }})**: Explore my repositories and coding projects.
 - **[Flickr]({{ site.link.flickr }})**: A visual journey through my photography.
-- **[Contact Me]({{ '/contact' | relative_url }})**: Whether for collaboration opportunities or just to say hi, I'm all ears!
+- **[Contact Me]({{ '/contact' | relative_url }})**: For collaborations or just to say hi, I'm all ears!
 
 <br>

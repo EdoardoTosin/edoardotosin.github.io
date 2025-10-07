@@ -8,6 +8,7 @@ require 'yaml'
 require 'time'
 require 'date'
 require 'open3'
+require 'tzinfo'
 
 # Skip the plugin if the environment is set to development
 if ENV['JEKYLL_ENV'] == 'development'
@@ -59,11 +60,15 @@ def get_timezone_from_config(site)
   timezone = site.config['timezone'] || 'UTC'
   
   begin
-    # Validate timezone by attempting to use it
-    Time.now.getlocal(timezone)
+    require 'tzinfo'
+    # Validate timezone exists in TZInfo database
+    TZInfo::Timezone.get(timezone)
     timezone
-  rescue ArgumentError => e
+  rescue TZInfo::InvalidTimezoneIdentifier => e
     Jekyll.logger.warn "Invalid timezone '#{timezone}' in _config.yml, falling back to UTC: #{e.message}"
+    'UTC'
+  rescue LoadError
+    Jekyll.logger.warn "TZInfo gem not available, falling back to UTC"
     'UTC'
   end
 end
@@ -239,8 +244,9 @@ Jekyll::Hooks.register :site, :post_read do |site|
       lastmod_date = date if lastmod_date < date
       
       # Format the date with timezone from config
-      formatted_lastmod = lastmod_date.getlocal(timezone)
-                                     .strftime('%Y-%m-%d %H:%M:%S %:z')
+      tz = TZInfo::Timezone.get(timezone)
+      formatted_lastmod = tz.to_local(lastmod_date)
+                          .strftime('%Y-%m-%d %H:%M:%S %:z')
       
       # Update the site file
       site_file = find_site_file(site, file_path)

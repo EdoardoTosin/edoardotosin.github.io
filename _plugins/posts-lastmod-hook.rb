@@ -9,6 +9,15 @@ require 'time'
 require 'date'
 require 'open3'
 
+# Try to load TZInfo for accurate timezone support
+begin
+  gem 'tzinfo'
+  require 'tzinfo'
+  TZINFO_AVAILABLE = true
+rescue LoadError, Gem::LoadError
+  TZINFO_AVAILABLE = false
+end
+
 # Skip the plugin if the environment is set to development
 if ENV['JEKYLL_ENV'] == 'development'
   Jekyll.logger.info "Skipping `last_modified_at` update plugin in development mode."
@@ -53,13 +62,61 @@ rescue => e
   nil
 end
 
-def get_correct_timezone_offset(lastmod_date)
-  dst_start = Time.new(lastmod_date.year, 3, 31, 2, 0, 0) - ((Time.new(lastmod_date.year, 3, 31).wday - 7) * 86_400)
-  dst_end   = Time.new(lastmod_date.year, 10, 31, 3, 0, 0) - ((Time.new(lastmod_date.year, 10, 31).wday - 7) * 86_400)
-  (lastmod_date >= dst_start && lastmod_date < dst_end) ? '+02:00' : '+01:00'
-rescue => e
-  Jekyll.logger.warn "Error calculating timezone offset: #{e.message}, using +01:00"
-  '+01:00'
+def get_timezone(site)
+  # Get timezone from Jekyll config, default to 'Europe/Berlin'
+  tz_string = site.config['timezone'] || 'Europe/Berlin'
+  
+  if TZINFO_AVAILABLE
+    begin
+      return TZInfo::Timezone.get(tz_string)
+    rescue TZInfo::InvalidTimezoneIdentifier => e
+      Jekyll.logger.warn "Invalid timezone '#{tz_string}': #{e.message}"
+    rescue => e
+      Jekyll.logger.warn "Error loading timezone with TZInfo: #{e.message}"
+    end
+  end
+  
+  # Fallback: Use ENV['TZ'] with Ruby's Time class
+  begin
+    original_tz = ENV['TZ']
+    ENV['TZ'] = tz_string
+    # Test if timezone is valid
+    Time.now
+    tz_string
+  rescue => e
+    Jekyll.logger.warn "Invalid timezone '#{tz_string}', using system default"
+    nil
+  ensure
+    ENV['TZ'] = original_tz
+  end
+end
+
+def format_with_timezone(time, timezone_or_string, site)
+  if TZINFO_AVAILABLE && timezone_or_string.is_a?(TZInfo::Timezone)
+    # Use TZInfo for accurate timezone conversion
+    begin
+      tz_time = timezone_or_string.to_local(time.utc)
+      return tz_time.strftime('%Y-%m-%d %H:%M:%S %z')
+    rescue => e
+      Jekyll.logger.warn "Error converting to timezone: #{e.message}"
+    end
+  elsif timezone_or_string.is_a?(String)
+    # Use Ruby's built-in timezone support via ENV['TZ']
+    begin
+      original_tz = ENV['TZ']
+      ENV['TZ'] = timezone_or_string
+      local_time = time.getlocal
+      formatted = local_time.strftime('%Y-%m-%d %H:%M:%S %z')
+      ENV['TZ'] = original_tz
+      return formatted
+    rescue => e
+      Jekyll.logger.warn "Error formatting with timezone: #{e.message}"
+      ENV['TZ'] = original_tz
+    end
+  end
+  
+  # Final fallback: use the time as-is
+  time.getlocal.strftime('%Y-%m-%d %H:%M:%S %z')
 end
 
 def find_frontmatter_end_line(content)
@@ -256,6 +313,16 @@ end
 Jekyll::Hooks.register :site, :post_read do |site|
   begin
     Jekyll.logger.info "Running `last_modified_at` update plugin (content-only changes)..."
+    
+    # Get timezone configuration
+    timezone = get_timezone(site)
+    if TZINFO_AVAILABLE && timezone.is_a?(TZInfo::Timezone)
+      Jekyll.logger.info "Using TZInfo with timezone: #{site.config['timezone'] || 'Europe/Berlin'}"
+    elsif timezone.is_a?(String)
+      Jekyll.logger.info "Using Ruby Time with timezone: #{timezone}"
+    else
+      Jekyll.logger.info "Using system timezone"
+    end
 
     markdown_files = find_all_markdown_files(site.source)
     
@@ -307,8 +374,7 @@ Jekyll::Hooks.register :site, :post_read do |site|
           next
         end
         
-        formatted_lastmod = lastmod_date.getlocal(get_correct_timezone_offset(lastmod_date))
-                                       .strftime('%Y-%m-%dT%H:%M:%S%:z')
+        formatted_lastmod = format_with_timezone(lastmod_date, timezone, site)
 
         site_file = find_site_file(site, file_path)
         if site_file

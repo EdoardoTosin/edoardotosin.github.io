@@ -1,0 +1,20 @@
+# Auto-generated SRI (Subresource Integrity) hashes
+# Generated: 2025-11-09
+# Do not edit manually
+
+---
+assets/js/Hamburger.js:
+  integrity: sha512-cxvd/gvXSuOsawCjUte10SOYPiOOq2tkqnYqsj/Y7/pEaqPtUUVmW1JP6F/BL8qxljplZ1FFzS1Ue1VD2BU+pg==
+  crossorigin: anonymous
+assets/js/Search.js:
+  integrity: sha512-IZtxQGhMbMNcGvOVXnaP/85XLzbQIrVCMZtD7mqRP3R33DG+/PA2SmvtS30Od2cGFFfq1brcg+nCw01Bbw8PaA==
+  crossorigin: anonymous
+assets/js/lightbox-plus-jquery.min.js:
+  integrity: sha512-/IJVg2oav2TggiFftaMSPgttHNmgu/0RSGP64Nm7wqYwjkxj4hAHLRMJi3QNTa22f4pIkvTsCpB848HEilV6MA==
+  crossorigin: anonymous
+assets/js/modeswitcher.js:
+  integrity: sha512-65cc3cs5CbbpXFppG0S5Lobpp/e/OGT3YyEsoaGhWd+2Imr7UJKCO3x8fRZBjoz/HcLo5bU398E4yvCCaDBxQQ==
+  crossorigin: anonymous
+assets/js/vendor/fuse.min.js:
+  integrity: sha512-H1bWCnc4dDJwdioqpOCkU76ZxEdvBvOy9R9Dd9EqftlzQg92owjX5IVdiOw00llAyQFUZJNPrzDnWZ/lZtf25A==
+  crossorigin: anonymous

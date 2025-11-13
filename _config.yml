@@ -144,11 +144,9 @@ robots:
     allow:
       - "/"
     disallow:
-      - /assets
       - /assets/
       - /security-policy
       - /security/
-      - /tags
       - /tags/
       - /.well-known/
       - /SearchData.json

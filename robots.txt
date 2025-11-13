@@ -2,21 +2,6 @@
 layout: none
 permalink: /robots.txt
 ---
-{% for rule in site.robots -%}
-User-agent: {{ rule.user_agent }}
-{% if rule.allow -%}
-{% for path in rule.allow -%}
-Allow: {{ path }}
-{% endfor -%}
-{% endif -%}
-{% if rule.disallow -%}
-{% for path in rule.disallow -%}
-Disallow: {{ path }}
-{% endfor -%}
-{% endif %}
-{% endfor -%}
-Sitemap: {{ site.url }}/sitemap.xml
-#
 # aHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1kUXc0dzlXZ1hjUQ==
 #
 #                           ..::----:::.
@@ -47,3 +32,17 @@ Sitemap: {{ site.url }}/sitemap.xml
 #                   ..::::::::::--:.     .::::..
 #                        ...::::::.        .
 #
+{% for rule in site.robots -%}
+User-agent: {{ rule.user_agent }}
+{% if rule.allow -%}
+{% for path in rule.allow -%}
+Allow: {{ path }}
+{% endfor -%}
+{% endif %}
+{% if rule.disallow -%}
+{% for path in rule.disallow -%}
+Disallow: {{ path }}
+{% endfor -%}
+{% endif %}
+{% endfor -%}
+Sitemap: {{ site.url }}/sitemap.xml

@@ -33,7 +33,8 @@ permalink: /robots.txt
 #                        ...::::::.        .
 #
 {% for rule in site.robots -%}
-User-agent: {{ rule.user_agent }}
+User-agent: {{ rule.user_agent | default: "*" }}
+
 {% if rule.allow -%}
 {% for path in rule.allow -%}
 Allow: {{ path }}

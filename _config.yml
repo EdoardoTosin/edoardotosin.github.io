@@ -156,6 +156,8 @@ robots:
       - /contact
       - /privacy-policy
       - /tools
+      - /404.html
+      - /feed.xml
 
 # compress.html
 compress_html:

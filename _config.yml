@@ -156,6 +156,7 @@ robots:
       - /contact
       - /privacy-policy
       - /tools
+      - /404
       - /404.html
       - /feed.xml
 

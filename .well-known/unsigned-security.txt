@@ -4,3 +4,15 @@ Encryption: https://edoardotosin.com/security/signed-email-d2da678db99dc787.txt
 Preferred-Languages: en, it
 Canonical: https://edoardotosin.com/.well-known/security.txt
 Policy: https://edoardotosin.com/security-policy
+
+# This security contact covers:
+# - This website (edoardotosin.com)
+# - My GitHub repositories (github.com/EdoardoTosin)
+# - My public projects and resources
+# 
+# This is a personal project. While I appreciate responsible disclosure
+# and will respond to security reports, please note that no bug bounty
+# is offered. Thank you for helping keep my projects secure!
+#
+# IMPORTANT: This file is the canonical source for my security contact.
+# All references point here to ensure contact details stay updated.

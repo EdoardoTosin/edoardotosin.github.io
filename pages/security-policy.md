@@ -5,7 +5,7 @@ content-type: static
 title: Security Policy
 description: "Security measures, vulnerability management, and responsible disclosure policy for this website."
 date: 2023-01-29
-last_modified_at: 2025-08-08
+last_modified_at: 2025-11-15
 sitemap: false
 noindex: nofollow
 ---
@@ -132,15 +132,6 @@ This website aims to comply with:
 - **Security Headers**: Implementation of recommended HTTP security headers
 - **TLS Best Practices**: Modern encryption standards and protocols
 - **GDPR/Privacy**: Appropriate data protection measures (see Privacy Policy)
-
----
-
-## Security Updates
-
-Security-related updates to this policy or the website will be documented here:
-
-- **{{ page.last_modified_at | date: "%d %b %Y" }}**: Policy updated with enhanced technical details
-- Future updates will be listed chronologically
 
 ---
 

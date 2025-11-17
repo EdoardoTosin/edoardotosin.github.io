@@ -187,13 +187,13 @@ exclude:
   - .github
   - .gitattributes
   - .gitignore
+  - .gitmodules
   - _notes/000 Inbox
   - _notes/200 Private
   - _notes/300 Templates
   - Dockerfile
   - README.md
   - LICENSE
-  - tools
   - debug.yml
   - docker-compose.yml
   - blog.code-workspace

@@ -1,5 +1,5 @@
 # Auto-generated SRI (Subresource Integrity) hashes
-# Generated: 2025-11-09
+# Generated: 2025-11-19
 # Do not edit manually
 
 ---
@@ -14,6 +14,9 @@ assets/js/lightbox-plus-jquery.min.js:
   crossorigin: anonymous
 assets/js/modeswitcher.js:
   integrity: sha512-65cc3cs5CbbpXFppG0S5Lobpp/e/OGT3YyEsoaGhWd+2Imr7UJKCO3x8fRZBjoz/HcLo5bU398E4yvCCaDBxQQ==
+  crossorigin: anonymous
+assets/js/tools.js:
+  integrity: sha512-9BV49aHHo5jzEfPVOSBHS/Sx27fTGoQpwG6hYI6EiKOMnZ+5yHLCDD++FvH5W0W74JJ+2M5ztZ0fIlJtCrsw0g==
   crossorigin: anonymous
 assets/js/vendor/fuse.min.js:
   integrity: sha512-H1bWCnc4dDJwdioqpOCkU76ZxEdvBvOy9R9Dd9EqftlzQg92owjX5IVdiOw00llAyQFUZJNPrzDnWZ/lZtf25A==

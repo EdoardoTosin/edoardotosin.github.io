@@ -155,7 +155,7 @@ robots:
       - /credits
       - /contact
       - /privacy-policy
-      - /tools
+      - /tools/
       - /404
       - /404.html
       - /feed.xml
@@ -200,6 +200,17 @@ exclude:
   - utilities
   - .well-known/unsigned-security.txt
   - .well-known/unsigned-security.txt.asc
+  - tools/script
+  - tools/README.md
+  - tools/.github
+  - tools/.gitattributes
+  - tools/.gitignore
+  - tools/.gitmodules
+  - tools/CODE_OF_CONDUCT.md
+  - tools/CONTRIBUTING.md
+  - tools/SECURITY.md
+  - tools/LICENSE
+  - tools/SCRIPT_CATALOG.md
   - assets/img/1-how-to.png
   - assets/img/2-how-to.png
   - assets/img/3-how-to.png

@@ -188,29 +188,19 @@ exclude:
   - .gitattributes
   - .gitignore
   - .gitmodules
-  - _notes/000 Inbox
-  - _notes/200 Private
-  - _notes/300 Templates
+  - _notes/000 Inbox/
+  - _notes/200 Private/
+  - _notes/300 Templates/
   - Dockerfile
   - README.md
   - LICENSE
   - debug.yml
   - docker-compose.yml
   - blog.code-workspace
-  - utilities
+  - utilities/
   - .well-known/unsigned-security.txt
   - .well-known/unsigned-security.txt.asc
-  - tools/script
-  - tools/README.md
-  - tools/.github
-  - tools/.gitattributes
-  - tools/.gitignore
-  - tools/.gitmodules
-  - tools/CODE_OF_CONDUCT.md
-  - tools/CONTRIBUTING.md
-  - tools/SECURITY.md
-  - tools/LICENSE
-  - tools/SCRIPT_CATALOG.md
+  - tools/
   - assets/img/1-how-to.png
   - assets/img/2-how-to.png
   - assets/img/3-how-to.png

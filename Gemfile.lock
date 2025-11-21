@@ -190,4 +190,4 @@ DEPENDENCIES
   webrick (~> 1.7)
 
 BUNDLED WITH
-  4.0.0.beta1
+   2.7.2

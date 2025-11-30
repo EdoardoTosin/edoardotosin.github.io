@@ -1,159 +1,180 @@
-<meta content="width=device-width, initial-scale=1" name="viewport" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<!-- Open Graph locale -->
-{%- if page.lang -%}
-<meta property="og:locale" content="{{ page.lang | replace: '-', '_' }}" />
-{%- elsif site.lang -%}
-<meta property="og:locale" content="{{ site.lang | replace: '-', '_' }}" />
-{%- else -%}
-<meta property="og:locale" content="en_US" />
-{%- endif -%}
+{%- comment -%}
+Locale
+{%- endcomment -%}
+{% assign lang_value = page.lang | default: site.lang | default: "en-US" %}
+<meta property="og:locale" content="{{ lang_value | replace: '-', '_' }}">
 
-<!-- Open Graph site name -->
-{%- if page.permalink == '/' -%}
-  {%- if page.title -%}
-<meta content="{{ site.heading }} - {{ page.title }}" property="og:site_name" />
-  {%- else -%}
-<meta content="{{ site.heading }}" property="og:site_name" />
-  {%- endif -%}
-{%- else -%}
-<meta content="{{ page.title }}" property="og:site_name" />
-{%- endif -%}
+{%- comment -%}
+Site Name
+{%- endcomment -%}
+{% if page.permalink == "/" %}
+  {% if page.title %}
+<meta property="og:site_name" content="{{ site.heading }} - {{ page.title }}">
+  {% else %}
+<meta property="og:site_name" content="{{ site.heading }}">
+  {% endif %}
+{% else %}
+<meta property="og:site_name" content="{{ page.title }}">
+{% endif %}
 
-<!-- Description -->
-{%- if page.description -%}
-<meta content="{{ page.description }}" property="og:description" name="description">
-{%- else -%}
-<meta content="{{ site.content }}" property="og:tagline" name="tagline">
-<meta content="{{ site.description | strip_html | xml_escape | truncate: 200 }}" property="og:description" name="description">
-{%- endif -%}
+{%- comment -%}
+Description & Tagline
+{%- endcomment -%}
+{% if page.description %}
+<meta name="description" content="{{ page.description }}">
+<meta property="og:description" content="{{ page.description }}">
+{% else %}
+<meta name="tagline" content="{{ site.content }}">
+<meta name="description" content="{{ site.description | strip_html | xml_escape | truncate: 200 }}">
+<meta property="og:description" content="{{ site.description | strip_html | xml_escape | truncate: 200 }}">
+{% endif %}
 
-<!-- Keywords -->
-{%- if page.keywords -%}
-<meta content="{{ page.keywords }}" property="keywords">
-{%- elsif site.keywords -%}
-<meta content="{{ site.keywords }}" property="keywords">
-{%- else -%}
-{%- endif -%}
+{%- comment -%}
+Keywords (supports arrays or strings)
+{%- endcomment -%}
+{% assign kw_page = page.keywords %}
+{% assign kw_site = site.keywords %}
+{% assign keywords = kw_page | default: kw_site %}
 
-<!-- Author -->
-{%- if page.author -%}
-<meta content="{{ page.author }}" property="article:author">
-{%- elsif site.author -%}
-<meta content="{{ site.author }}" property="article:author">
-{%- else -%}
-<meta content="{{ site.url }}/about" property="article:author">
-{%- endif -%}
+{% if keywords %}
+  {% if keywords | join: "" %}
+<meta property="keywords" content="{{ keywords | join: ', ' }}">
+  {% else %}
+<meta property="keywords" content="{{ keywords }}">
+  {% endif %}
+{% endif %}
 
-<!-- Open Graph Image -->
-{%- if page.ogimg -%}
-<meta property="og:image" content="{{ page.ogimg }}">
-<link rel="image_src" href="{{ page.ogimg }}">
-{%- else -%}
-<meta property="og:image" content="{{ site.url }}{{ site.ogimg }}">
-<link rel="image_src" href="{{ site.url }}{{ site.ogimg }}">
-{%- endif -%}
+{%- comment -%}
+Author
+{%- endcomment -%}
+<meta property="article:author"
+      content="{% if page.author %}{{ page.author }}{% elsif site.author %}{{ site.author }}{% else %}{{ site.url }}/about{% endif %}">
 
-<!-- Open Graph Title and Type -->
-{%- if page.title -%}
-{%- if page.permalink == '/' -%}
-<meta content="{{ site.heading }} - {{ page.title }}" property="og:title">
-{%- else -%}
-<meta content="{{ page.title }}" property="og:title">
-{%- endif -%}
-<meta content="article" property="og:type">
-{%- else -%}
-{%- if page.permalink == '/' -%}
-<meta content="{{ site.heading }}" property="og:title">
-{%- endif -%}
-<meta content="website" property="og:type">
-{%- endif -%}
+{%- comment -%}
+Open Graph Image
+{%- endcomment -%}
+{% assign ogimg_value = page.ogimg | default: site.url | append: site.ogimg %}
+<meta property="og:image" content="{{ ogimg_value }}">
+<link rel="image_src" href="{{ ogimg_value }}">
 
-<!-- Open Graph URL -->
-<meta content="{{ page.url | absolute_url }}" property="og:url">
+{%- comment -%}
+Open Graph Title + Type
+{%- endcomment -%}
+{% if page.title %}
+  {% if page.permalink == "/" %}
+<meta property="og:title" content="{{ site.heading }} - {{ page.title }}">
+  {% else %}
+<meta property="og:title" content="{{ page.title }}">
+  {% endif %}
+<meta property="og:type" content="article">
+{% else %}
+  {% if page.permalink == "/" %}
+<meta property="og:title" content="{{ site.heading }}">
+  {% endif %}
+<meta property="og:type" content="website">
+{% endif %}
 
-<!-- Article metadata -->
-{%- if page.date -%}
-  {%- if page.last_modified_at and page.last_modified_at != page.date -%}
-    {% assign pub_date = page.date | date: "%Y-%m-%d" %}
+{%- comment -%}
+URL Canonical
+{%- endcomment -%}
+<meta property="og:url" content="{{ page.url | absolute_url }}">
+
+{%- comment -%}
+Article Published / Modified Dates
+{%- endcomment -%}
+{% if page.date %}
+  {% assign pub_date = page.date | date: "%Y-%m-%d" %}
+  {% assign upd_date = pub_date %}
+
+  {% if page.last_modified_at and page.last_modified_at != page.date %}
     {% assign upd_date = page.last_modified_at | date: "%Y-%m-%d" %}
-  {%- else -%}
-    {% assign upd_date = pub_date %}
-  {%- endif -%}
-<meta property="article:published_time" content="{{ page.date | date_offset: site.timezone | date_to_xmlschema }}">
-  {% if page.last_modified_at and page.last_modified_at != page.date and pub_date != upd_date %}
-<meta property="article:modified_time" content="{{ page.last_modified_at | date_offset: site.timezone | date_to_xmlschema }}">
-  {%- endif -%}
-{%- endif -%}
-{%- if page.categories -%}
-  {%- for category in page.categories -%}
-<meta property="article:section" content="{{ category }}" />
-  {%- endfor -%}
-{%- endif -%}
-{%- if page.tags -%}
-  {%- for tag in page.tags -%}
-<meta property="article:tag" content="{{ tag }}" />
-  {%- endfor -%}
-{%- endif -%}
+  {% endif %}
 
-{%- if page.noindex -%}
-<!-- Indexing rules -->
-{%- if page.noindex == "follow" -%}
+<meta property="article:published_time"
+      content="{{ page.date | date_offset: site.timezone | date_to_xmlschema }}">
+
+  {% if upd_date != pub_date %}
+<meta property="article:modified_time"
+      content="{{ page.last_modified_at | date_offset: site.timezone | date_to_xmlschema }}">
+  {% endif %}
+{% endif %}
+
+{%- comment -%}
+Categories & Tags
+{%- endcomment -%}
+{% for category in page.categories %}
+<meta property="article:section" content="{{ category }}">
+{% endfor %}
+
+{% for tag in page.tags %}
+<meta property="article:tag" content="{{ tag }}">
+{% endfor %}
+
+{%- comment -%}
+Indexing rules
+{%- endcomment -%}
+{% if page.noindex == "follow" %}
 <meta name="robots" content="noindex">
-{%- elsif page.noindex == "nofollow" -%}
+{% elsif page.noindex == "nofollow" %}
 <meta name="robots" content="noindex, nofollow">
-{%- endif -%}
-{%- endif -%}
+{% endif %}
 
-<!-- Title -->
-{%- if page.permalink == '/' -%}
-  {%- if page.title -%}
-<title>{{site.heading}} - {{page.title}}</title>
-  {%- else -%}
-<title>{{site.heading}}</title>
-  {%- endif -%}
-{%- elsif page.title -%}
-<title>{{page.title}} - {{site.heading}}</title>
-{%- elsif page.permalink == '/404.html' -%}
+{%- comment -%}
+Page Title
+{%- endcomment -%}
+{% if page.permalink == "/" %}
+  {% if page.title %}
+<title>{{ site.heading }} - {{ page.title }}</title>
+  {% else %}
+<title>{{ site.heading }}</title>
+  {% endif %}
+{% elsif page.title %}
+<title>{{ page.title }} - {{ site.heading }}</title>
+{% elsif page.permalink == "/404.html" %}
 <title>There's been a glitch...</title>
-{%- else -%}
-{%- endif -%}
+{% endif %}
 
-{%- assign redirect_url = page.redirect | default: '' | strip -%}
-{%- if redirect_url != '' -%}
-    {%- if redirect_url contains "://" -%}
-        <!-- Absolute URL -->
-    {%- else -%}
-        {%- assign redirect_url = redirect_url | prepend: site.baseurl | absolute_url -%}
-    {%- endif -%}
-    <!-- Permanent redirect -->
-    <meta http-equiv="refresh" content="0; url={{ redirect_url }}">
-    <link rel="canonical" href="{{ redirect_url }}" />
-{%- else -%}
-    <link rel="canonical" href="{{ page.url | absolute_url }}" />
-{%- endif -%}
+{%- comment -%}
+Canonical or Redirect
+{%- endcomment -%}
+{% assign redirect_url = page.redirect | default: "" | strip %}
 
-<!-- Twitter -->
+{% if redirect_url != "" %}
+  {% unless redirect_url contains "://" %}
+    {% assign redirect_url = redirect_url | prepend: site.baseurl | absolute_url %}
+  {% endunless %}
+
+<meta http-equiv="refresh" content="0; url={{ redirect_url }}">
+<link rel="canonical" href="{{ redirect_url }}">
+{% else %}
+<link rel="canonical" href="{{ page.url | absolute_url }}">
+{% endif %}
+
+{%- comment -%}
+Twitter
+{%- endcomment -%}
 <meta name="twitter:card" content="summary_large_image">
-{%- if site.twitter -%}
+
+{% if site.twitter %}
 <meta name="twitter:site" content="@{{ site.twitter }}">
 <meta name="twitter:creator" content="@{{ site.twitter }}">
-{%- endif -%}
-{%- if page.title -%}
-{%- if page.permalink == '/' -%}
+{% endif %}
+
+{% if page.title %}
+  {% if page.permalink == "/" %}
 <meta name="twitter:title" content="{{ site.heading }} - {{ page.title }}">
-{%- else -%}
+  {% else %}
 <meta name="twitter:title" content="{{ page.title }}">
-{%- endif -%}
+  {% endif %}
 {% else %}
-{%- if page.permalink == '/' -%}
 <meta name="twitter:title" content="{{ site.heading }}">
-{%- else -%}
-<meta name="twitter:title" content="{{ site.heading }}">
-{%- endif -%}
-{%- endif -%}
+{% endif %}
+
 {% assign page_content = page.content | strip_html | xml_escape | truncate: 180 %}
+
 {% if page.description %}
 <meta name="twitter:description" content="{{ page.description }}">
 {% elsif page_content.size > 50 %}
@@ -161,14 +182,15 @@
 {% else %}
 <meta name="twitter:description" content="{{ site.description | strip_html | xml_escape | truncate: 180 }}">
 {% endif %}
-{%- if page.ogimg -%}
-<meta property="twitter:image" content="{{ page.ogimg }}">
-{%- else -%}
-<meta property="twitter:image" content="{{ site.url }}{{ site.ogimg }}">
-{%- endif -%}
 
-{%- if site.link and site.link.mastodon -%}
-    {% for mastodon_link in site.link.mastodon %}
-        <link rel="me" href="{{ mastodon_link }}">
-    {% endfor %}
-{%- endif -%}
+<meta name="twitter:image"
+      content="{% if page.ogimg %}{{ page.ogimg }}{% else %}{{ site.url }}{{ site.ogimg }}{% endif %}">
+
+{%- comment -%}
+Mastodon
+{%- endcomment -%}
+{% if site.link and site.link.mastodon %}
+  {% for mastodon_link in site.link.mastodon %}
+<link rel="me" href="{{ mastodon_link }}">
+  {% endfor %}
+{% endif %}

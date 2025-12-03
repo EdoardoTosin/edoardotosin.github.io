@@ -4,6 +4,9 @@ on:
   pull_request:
     branches: [main]
 
+permissions:
+  contents: read
+
 jobs:
   test:
     name: Build and Test
@@ -16,7 +19,8 @@ jobs:
           fetch-depth: 0
           submodules: recursive
       
-      - uses: ruby/setup-ruby@v1
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.2.3'
           bundler-cache: true

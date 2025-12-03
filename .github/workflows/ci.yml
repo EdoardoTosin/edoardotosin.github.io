@@ -13,7 +13,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          ref: main
           fetch-depth: 0
           submodules: recursive
       
@@ -24,8 +23,10 @@ jobs:
 
       - name: Build and test site
         run: |
+          set -euo pipefail
           bundle exec jekyll build
-          test -d "_site" && test -f "_site/index.html"
+          test -d "_site"
+          test -f "_site/index.html"
           echo "Build successful"
         env:
           JEKYLL_ENV: production
@@ -39,6 +40,4 @@ jobs:
     steps:
       - name: Fail if test job failed
         run: |
-          if [[ "${{ needs.test.result }}" != "success" ]]; then
-            exit 1
-          fi
+          [ "${{ needs.test.result }}" = "success" ]

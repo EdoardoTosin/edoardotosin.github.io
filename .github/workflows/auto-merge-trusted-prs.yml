@@ -14,12 +14,14 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Approve PR  
-        run: gh pr review --approve "${{ github.event.pull_request.html_url }}"
+      - name: Approve PR
+        run: gh pr review --approve "$PR"
         env:
+          PR: ${{ github.event.pull_request.number }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Enable auto-merge
-        run: gh pr merge --auto --squash "${{ github.event.pull_request.html_url }}"
+        run: gh pr merge --auto --squash "$PR"
         env:
+          PR: ${{ github.event.pull_request.number }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

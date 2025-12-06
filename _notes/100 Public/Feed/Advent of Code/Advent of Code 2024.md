@@ -1,9 +1,9 @@
 ---
 title: Advent of Code 2024
-description: Follow my journey through Advent of Code 2024, celebrating its 10th anniversary with 25 daily programming challenges from December 1-25. Discover my detailed progress table, showcasing puzzle names, stars earned, and completion dates as I tackle this exciting annual event.
+description: My solutions and progress for Advent of Code 2024. Track my completion status for the 25 programming puzzles released daily from December 1-25.
 feed: show
 date: 2024-12-01 18:00:00 +0100
-last_modified_at: 2024-12-25 09:00:00 +0100
+last_modified_at: 2025-12-06 13:00:00 +0100
 lang: en
 ogimg: https://raw.githubusercontent.com/EdoardoTosin/web-assets/refs/heads/main/Notes/100%20Public/Feed/Advent%20of%20Code/Advent-of-Code-2024.png
 tags:
@@ -20,9 +20,9 @@ keywords:
   - competitive programming
 ---
 
-Advent of Code, created by Eric Wastl, is an annual coding event that brings the spirit of an advent calendar to programming through 25 puzzles released daily from December 1 to December 25.[^1] Each puzzle varies in difficulty, providing a great opportunity to refine coding skills, explore new ideas, and improve problem-solving abilities.
+Advent of Code is an annual set of programming puzzles created by Eric Wastl, running from December 1-25 with a new challenge each day.[^1]
 
-The [Advent of Code 2024](https://adventofcode.com/2024) experience has been filled with intriguing challenges and valuable insights. Below is an updated table that tracks my progress in this year's event:
+Here's my progress for [Advent of Code 2024](https://adventofcode.com/2024):
 
 | Day | Puzzle Name         | Stars Earned | Completed | Completion Date       |
 |----:|:--------------------|:------------:|:---------:|:---------------------:|

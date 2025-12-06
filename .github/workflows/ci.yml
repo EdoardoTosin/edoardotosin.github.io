@@ -16,7 +16,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
         with:
-          ref: refs/pull/${{ github.event.pull_request.number }}/merge
           fetch-depth: 0
           submodules: recursive
       

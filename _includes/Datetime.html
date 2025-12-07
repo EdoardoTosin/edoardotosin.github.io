@@ -29,16 +29,19 @@
 *
 {%- endcomment -%}
 
-{%- if page.date and page.last_modified_at -%}
-  {% assign published = page.date | date: "%Y-%m-%d" %}
-  {% assign updated   = page.last_modified_at | date: "%Y-%m-%d" %}
+{%- if page.date -%}
+  {%- assign published_date = page.date | date: "%Y-%m-%d" -%}
+  {%- assign updated_date   = page.last_modified_at | date: "%Y-%m-%d" -%}
 
-  {%- if updated != published -%}
-    <p class="meta-time medium-small italic default">
-      Updated 
-      <span class="bold">
-        {{ page.last_modified_at | date_to_xmlschema | date: "%d %b %Y" }}
-      </span>
-    </p>
-  {%- endif -%}
+  <p class="meta-time medium-small italic default">
+    <time datetime="{{ page.date | date_to_xmlschema }}" class="bold">
+      {{ page.date | date: "%d %b %Y" }}
+    </time>
+    {%- if updated_date != published_date -%}
+      &nbsp;| Updated 
+      <time datetime="{{ page.last_modified_at | date_to_xmlschema }}" class="bold">
+        {{ page.last_modified_at | date: "%d %b %Y" }}
+      </time>
+    {%- endif -%}
+  </p>
 {%- endif -%}

@@ -3,7 +3,7 @@ title: Advent of Code 2025
 description: My solutions and progress for Advent of Code 2025. Track my completion status for the 12 programming puzzles released daily from December 1-12.
 feed: show
 date: 2025-12-01 11:00:00 +0100
-last_modified_at: 2025-12-11 11:00:00 +0100
+last_modified_at: 2025-12-12 11:00:00 +0100
 lang: en
 ogimg: https://raw.githubusercontent.com/EdoardoTosin/web-assets/refs/heads/main/Notes/100%20Public/Feed/Advent%20of%20Code/Advent-of-Code-2025.png
 tags:
@@ -37,6 +37,6 @@ Here's my progress for [Advent of Code 2025](https://adventofcode.com/2025):
 |  9 | [Movie Theater](https://adventofcode.com/2025/day/9) | ⭐⭐ | ✅ | 2025-12-09 |
 | 10 | [Factory](https://adventofcode.com/2025/day/10) | ⭐⭐ | ✅ | 2025-12-10 |
 | 11 | [Reactor](https://adventofcode.com/2025/day/11) | ⭐⭐ | ✅ | 2025-12-11 |
-| 12 | | | | |
+| 12 | [Christmas Tree Farm](https://adventofcode.com/2025/day/12) | ⭐⭐ | ✅ | 2025-12-12 |
 
 [^1]: [About - Advent of Code 2025](https://adventofcode.com/2025/about). Advent of Code

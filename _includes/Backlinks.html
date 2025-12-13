@@ -30,72 +30,44 @@
 {%- endcomment -%}
 
 <!-- Add backlinks to the current page --> 
-{%- assign content-type = "Note" -%}
 {%- if page.content-type == "post" -%}
-{%- assign content-type = "Post" -%}
+  {%- assign content_type = "Post" -%}
+{%- else -%}
+  {%- assign content_type = "Note" -%}
 {%- endif -%}
-{%- assign link_count = 0 -%}
-{%- assign wiki_link_title = '[' | append: page.title | append: ']' -%}
-{%- if site.preferences.backlinks.notes.enabled -%}
-{%- for note in site.notes -%}
-        {%- if note.url != page.url -%}
-            {%- if note.content contains wiki_link_title -%}
-                {%- assign link_count = link_count | plus:1 -%}
-            {%- endif -%}
-    {%- endif -%}
+{%- assign backlink_token = '[' | append: page.title | append: ']' -%}
+{%- assign backlinks = "" | split: "" -%}
+
+{%- assign sources = site.notes | concat: site.posts | concat: site.pages -%}
+
+{%- for item in sources -%}
+  {%- if item.url != page.url and item.content contains backlink_token -%}
+    {%- assign backlinks = backlinks | push: item -%}
+  {%- endif -%}
 {%- endfor -%}
-{%- endif -%}
-{%- for note in site.posts -%}
-        {%- if note.url != page.url -%}
-            {%- if note.content contains wiki_link_title -%}
-                {%- assign link_count = link_count | plus:1 -%}
-            {%- endif -%}
-    {%- endif -%}
-{%- endfor -%}
-{%- if site.preferences.backlinks.pages.enabled -%}
-{%- for note in site.pages -%}
-        {%- if note.url != page.url -%}
-            {%- if note.content contains wiki_link_title -%}
-                {%- assign link_count = link_count | plus:1 -%}
-            {%- endif -%}
-    {%- endif -%}
-{%- endfor -%}
-{%- endif -%}
-{%- if link_count > 0 -%}
-{%- assign wiki_link_title = '[' | append: page.title | append: ']' -%}
-{%- assign display_class = 'hide' -%}
+
+{%- if backlinks.size > 0 -%}
 {%- if site.preferences.backlinks.enabled -%}
-{%- assign display_class = 'show' -%}
+  {%- assign display_class = "show" -%}
+{%- else -%}
+  {%- assign display_class = "hide" -%}
 {%- endif -%}
-<div class="related {{display_class}} no-print" id="jekyll-seamless-backlinks" aria-label="Backlinks to this {{ content-type }}">
-    <h5 class="meta-title centre-title no-print">Links to this {{ content-type }}</h5>
-    <div class="related-wrapper no-print">
-        {%- if site.preferences.backlinks.notes.enabled -%}
-        {%- for note in site.notes -%}
-        {%- if note.url != page.url -%}
-            {%- if note.content contains wiki_link_title -%}
-            <div class="related-group"><a class="no-external-link-icon" href="{{ note.url | absolute_url }}" aria-label="Link to {{ note.title }}">
-                <h6>{{ note.title }}</h6>
-                <p class="excerpt" style="margin: 0px; color: var(--color-text-main) !important;">{{ note.content | strip_html | strip | remove: "[[" | remove: "]]" | remove: "-" | escape | truncate: 100 }}</p>
-            </a></div>
-            {%- endif -%}
-        {%- endif -%}
-        {%- endfor -%}
-        {%- endif -%}
-        <!--This code is to show other pages (note under collection) as Backlink.-->
-        {%- if site.preferences.backlinks.pages.enabled -%}
-        {%- for note in site.pages -%}
-        {%- if note.url != page.url -%}
-            {%- if note.content contains wiki_link_title -%}
-            <div class="related-group"><a class="no-external-link-icon" href="{{ note.url | absolute_url }}" aria-label="Link to {{ note.title }}">
-                <h6>{{ note.title }}</h6>
-                <p class="excerpt" style="margin: 0px; color: var(--color-text-main) !important;">{{ note.content | strip_html | strip | remove: "[[" | remove: "]]" | remove: "-" | escape | truncate: 100 }}</p>
-            </a></div>
-            {%- endif -%}
-        {%- endif -%}
-        {%- endfor -%}
-        {%- endif -%}
-    </div>
-    <br/>
+
+<div class="related {{ display_class }} no-print" id="jekyll-seamless-backlinks" aria-label="Backlinks to this {{ content_type }}">
+  <h5 class="meta-title centre-title no-print">Links to this {{ content_type }}</h5>
+  <div class="related-wrapper no-print">
+
+    {%- for note in backlinks -%}
+      <div class="related-group">
+        <a class="no-external-link-icon" href="{{ note.url | absolute_url }}" aria-label="Link to {{ note.title | escape }}">
+          <h6>{{ note.title | escape }}</h6>
+          <p class="excerpt">
+            {{ note.content | strip_html | strip | remove: "[[" | remove: "]]" | remove: "-" | escape | truncate: 100 }}
+          </p>
+        </a>
+      </div>
+    {%- endfor -%}
+
+  </div>
 </div>
 {%- endif -%}

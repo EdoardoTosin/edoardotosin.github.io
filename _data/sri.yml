@@ -1,5 +1,5 @@
 # Auto-generated SRI (Subresource Integrity) hashes
-# Generated: 2025-11-19
+# Generated: 2025-12-13
 # Do not edit manually
 
 ---
@@ -9,11 +9,17 @@ assets/js/Hamburger.js:
 assets/js/Search.js:
   integrity: sha512-IZtxQGhMbMNcGvOVXnaP/85XLzbQIrVCMZtD7mqRP3R33DG+/PA2SmvtS30Od2cGFFfq1brcg+nCw01Bbw8PaA==
   crossorigin: anonymous
-assets/js/lightbox-plus-jquery.min.js:
-  integrity: sha512-/IJVg2oav2TggiFftaMSPgttHNmgu/0RSGP64Nm7wqYwjkxj4hAHLRMJi3QNTa22f4pIkvTsCpB848HEilV6MA==
-  crossorigin: anonymous
 assets/js/modeswitcher.js:
   integrity: sha512-65cc3cs5CbbpXFppG0S5Lobpp/e/OGT3YyEsoaGhWd+2Imr7UJKCO3x8fRZBjoz/HcLo5bU398E4yvCCaDBxQQ==
+  crossorigin: anonymous
+assets/js/photoswipe-init.js:
+  integrity: sha512-Cqoe5pUmM6evMZd6UALMHYabMAJxWM4/BSmfDbV1eK0WoX87lVnlGCB0lEB2UwZ/4cI5Rf71y5Lswd6G2oJBJA==
+  crossorigin: anonymous
+assets/js/photoswipe-lightbox.umd.min.js:
+  integrity: sha512-D16CBrIrVF48W0Ou0ca3D65JFo/HaEAjTugBXeWS/JH+1KNu54ZOtHPccxJ7PQ44rTItUT6DSI6xNL+U34SuuQ==
+  crossorigin: anonymous
+assets/js/photoswipe.umd.min.js:
+  integrity: sha512-BXwwGU7zCXVgpT2jpXnTbioT9q1Byf7NEXVxovTZPlNvelL2I/4LjOaoiB2a19L+g5za8RbkoJFH4fMPQcjFFw==
   crossorigin: anonymous
 assets/js/tools.js:
   integrity: sha512-9BV49aHHo5jzEfPVOSBHS/Sx27fTGoQpwG6hYI6EiKOMnZ+5yHLCDD++FvH5W0W74JJ+2M5ztZ0fIlJtCrsw0g==

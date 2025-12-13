@@ -1,0 +1,225 @@
+/* PhotoSwipe v5 Custom Styling */
+
+/* ============================================================
+   Custom Caption
+   ============================================================ */
+
+.pswp__custom-caption {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 90%;
+  width: auto;
+  padding: 12px 20px;
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  font-size: 16px;
+  line-height: 1.5;
+  border-radius: 4px;
+  text-align: center;
+  pointer-events: none;
+  z-index: 2000;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.pswp__custom-caption:empty {
+  display: none;
+}
+
+/* Responsive caption sizing */
+@media (max-width: 768px) {
+  .pswp__custom-caption {
+    font-size: 14px;
+    padding: 10px 16px;
+    max-width: 85%;
+  }
+}
+
+@media (max-width: 480px) {
+  .pswp__custom-caption {
+    font-size: 12px;
+    bottom: 10px;
+    padding: 8px 12px;
+    max-width: 80%;
+  }
+}
+
+/* ============================================================
+   Accessibility Enhancements
+   ============================================================ */
+
+/* Focus indicators for keyboard navigation */
+.pswp__button:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Improve button hit areas on touch devices */
+@media (pointer: coarse) {
+  .pswp__button {
+    width: 60px;
+    height: 70px;
+  }
+  
+  .pswp__button--arrow {
+    width: 80px;
+  }
+}
+
+/* ============================================================
+   Performance Optimizations
+   ============================================================ */
+
+/* Prevent text selection during drag */
+.pswp__container,
+.pswp__zoom-wrap,
+.pswp__img {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* GPU acceleration hint for smoother animations */
+.pswp__bg,
+.pswp__scroll-wrap,
+.pswp__container,
+.pswp__zoom-wrap,
+.pswp__img {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+/* Prevent jank during transitions */
+.pswp__img,
+.pswp__zoom-wrap {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* ============================================================
+   Light Mode Support
+   ============================================================ */
+
+@media (prefers-color-scheme: light) {
+  .pswp {
+    --pswp-bg: #fff;
+    --pswp-icon-color: #000;
+    --pswp-icon-color-secondary: #666;
+  }
+  
+  .pswp__custom-caption {
+    background: rgba(255, 255, 255, 0.9);
+    color: #000;
+  }
+}
+
+/* ============================================================
+   High Contrast Mode Support
+   ============================================================ */
+
+@media (prefers-contrast: high) {
+  .pswp__button:focus-visible {
+    outline-width: 3px;
+  }
+  
+  .pswp__custom-caption {
+    background: rgba(0, 0, 0, 0.95);
+    border: 1px solid #fff;
+  }
+}
+
+/* ============================================================
+   Reduced Motion Support
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .pswp__img,
+  .pswp__zoom-wrap,
+  .pswp__bg,
+  .pswp .pswp__hide-on-close {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================================
+   Print Styles
+   ============================================================ */
+
+@media print {
+  .pswp,
+  .pswp * {
+    display: none !important;
+  }
+}
+
+/* ============================================================
+   Error State Enhancement
+   ============================================================ */
+
+.pswp__error-msg-container {
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+
+.pswp__error-msg {
+  text-align: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 8px;
+  max-width: 400px;
+}
+
+/* ============================================================
+   Smooth Transitions
+   ============================================================ */
+
+/* Smoother fade in/out for overlay */
+.pswp {
+  transition: opacity 0.333s ease-out;
+}
+
+/* Better backdrop blur for modern browsers */
+@supports (backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px)) {
+  .pswp__bg {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+}
+
+/* ============================================================
+   Mobile Optimizations
+   ============================================================ */
+
+/* Improve button spacing on small screens */
+@media (max-width: 480px) {
+  .pswp__button {
+    width: 44px;
+    height: 50px;
+  }
+  
+  .pswp__button--close {
+    margin-right: 4px;
+  }
+}
+
+/* Prevent iOS Safari bottom bar interference */
+@supports (padding: env(safe-area-inset-bottom)) {
+  .pswp__custom-caption {
+    bottom: calc(20px + env(safe-area-inset-bottom));
+  }
+}
+
+/* ============================================================
+   Utility Classes
+   ============================================================ */
+
+/* Prevent page scroll when PhotoSwipe is open */
+.pswp-open {
+  overflow: hidden;
+}

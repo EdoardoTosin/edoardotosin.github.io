@@ -50,21 +50,31 @@
 
 {% comment %} Set up carousel ID for HTML elements {% endcomment %}
 {% if include.id %}
-  {% assign carousel_id = include.id %}
+  {% assign carousel_id = include.id | slugify %}
 {% else %}
   {% assign carousel_id = carousel_index %}
 {% endif %}
 
+{% comment %} Fallback for missing carousel data {% endcomment %}
+{% unless carousel_data %}
+  <div class="carousel-error" style="padding: 1rem; background: #fee; border: 1px solid #fcc; border-radius: 4px; color: #c00;">
+    <strong>Carousel Error:</strong> No carousel data found for {% if include.id %}id "{{ include.id }}"{% elsif include.number %}number {{ include.number }}{% else %}default carousel{% endif %}.
+  </div>
+  {% break %}
+{% endunless %}
+
 <div class="only-print">
   {% assign item = carousel_data.images[0] %}
-  {% assign image = item.image %}
-  {% assign title = item.title | markdownify | replace: '<p>', '' | replace: '</p>', '' | xml_escape | default: '' %}
-  {% assign alt = item.alt | default: item.title | markdownify | strip_html | strip | default: 'Image' %}
-  {% include Image.html src=image title=title alt=alt %}
+  {% if item %}
+    {% assign image = item.image %}
+    {% assign title = item.title | markdownify | replace: '<p>', '' | replace: '</p>', '' | xml_escape | default: '' %}
+    {% assign alt = item.alt | default: item.title | markdownify | strip_html | strip | default: 'Image' %}
+    <img src="{{ image }}" alt="{{ alt }}" title="{{ title }}" />
+  {% endif %}
 </div>
 
 <div class="carousel__holder no-print">
-    <div id="carousel{{ carousel_id }}" class="carousel no-print">
+    <div id="carousel{{ carousel_id }}" class="carousel no-print" data-pswp-gallery="carousel-{{ carousel_id }}">
         {% for item in carousel_data.images %}
           <input class="carousel__activator" type="radio" name="carousel{{ carousel_id }}" id="{{ carousel_id }}{{ letters[forloop.index0] }}" {% if forloop.first %}checked="checked"{% endif %} aria-hidden="true" />
         {% endfor %}
@@ -89,28 +99,43 @@
         <div class="carousel__track">
           <ul>
             {% for item in carousel_data.images %}
-            <li class="carousel__slide"><a href="{{ item.image }}" title="{{ item.title | markdownify | replace: '<p>', '' | replace: '</p>', '' | xml_escape | default: '' }}" data-lightbox="image-set-{{ carousel_id }}" data-alt="{{ item.alt | default: item.title | markdownify | strip_html | strip | default: 'Image' }}" ><img src="{{ item.image }}" alt="{{ item.alt | default: item.title | markdownify | strip_html | strip | default: 'Image' }}" /></a></li>
+            <li class="carousel__slide">
+              <a href="{{ item.image }}"
+                 data-pswp-width="auto"
+                 data-pswp-height="auto"
+                 {% if item.title %}
+                   data-pswp-caption="{{ item.title | markdownify | replace: '<p>', '' | replace: '</p>', '' | xml_escape }}"
+                 {% endif %}
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 data-carousel-id="{{ carousel_id }}"
+                 data-carousel-img="{{ forloop.index0 }}">
+                <img src="{{ item.image }}" 
+                     alt="{{ item.alt | default: item.title | markdownify | strip_html | strip | default: 'Image' }}"
+                     class="carousel-image-{{ carousel_id }}-{{ forloop.index0 }}"
+                     loading="eager" />
+              </a>
+            </li>
             {% endfor %}
           </ul>
         </div>
         <div class="carousel__indicators">
             {% for item in carousel_data.images %}
-              <label class="carousel__indicator" for="{{ carousel_id }}{{ letters[forloop.index0] }}"></label>
+              <label class="carousel__indicator" for="{{ carousel_id }}{{ letters[forloop.index0] }}" aria-label="Go to slide {{ forloop.index }}"></label>
             {% endfor %}
         </div>
     </div>
 </div>
 
 <style>
+/* Carousel Core Styles */
 .carousel__holder {
   position: relative;
   margin: 1rem 0 1rem;
   user-select: none;
-  -moz-user-select: none;
-  -khtml-user-select: none;
   -webkit-user-select: none;
-  -o-user-select: none;
 }
+
 .carousel {
   height: 100%;
   width: 100%;
@@ -119,35 +144,38 @@
   position: absolute;
   padding: 0;
 }
+
 .carousel__controls,
 .carousel__activator {
   display: none;
 }
+
+/* Carousel Slide Transitions */
 {% for item in carousel_data.images %}
 .carousel__activator:nth-of-type({{ forloop.index }}):checked ~ .carousel__track {
-  -webkit-transform: translateX(-{{ forloop.index0 }}00%);
-          transform: translateX(-{{ forloop.index0 }}00%);
+  transform: translateX(-{{ forloop.index0 }}00%);
 }
+
 .carousel__activator:nth-of-type({{ forloop.index }}):checked ~ .carousel__slide:nth-of-type({{ forloop.index }}) {
-  transition: opacity 0.5s, -webkit-transform 0.5s;
   transition: opacity 0.5s, transform 0.5s;
-  transition: opacity 0.5s, transform 0.5s, -webkit-transform 0.5s;
   top: 0;
   left: 0;
   right: 0;
   opacity: 1;
-  -webkit-transform: scale(1);
-          transform: scale(1);
+  transform: scale(1);
 }
+
 .carousel__activator:nth-of-type({{ forloop.index }}):checked ~ .carousel__controls:nth-of-type({{ forloop.index }}) {
   display: block;
   opacity: 1;
 }
+
 .carousel__activator:nth-of-type({{ forloop.index }}):checked ~ .carousel__indicators .carousel__indicator:nth-of-type({{ forloop.index }}) {
   opacity: 1;
 }
 {% endfor %}
 
+/* Carousel Controls */
 .carousel__control {
   height: 30px;
   width: 30px;
@@ -160,43 +188,63 @@
   border-style: solid;
   border-color: #fafafa;
   opacity: 0.35;
-  transition: 0.3s;
+  transition: opacity 0.3s;
   outline: 0;
   z-index: 3;
 }
+
 .carousel__control:hover {
   opacity: 1;
-  transition: 0.3s;
 }
+
+.carousel__control:focus-visible {
+  opacity: 1;
+  outline: 2px solid #fafafa;
+  outline-offset: 2px;
+}
+
 .carousel__control--backward {
   left: 20px;
-  -webkit-transform: rotate(-135deg);
-          transform: rotate(-135deg);
+  transform: rotate(-135deg);
 }
+
 .carousel__control--forward {
   right: 20px;
-  -webkit-transform: rotate(45deg);
-          transform: rotate(45deg);
+  transform: rotate(45deg);
 }
+
+/* Carousel Indicators */
 .carousel__indicators {
   position: absolute;
   bottom: 2%;
   width: 100%;
   text-align: center;
+  z-index: 2;
 }
+
 .carousel__indicator {
   height: 15px;
   width: 15px;
   border-radius: 100%;
   display: inline-block;
-  z-index: 2;
   cursor: pointer;
   opacity: 0.35;
   margin: 0 2.5px 0 2.5px;
+  background-color: #fafafa;
+  transition: opacity 0.2s;
 }
+
 .carousel__indicator:hover {
   opacity: 0.75;
 }
+
+.carousel__indicator:focus-visible {
+  opacity: 1;
+  outline: 2px solid #fafafa;
+  outline-offset: 2px;
+}
+
+/* Carousel Track */
 .carousel__track {
   position: absolute;
   top: 0;
@@ -205,10 +253,9 @@
   left: 0;
   padding: 0;
   margin: 0;
-  transition: -webkit-transform 0.5s ease 0s;
   transition: transform 0.5s ease 0s;
-  transition: transform 0.5s ease 0s, -webkit-transform 0.5s ease 0s;
 }
+
 .carousel__track .carousel__slide {
   display: block;
   top: 0;
@@ -216,97 +263,222 @@
   right: 0;
   opacity: 1;
 }
+
 {% for item in carousel_data.images %}
 .carousel__track .carousel__slide:nth-of-type({{ forloop.index }}) {
-  -webkit-transform: translateX({{ forloop.index0 }}00%);
-          transform: translateX({{ forloop.index0 }}00%);
+  transform: translateX({{ forloop.index0 }}00%);
 }
 {% endfor %}
 
-.carousel--scale .carousel__slide {
-  -webkit-transform: scale(0);
-          transform: scale(0);
-}
+/* Carousel Slide */
 .carousel__slide {
   height: 100%;
   position: absolute;
   opacity: 0;
   overflow: hidden;
 }
-.carousel__slide .overlay {height: 100%;}
-.carousel--thumb .carousel__indicator {
-  height: 30px;
-  width: 30px;
-}
-.carousel__indicator {
-  background-color: #fafafa;
-}
-{% for item in carousel_data.images %}
-.carousel__slide:nth-of-type({{ forloop.index }}),
-.carousel--thumb .carousel__indicators .carousel__indicator:nth-of-type({{ forloop.index }}) {
-  background-size: cover;
-  background-position: center;
-}
-{% endfor %}
+
 .carousel__holder img {
   width: 100%;
   height: 100%;
   object-fit: contain;
   margin: 1rem 0 1rem;
 }
+
+/* Print Styles */
+.only-print {
+  display: none;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  .only-print {
+    display: block;
+  }
+}
+
+/* Error State */
+.carousel-error {
+  margin: 1rem 0;
+  font-size: 14px;
+}
 </style>
 
 <script>
-function isVisible(el) {
-	while (el && el !== document) {
-		const style = window.getComputedStyle(el);
-		if (
-			style.display === 'none' || 
-			style.visibility === 'hidden' || 
-			+style.opacity === 0 || 
-			((style.display === 'block' || style.display === 'inline-block') &&
-			 style.height === '0px' && style.overflow === 'hidden')
-		) {
-			return false;
-		}
-		el = el.parentNode;
-	}
-	return true;
-}
+/**
+ * Carousel-specific PhotoSwipe Configuration
+ */
+(function() {
+    'use strict';
+    
+    const carouselId = '{{ carousel_id }}';
+    const carousel = document.getElementById('carousel' + carouselId);
+    
+    if (!carousel) {
+        console.warn('Carousel not found: carousel' + carouselId);
+        return;
+    }
+    
+    /**
+     * ROBUST IMAGE DIMENSION DETECTION
+     * 
+     * This handles three scenarios:
+     * 1. Images already loaded (normal refresh)
+     * 2. Images loading (hard refresh with cleared cache)
+     * 3. Images failed to load
+     * 
+     * The key is to check BOTH complete status AND naturalWidth
+     * because img.complete can be true even when dimensions aren't available yet
+     */
+    const links = carousel.querySelectorAll('a[data-pswp-width="auto"]');
+    
+    function setImageDimensions(link, img) {
+        // Only set if we have valid dimensions
+        if (img.naturalWidth && img.naturalHeight && img.naturalWidth > 0 && img.naturalHeight > 0) {
+            link.setAttribute('data-pswp-width', img.naturalWidth);
+            link.setAttribute('data-pswp-height', img.naturalHeight);
+            return true;
+        }
+        return false;
+    }
+    
+    links.forEach(function(link) {
+        const img = link.querySelector('img');
+        if (!img) return;
+        
+        // Try to set dimensions immediately if image is already loaded
+        if (img.complete && img.naturalWidth > 0) {
+            setImageDimensions(link, img);
+        } else {
+            // Image not loaded yet - attach multiple fallback listeners
+            
+            // Primary: load event
+            img.addEventListener('load', function() {
+                setImageDimensions(link, img);
+            }, { once: true });
+            
+            // Fallback 1: Check periodically (handles edge cases where load event doesn't fire)
+            let attempts = 0;
+            const maxAttempts = 50; // 5 seconds max
+            const checkInterval = setInterval(function() {
+                attempts++;
+                if (setImageDimensions(link, img) || attempts >= maxAttempts) {
+                    clearInterval(checkInterval);
+                }
+            }, 100);
+            
+            // Fallback 2: Try one more time when PhotoSwipe might initialize
+            setTimeout(function() {
+                if (link.getAttribute('data-pswp-width') === 'auto') {
+                    setImageDimensions(link, img);
+                }
+            }, 3000);
+        }
+    });
+    
+    /**
+     * Visibility check for auto-play
+     * Only advance carousel if controls are visible to user
+     */
+    function isVisible(el) {
+        if (!el) return false;
+        
+        while (el && el !== document.body) {
+            const style = window.getComputedStyle(el);
+            if (
+                style.display === 'none' || 
+                style.visibility === 'hidden' || 
+                parseFloat(style.opacity) === 0
+            ) {
+                return false;
+            }
+            el = el.parentElement;
+        }
+        return true;
+    }
 
-{% comment %} Handle auto-play from settings or legacy include parameter {% endcomment %}
-{% assign auto_play = false %}
-{% assign duration = 5 %}
+    {% comment %} Auto-play configuration from front matter {% endcomment %}
+    {% assign auto_play = false %}
+    {% assign duration = 5 %}
 
-{% if carousel_data.settings.auto_play %}
-  {% assign auto_play = carousel_data.settings.auto_play %}
-{% endif %}
+    {% if carousel_data.settings.auto_play %}
+      {% assign auto_play = carousel_data.settings.auto_play %}
+    {% endif %}
 
-{% if carousel_data.settings.duration %}
-  {% assign duration = carousel_data.settings.duration %}
-{% elsif include.duration %}
-  {% assign duration = include.duration %}
-{% endif %}
+    {% if carousel_data.settings.duration %}
+      {% assign duration = carousel_data.settings.duration %}
+    {% elsif include.duration %}
+      {% assign duration = include.duration %}
+    {% endif %}
 
-{% if auto_play or include.duration %}
-setInterval(() => {
-	const elements = document.querySelectorAll('#carousel{{ carousel_id }} .carousel__control--forward');
-	for (let i = elements.length - 1; i >= 0; i--) {
-		if (isVisible(elements[i])) {
-			elements[i].click();
-			break;
-		}
-	}
-}, {{ duration }} * 1000);
-{% endif %}
+    {% if auto_play or include.duration %}
+    /**
+     * Auto-play functionality
+     * Advances carousel at specified intervals
+     */
+    setInterval(function() {
+        const elements = carousel.querySelectorAll('.carousel__control--forward');
+        for (let i = elements.length - 1; i >= 0; i--) {
+            if (isVisible(elements[i])) {
+                elements[i].click();
+                break;
+            }
+        }
+    }, {{ duration }} * 1000);
+    {% endif %}
+})();
 
-window.addEventListener('load', () => {
-	document.querySelectorAll('.carousel__holder').forEach(carouselHolder => {
-		const firstImage = carouselHolder.querySelector('img');
-		if (firstImage) {
-			const aspectRatio = (firstImage.naturalHeight / firstImage.naturalWidth) * 100;
-			carouselHolder.style.paddingBottom = `${aspectRatio}%`;
-		}
-	});
-});
+/**
+ * Set carousel holder aspect ratio
+ * Prevents layout shift by reserving space based on first image
+ */
+(function() {
+    'use strict';
+    
+    function setCarouselAspectRatio() {
+        const carousel = document.getElementById('carousel{{ carousel_id }}');
+        if (!carousel) return;
+        
+        const carouselHolder = carousel.closest('.carousel__holder');
+        if (!carouselHolder) return;
+        
+        const firstImage = carouselHolder.querySelector('img');
+        if (!firstImage) return;
+        
+        function applyAspectRatio() {
+            if (firstImage.naturalWidth && firstImage.naturalHeight && firstImage.naturalWidth > 0) {
+                const aspectRatio = (firstImage.naturalHeight / firstImage.naturalWidth) * 100;
+                carouselHolder.style.paddingBottom = aspectRatio + '%';
+                return true;
+            }
+            return false;
+        }
+        
+        // Try immediately if already loaded
+        if (firstImage.complete && firstImage.naturalWidth > 0) {
+            applyAspectRatio();
+        } else {
+            // Wait for image to load
+            firstImage.addEventListener('load', applyAspectRatio, { once: true });
+            
+            // Fallback: check periodically
+            let attempts = 0;
+            const checkInterval = setInterval(function() {
+                attempts++;
+                if (applyAspectRatio() || attempts >= 30) {
+                    clearInterval(checkInterval);
+                }
+            }, 100);
+        }
+    }
+    
+    // Run after DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', setCarouselAspectRatio);
+    } else {
+        setCarouselAspectRatio();
+    }
+})();
 </script>

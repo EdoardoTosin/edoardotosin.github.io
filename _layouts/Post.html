@@ -43,6 +43,12 @@
     <![endif]-->
     <!--<link href="/assets/css/prism.css" rel="stylesheet" />-->
     <link rel="alternate" type="application/rss+xml" href="{{ site.url }}/feed.xml">
+    
+    <!-- PhotoSwipe CSS -->
+    <link rel="preload" href="{{ site.baseurl }}/assets/css/photoswipe.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="{{ site.baseurl }}/assets/css/photoswipe.css"></noscript>
+    <link rel="preload" href="{{ site.baseurl }}/assets/css/photoswipe-override.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="{{ site.baseurl }}/assets/css/photoswipe-override.css"></noscript>
 </head>
 
 <body>
@@ -149,24 +155,12 @@
     {% unless page.feedformat or page.permalink == homepage_path %}
         {%- include Footer.html -%}
     {% endunless %}
-    <!-- Lightbox2 -->
-    <link rel="preload" href="{{ site.baseurl }}/assets/css/lightbox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="{{ site.baseurl }}/assets/css/lightbox-override.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <script src="{{ site.baseurl }}/assets/js/lightbox-plus-jquery.min.js" defer {{ "/assets/js/lightbox-plus-jquery.min.js" | sri_attrs }}></script>
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        if (typeof lightbox !== 'undefined') {
-            lightbox.option({
-                'alwaysShowNavOnTouchDevices': true,
-                'disableScrolling': true,
-                'fadeDuration': 200,
-                'imageFadeDuration': 100,
-                'resizeDuration': 50
-            });
-        }
-    });
-    </script>
     
+    <!-- PhotoSwipe Scripts -->
+    <script src="{{ site.baseurl }}/assets/js/photoswipe.umd.min.js" defer {{ "/assets/js/photoswipe.umd.min.js" | sri_attrs }}></script>
+    <script src="{{ site.baseurl }}/assets/js/photoswipe-lightbox.umd.min.js" defer {{ "/assets/js/photoswipe-lightbox.umd.min.js" | sri_attrs }}></script>
+    <script src="{{ site.baseurl }}/assets/js/photoswipe-init.js" defer {{ "/assets/js/photoswipe-init.js" | sri_attrs }}></script>
+
 </main>
 </body>
 </html>

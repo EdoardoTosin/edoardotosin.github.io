@@ -29,16 +29,16 @@
 *
 {%- endcomment -%}
 
-<p align="center">
+<p align="center" data-pswp-gallery="{{ include.data | default: 'image-gallery' }}">
   <a href="{{ include.src }}"
-     data-lightbox="{{ include.data | default: 'image-gallery' }}"
-     data-title="{{ include.title | markdownify | replace: '<p>', '' | replace: '</p>', '' | xml_escape | default: '' }}"
-     aria-label="{{ include.alt | default: include.title | markdownify | strip_html | strip | default: 'Image' }}"
-     {% if include.alt %}
-       data-alt="{{ include.alt }}"
-     {% else %}
-       data-alt="{{ include.title | markdownify | strip_html | strip | default: 'Image' }}"
-     {% endif %}>
+     class="no-external-link-icon"
+     data-pswp-width="auto"
+     data-pswp-height="auto"
+     {% if include.title %}
+       data-pswp-caption="{{ include.title | markdownify | replace: '<p>', '' | replace: '</p>', '' | xml_escape }}"
+     {% endif %}
+     target="_blank"
+     rel="noopener noreferrer">
 
     <img src="{{ include.src }}"
          srcset="{{ include.src }}"
@@ -46,7 +46,65 @@
          {% if include.class %} class="{{ include.class }}" {% endif %}
          {% if include.width %} width="{{ include.width }}" {% endif %}
          {% if include.height %} height="{{ include.height }}" {% endif %}
-         loading="lazy"
+         loading="eager"
          {% if include.style %} style="{{ include.style }}" {% endif %} />
   </a>
 </p>
+
+<script>
+/**
+ * Dimension detection for single images
+ * 
+ * When cache is cleared, images load slower and naturalWidth/naturalHeight
+ * may not be available immediately even when img.complete is true
+ */
+(function() {
+    'use strict';
+    
+    const links = document.querySelectorAll('[data-pswp-width="auto"]');
+    
+    function setImageDimensions(link, img) {
+        // Only set if we have valid dimensions
+        if (img.naturalWidth && img.naturalHeight && img.naturalWidth > 0 && img.naturalHeight > 0) {
+            link.setAttribute('data-pswp-width', img.naturalWidth);
+            link.setAttribute('data-pswp-height', img.naturalHeight);
+            return true;
+        }
+        return false;
+    }
+    
+    links.forEach(function(link) {
+        const img = link.querySelector('img');
+        if (!img) return;
+        
+        // Try to set dimensions immediately if image is already loaded
+        if (img.complete && img.naturalWidth > 0) {
+            setImageDimensions(link, img);
+        } else {
+            // Image not loaded yet - use multiple strategies
+            
+            // Primary: load event
+            img.addEventListener('load', function() {
+                setImageDimensions(link, img);
+            }, { once: true });
+            
+            // Fallback 1: Periodic check (handles cases where load event doesn't fire)
+            let attempts = 0;
+            const maxAttempts = 50; // 5 seconds max
+            const checkInterval = setInterval(function() {
+                attempts++;
+                if (setImageDimensions(link, img) || attempts >= maxAttempts) {
+                    clearInterval(checkInterval);
+                }
+            }, 100);
+            
+            // Fallback 2: One final attempt after delay
+            setTimeout(function() {
+                if (link.getAttribute('data-pswp-width') === 'auto') {
+                    setImageDimensions(link, img);
+                }
+            }, 3000);
+        }
+    });
+})();
+</script>

@@ -90,6 +90,38 @@ html[data-theme="dark"] {
     }
 }
 
+@media print {
+    :root,
+    html,
+    html[data-theme="dark"],
+    html[data-theme="light"],
+    body {
+        --color-bg-main: #FFFFFF !important;
+        --color-bg-sub: #CACACA !important;
+        --color-text-main: #282832 !important;
+        --color-text-sub: #5D5D67 !important;
+        --color-text-link: #004AB5 !important;
+        --color-border-dark: #363636 !important;
+        --color-border: #BABCBD !important;
+        --color-border-light: #E5E5E5 !important;
+        --button-bg-color: #212529 !important;
+        --button-text-color: #fff !important;
+        --search-icon-filter: invert(0.4) !important;
+        
+        background-color: #FFFFFF !important;
+        color: #282832 !important;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        color: #282832 !important;
+    }
+
+    a {
+        background-image: none !important;
+        padding-right: 0 !important;
+    }
+}
+
 :root {
     --text-xs: clamp(0.70rem, calc(0.79rem + -0.06vw), 0.78rem);
     --text-s: clamp(0.94rem, calc(0.94rem + 0.00vw), 0.94rem);

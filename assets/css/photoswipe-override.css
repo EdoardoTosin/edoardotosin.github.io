@@ -491,6 +491,29 @@
    ============================================================ */
 
 @media print {
+  /* Force light theme for printing */
+  :root,
+  html,
+  body {
+    --color-bg-main: #ffffff !important;
+    --color-bg-sub: #cacaca !important;
+    --color-text-main: #282832 !important;
+    --color-text-sub: #5d5d67 !important;
+    --color-text-link: #004ab5 !important;
+    --color-border-dark: #363636 !important;
+    --color-border: #babcbd !important;
+    --color-border-light: #e5e5e5 !important;
+
+    --pswp-bg-primary: hsl(0, 0%, 96%) !important;
+    --pswp-bg-secondary: hsl(0, 0%, 98%) !important;
+    --pswp-text-primary: hsl(0, 0%, 21%) !important;
+    --pswp-text-secondary: hsl(0, 0%, 29%) !important;
+    --pswp-border-light: rgba(10, 10, 10, 0.1) !important;
+
+    background-color: #ffffff !important;
+    color: #282832 !important;
+  }
+
   /* Hide interactive carousel elements only */
   .carousel-wrapper.no-print,
   .carousel-overlay,

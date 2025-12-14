@@ -32,31 +32,31 @@ Now you can proceed with the installation of the DNS resolver Unbound with the c
 It may request the user password as it is launched with administrator privileges.
 In case affirmative, enter it and press `Enter`.
 
-{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_1.jpg" title="Unbound 1" %}
+{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_1.jpg" alt="Unbound 1" %}
 
 Confirm the application installation by writing `y` and pressing `Enter`.
 
-{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_2.jpg" title="Unbound 2" %}
+{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_2.jpg" alt="Unbound 2" %}
 
 Once the installation is finished, you may see some written messages in red as follows. They can be ignored as they do not affect the functioning of the system and its applications.
 
-{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_3.jpg" title="Unbound 3" %}
+{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_3.jpg" alt="Unbound 3" %}
 
 ### Downloading domain registration server resolution IP
 
 Now it is possible to download the list of IPv4 and IPv6 for resolving the domain registration servers. To do this, use the following string: `wget -O root.hints https://www.internic.net/domain/named.root sudo mv root.hints /var/lib/unbound/`.
 
-{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_4.jpg" title="Unbound 4" %}
+{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_4.jpg" alt="Unbound 4" %}
 
 Press `Enter` to start everything.
 
-{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_5.jpg" title="Unbound 5" %}
+{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_5.jpg" alt="Unbound 5" %}
 
 ### File Configuration
 
 It is necessary to modify the Unbound configuration file. To do this, write the command `sudo nano /etc/unbound/unbound.conf.d/pi-hole.conf` and confirm with the user password as it is executed with administrator privileges.
 
-{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_6.jpg" title="Unbound 6" %}
+{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_6.jpg" alt="Unbound 6" %}
 
 Within the empty file, the following text should be inserted:
 
@@ -108,46 +108,46 @@ Link to the reference file: [`pi-hole.conf`](https://raw.githubusercontent.com/E
 
 At lines that begin with `interface` and `port` (in this case containing respectively `127.0.0.1` and `5353`) will have the strings that will subsequently be inserted into the Pi-Hole web interface settings.
 
-{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_7.jpg" title="Unbound 7" %}
+{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_7.jpg" alt="Unbound 7" %}
 
 To exit, press `CTRL+X`. It will ask if you want to save and confirm by writing `y` and pressing `Enter`.
 
-{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_8.jpg" title="Unbound 8" %}
+{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_8.jpg" alt="Unbound 8" %}
 
 Confirm the name and save location of the file by pressing `Enter`.
 
-{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_9.jpg" title="Unbound 9" %}
+{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_9.jpg" alt="Unbound 9" %}
 
 ### Check correctness of the file
 
 To be sure that the file has been saved correctly, copy the following command `sudo cat /etc/unbound/unbound.conf.d/pi-hole.conf` and press `Enter` to execute it.
 
-{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_10.jpg" title="Unbound 10" %}
+{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_10.jpg" alt="Unbound 10" %}
 
 Check that it is equal to what was previously copied.
 
-{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_11.jpg" title="Unbound 11" %}
+{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_11.jpg" alt="Unbound 11" %}
 
 ### Restart Unbound service
 
 Restart Unbound to load the new configuration: `sudo service unbound restart` and press `Enter`. It may request the user password as it is launched with administrator privileges. In case affirmative, enter it and press `Enter`.
 
-{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_12.jpg" title="Unbound 12" %}
+{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_12.jpg" alt="Unbound 12" %}
 
 ### Check DNSSEC operation
 
 The following commands serve to check that DNSSEC works correctly.
 First command: `dig pi-hole.net @127.0.0.1 -p 5353`
 
-{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_14.jpg" title="Unbound 14" %}
+{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_14.jpg" alt="Unbound 14" %}
 
 The following command should return SERVFAIL without any IP address: `dig sigfail.verteiltesysteme.net @127.0.0.1 -p 5353`.
 
-{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_16.jpg" title="Unbound 16" %}
+{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_16.jpg" alt="Unbound 16" %}
 
 This command should return NOERROR with an IP address: `dig sigok.verteiltesysteme.net @127.0.0.1 -p 5353`.
 If both return correctly then DNSSEC is working.
 
-{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_18.jpg" title="Unbound 18" %}
+{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_18.jpg" alt="Unbound 18" %}
 
 **[Next part]({% post_url Ubuntu-Server-Pi-Hole-Unbound/en-US/2022-12-31-ubuntu-server-pihole-unbound-part-5 %})**

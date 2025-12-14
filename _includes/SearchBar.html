@@ -15,7 +15,7 @@
   {%- assign aria_label = "Search though notes and posts" -%}
 {%- endif -%}
 
-<div class="block">
+<div class="block no-print">
   <div class="field has-icons-left">
     <div class="control">
       <input class="input is-medium{% if search_data != '' %} {{ search_data }}{% endif %}" type="text" placeholder="{{search_placeholder}} ..." id="search-input" autocomplete="off" aria-label="{{aria_label}}" aria-describedby="search-results" aria-expanded="false" aria-haspopup="listbox">

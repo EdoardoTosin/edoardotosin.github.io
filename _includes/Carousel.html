@@ -93,8 +93,8 @@
   {% break %}
 {% endunless %}
 
-{% comment %} Print-only fallback {% endcomment %}
-<div class="is-hidden-screen">
+{% comment %} Print-only fallback - show first image only {% endcomment %}
+<div class="only-print">
   {% assign first_item = carousel_data.images[0] %}
   {% if first_item %}
     <figure class="image">
@@ -107,8 +107,8 @@
   {% endif %}
 </div>
 
-{% comment %} Interactive carousel {% endcomment %}
-<div class="carousel-wrapper" id="carousel-{{ carousel_id }}" data-pswp-gallery="{{ gallery_id }}">
+{% comment %} Interactive carousel - hidden when printing {% endcomment %}
+<div class="carousel-wrapper no-print" id="carousel-{{ carousel_id }}" data-pswp-gallery="{{ gallery_id }}">
   
   {% comment %} Carousel viewport {% endcomment %}
   <div class="carousel-viewport">

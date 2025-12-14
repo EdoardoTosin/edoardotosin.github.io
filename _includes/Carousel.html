@@ -28,10 +28,37 @@
 *
 {%- endcomment -%}
 
-{% assign letterstring = "a,b,c,d,e,f,g,h,i,j,k,l,m,n" %}
-{% assign letters = letterstring | split: ',' %}
+{% comment %}
+  Carousel Component with PhotoSwipe Integration
+  
+  Usage:
+    {% include Carousel.html 
+      id="my-carousel"
+      gallery="my-gallery"
+    %}
+  
+  Front Matter Configuration:
+    carousels:
+      - id: my-carousel
+        images:
+          - image: /path/to/image1.jpg
+            caption: "First image"
+            alt: "Alt text"
+          - image: /path/to/image2.jpg
+            caption: "Second image"
+        settings:
+          auto_play: true
+          duration: 5
+  
+  Parameters:
+    - id (optional): Carousel ID to match front matter
+    - number (optional): Legacy numeric index
+    - gallery (optional): Gallery ID for PhotoSwipe grouping
+    - auto_play (optional): Override auto-play setting
+    - duration (optional): Override duration (seconds)
+{% endcomment %}
 
-{% comment %} Support both new id-based and legacy number-based carousel selection {% endcomment %}
+{% comment %} Select carousel data {% endcomment %}
 {% if include.id %}
   {% for carousel in page.carousels %}
     {% if carousel.id == include.id %}
@@ -48,439 +75,279 @@
   {% assign carousel_data = page.carousels[0] %}
 {% endif %}
 
-{% comment %} Set up carousel ID for HTML elements {% endcomment %}
+{% comment %} Generate unique IDs {% endcomment %}
 {% if include.id %}
   {% assign carousel_id = include.id | slugify %}
 {% else %}
   {% assign carousel_id = carousel_index %}
 {% endif %}
 
-{% comment %} Fallback for missing carousel data {% endcomment %}
+{% assign gallery_id = include.gallery | default: carousel_id | append: '-gallery' %}
+
+{% comment %} Error handling {% endcomment %}
 {% unless carousel_data %}
-  <div class="carousel-error" style="padding: 1rem; background: #fee; border: 1px solid #fcc; border-radius: 4px; color: #c00;">
-    <strong>Carousel Error:</strong> No carousel data found for {% if include.id %}id "{{ include.id }}"{% elsif include.number %}number {{ include.number }}{% else %}default carousel{% endif %}.
+  <div class="notification is-danger">
+    <strong>Carousel Error:</strong> No carousel data found for 
+    {% if include.id %}"{{ include.id }}"{% elsif include.number %}number {{ include.number }}{% else %}default carousel{% endif %}.
   </div>
   {% break %}
 {% endunless %}
 
-<div class="only-print">
-  {% assign item = carousel_data.images[0] %}
-  {% if item %}
-    {% assign image = item.image %}
-    {% assign title = item.title | markdownify | replace: '<p>', '' | replace: '</p>', '' | xml_escape | default: '' %}
-    {% assign alt = item.alt | default: item.title | markdownify | strip_html | strip | default: 'Image' %}
-    <img src="{{ image }}" alt="{{ alt }}" title="{{ title }}" />
+{% comment %} Print-only fallback {% endcomment %}
+<div class="is-hidden-screen">
+  {% assign first_item = carousel_data.images[0] %}
+  {% if first_item %}
+    <figure class="image">
+      <img src="{{ first_item.image }}" 
+           alt="{{ first_item.alt | default: first_item.caption | markdownify | strip_html | strip | default: 'Image' }}" />
+      {% if first_item.caption %}
+      <figcaption>{{ first_item.caption | markdownify }}</figcaption>
+      {% endif %}
+    </figure>
   {% endif %}
 </div>
 
-<div class="carousel__holder no-print">
-    <div id="carousel{{ carousel_id }}" class="carousel no-print" data-pswp-gallery="carousel-{{ carousel_id }}">
-        {% for item in carousel_data.images %}
-          <input class="carousel__activator" type="radio" name="carousel{{ carousel_id }}" id="{{ carousel_id }}{{ letters[forloop.index0] }}" {% if forloop.first %}checked="checked"{% endif %} aria-hidden="true" />
-        {% endfor %}
-        {% for item in carousel_data.images %}
-          {% if forloop.index == forloop.length %}
-            {% assign nextindex = 0 %}
-          {% else %}
-            {% assign nextindex = forloop.index0 | plus: 1 %}
-          {% endif %}
-          {% assign nextletter = letters[nextindex] %}
-          {% if forloop.index0 == 0 %}
-            {% assign previndex = forloop.length | minus: 1 %}
-          {% else %}
-            {% assign previndex = forloop.index0 | minus: 1 %}
-          {% endif %}
-          {% assign prevletter = letters[previndex] %}
-          <div class="carousel__controls">
-              <label class="carousel__control carousel__control--backward" for="{{ carousel_id }}{{ prevletter }}" aria-label="Previous slide"></label>
-              <label class="carousel__control carousel__control--forward" for="{{ carousel_id }}{{ nextletter }}" aria-label="Next slide"></label>
+{% comment %} Interactive carousel {% endcomment %}
+<div class="carousel-wrapper" id="carousel-{{ carousel_id }}" data-pswp-gallery="{{ gallery_id }}">
+  
+  {% comment %} Carousel viewport {% endcomment %}
+  <div class="carousel-viewport">
+    <div class="carousel-track" data-carousel-track>
+      {% for item in carousel_data.images %}
+      <div class="carousel-slide{% if forloop.first %} is-active{% endif %}" 
+           data-slide-index="{{ forloop.index0 }}">
+        <a href="{{ item.image }}"
+           class="carousel-slide-link no-external-link-icon"
+           style="outline: none"
+           data-pswp-slide
+           data-pswp-width="auto"
+           data-pswp-height="auto"
+           {% if item.caption %}data-pswp-caption="{{ item.caption | markdownify | replace: '<p>', '' | replace: '</p>', '' | xml_escape }}"{% endif %}
+           aria-label="View slide {{ forloop.index }} in lightbox{% if item.caption %}: {{ item.caption | strip_html }}{% endif %}">
+          
+          <div class="carousel-image-container">
+            <img src="{{ item.image }}"
+                 alt="{{ item.alt | default: item.caption | markdownify | strip_html | strip | default: 'Slide ' | append: forloop.index }}"
+                 loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+                 decoding="async"
+                 class="carousel-image" />
           </div>
-        {% endfor %}
-        <div class="carousel__track">
-          <ul>
-            {% for item in carousel_data.images %}
-            <li class="carousel__slide">
-              <a href="{{ item.image }}"
-                 class="no-external-link-icon"
-                 style="outline: none"
-                 data-pswp-width="auto"
-                 data-pswp-height="auto"
-                 {% if item.title %}
-                   data-pswp-caption="{{ item.title | markdownify | replace: '<p>', '' | replace: '</p>', '' | xml_escape }}"
-                 {% endif %}
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 data-carousel-id="{{ carousel_id }}"
-                 data-carousel-img="{{ forloop.index0 }}">
-                <img src="{{ item.image }}" 
-                     alt="{{ item.alt | default: item.title | markdownify | strip_html | strip | default: 'Image' }}"
-                     class="carousel-image-{{ carousel_id }}-{{ forloop.index0 }}"
-                     loading="eager" />
-              </a>
-            </li>
-            {% endfor %}
-          </ul>
-        </div>
-        <div class="carousel__indicators">
-            {% for item in carousel_data.images %}
-              <label class="carousel__indicator" for="{{ carousel_id }}{{ letters[forloop.index0] }}" aria-label="Go to slide {{ forloop.index }}"></label>
-            {% endfor %}
-        </div>
+          
+          {% if item.caption %}
+          <div class="carousel-caption" onclick="event.stopPropagation()">
+            {{ item.caption | markdownify }}
+          </div>
+          {% endif %}
+        </a>
+      </div>
+      {% endfor %}
     </div>
+  </div>
+  
+  {% comment %} Navigation controls {% endcomment %}
+  {% if carousel_data.images.size > 1 %}
+  <button class="carousel-control carousel-prev" 
+          type="button"
+          aria-label="Previous slide"
+          data-carousel-prev>
+    <span class="icon">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="15 18 9 12 15 6"/>
+      </svg>
+    </span>
+  </button>
+  
+  <button class="carousel-control carousel-next" 
+          type="button"
+          aria-label="Next slide"
+          data-carousel-next>
+    <span class="icon">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="9 18 15 12 9 6"/>
+      </svg>
+    </span>
+  </button>
+  
+  {% comment %} Indicators {% endcomment %}
+  <div class="carousel-indicators" role="tablist" aria-label="Slide indicators">
+    {% for item in carousel_data.images %}
+    <button class="carousel-indicator{% if forloop.first %} is-active{% endif %}"
+            type="button"
+            role="tab"
+            aria-label="Go to slide {{ forloop.index }}"
+            aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+            data-slide-index="{{ forloop.index0 }}"></button>
+    {% endfor %}
+  </div>
+  {% endif %}
 </div>
 
-<style>
-/* Carousel Core Styles */
-.carousel__holder {
-  position: relative;
-  margin: 1rem 0 1rem;
-  user-select: none;
-  -webkit-user-select: none;
-}
-
-.carousel {
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
-  text-align: center;
-  position: absolute;
-  padding: 0;
-}
-
-.carousel__controls,
-.carousel__activator {
-  display: none;
-}
-
-/* Carousel Slide Transitions */
-{% for item in carousel_data.images %}
-.carousel__activator:nth-of-type({{ forloop.index }}):checked ~ .carousel__track {
-  transform: translateX(-{{ forloop.index0 }}00%);
-}
-
-.carousel__activator:nth-of-type({{ forloop.index }}):checked ~ .carousel__slide:nth-of-type({{ forloop.index }}) {
-  transition: opacity 0.5s, transform 0.5s;
-  top: 0;
-  left: 0;
-  right: 0;
-  opacity: 1;
-  transform: scale(1);
-}
-
-.carousel__activator:nth-of-type({{ forloop.index }}):checked ~ .carousel__controls:nth-of-type({{ forloop.index }}) {
-  display: block;
-  opacity: 1;
-}
-
-.carousel__activator:nth-of-type({{ forloop.index }}):checked ~ .carousel__indicators .carousel__indicator:nth-of-type({{ forloop.index }}) {
-  opacity: 1;
-}
-{% endfor %}
-
-/* Carousel Controls */
-.carousel__control {
-  height: 30px;
-  width: 30px;
-  margin-top: -15px;
-  top: 50%;
-  position: absolute;
-  display: block;
-  cursor: pointer;
-  border-width: 5px 5px 0 0;
-  border-style: solid;
-  border-color: #fafafa;
-  opacity: 0.35;
-  transition: opacity 0.3s;
-  outline: 0;
-  z-index: 3;
-}
-
-.carousel__control:hover {
-  opacity: 1;
-}
-
-.carousel__control:focus-visible {
-  opacity: 1;
-  outline: 2px solid #fafafa;
-  outline-offset: 2px;
-}
-
-.carousel__control--backward {
-  left: 20px;
-  transform: rotate(-135deg);
-}
-
-.carousel__control--forward {
-  right: 20px;
-  transform: rotate(45deg);
-}
-
-/* Carousel Indicators */
-.carousel__indicators {
-  position: absolute;
-  bottom: 2%;
-  width: 100%;
-  text-align: center;
-  z-index: 2;
-}
-
-.carousel__indicator {
-  height: 15px;
-  width: 15px;
-  border-radius: 100%;
-  display: inline-block;
-  cursor: pointer;
-  opacity: 0.35;
-  margin: 0 2.5px 0 2.5px;
-  background-color: #fafafa;
-  transition: opacity 0.2s;
-}
-
-.carousel__indicator:hover {
-  opacity: 0.75;
-}
-
-.carousel__indicator:focus-visible {
-  opacity: 1;
-  outline: 2px solid #fafafa;
-  outline-offset: 2px;
-}
-
-/* Carousel Track */
-.carousel__track {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  padding: 0;
-  margin: 0;
-  transition: transform 0.5s ease 0s;
-}
-
-.carousel__track .carousel__slide {
-  display: block;
-  top: 0;
-  left: 0;
-  right: 0;
-  opacity: 1;
-}
-
-{% for item in carousel_data.images %}
-.carousel__track .carousel__slide:nth-of-type({{ forloop.index }}) {
-  transform: translateX({{ forloop.index0 }}00%);
-}
-{% endfor %}
-
-/* Carousel Slide */
-.carousel__slide {
-  height: 100%;
-  position: absolute;
-  opacity: 0;
-  overflow: hidden;
-}
-
-.carousel__holder img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  margin: 1rem 0 1rem;
-}
-
-/* Print Styles */
-.only-print {
-  display: none;
-}
-
-@media print {
-  .no-print {
-    display: none !important;
-  }
-  .only-print {
-    display: block;
-  }
-}
-
-/* Error State */
-.carousel-error {
-  margin: 1rem 0;
-  font-size: 14px;
-}
-</style>
-
+{% comment %} Carousel JavaScript {% endcomment %}
 <script>
-/**
- * Carousel-specific PhotoSwipe Configuration
- */
 (function() {
-    'use strict';
+  'use strict';
+  
+  const carouselId = '{{ carousel_id }}';
+  const carousel = document.getElementById('carousel-' + carouselId);
+  
+  if (!carousel) return;
+  
+  const track = carousel.querySelector('[data-carousel-track]');
+  const slides = Array.from(carousel.querySelectorAll('.carousel-slide'));
+  const prevBtn = carousel.querySelector('[data-carousel-prev]');
+  const nextBtn = carousel.querySelector('[data-carousel-next]');
+  const indicators = Array.from(carousel.querySelectorAll('.carousel-indicator'));
+  
+  let currentIndex = 0;
+  let isTransitioning = false;
+  
+  // Set image dimensions for PhotoSwipe
+  const links = carousel.querySelectorAll('a[data-pswp-width="auto"]');
+  links.forEach(link => {
+    const img = link.querySelector('img');
+    if (!img) return;
     
-    const carouselId = '{{ carousel_id }}';
-    const carousel = document.getElementById('carousel' + carouselId);
-    
-    if (!carousel) {
-        console.warn('Carousel not found: carousel' + carouselId);
-        return;
-    }
-    
-    /**
-     * ROBUST IMAGE DIMENSION DETECTION
-     * 
-     * This handles three scenarios:
-     * 1. Images already loaded (normal refresh)
-     * 2. Images loading (hard refresh with cleared cache)
-     * 3. Images failed to load
-     * 
-     * The key is to check BOTH complete status AND naturalWidth
-     * because img.complete can be true even when dimensions aren't available yet
-     */
-    const links = carousel.querySelectorAll('a[data-pswp-width="auto"]');
-    
-    function setImageDimensions(link, img) {
-        // Only set if we have valid dimensions
-        if (img.naturalWidth && img.naturalHeight && img.naturalWidth > 0 && img.naturalHeight > 0) {
-            link.setAttribute('data-pswp-width', img.naturalWidth);
-            link.setAttribute('data-pswp-height', img.naturalHeight);
-            return true;
-        }
-        return false;
-    }
-    
-    links.forEach(function(link) {
-        const img = link.querySelector('img');
-        if (!img) return;
-        
-        // Try to set dimensions immediately if image is already loaded
-        if (img.complete && img.naturalWidth > 0) {
-            setImageDimensions(link, img);
-        } else {
-            // Image not loaded yet - attach multiple fallback listeners
-            
-            // Primary: load event
-            img.addEventListener('load', function() {
-                setImageDimensions(link, img);
-            }, { once: true });
-            
-            // Fallback 1: Check periodically (handles edge cases where load event doesn't fire)
-            let attempts = 0;
-            const maxAttempts = 50; // 5 seconds max
-            const checkInterval = setInterval(function() {
-                attempts++;
-                if (setImageDimensions(link, img) || attempts >= maxAttempts) {
-                    clearInterval(checkInterval);
-                }
-            }, 100);
-            
-            // Fallback 2: Try one more time when PhotoSwipe might initialize
-            setTimeout(function() {
-                if (link.getAttribute('data-pswp-width') === 'auto') {
-                    setImageDimensions(link, img);
-                }
-            }, 3000);
-        }
-    });
-    
-    /**
-     * Visibility check for auto-play
-     * Only advance carousel if controls are visible to user
-     */
-    function isVisible(el) {
-        if (!el) return false;
-        
-        while (el && el !== document.body) {
-            const style = window.getComputedStyle(el);
-            if (
-                style.display === 'none' || 
-                style.visibility === 'hidden' || 
-                parseFloat(style.opacity) === 0
-            ) {
-                return false;
-            }
-            el = el.parentElement;
-        }
+    const setDimensions = () => {
+      if (img.naturalWidth > 0 && img.naturalHeight > 0) {
+        link.setAttribute('data-pswp-width', img.naturalWidth);
+        link.setAttribute('data-pswp-height', img.naturalHeight);
         return true;
-    }
-
-    {% comment %} Auto-play configuration from front matter {% endcomment %}
-    {% assign auto_play = false %}
-    {% assign duration = 5 %}
-
-    {% if carousel_data.settings.auto_play %}
-      {% assign auto_play = carousel_data.settings.auto_play %}
-    {% endif %}
-
-    {% if carousel_data.settings.duration %}
-      {% assign duration = carousel_data.settings.duration %}
-    {% elsif include.duration %}
-      {% assign duration = include.duration %}
-    {% endif %}
-
-    {% if auto_play or include.duration %}
-    /**
-     * Auto-play functionality
-     * Advances carousel at specified intervals
-     */
-    setInterval(function() {
-        const elements = carousel.querySelectorAll('.carousel__control--forward');
-        for (let i = elements.length - 1; i >= 0; i--) {
-            if (isVisible(elements[i])) {
-                elements[i].click();
-                break;
-            }
-        }
-    }, {{ duration }} * 1000);
-    {% endif %}
-})();
-
-/**
- * Set carousel holder aspect ratio
- * Prevents layout shift by reserving space based on first image
- */
-(function() {
-    'use strict';
+      }
+      return false;
+    };
     
-    function setCarouselAspectRatio() {
-        const carousel = document.getElementById('carousel{{ carousel_id }}');
-        if (!carousel) return;
-        
-        const carouselHolder = carousel.closest('.carousel__holder');
-        if (!carouselHolder) return;
-        
-        const firstImage = carouselHolder.querySelector('img');
-        if (!firstImage) return;
-        
-        function applyAspectRatio() {
-            if (firstImage.naturalWidth && firstImage.naturalHeight && firstImage.naturalWidth > 0) {
-                const aspectRatio = (firstImage.naturalHeight / firstImage.naturalWidth) * 100;
-                carouselHolder.style.paddingBottom = aspectRatio + '%';
-                return true;
-            }
-            return false;
-        }
-        
-        // Try immediately if already loaded
-        if (firstImage.complete && firstImage.naturalWidth > 0) {
-            applyAspectRatio();
-        } else {
-            // Wait for image to load
-            firstImage.addEventListener('load', applyAspectRatio, { once: true });
-            
-            // Fallback: check periodically
-            let attempts = 0;
-            const checkInterval = setInterval(function() {
-                attempts++;
-                if (applyAspectRatio() || attempts >= 30) {
-                    clearInterval(checkInterval);
-                }
-            }, 100);
-        }
-    }
-    
-    // Run after DOM is ready
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', setCarouselAspectRatio);
+    if (img.complete) {
+      setDimensions();
     } else {
-        setCarouselAspectRatio();
+      img.addEventListener('load', setDimensions, { once: true });
     }
+  });
+  
+  function goToSlide(index, direction = 'next') {
+    if (isTransitioning || index === currentIndex) return;
+    if (index < 0 || index >= slides.length) return;
+    
+    isTransitioning = true;
+    
+    const currentSlide = slides[currentIndex];
+    const nextSlide = slides[index];
+    
+    // Update active states
+    currentSlide.classList.remove('is-active');
+    nextSlide.classList.add('is-active');
+    
+    if (indicators.length > 0) {
+      indicators[currentIndex].classList.remove('is-active');
+      indicators[currentIndex].setAttribute('aria-selected', 'false');
+      indicators[index].classList.add('is-active');
+      indicators[index].setAttribute('aria-selected', 'true');
+    }
+    
+    // Smooth transition
+    const offset = -index * 100;
+    track.style.transform = `translateX(${offset}%)`;
+    
+    currentIndex = index;
+    
+    setTimeout(() => {
+      isTransitioning = false;
+    }, 500);
+  }
+  
+  // Navigation controls
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      const prevIndex = currentIndex === 0 ? slides.length - 1 : currentIndex - 1;
+      goToSlide(prevIndex, 'prev');
+    });
+  }
+  
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      const nextIndex = (currentIndex + 1) % slides.length;
+      goToSlide(nextIndex, 'next');
+    });
+  }
+  
+  // Indicator controls
+  indicators.forEach((indicator, index) => {
+    indicator.addEventListener('click', () => {
+      goToSlide(index);
+    });
+  });
+  
+  // Keyboard navigation
+  carousel.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      prevBtn && prevBtn.click();
+    } else if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      nextBtn && nextBtn.click();
+    }
+  });
+  
+  // Touch swipe support
+  let touchStartX = 0;
+  let touchEndX = 0;
+  
+  track.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+  
+  track.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+  }, { passive: true });
+  
+  function handleSwipe() {
+    const swipeThreshold = 50;
+    const diff = touchStartX - touchEndX;
+    
+    if (Math.abs(diff) > swipeThreshold) {
+      if (diff > 0) {
+        nextBtn && nextBtn.click();
+      } else {
+        prevBtn && prevBtn.click();
+      }
+    }
+  }
+  
+  // Auto-play
+  {% assign auto_play = include.auto_play | default: carousel_data.settings.auto_play | default: false %}
+  {% assign duration = include.duration | default: carousel_data.settings.duration | default: 5 %}
+  
+  {% if auto_play %}
+  let autoPlayInterval;
+  
+  function startAutoPlay() {
+    autoPlayInterval = setInterval(() => {
+      if (document.hidden) return;
+      nextBtn && nextBtn.click();
+    }, {{ duration }} * 1000);
+  }
+  
+  function stopAutoPlay() {
+    clearInterval(autoPlayInterval);
+  }
+  
+  // Start auto-play
+  startAutoPlay();
+  
+  // Pause on hover/focus
+  carousel.addEventListener('mouseenter', stopAutoPlay);
+  carousel.addEventListener('mouseleave', startAutoPlay);
+  carousel.addEventListener('focusin', stopAutoPlay);
+  carousel.addEventListener('focusout', startAutoPlay);
+  
+  // Pause when page hidden
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      stopAutoPlay();
+    } else {
+      startAutoPlay();
+    }
+  });
+  {% endif %}
 })();
 </script>

@@ -1,5 +1,5 @@
 # Auto-generated SRI (Subresource Integrity) hashes
-# Generated: 2025-12-13
+# Generated: 2025-12-14
 # Do not edit manually
 
 ---
@@ -13,7 +13,7 @@ assets/js/modeswitcher.js:
   integrity: sha512-65cc3cs5CbbpXFppG0S5Lobpp/e/OGT3YyEsoaGhWd+2Imr7UJKCO3x8fRZBjoz/HcLo5bU398E4yvCCaDBxQQ==
   crossorigin: anonymous
 assets/js/photoswipe-init.js:
-  integrity: sha512-Cqoe5pUmM6evMZd6UALMHYabMAJxWM4/BSmfDbV1eK0WoX87lVnlGCB0lEB2UwZ/4cI5Rf71y5Lswd6G2oJBJA==
+  integrity: sha512-bH7ksrEEI5RFSp6PvxOwkuRHRxTrdyCYNr/3cHOJ4iL6RECg8W4gyRAN8UAFyuXa+oFeDq73nmfqF1Zxf8yeYQ==
   crossorigin: anonymous
 assets/js/photoswipe-lightbox.umd.min.js:
   integrity: sha512-D16CBrIrVF48W0Ou0ca3D65JFo/HaEAjTugBXeWS/JH+1KNu54ZOtHPccxJ7PQ44rTItUT6DSI6xNL+U34SuuQ==

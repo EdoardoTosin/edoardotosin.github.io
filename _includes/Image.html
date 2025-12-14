@@ -29,83 +29,60 @@
 *
 {%- endcomment -%}
 
-<p align="center" data-pswp-gallery="{{ include.data | default: 'image-gallery' }}">
+{% comment %}
+  Single Image Component with PhotoSwipe Integration
+  
+  Usage:
+    {% include Image.html 
+      src="/path/to/image.jpg"
+      alt="Description"
+      caption="Optional caption"
+      width="800"
+      height="600"
+      gallery="my-gallery"
+      class="custom-class"
+    %}
+  
+  Parameters:
+    - src (required): Image source URL
+    - alt (optional): Alt text, defaults to caption or 'Image'
+    - caption (optional): Caption text (supports Markdown)
+    - width (optional): Image width for aspect ratio
+    - height (optional): Image height for aspect ratio
+    - gallery (optional): Gallery ID for grouping, defaults to 'default-gallery'
+    - class (optional): Additional CSS classes
+    - loading (optional): Loading strategy, defaults to 'lazy'
+{% endcomment %}
+
+{% assign gallery_id = include.gallery | default: 'default-gallery' %}
+{% assign img_loading = include.loading | default: 'lazy' %}
+{% assign img_alt = include.alt | default: include.caption | markdownify | strip_html | strip | default: 'Image' %}
+{% assign img_caption = include.caption | markdownify | replace: '<p>', '' | replace: '</p>', '' | xml_escape %}
+
+<figure class="image-wrapper" data-pswp-gallery="{{ gallery_id }}">
   <a href="{{ include.src }}"
-     class="no-external-link-icon"
+     class="image-link no-external-link-icon"
      style="outline: none"
-     data-pswp-width="auto"
-     data-pswp-height="auto"
-     {% if include.title %}
-       data-pswp-caption="{{ include.title | markdownify | replace: '<p>', '' | replace: '</p>', '' | xml_escape }}"
-     {% endif %}
-     target="_blank"
-     rel="noopener noreferrer">
-
-    <img src="{{ include.src }}"
-         srcset="{{ include.src }}"
-         alt="{{ include.alt | default: include.title | markdownify | strip_html | strip | default: 'Image' }}"
-         {% if include.class %} class="{{ include.class }}" {% endif %}
-         {% if include.width %} width="{{ include.width }}" {% endif %}
-         {% if include.height %} height="{{ include.height }}" {% endif %}
-         loading="eager"
-         {% if include.style %} style="{{ include.style }}" {% endif %} />
+     data-pswp-slide
+     data-pswp-width="{{ include.width | default: 'auto' }}"
+     data-pswp-height="{{ include.height | default: 'auto' }}"
+     {% if img_caption != '' %}data-pswp-caption="{{ img_caption }}"{% endif %}
+     aria-label="Open image in lightbox{% if include.caption %}: {{ include.caption | strip_html }}{% endif %}">
+    
+    <div class="image-container{% if include.class %} {{ include.class }}{% endif %}">
+      <img src="{{ include.src }}"
+           alt="{{ img_alt }}"
+           {% if include.width %}width="{{ include.width }}"{% endif %}
+           {% if include.height %}height="{{ include.height }}"{% endif %}
+           loading="{{ img_loading }}"
+           decoding="async"
+           class="image-element" />
+    </div>
   </a>
-</p>
-
-<script>
-/**
- * Dimension detection for single images
- * 
- * When cache is cleared, images load slower and naturalWidth/naturalHeight
- * may not be available immediately even when img.complete is true
- */
-(function() {
-    'use strict';
-    
-    const links = document.querySelectorAll('[data-pswp-width="auto"]');
-    
-    function setImageDimensions(link, img) {
-        // Only set if we have valid dimensions
-        if (img.naturalWidth && img.naturalHeight && img.naturalWidth > 0 && img.naturalHeight > 0) {
-            link.setAttribute('data-pswp-width', img.naturalWidth);
-            link.setAttribute('data-pswp-height', img.naturalHeight);
-            return true;
-        }
-        return false;
-    }
-    
-    links.forEach(function(link) {
-        const img = link.querySelector('img');
-        if (!img) return;
-        
-        // Try to set dimensions immediately if image is already loaded
-        if (img.complete && img.naturalWidth > 0) {
-            setImageDimensions(link, img);
-        } else {
-            // Image not loaded yet - use multiple strategies
-            
-            // Primary: load event
-            img.addEventListener('load', function() {
-                setImageDimensions(link, img);
-            }, { once: true });
-            
-            // Fallback 1: Periodic check (handles cases where load event doesn't fire)
-            let attempts = 0;
-            const maxAttempts = 50; // 5 seconds max
-            const checkInterval = setInterval(function() {
-                attempts++;
-                if (setImageDimensions(link, img) || attempts >= maxAttempts) {
-                    clearInterval(checkInterval);
-                }
-            }, 100);
-            
-            // Fallback 2: One final attempt after delay
-            setTimeout(function() {
-                if (link.getAttribute('data-pswp-width') === 'auto') {
-                    setImageDimensions(link, img);
-                }
-            }, 3000);
-        }
-    });
-})();
-</script>
+  
+  {% if include.caption %}
+  <figcaption class="image-caption">
+    {{ include.caption | markdownify }}
+  </figcaption>
+  {% endif %}
+</figure>

@@ -1,24 +1,378 @@
-/* PhotoSwipe v5 Custom Styling */
+/**
+ * PhotoSwipe + Bulma Integration
+ * Theme-aware lightbox with carousel support
+ */
 
 /* ============================================================
-   Custom Caption
+   CSS Custom Properties
+   ============================================================ */
+
+:root {
+  --pswp-spacing-sm: 0.5rem;
+  --pswp-spacing-md: 1rem;
+  --pswp-spacing-lg: 1.5rem;
+  --pswp-border-radius: 6px;
+  --pswp-border-radius-sm: 4px;
+
+  /* Theme colors for page elements only */
+  --pswp-bg-primary: hsl(0, 0%, 96%);
+  --pswp-bg-secondary: hsl(0, 0%, 98%);
+  --pswp-text-primary: hsl(0, 0%, 21%);
+  --pswp-text-secondary: hsl(0, 0%, 29%);
+  --pswp-border-light: rgba(10, 10, 10, 0.1);
+
+  --pswp-control-bg: rgba(255, 255, 255, 0.9);
+  --pswp-control-text: hsl(0, 0%, 21%);
+
+  --pswp-shadow-sm: 0 0.125em 0.25em rgba(10, 10, 10, 0.1);
+  --pswp-shadow-md: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 
+                    0 0 0 1px rgba(10, 10, 10, 0.02);
+  --pswp-shadow-lg: 0 0.5em 1.5em -0.125em rgba(10, 10, 10, 0.2), 
+                    0 0 0 1px rgba(10, 10, 10, 0.02);
+
+  --pswp-transition-speed: 0.3s;
+  --pswp-transition-easing: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Dark theme via data attribute */
+[data-theme="dark"],
+.theme-dark,
+.is-dark-theme {
+  --pswp-bg-primary: hsl(0, 0%, 14%);
+  --pswp-bg-secondary: hsl(0, 0%, 18%);
+  --pswp-text-primary: hsl(0, 0%, 96%);
+  --pswp-text-secondary: hsl(0, 0%, 86%);
+  --pswp-border-light: rgba(255, 255, 255, 0.1);
+
+  --pswp-control-bg: rgba(10, 10, 10, 0.85);
+  --pswp-control-text: hsl(0, 0%, 96%);
+
+  --pswp-shadow-sm: 0 0.125em 0.25em rgba(0, 0, 0, 0.3);
+  --pswp-shadow-md: 0 0.5em 1em -0.125em rgba(0, 0, 0, 0.3), 
+                    0 0 0 1px rgba(0, 0, 0, 0.1);
+  --pswp-shadow-lg: 0 0.5em 1.5em -0.125em rgba(0, 0, 0, 0.4), 
+                    0 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark theme via media query */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --pswp-bg-primary: hsl(0, 0%, 14%);
+    --pswp-bg-secondary: hsl(0, 0%, 18%);
+    --pswp-text-primary: hsl(0, 0%, 96%);
+    --pswp-text-secondary: hsl(0, 0%, 86%);
+    --pswp-border-light: rgba(255, 255, 255, 0.1);
+
+    --pswp-control-bg: rgba(10, 10, 10, 0.85);
+    --pswp-control-text: hsl(0, 0%, 96%);
+    
+    --pswp-shadow-sm: 0 0.125em 0.25em rgba(0, 0, 0, 0.3);
+    --pswp-shadow-md: 0 0.5em 1em -0.125em rgba(0, 0, 0, 0.3), 
+                      0 0 0 1px rgba(0, 0, 0, 0.1);
+    --pswp-shadow-lg: 0 0.5em 1.5em -0.125em rgba(0, 0, 0, 0.4), 
+                      0 0 0 1px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* ============================================================
+   Single Image Component
+   ============================================================ */
+
+.image-wrapper {
+  margin: var(--pswp-spacing-lg) auto;
+  max-width: 100%;
+}
+
+.image-link {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--pswp-border-radius);
+  box-shadow: var(--pswp-shadow-md);
+  transition: box-shadow var(--pswp-transition-speed) var(--pswp-transition-easing),
+              transform var(--pswp-transition-speed) var(--pswp-transition-easing);
+  outline: none;
+  cursor: zoom-in;
+}
+
+.image-link:hover {
+  box-shadow: var(--pswp-shadow-lg);
+  transform: translateY(-1px);
+}
+
+.image-link:focus-visible {
+  outline: 2px solid hsl(204, 86%, 53%);
+  outline-offset: 2px;
+  box-shadow: var(--pswp-shadow-lg);
+}
+
+.image-container {
+  position: relative;
+  background: var(--pswp-bg-primary);
+  line-height: 0;
+}
+
+.image-element {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--pswp-border-radius);
+}
+
+.image-caption {
+  margin-top: var(--pswp-spacing-sm);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--pswp-text-secondary);
+  text-align: center;
+}
+
+.image-caption p {
+  margin: 0;
+}
+
+.image-caption a {
+  color: hsl(204, 86%, 53%);
+  text-decoration: underline;
+  transition: color 0.2s ease;
+  cursor: pointer;
+}
+
+.image-caption a:hover,
+.image-caption a:focus {
+  color: hsl(204, 86%, 43%);
+}
+
+/* ============================================================
+   Carousel Component
+   ============================================================ */
+
+.carousel-wrapper {
+  position: relative;
+  margin: var(--pswp-spacing-lg) auto;
+  border-radius: var(--pswp-border-radius);
+  box-shadow: var(--pswp-shadow-md);
+  overflow: hidden;
+  background: var(--pswp-bg-secondary);
+}
+
+.carousel-viewport {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  padding-bottom: 66.67%;
+}
+
+.carousel-track {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s var(--pswp-transition-easing);
+  will-change: transform;
+}
+
+.carousel-slide {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  opacity: 0.6;
+  transition: opacity 0.5s var(--pswp-transition-easing);
+}
+
+.carousel-slide.is-active {
+  opacity: 1;
+}
+
+.carousel-slide-link {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  cursor: zoom-in;
+}
+
+.carousel-slide-link:focus-visible {
+  outline: 2px solid hsl(204, 86%, 53%);
+  outline-offset: -2px;
+}
+
+.carousel-image-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: var(--pswp-bg-primary);
+}
+
+.carousel-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Subtle overlay for carousel slides */
+.carousel-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.03);
+  opacity: 0;
+  transition: opacity var(--pswp-transition-speed) var(--pswp-transition-easing);
+  pointer-events: none;
+}
+
+.carousel-slide-link:hover .carousel-overlay,
+.carousel-slide-link:focus-visible .carousel-overlay {
+  opacity: 1;
+}
+
+.carousel-control {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--pswp-control-bg);
+  border: none;
+  border-radius: 50%;
+  color: var(--pswp-control-text);
+  cursor: pointer;
+  box-shadow: var(--pswp-shadow-md);
+  transition: all 0.2s var(--pswp-transition-easing);
+  outline: none;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.carousel-control:hover {
+  box-shadow: var(--pswp-shadow-lg);
+  transform: translateY(-50%) scale(1.05);
+}
+
+.carousel-control:focus-visible {
+  outline: 2px solid hsl(204, 86%, 53%);
+  outline-offset: 2px;
+}
+
+.carousel-control:active {
+  transform: translateY(-50%) scale(0.98);
+}
+
+.carousel-prev {
+  left: var(--pswp-spacing-md);
+}
+
+.carousel-next {
+  right: var(--pswp-spacing-md);
+}
+
+.carousel-indicators {
+  position: absolute;
+  bottom: var(--pswp-spacing-md);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: var(--pswp-spacing-sm);
+  z-index: 10;
+  padding: var(--pswp-spacing-sm);
+  background: var(--pswp-indicator-bg);
+  border-radius: 999px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.carousel-indicator {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: all 0.2s var(--pswp-transition-easing);
+  outline: none;
+}
+
+.carousel-indicator:hover {
+  background: rgba(255, 255, 255, 0.8);
+  transform: scale(1.15);
+}
+
+.carousel-indicator.is-active {
+  background: white;
+  width: 24px;
+  border-radius: 4px;
+}
+
+.carousel-indicator:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 2px;
+}
+
+.carousel-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: var(--pswp-spacing-md);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+  color: white;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  text-align: center;
+  opacity: 0;
+  transition: opacity var(--pswp-transition-speed) var(--pswp-transition-easing);
+  pointer-events: none;
+}
+
+.carousel-slide-link:hover .carousel-caption,
+.carousel-slide-link:focus-visible .carousel-caption {
+  opacity: 1;
+}
+
+.carousel-caption p {
+  margin: 0;
+}
+
+.carousel-caption a {
+  color: hsl(204, 86%, 73%);
+  text-decoration: underline;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.carousel-caption a:hover,
+.carousel-caption a:focus {
+  color: hsl(204, 86%, 83%);
+}
+
+/* ============================================================
+   PhotoSwipe UI
+   Uses PhotoSwipe defaults with solid black background
    ============================================================ */
 
 .pswp__custom-caption {
   position: absolute;
-  bottom: 20px;
+  bottom: 40px;
   left: 50%;
   transform: translateX(-50%);
   max-width: 90%;
-  width: auto;
   padding: 12px 20px;
   background: rgba(0, 0, 0, 0.75);
   color: #fff;
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 1.5;
-  border-radius: 4px;
+  border-radius: var(--pswp-border-radius-sm);
   text-align: center;
-  pointer-events: none;
   z-index: 2000;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -28,121 +382,106 @@
   display: none;
 }
 
-/* Responsive caption sizing */
-@media (max-width: 768px) {
+.pswp__custom-caption p {
+  margin: 0;
+}
+
+.pswp__custom-caption a {
+  color: hsl(204, 86%, 73%);
+  text-decoration: underline;
+  cursor: pointer;
+  pointer-events: auto;
+  position: relative;
+  z-index: 2001;
+  transition: color 0.2s ease;
+}
+
+.pswp__custom-caption a:hover,
+.pswp__custom-caption a:focus {
+  color: hsl(204, 86%, 83%);
+}
+
+/* Hide navigation for single-image galleries */
+.pswp--single-image .pswp__button--arrow,
+.pswp--single-image .pswp__counter {
+  display: none !important;
+}
+
+/* ============================================================
+   Responsive Design
+   ============================================================ */
+
+@media screen and (max-width: 768px) {
+  .carousel-control {
+    width: 36px;
+    height: 36px;
+  }
+
+  .carousel-prev {
+    left: var(--pswp-spacing-sm);
+  }
+
+  .carousel-next {
+    right: var(--pswp-spacing-sm);
+  }
+
+  .carousel-indicators {
+    bottom: var(--pswp-spacing-sm);
+  }
+
   .pswp__custom-caption {
-    font-size: 14px;
+    font-size: 0.875rem;
     padding: 10px 16px;
     max-width: 85%;
   }
 }
 
-@media (max-width: 480px) {
+@media screen and (max-width: 480px) {
+  .carousel-control {
+    width: 32px;
+    height: 32px;
+  }
+
   .pswp__custom-caption {
-    font-size: 12px;
-    bottom: 10px;
+    font-size: 0.75rem;
+    bottom: 20px;
     padding: 8px 12px;
-    max-width: 80%;
   }
 }
 
 /* ============================================================
-   Accessibility Enhancements
-   ============================================================ */
-
-/* Focus indicators for keyboard navigation */
-.pswp__button:focus-visible {
-  outline: 2px solid #fff;
-  outline-offset: 2px;
-  border-radius: 4px;
-}
-
-/* Improve button hit areas on touch devices */
-@media (pointer: coarse) {
-  .pswp__button {
-    width: 60px;
-    height: 70px;
-  }
-  
-  .pswp__button--arrow {
-    width: 80px;
-  }
-}
-
-/* ============================================================
-   Performance Optimizations
-   ============================================================ */
-
-/* Prevent text selection during drag */
-.pswp__container,
-.pswp__zoom-wrap,
-.pswp__img {
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-}
-
-/* GPU acceleration hint for smoother animations */
-.pswp__bg,
-.pswp__scroll-wrap,
-.pswp__container,
-.pswp__zoom-wrap,
-.pswp__img {
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
-}
-
-/* Prevent jank during transitions */
-.pswp__img,
-.pswp__zoom-wrap {
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-}
-
-/* ============================================================
-   Light Mode Support
-   ============================================================ */
-
-@media (prefers-color-scheme: light) {
-  .pswp {
-    --pswp-bg: #fff;
-    --pswp-icon-color: #000;
-    --pswp-icon-color-secondary: #666;
-  }
-  
-  .pswp__custom-caption {
-    background: rgba(255, 255, 255, 0.9);
-    color: #000;
-  }
-}
-
-/* ============================================================
-   High Contrast Mode Support
+   Accessibility
    ============================================================ */
 
 @media (prefers-contrast: high) {
-  .pswp__button:focus-visible {
+  .image-link:focus-visible,
+  .carousel-slide-link:focus-visible,
+  .carousel-control:focus-visible,
+  .carousel-indicator:focus-visible {
     outline-width: 3px;
   }
-  
+
   .pswp__custom-caption {
-    background: rgba(0, 0, 0, 0.95);
-    border: 1px solid #fff;
+    border: 1px solid var(--pswp-border-light);
   }
 }
 
-/* ============================================================
-   Reduced Motion Support
-   ============================================================ */
-
 @media (prefers-reduced-motion: reduce) {
-  .pswp__img,
-  .pswp__zoom-wrap,
-  .pswp__bg,
-  .pswp .pswp__hide-on-close {
-    transition-duration: 0.01ms !important;
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .carousel-track {
+    transition: none;
+  }
+
+  .image-link:hover,
+  .carousel-control:hover {
+    transform: none;
   }
 }
 
@@ -151,67 +490,21 @@
    ============================================================ */
 
 @media print {
-  .pswp,
-  .pswp * {
+  .carousel-overlay,
+  .carousel-control,
+  .carousel-indicators {
     display: none !important;
   }
-}
 
-/* ============================================================
-   Error State Enhancement
-   ============================================================ */
-
-.pswp__error-msg-container {
-  display: grid;
-  place-items: center;
-  padding: 20px;
-}
-
-.pswp__error-msg {
-  text-align: center;
-  padding: 20px;
-  background: rgba(0, 0, 0, 0.8);
-  border-radius: 8px;
-  max-width: 400px;
-}
-
-/* ============================================================
-   Smooth Transitions
-   ============================================================ */
-
-/* Smoother fade in/out for overlay */
-.pswp {
-  transition: opacity 0.333s ease-out;
-}
-
-/* Better backdrop blur for modern browsers */
-@supports (backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px)) {
-  .pswp__bg {
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+  .image-link,
+  .carousel-slide-link {
+    cursor: default;
+    box-shadow: none;
   }
-}
 
-/* ============================================================
-   Mobile Optimizations
-   ============================================================ */
-
-/* Improve button spacing on small screens */
-@media (max-width: 480px) {
-  .pswp__button {
-    width: 44px;
-    height: 50px;
-  }
-  
-  .pswp__button--close {
-    margin-right: 4px;
-  }
-}
-
-/* Prevent iOS Safari bottom bar interference */
-@supports (padding: env(safe-area-inset-bottom)) {
-  .pswp__custom-caption {
-    bottom: calc(20px + env(safe-area-inset-bottom));
+  .image-link:hover,
+  .carousel-slide-link:hover {
+    transform: none;
   }
 }
 
@@ -219,7 +512,48 @@
    Utility Classes
    ============================================================ */
 
-/* Prevent page scroll when PhotoSwipe is open */
 .pswp-open {
   overflow: hidden;
+}
+
+.is-hidden-screen {
+  display: none;
+}
+
+@media print {
+  .is-hidden-screen {
+    display: block !important;
+  }
+}
+
+.image-loading {
+  position: relative;
+  min-height: 200px;
+  background: var(--pswp-bg-primary);
+  background-image: linear-gradient(
+    90deg,
+    var(--pswp-bg-primary) 0%,
+    var(--pswp-bg-secondary) 50%,
+    var(--pswp-bg-primary) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.image-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  background: hsl(348, 100%, 96%);
+  color: hsl(348, 100%, 29%);
+  border: 2px dashed hsl(348, 100%, 61%);
+  border-radius: var(--pswp-border-radius);
+  padding: var(--pswp-spacing-md);
+  text-align: center;
 }

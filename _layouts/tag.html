@@ -14,9 +14,7 @@ noindex: nofollow
 <div class="notelist-feed">
 	<a href="{{ site.baseurl }}{{item.url}}" style="text-decoration: none;">
 		<h6>{{ item.title }}</h6>
-		<p class="excerpt">
-			{{ item.content | strip_html | strip | remove: "[[" | remove: "]]" | remove: "-" | escape | truncate: 200 }}
-		</p>
+		{% include ItemContent.html content=item.content %}
 	</a>
 </div>
 {% endfor %}

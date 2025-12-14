@@ -38,9 +38,7 @@ formattedCounter = counter | prepend: "0" | prepend: "0" | prepend: "0" %}
 <div class="notelist-feed">
 	<a href="{{post.url}}" style="text-decoration: none;" aria-label="{{ post.title }}">
 		<h6>{{ post.title }}</h6>
-		<p class="excerpt">
-			{{ post.content | strip_html | strip | remove: "[[" | remove: "]]" | remove: "-" | escape | truncate: 200 }}
-		</p>
+		{% include ItemContent.html content=post.content %}
 	</a>
 </div>
 {% endif %} {% endfor %}

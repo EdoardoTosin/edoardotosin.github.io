@@ -1,0 +1,12 @@
+<p class="excerpt">
+  {{ include.content
+    | markdownify
+    | strip_html
+    | replace: "[[", ""
+    | replace: "]]", ""
+    | replace_regex: "!\\[[^\\]]*\\]\\([^\\)]+\\)", ""
+    | replace_regex: "\\s+", " "
+    | strip
+    | truncate: 200
+  }}
+</p>

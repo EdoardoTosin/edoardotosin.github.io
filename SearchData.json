@@ -22,19 +22,19 @@ permalink: /SearchData.json
        "doc":  {{ item.title | strip_html | escape | jsonify }},
        "title": {{ item.title | strip_html | escape | jsonify }},
        "type": "{% if item.collection == 'posts' %}post{% else %}note{% endif %}",
-       "content": {{ item.content | replace: '</h', ' . </h' | replace: '<hr', ' . <hr' | replace: '</p', ' . </p' | replace: '<ul', ' . <ul' | replace: '</ul', ' . </ul' | replace: '<ol', ' . <ol' | replace: '</ol', ' . </ol' | replace: '</tr', ' . </tr' | replace: '<li', ' | <li' | replace: '</li', ' | </li' | replace: '</td', ' | </td' | replace: '<td', ' | <td' | replace: '</th', ' | </th' | replace: '<th', ' | <th' | strip_html | remove: 'Table of contents' | normalize_whitespace | replace: '. . .', '.' | replace: '. .', '.' | replace: '| |', '|' | append: ' ' | strip_html | strip_newline | strip | escape | jsonify }},
+       "content": {{ item.content | replace: '</h', ' . </h' | replace: '<hr', ' . <hr' | replace: '</p', ' . </p' | replace: '<ul', ' . <ul' | replace: '</ul', ' . </ul' | replace: '<ol', ' . <ol' | replace: '</ol', ' . </ol' | replace: '</tr', ' . </tr' | replace: '<li', ' | <li' | replace: '</li', ' | </li' | replace: '</td', ' | </td' | replace: '<td', ' | <td' | replace: '</th', ' | </th' | replace: '<th', ' | <th' | strip_html | remove: 'Table of contents' | normalize_whitespace | replace: '. . .', '.' | replace: '. .', '.' | replace: '| |', '|' | append: ' ' | strip_html | strip_newline | strip | escape | downcase | jsonify }},
        "url": "{{ site.baseurl }}{{ item.url }}"
        {%- if item.tags -%},
-       "tags": {{ item.tags | jsonify }}
+       "tags": {{ item.tags | join: ' ' | downcase | jsonify }}
        {%- endif -%}
        {%- if item.keywords -%},
-       "keywords": {{ item.keywords | jsonify }}
+       "keywords": {{ item.keywords | join: ' ' | downcase | jsonify }}
        {%- endif -%}
        {%- if item.description -%},
-       "description": {{ item.description | strip_html | escape | jsonify }}
+       "description": {{ item.description | strip_html | escape | downcase | jsonify }}
        {%- endif -%}
-       {%- if item.categories and item.categories > 0 -%},
-       "categories": {{ item.categories | jsonify }}
+       {%- if item.categories and item.categories.size > 0 -%},
+       "categories": {{ item.categories | join: ' ' | downcase | jsonify }}
        {%- endif -%}
     }{%- unless forloop.last -%},{%- endunless -%}
     {%- assign i = i | plus: 1 -%}

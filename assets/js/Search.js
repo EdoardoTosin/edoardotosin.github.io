@@ -32,8 +32,8 @@
  *
  * How to customize this for your own project:
  * --------------------------------------------
- * 1. Lunr takes json fields for indexing, so create a json file with all the fields
- *      you want searched by Lunr. For eg. In my case, it is title, content, url for my
+ * 1. Fuse takes json fields for indexing, so create a json file with all the fields
+ *      you want searched by Fuse. For eg. In my case, it is title, content, url for my
  *      blog posts.
  *      Note: In this project, the json gets automatically generated. (SEE: search-data.json)
  * 2. Change the field names below accordingly. (SEE: this.field)
@@ -67,6 +67,19 @@
         if (document.readyState == "complete") ready();
       });
   };
+
+  function sanitizeHTML(str) {
+    var temp = document.createElement('div');
+    temp.textContent = str;
+    return temp.innerHTML;
+  }
+
+  function normalizeQuery(query) {
+    return query
+      .trim()
+      .replace(/\s+/g, ' ')
+      .toLowerCase();
+  }
 
   async function getSearchData(dataUrl, searchInput) {
     let response = await fetch(dataUrl);
@@ -105,24 +118,30 @@
 
         var index = new Fuse(docsArray, {
           keys: [
-            { name: "title", weight: 1.0 },
-            { name: "keywords", weight: 0.08 },
-            { name: "tags", weight: 0.1 },
-            { name: "description", weight: 0.05 },
-            { name: "content", weight: 0.01 },
-            { name: "url", weight: 0.005 },
+            { name: "title", weight: 0.6 },
+            { name: "tags", weight: 0.2 },
+            { name: "keywords", weight: 0.15 },
+            { name: "description", weight: 0.08 },
+            { name: "content", weight: 0.03 },
+            { name: "url", weight: 0.002 },
           ],
           includeMatches: true,
-          threshold: 0.4,
+          includeScore: true,
+          threshold: 0.35,
+          distance: 150,
           minMatchCharLength: 2,
           ignoreLocation: true,
+          useExtendedSearch: false,
+          findAllMatches: true,
+          ignoreFieldNorm: false,
+          fieldNormWeight: 1.5,
         });
 
         searchLoaded(index, docsArray);
 
       })
       .catch(function (err) {
-        console.warn("Error processing the search-data for lunrjs", err);
+        console.warn("Error processing the search-data for Fuse.js", err);
       });
   }
 
@@ -133,6 +152,7 @@
     var searchResults = document.getElementById("search-results");
     var currentInput;
     var currentSearchIndex = 0;
+    var debounceTimer = null;
 
     function showSearch() {
       document.documentElement.classList.add("search-active");
@@ -150,6 +170,11 @@
       currentSearchIndex++;
 
       var input = searchInput.value;
+      
+      if (input.length > 500) {
+        input = input.substring(0, 500);
+      }
+
       if (input === "") {
         hideSearch();
       } else {
@@ -170,7 +195,12 @@
         return;
       }
 
-      var results = index.search(input);
+      var normalizedInput = normalizeQuery(input);
+      var results = index.search(normalizedInput);
+
+      results.sort(function(a, b) {
+        return (a.score || 1) - (b.score || 1);
+      });
 
       if (results.length == 0) {
         var noResultsDiv = document.createElement("div");
@@ -182,7 +212,7 @@
         resultsList.classList.add("search-results-list");
         searchResults.appendChild(resultsList);
 
-        addResults(resultsList, results, 0, 10, 100, currentSearchIndex);
+        addResults(resultsList, results, 0, 15, 80, currentSearchIndex);
       }
 
       function addResults(
@@ -250,7 +280,7 @@
 
         var resultDocTitle = document.createElement("div");
         resultDocTitle.classList.add("search-result-doc-title");
-        resultDocTitle.innerHTML = doc.doc;
+        resultDocTitle.innerHTML = sanitizeHTML(doc.doc);
         resultDoc.appendChild(resultDocTitle);
         var resultDocOrSection = resultDocTitle;
 
@@ -258,7 +288,7 @@
           resultDoc.classList.add("search-result-doc-parent");
           var resultSection = document.createElement("div");
           resultSection.classList.add("search-result-section");
-          resultSection.innerHTML = doc.title;
+          resultSection.innerHTML = sanitizeHTML(doc.title);
           resultTitle.appendChild(resultSection);
           resultDocOrSection = resultSection;
         }
@@ -404,16 +434,16 @@
         for (var i in positions) {
           var position = positions[i];
           var span = document.createElement("span");
-          span.innerHTML = text.substring(index, position[0]);
+          span.textContent = text.substring(index, position[0]);
           parent.appendChild(span);
           index = position[0] + position[1];
           var highlight = document.createElement("span");
           highlight.classList.add("search-result-highlight");
-          highlight.innerHTML = text.substring(position[0], index);
+          highlight.textContent = text.substring(position[0], index);
           parent.appendChild(highlight);
         }
         var span = document.createElement("span");
-        span.innerHTML = text.substring(index, end);
+        span.textContent = text.substring(index, end);
         parent.appendChild(span);
       }
     }
@@ -436,7 +466,11 @@
           e.preventDefault();
           return;
       }
-      update();
+
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(function() {
+        update();
+      }, 150);
     });
 
     sj.addEvent(searchInput, "keydown", function (e) {

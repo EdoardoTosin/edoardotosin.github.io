@@ -133,10 +133,6 @@ defaults:
       layout: Post
       permalink: /note/:title
       content-type: notes
-  - scope:
-      path: "security.txt"
-    values:
-      sitemap: false
 
 # Robots.txt
 robots:

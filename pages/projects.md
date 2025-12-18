@@ -19,14 +19,13 @@ description: "Collection of personal projects published on Github, including CLI
 
 - [Batch-Image-Converter](https://github.com/EdoardoTosin/Batch-Image-Converter): Streamline your image editing process with this Python script, capable of converting large batches of images to desired formats and specifications, including DPI, resolution, and color space.
 - [ObjectTracker](https://github.com/EdoardoTosin/ObjectTracker): Lightweight, real-time object detection and video recording tool.
-- [Observatory-Booking](https://github.com/EdoardoTosin/Observatory-Booking): A Flask-based, self-hostable observatory booking web app with role-based access control, weather-aware event booking, and encrypted user data.
 
-### HTML/CSS/JS
+### Web Development (HTML/CSS/JS)
 
 - [Silly-Redirect-for-Zoom-Meetings](https://github.com/EdoardoTosin/Silly-Redirect-for-Zoom-Meetings): A browser extension that effortlessly redirects your Zoom meetings to the safer web client, enhancing your online collaboration experience.
 
 ## Data Science
 
-### Data Analysis and Visualization
+### Satellite & Geospatial Analysis
 
 - [January-2025-Southern-California-Wildfires-Burn-Severity-Sentinel2](https://github.com/EdoardoTosin/January-2025-Southern-California-Wildfires-Burn-Severity-Sentinel2): This repository contains scripts and data for analyzing burn severity of the January 2025 wildfires in Southern California using Sentinel-2 satellite imagery. The analysis utilizes the difference Normalized Burn Ratio (dNBR) and Relativized Burn Ratio (RBR) to classify areas based on burn severity.

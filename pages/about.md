@@ -3,35 +3,41 @@ permalink: /about
 layout: Post
 content-type: static
 title: About
-description: "Explore my portfolio to read blog posts, check out coding projects on GitHub, browse my photography on Flickr, and connect for collaborations or inquiries."
+description: "Explore my portfolio: technical articles, security research, coding projects on GitHub, photography on Flickr, and ways to connect for inquiries."
 ---
 
 <br>
 
-### A Little Bit About Me
+### About Me
 
----
+I'm {{ site.author }}, a computer science graduate based in Italy.
 
-Hello! I'm {{ site.author }}, a passionate coder and tech enthusiast from Italy with a global perspective shaped by my experiences abroad.
+I hold a Bachelor's degree in Computer Science with a focus on Digital Business and Information Technology. My interests span cybersecurity, software development, and data analysis, where I enjoy building practical solutions and exploring new challenges.
 
-I enjoy exploring coding, cybersecurity, machine learning, and data analysis-fields that challenge me and continually spark my curiosity. Through my work, I aim to create practical solutions and projects that make a positive impact in technology and beyond.
+I contribute to digital security through independent vulnerability research and responsible disclosure. My work has been recognized by the [BSI Hall of Fame](https://www.bsi.bund.de/DE/IT-Sicherheitsvorfall/IT-Schwachstellen/Hall_of_Fame/Hall_of_Fame_node.html) (Germany's Federal Office for Information Security) for reporting security vulnerabilities that help protect critical infrastructure.
 
-### My Website Aims To
+### Areas of Expertise
 
-- **Educate**: Share notes and tutorials across a variety of topics.
-- **Inspire**: Highlight real-world applications that encourage curiosity and practical engagement in tech.
+- **Cybersecurity**: Security analysis, vulnerability research, and responsible disclosure.
+- **Software Development**: C, Python, and web technologies (HTML/CSS/JavaScript) for building CLI tools, browser extensions, and automation scripts.
+- **Data Analysis**: Geospatial and satellite imagery processing for environmental and scientific applications.
 
-### Explore My Content
+### What This Site Offers
 
-- **[Notes]({{ '/notes' | relative_url }})**: Quick, digestible pieces covering a variety of subjects.
-- **[Posts]({{ '/posts' | relative_url }})**: In-depth blog posts and tutorials on technological topics.
-- **[Projects]({{ '/projects' | relative_url }})**: Practical side projects demonstrating my learning and skills, often available on GitHub.
-- **[Collections]({{ '/collections' | relative_url }})**: Curated resources aggregated for convenience.
+- **Knowledge Sharing**: Technical articles, research notes, and tutorials on security, software development, and related topics.
+- **Practical Examples**: Real-world applications demonstrating problem-solving approaches in cybersecurity, software engineering, and data analysis.
 
-### Connect With Me
+### Browse My Work
 
-- **[GitHub]({{ site.link.github }})**: Explore my repositories and coding projects.
-- **[Flickr]({{ site.link.flickr }})**: A visual journey through my photography.
-- **[Contact Me]({{ '/contact' | relative_url }})**: For collaborations or just to say hi, I'm all ears!
+- **[Notes]({{ '/notes' | relative_url }})**: Short observations, references, and insights across technology, science, and other areas of interest.
+- **[Posts]({{ '/posts' | relative_url }})**: In-depth articles and guides on software technology, including programming, cybersecurity, reverse engineering, and technical analysis.
+- **[Projects]({{ '/projects' | relative_url }})**: Practical coding projects hosted on GitHub.
+- **[Collections]({{ '/collections' | relative_url }})**: Curated groupings of posts and notes, organized by topic or series for easy exploration.
+
+### Get In Touch
+
+- **[GitHub]({{ site.link.github }})**: Explore my open-source contributions and technical projects.
+- **[Flickr]({{ site.link.flickr }})**: Browse my photography work.
+- **[Contact]({{ '/contact' | relative_url }})**: Reach out for inquiries, collaboration, or general discussion.
 
 <br>

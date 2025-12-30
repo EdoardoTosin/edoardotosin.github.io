@@ -51,294 +51,411 @@
     if (el.attachEvent) el.attachEvent("on" + type, handler);
     else el.addEventListener(type, handler);
   };
+
   sj.removeEvent = function (el, type, handler) {
     if (el.detachEvent) el.detachEvent("on" + type, handler);
     else el.removeEventListener(type, handler);
   };
+
   sj.onReady = function (ready) {
-    // in case the document is already rendered
-    if (document.readyState != "loading") ready();
-    // modern browsers
+    if (document.readyState !== "loading") ready();
     else if (document.addEventListener)
       document.addEventListener("DOMContentLoaded", ready);
-    // IE <= 8
     else
       document.attachEvent("onreadystatechange", function () {
-        if (document.readyState == "complete") ready();
+        if (document.readyState === "complete") ready();
       });
   };
 
-  function sanitizeHTML(str) {
-    var temp = document.createElement('div');
+  function sanitizeText(str) {
+    if (typeof str !== "string") return "";
+    const temp = document.createElement("div");
     temp.textContent = str;
     return temp.innerHTML;
   }
 
   function normalizeQuery(query) {
+    if (typeof query !== "string") return "";
     return query
       .trim()
-      .replace(/\s+/g, ' ')
-      .toLowerCase();
+      .toLowerCase()
+      .replace(/\s+/g, " ")
+      .replace(/[^\w\s-]/g, "")
+      .trim();
   }
 
-  async function getSearchData(dataUrl, searchInput) {
-    let response = await fetch(dataUrl);
-    let rawData = await response.text();
-    let allData = JSON.parse(rawData);
+  function tokenize(text) {
+    if (typeof text !== "string") return [];
+    return normalizeQuery(text).split(/\s+/).filter(Boolean);
+  }
 
-    let filterType = null;
-    if (searchInput) {
-      if (searchInput.classList.contains("search-posts")) {
-        filterType = "post";
-      } else if (searchInput.classList.contains("search-notes")) {
-        filterType = "note";
+  function validateSearchInput(input) {
+    if (typeof input !== "string") return "";
+    const sanitized = input.substring(0, 500);
+    if (!/[a-z0-9]/i.test(sanitized)) return "";
+    return sanitized;
+  }
+
+  async function fetchSearchData(dataUrl, filterType) {
+    try {
+      const response = await fetch(dataUrl);
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: Failed to fetch search data`);
+      }
+
+      const rawData = await response.text();
+      const allData = JSON.parse(rawData);
+
+      const docsArray = [];
+      for (const key in allData) {
+        if (!allData.hasOwnProperty(key)) continue;
+
+        const item = allData[key];
+        if (!item || typeof item !== "object") continue;
+        if (filterType && item.type !== filterType) continue;
+
+        docsArray.push({
+          id: String(key),
+          doc: String(item.doc || ""),
+          title: String(item.title || ""),
+          type: String(item.type || ""),
+          content: String(item.content || ""),
+          url: String(item.url || ""),
+          tags: String(item.tags || ""),
+          keywords: String(item.keywords || ""),
+          description: String(item.description || ""),
+          categories: String(item.categories || "")
+        });
+      }
+
+      return docsArray;
+    } catch (err) {
+      console.error("Error loading search data:", err);
+      throw err;
+    }
+  }
+
+  function createFuseIndex(docs) {
+    return new Fuse(docs, {
+      keys: [
+        { name: "title", weight: 0.5 },
+        { name: "keywords", weight: 0.25 },
+        { name: "tags", weight: 0.15 },
+        { name: "description", weight: 0.05 },
+        { name: "categories", weight: 0.03 },
+        { name: "content", weight: 0.02 }
+      ],
+      includeMatches: true,
+      includeScore: true,
+      threshold: 0.3,
+      distance: 100,
+      minMatchCharLength: 2,
+      ignoreLocation: true,
+      useExtendedSearch: false,
+      findAllMatches: true,
+      ignoreFieldNorm: false,
+      fieldNormWeight: 1.5
+    });
+  }
+
+  function performMultiStrategySearch(fuseIndex, docs, normalizedQuery) {
+    const queryTokens = tokenize(normalizedQuery);
+    const results = new Map();
+
+    // Strategy 1: Exact matches
+    docs.forEach((doc) => {
+      const titleNorm = normalizeQuery(doc.title);
+      const keywordsNorm = normalizeQuery(doc.keywords);
+
+      if (titleNorm === normalizedQuery) {
+        results.set(doc.id, {
+          item: doc,
+          score: 0.001,
+          matches: [{ key: "title", value: doc.title, indices: [[0, doc.title.length - 1]] }],
+          strategyBoost: 1000
+        });
+        return;
+      }
+
+      const keywordTokens = tokenize(doc.keywords);
+      if (keywordTokens.includes(normalizedQuery)) {
+        if (!results.has(doc.id) || results.get(doc.id).score > 0.005) {
+          results.set(doc.id, {
+            item: doc,
+            score: 0.005,
+            matches: [{ key: "keywords", value: doc.keywords }],
+            strategyBoost: 500
+          });
+        }
+      }
+
+      if (queryTokens.length > 1) {
+        const titleTokens = tokenize(doc.title);
+        const allWordsInTitle = queryTokens.every(qt =>
+          titleTokens.some(tt => tt.includes(qt))
+        );
+
+        if (allWordsInTitle && !results.has(doc.id)) {
+          results.set(doc.id, {
+            item: doc,
+            score: 0.01,
+            matches: [{ key: "title", value: doc.title }],
+            strategyBoost: 300
+          });
+        }
+      }
+    });
+
+    // Strategy 2: Prefix matches
+    docs.forEach((doc) => {
+      if (results.has(doc.id)) return;
+
+      const titleNorm = normalizeQuery(doc.title);
+
+      if (titleNorm.startsWith(normalizedQuery)) {
+        results.set(doc.id, {
+          item: doc,
+          score: 0.02,
+          matches: [{ key: "title", value: doc.title, indices: [[0, normalizedQuery.length - 1]] }],
+          strategyBoost: 200
+        });
+        return;
+      }
+
+      const keywordTokens = tokenize(doc.keywords);
+      const prefixMatch = keywordTokens.some(kw => kw.startsWith(normalizedQuery));
+
+      if (prefixMatch) {
+        results.set(doc.id, {
+          item: doc,
+          score: 0.03,
+          matches: [{ key: "keywords", value: doc.keywords }],
+          strategyBoost: 150
+        });
+      }
+    });
+
+    // Strategy 3: Fuzzy search
+    const fuseResults = fuseIndex.search(normalizedQuery);
+
+    fuseResults.forEach((result) => {
+      const docId = result.item.id;
+
+      if (!results.has(docId)) {
+        results.set(docId, {
+          item: result.item,
+          score: result.score || 0.5,
+          matches: result.matches || [],
+          strategyBoost: 0
+        });
+      }
+    });
+
+    return Array.from(results.values());
+  }
+
+  function calculateEnhancedScore(result, normalizedQuery) {
+    const queryTokens = tokenize(normalizedQuery);
+    const doc = result.item;
+
+    let score = result.score;
+    const strategyBoost = result.strategyBoost || 0;
+
+    score = Math.max(0.0001, score - (strategyBoost * 0.001));
+
+    const titleTokens = tokenize(doc.title);
+    const titleLengthFactor = Math.min(1.0, titleTokens.length / 10);
+    score *= (0.7 + (0.3 * titleLengthFactor));
+
+    const titleNorm = normalizeQuery(doc.title);
+    const matchedTerms = queryTokens.filter(qt => titleNorm.includes(qt));
+    const coverageRatio = matchedTerms.length / queryTokens.length;
+    score *= (2.0 - coverageRatio);
+
+    const hasMatches = result.matches && result.matches.length > 0;
+    if (hasMatches) {
+      const hasTitleMatch = result.matches.some(m => m.key === "title");
+      const hasKeywordMatch = result.matches.some(m => m.key === "keywords");
+
+      if (hasTitleMatch) {
+        score *= 0.7;
+      } else if (hasKeywordMatch) {
+        score *= 0.85;
       }
     }
 
-    const filteredData = {};
-    let i = 0;
-    for (const key in allData) {
-      const item = allData[key];
-      if (filterType && item.type !== filterType) continue;
-      filteredData[i++] = item;
-    }
-
-    return JSON.stringify(filteredData);
+    return score;
   }
 
-  function searchInit() {
-    var searchInput = document.getElementById("search-input");
-    var dataUrl = "SearchData.json";
+  function rankResults(results, normalizedQuery) {
+    results.forEach(result => {
+      result.enhancedScore = calculateEnhancedScore(result, normalizedQuery);
+    });
 
-    getSearchData(dataUrl, searchInput)
-      .then(function (responseText) {
-        var docs = JSON.parse(responseText);
+    results.sort((a, b) => a.enhancedScore - b.enhancedScore);
 
-        const docsArray = Object.entries(docs).map(([id, doc]) => ({ ...doc, id }));
+    return results;
+  }
 
-        var index = new Fuse(docsArray, {
-          keys: [
-            { name: "title", weight: 0.6 },
-            { name: "tags", weight: 0.2 },
-            { name: "keywords", weight: 0.15 },
-            { name: "description", weight: 0.08 },
-            { name: "content", weight: 0.03 },
-            { name: "url", weight: 0.002 },
-          ],
-          includeMatches: true,
-          includeScore: true,
-          threshold: 0.35,
-          distance: 150,
-          minMatchCharLength: 2,
-          ignoreLocation: true,
-          useExtendedSearch: false,
-          findAllMatches: true,
-          ignoreFieldNorm: false,
-          fieldNormWeight: 1.5,
-        });
+  function initializeSearch() {
+    const searchInput = document.getElementById("search-input");
+    const searchResults = document.getElementById("search-results");
 
-        searchLoaded(index, docsArray);
+    if (!searchInput || !searchResults) return;
 
+    let filterType = null;
+    if (searchInput.classList.contains("search-posts")) {
+      filterType = "post";
+    } else if (searchInput.classList.contains("search-notes")) {
+      filterType = "note";
+    }
+
+    fetchSearchData("SearchData.json", filterType)
+      .then((docs) => {
+        const fuseIndex = createFuseIndex(docs);
+        setupSearchUI(searchInput, searchResults, fuseIndex, docs);
       })
-      .catch(function (err) {
-        console.warn("Error processing the search-data for Fuse.js", err);
+      .catch((err) => {
+        console.error("Failed to initialize search:", err);
+        searchResults.textContent = "Search unavailable";
       });
   }
 
-  function searchLoaded(index, docs) {
-    var index = index;
-    var docs = docs;
-    var searchInput = document.getElementById("search-input");
-    var searchResults = document.getElementById("search-results");
-    var currentInput;
-    var currentSearchIndex = 0;
-    var debounceTimer = null;
+  function setupSearchUI(searchInput, searchResults, fuseIndex, docs) {
+    let currentInput = "";
+    let currentSearchIndex = 0;
+    let debounceTimer = null;
 
     function showSearch() {
       document.documentElement.classList.add("search-active");
-    }
-
-    if (!searchInput || !searchResults) {
-      return;
     }
 
     function hideSearch() {
       document.documentElement.classList.remove("search-active");
     }
 
-    function update() {
+    function performSearch() {
       currentSearchIndex++;
 
-      var input = searchInput.value;
-      
-      if (input.length > 500) {
-        input = input.substring(0, 500);
-      }
+      let input = validateSearchInput(searchInput.value);
 
       if (input === "") {
         hideSearch();
-      } else {
-        showSearch();
-        window.scroll(0, -1);
-        setTimeout(function () {
-          window.scroll(0, 0);
-        }, 0);
-      }
-
-      if (input === currentInput) {
+        searchResults.innerHTML = "";
+        currentInput = "";
         return;
       }
 
+      showSearch();
+      window.scrollTo(0, 0);
+
+      if (input === currentInput) return;
       currentInput = input;
+
       searchResults.innerHTML = "";
-      if (input === "") {
-        return;
-      }
 
-      var normalizedInput = normalizeQuery(input);
-      var results = index.search(normalizedInput);
+      const normalizedInput = normalizeQuery(input);
 
-      results.sort(function(a, b) {
-        return (a.score || 1) - (b.score || 1);
-      });
+      let results = performMultiStrategySearch(fuseIndex, docs, normalizedInput);
 
-      if (results.length == 0) {
-        var noResultsDiv = document.createElement("div");
+      results = rankResults(results, normalizedInput);
+
+      if (results.length === 0) {
+        const noResultsDiv = document.createElement("div");
         noResultsDiv.classList.add("search-no-result");
-        noResultsDiv.innerText = "No results found";
+        noResultsDiv.textContent = "No results found";
         searchResults.appendChild(noResultsDiv);
       } else {
-        var resultsList = document.createElement("ul");
+        const resultsList = document.createElement("ul");
         resultsList.classList.add("search-results-list");
         searchResults.appendChild(resultsList);
 
-        addResults(resultsList, results, 0, 15, 80, currentSearchIndex);
+        renderResults(resultsList, results, 0, 15, 80, currentSearchIndex);
+      }
+    }
+
+    function renderResults(
+      resultsList,
+      results,
+      start,
+      batchSize,
+      batchMillis,
+      searchIndex
+    ) {
+      if (searchIndex !== currentSearchIndex) return;
+
+      const end = Math.min(start + batchSize, results.length);
+      for (let i = start; i < end; i++) {
+        renderResult(resultsList, results[i]);
       }
 
-      function addResults(
-        resultsList,
-        results,
-        start,
-        batchSize,
-        batchMillis,
-        searchIndex
-      ) {
-        if (searchIndex != currentSearchIndex) {
-          return;
-        }
-        for (var i = start; i < start + batchSize; i++) {
-          if (i == results.length) {
-            return;
-          }
-          addResult(resultsList, results[i]);
-        }
-        setTimeout(function () {
-          addResults(
+      if (end < results.length) {
+        setTimeout(() => {
+          renderResults(
             resultsList,
             results,
-            start + batchSize,
+            end,
             batchSize,
             batchMillis,
             searchIndex
           );
         }, batchMillis);
       }
+    }
 
-      function addResult(resultsList, result) {
-        var doc = result.item;
+    function renderResult(resultsList, result) {
+      const doc = result.item;
 
-        result.matchData = { metadata: {} };
-        for (const match of result.matches || []) {
+      const titlePositions = [];
+      const contentPositions = [];
+
+      if (result.matches) {
+        for (const match of result.matches) {
           const key = match.key;
-          const val = match.value;
-          const positions = match.indices.map(([start, end]) => [start, end - start]);
-          if (!result.matchData.metadata[val]) {
-            result.matchData.metadata[val] = {};
-          }
-          result.matchData.metadata[val][key] = { position: positions };
-        }
+          const value = match.value || "";
+          const indices = match.indices || [];
 
-        var resultsListItem = document.createElement("li");
-        resultsListItem.classList.add("search-results-list-item");
-        resultsList.appendChild(resultsListItem);
-
-        var resultLink = document.createElement("a");
-        resultLink.classList.add("search-result");
-        resultLink.setAttribute("href", doc.url);
-        resultsListItem.appendChild(resultLink);
-
-        var resultTitle = document.createElement("div");
-        resultTitle.classList.add("search-result-title");
-        resultLink.appendChild(resultTitle);
-
-        var resultDoc = document.createElement("div");
-        resultDoc.classList.add("search-result-doc");
-        resultDoc.innerHTML =
-          "<svg class='svg-doc' width='18' height='18' viewBox='0 0 24 24' fill='none'><path d='M13 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V9L13 2Z'  stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/><path d='M13 2V9H20'  stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>";
-
-        resultTitle.appendChild(resultDoc);
-
-        var resultDocTitle = document.createElement("div");
-        resultDocTitle.classList.add("search-result-doc-title");
-        resultDocTitle.innerHTML = sanitizeHTML(doc.doc);
-        resultDoc.appendChild(resultDocTitle);
-        var resultDocOrSection = resultDocTitle;
-
-        if (doc.doc != doc.title) {
-          resultDoc.classList.add("search-result-doc-parent");
-          var resultSection = document.createElement("div");
-          resultSection.classList.add("search-result-section");
-          resultSection.innerHTML = sanitizeHTML(doc.title);
-          resultTitle.appendChild(resultSection);
-          resultDocOrSection = resultSection;
-        }
-
-        var metadata = result.matchData.metadata;
-        var titlePositions = [];
-        var contentPositions = [];
-        for (var j in metadata) {
-          var meta = metadata[j];
-          if (meta.title) {
-            var positions = meta.title.position;
-            for (var k in positions) {
-              titlePositions.push(positions[k]);
+          if (key === "title") {
+            for (const [start, end] of indices) {
+              titlePositions.push([start, end - start + 1]);
             }
-          }
+          } else if (key === "content") {
+            for (const [start, end] of indices) {
+              const matchStart = start;
+              const matchEnd = end;
+              const matchLength = matchEnd - matchStart + 1;
 
-          if (meta.content) {
-            var positions = meta.content.position;
-            for (var k in positions) {
-              var position = positions[k];
-              var previewStart = position[0];
-              var previewEnd = position[0] + position[1];
-              var ellipsesBefore = true;
-              var ellipsesAfter = true;
-              for (var k = 0; k < 3; k++) {
-                var nextSpace = doc.content.lastIndexOf(" ", previewStart - 2);
-                var nextDot = doc.content.lastIndexOf(". ", previewStart - 2);
-                if (nextDot >= 0 && nextDot > nextSpace) {
-                  previewStart = nextDot + 1;
+              let previewStart = matchStart;
+              let previewEnd = matchEnd;
+              let ellipsesBefore = true;
+              let ellipsesAfter = true;
+
+              for (let k = 0; k < 3; k++) {
+                const lastSpace = value.lastIndexOf(" ", previewStart - 2);
+                const lastDot = value.lastIndexOf(". ", previewStart - 2);
+                if (lastDot >= 0 && lastDot > lastSpace) {
+                  previewStart = lastDot + 2;
                   ellipsesBefore = false;
                   break;
                 }
-                if (nextSpace < 0) {
+                if (lastSpace < 0) {
                   previewStart = 0;
                   ellipsesBefore = false;
                   break;
                 }
-                previewStart = nextSpace + 1;
+                previewStart = lastSpace + 1;
               }
 
-              for (var k = 0; k < 3; k++) {
-                var nextSpace = doc.content.indexOf(" ", previewEnd + 1);
-                var nextDot = doc.content.indexOf(". ", previewEnd + 1);
+              for (let k = 0; k < 3; k++) {
+                const nextSpace = value.indexOf(" ", previewEnd + 1);
+                const nextDot = value.indexOf(". ", previewEnd + 1);
                 if (nextDot >= 0 && nextDot < nextSpace) {
                   previewEnd = nextDot;
                   ellipsesAfter = false;
                   break;
                 }
                 if (nextSpace < 0) {
-                  previewEnd = doc.content.length;
+                  previewEnd = value.length - 1;
                   ellipsesAfter = false;
                   break;
                 }
@@ -346,205 +463,239 @@
               }
 
               contentPositions.push({
-                highlight: position,
+                highlight: [matchStart, matchLength],
                 previewStart: previewStart,
                 previewEnd: previewEnd,
                 ellipsesBefore: ellipsesBefore,
-                ellipsesAfter: ellipsesAfter,
+                ellipsesAfter: ellipsesAfter
               });
-            }
-          }
-        }
-        if (titlePositions.length > 0) {
-          titlePositions.sort(function (p1, p2) {
-            return p1[0] - p2[0];
-          });
-          resultDocOrSection.innerHTML = "";
-          addHighlightedText(
-            resultDocOrSection,
-            doc.title,
-            0,
-            doc.title.length,
-            titlePositions
-          );
-        }
-
-        if (contentPositions.length > 0) {
-          contentPositions.sort(function (p1, p2) {
-            return p1.highlight[0] - p2.highlight[0];
-          });
-          var contentPosition = contentPositions[0];
-          var previewPosition = {
-            highlight: [contentPosition.highlight],
-            previewStart: contentPosition.previewStart,
-            previewEnd: contentPosition.previewEnd,
-            ellipsesBefore: contentPosition.ellipsesBefore,
-            ellipsesAfter: contentPosition.ellipsesAfter,
-          };
-          var previewPositions = [previewPosition];
-          for (var j = 1; j < contentPositions.length; j++) {
-            contentPosition = contentPositions[j];
-            if (previewPosition.previewEnd < contentPosition.previewStart) {
-              previewPosition = {
-                highlight: [contentPosition.highlight],
-                previewStart: contentPosition.previewStart,
-                previewEnd: contentPosition.previewEnd,
-                ellipsesBefore: contentPosition.ellipsesBefore,
-                ellipsesAfter: contentPosition.ellipsesAfter,
-              };
-              previewPositions.push(previewPosition);
-            } else {
-              previewPosition.highlight.push(contentPosition.highlight);
-              previewPosition.previewEnd = contentPosition.previewEnd;
-              previewPosition.ellipsesAfter = contentPosition.ellipsesAfter;
-            }
-          }
-
-          var resultPreviews = document.createElement("div");
-          resultPreviews.classList.add("search-result-previews");
-          resultLink.appendChild(resultPreviews);
-
-          var content = doc.content;
-
-          for (var j = 0; j < Math.min(previewPositions.length, 2); j++) {
-            var position = previewPositions[j];
-            var resultPreview = document.createElement("div");
-            resultPreview.classList.add("search-result-preview");
-            resultPreviews.appendChild(resultPreview);
-
-            if (position.ellipsesBefore) {
-              resultPreview.appendChild(document.createTextNode("... "));
-            }
-            addHighlightedText(
-              resultPreview,
-              content,
-              position.previewStart,
-              position.previewEnd,
-              position.highlight
-            );
-            if (position.ellipsesAfter) {
-              resultPreview.appendChild(document.createTextNode(" ..."));
             }
           }
         }
       }
 
-      function addHighlightedText(parent, text, start, end, positions) {
-        var index = start;
-        for (var i in positions) {
-          var position = positions[i];
-          var span = document.createElement("span");
-          span.textContent = text.substring(index, position[0]);
-          parent.appendChild(span);
-          index = position[0] + position[1];
-          var highlight = document.createElement("span");
-          highlight.classList.add("search-result-highlight");
-          highlight.textContent = text.substring(position[0], index);
-          parent.appendChild(highlight);
+      const listItem = document.createElement("li");
+      listItem.classList.add("search-results-list-item");
+      resultsList.appendChild(listItem);
+
+      const resultLink = document.createElement("a");
+      resultLink.classList.add("search-result");
+      resultLink.setAttribute("href", sanitizeText(doc.url));
+      listItem.appendChild(resultLink);
+
+      const resultTitle = document.createElement("div");
+      resultTitle.classList.add("search-result-title");
+      resultLink.appendChild(resultTitle);
+
+      const resultDoc = document.createElement("div");
+      resultDoc.classList.add("search-result-doc");
+      resultDoc.innerHTML =
+        "<svg class='svg-doc' width='18' height='18' viewBox='0 0 24 24' fill='none'><path d='M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z'/><path d='M13 2v7h7'/></svg>";
+      resultTitle.appendChild(resultDoc);
+
+      const resultDocTitle = document.createElement("div");
+      resultDocTitle.classList.add("search-result-doc-title");
+      resultDoc.appendChild(resultDocTitle);
+
+      let targetElement = resultDocTitle;
+
+      if (doc.doc !== doc.title) {
+        resultDoc.classList.add("search-result-doc-parent");
+        resultDocTitle.textContent = sanitizeText(doc.doc);
+
+        const resultSection = document.createElement("div");
+        resultSection.classList.add("search-result-section");
+        resultTitle.appendChild(resultSection);
+        targetElement = resultSection;
+      }
+
+      if (titlePositions.length > 0) {
+        titlePositions.sort((a, b) => a[0] - b[0]);
+        renderHighlightedText(targetElement, doc.title, 0, doc.title.length, titlePositions);
+      } else {
+        targetElement.textContent = sanitizeText(doc.title);
+      }
+
+      if (contentPositions.length > 0) {
+        contentPositions.sort((a, b) => a.highlight[0] - b.highlight[0]);
+
+        const mergedPositions = [];
+        let currentPos = contentPositions[0];
+        mergedPositions.push({
+          highlight: [currentPos.highlight],
+          previewStart: currentPos.previewStart,
+          previewEnd: currentPos.previewEnd,
+          ellipsesBefore: currentPos.ellipsesBefore,
+          ellipsesAfter: currentPos.ellipsesAfter
+        });
+
+        for (let j = 1; j < contentPositions.length; j++) {
+          const pos = contentPositions[j];
+          const lastMerged = mergedPositions[mergedPositions.length - 1];
+
+          if (lastMerged.previewEnd < pos.previewStart) {
+            mergedPositions.push({
+              highlight: [pos.highlight],
+              previewStart: pos.previewStart,
+              previewEnd: pos.previewEnd,
+              ellipsesBefore: pos.ellipsesBefore,
+              ellipsesAfter: pos.ellipsesAfter
+            });
+          } else {
+            lastMerged.highlight.push(pos.highlight);
+            lastMerged.previewEnd = pos.previewEnd;
+            lastMerged.ellipsesAfter = pos.ellipsesAfter;
+          }
         }
-        var span = document.createElement("span");
+
+        const resultPreviews = document.createElement("div");
+        resultPreviews.classList.add("search-result-previews");
+        resultLink.appendChild(resultPreviews);
+
+        const content = doc.content;
+        const maxPreviews = Math.min(mergedPositions.length, 2);
+
+        for (let j = 0; j < maxPreviews; j++) {
+          const position = mergedPositions[j];
+          const resultPreview = document.createElement("div");
+          resultPreview.classList.add("search-result-preview");
+          resultPreviews.appendChild(resultPreview);
+
+          if (position.ellipsesBefore) {
+            resultPreview.appendChild(document.createTextNode("... "));
+          }
+
+          renderHighlightedText(
+            resultPreview,
+            content,
+            position.previewStart,
+            position.previewEnd,
+            position.highlight
+          );
+
+          if (position.ellipsesAfter) {
+            resultPreview.appendChild(document.createTextNode(" ..."));
+          }
+        }
+      }
+    }
+
+    function renderHighlightedText(parent, text, start, end, positions) {
+      let index = start;
+
+      for (const position of positions) {
+        const [matchStart, matchLength] = position;
+
+        if (index < matchStart) {
+          const span = document.createElement("span");
+          span.textContent = text.substring(index, matchStart);
+          parent.appendChild(span);
+        }
+
+        const highlight = document.createElement("span");
+        highlight.classList.add("search-result-highlight");
+        highlight.textContent = text.substring(matchStart, matchStart + matchLength);
+        parent.appendChild(highlight);
+
+        index = matchStart + matchLength;
+      }
+
+      if (index < end) {
+        const span = document.createElement("span");
         span.textContent = text.substring(index, end);
         parent.appendChild(span);
       }
     }
 
     sj.addEvent(searchInput, "focus", function () {
-      setTimeout(update, 0);
+      setTimeout(performSearch, 0);
     });
 
     sj.addEvent(searchInput, "keyup", function (e) {
-      switch (e.keyCode) {
-        case 27: // When esc key is pressed, hide the results and clear the field
-          let searchInput = document.getElementById("search-input");
-          searchInput.value = "";
-          searchInput.blur();
-          hideSearch();
-          break;
-        case 38: // arrow up
-        case 40: // arrow down
-        case 13: // enter
-          e.preventDefault();
-          return;
+      if (e.keyCode === 27) {
+        searchInput.value = "";
+        searchInput.blur();
+        hideSearch();
+        return;
+      }
+
+      if (e.keyCode === 38 || e.keyCode === 40 || e.keyCode === 13) {
+        e.preventDefault();
+        return;
       }
 
       clearTimeout(debounceTimer);
-      debounceTimer = setTimeout(function() {
-        update();
-      }, 150);
+      debounceTimer = setTimeout(performSearch, 150);
     });
 
     sj.addEvent(searchInput, "keydown", function (e) {
-      switch (e.keyCode) {
-        case 38: // arrow up
-          e.preventDefault();
-          var active = document.querySelector(".search-result.active");
-          if (active) {
-            active.classList.remove("active");
-            if (active.parentElement.previousSibling) {
-              var previous =
-                active.parentElement.previousSibling.querySelector(
-                  ".search-result"
-                );
-              previous.classList.add("active");
-              previous.scrollIntoView(false);
+      if (e.keyCode === 38) {
+        e.preventDefault();
+        const active = document.querySelector(".search-result.active");
+        if (active) {
+          active.classList.remove("active");
+          const prevItem = active.parentElement.previousSibling;
+          if (prevItem) {
+            const prevLink = prevItem.querySelector(".search-result");
+            if (prevLink) {
+              prevLink.classList.add("active");
+              prevLink.scrollIntoView({ block: "nearest" });
             }
           }
-          return;
-        case 40: // arrow down
-          e.preventDefault();
-          var active = document.querySelector(".search-result.active");
-          if (active) {
-            if (active.parentElement.nextSibling) {
-              var next =
-                active.parentElement.nextSibling.querySelector(
-                  ".search-result"
-                );
+        }
+      } else if (e.keyCode === 40) {
+        e.preventDefault();
+        const active = document.querySelector(".search-result.active");
+        if (active) {
+          const nextItem = active.parentElement.nextSibling;
+          if (nextItem) {
+            const nextLink = nextItem.querySelector(".search-result");
+            if (nextLink) {
               active.classList.remove("active");
-              next.classList.add("active");
-              next.scrollIntoView(false);
-            }
-          } else {
-            var next = document.querySelector(".search-result");
-            if (next) {
-              next.classList.add("active");
+              nextLink.classList.add("active");
+              nextLink.scrollIntoView({ block: "nearest" });
             }
           }
-          return;
-        case 13: // enter
-          e.preventDefault();
-          var active = document.querySelector(".search-result.active");
-          if (active) {
-            active.click();
-          } else {
-            var first = document.querySelector(".search-result");
-            if (first) {
-              first.click();
-            }
+        } else {
+          const firstResult = document.querySelector(".search-result");
+          if (firstResult) {
+            firstResult.classList.add("active");
           }
-          return;
+        }
+      } else if (e.keyCode === 13) {
+        e.preventDefault();
+        const active = document.querySelector(".search-result.active");
+        if (active) {
+          active.click();
+        } else {
+          const firstResult = document.querySelector(".search-result");
+          if (firstResult) {
+            firstResult.click();
+          }
+        }
       }
     });
 
     sj.addEvent(document, "click", function (e) {
-      if (e.target != searchInput) {
+      if (e.target !== searchInput) {
         hideSearch();
       }
     });
   }
 
-  function searchInitListener() {
-    document.onkeyup = function (e) {
-      var evt = window.event || e;
-      let searchInput = document.getElementById("search-input");
-      let key = evt.keyCode || evt.which;
-      if (e.shiftKey && key == 83) {
+  function setupSearchShortcut() {
+    document.addEventListener("keyup", function (e) {
+      const searchInput = document.getElementById("search-input");
+      if (!searchInput) return;
+
+      if (e.shiftKey && (e.keyCode === 83 || e.key === "S")) {
         searchInput.focus();
       }
-    };
+    });
   }
 
   sj.onReady(function () {
-    searchInitListener();
-    searchInit();
+    setupSearchShortcut();
+    initializeSearch();
   });
 })((window.sj = window.sj || {}));

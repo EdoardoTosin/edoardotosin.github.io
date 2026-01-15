@@ -2,6 +2,7 @@
 title: Supernova in the Pinwheel galaxy
 description: Supernova discovered in the Pinwheel galaxy by an amateur astronomer
 feed: show
+short_url: sn2023ixf
 date: 2023-05-26 03:00:00 +0200
 last_modified_at: 2024-08-07 16:30:07 +0200
 lang: en

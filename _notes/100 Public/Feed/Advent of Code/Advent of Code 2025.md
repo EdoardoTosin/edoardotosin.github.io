@@ -2,6 +2,7 @@
 title: Advent of Code 2025
 description: My solutions and progress for Advent of Code 2025. Track my completion status for the 12 programming puzzles released daily from December 1-12.
 feed: show
+short_url: AoC2025
 date: 2025-12-01 11:00:00 +0100
 last_modified_at: 2025-12-12 11:00:00 +0100
 lang: en

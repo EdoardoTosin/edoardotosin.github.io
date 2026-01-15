@@ -121,6 +121,7 @@
           type: String(item.type || ""),
           content: String(item.content || ""),
           url: String(item.url || ""),
+          short_url: String(item.short_url || ""),
           tags: String(item.tags || ""),
           keywords: String(item.keywords || ""),
           description: String(item.description || ""),

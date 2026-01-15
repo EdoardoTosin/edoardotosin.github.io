@@ -23,7 +23,7 @@ permalink: /SearchData.json
        "title": {{ item.title | strip_html | escape | jsonify }},
        "type": "{% if item.collection == 'posts' %}post{% else %}note{% endif %}",
        "content": {{ item.content | replace: '</h', ' . </h' | replace: '<hr', ' . <hr' | replace: '</p', ' . </p' | replace: '<ul', ' . <ul' | replace: '</ul', ' . </ul' | replace: '<ol', ' . <ol' | replace: '</ol', ' . </ol' | replace: '</tr', ' . </tr' | replace: '<li', ' | <li' | replace: '</li', ' | </li' | replace: '</td', ' | </td' | replace: '<td', ' | <td' | replace: '</th', ' | </th' | replace: '<th', ' | <th' | strip_html | remove: 'Table of contents' | normalize_whitespace | replace: '. . .', '.' | replace: '. .', '.' | replace: '| |', '|' | append: ' ' | strip_html | strip_newline | strip | escape | downcase | jsonify }},
-       "url": "{{ site.baseurl }}{{ item.url }}"
+       "url": "{{ item.url | relative_url }}"
        {%- if item.tags -%},
        "tags": {{ item.tags | join: ' ' | downcase | jsonify }}
        {%- endif -%}

@@ -156,16 +156,6 @@ robots:
       - /404.html
       - /feed.xml
 
-# compress.html
-compress_html:
-  clippings: all
-  endings: all
-  #ignore:
-    #envs: [local]
-  blanklines: false
-  profile: false
-  #startings: [html, head, body]
-
 # Include it in the processing.
 # The following items will be processed, by default.
 include:

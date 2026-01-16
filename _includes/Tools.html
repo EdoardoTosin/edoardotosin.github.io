@@ -93,16 +93,26 @@
         <div class="related-wrapper">
           {%- for file in filtered_type[0].items -%}
             {%- assign github_script_url = github_raw_base | append: file.name -%}
-            <div class="related-group script-card" data-name="{{ file.name | downcase }}" data-type="{{ ordered_type }}" data-script-url="{{ github_script_url }}" onclick="redirectToGitHub(this)" style="cursor: pointer;" title="Click to view raw script on GitHub">
+            <div class="related-group script-card" 
+                 data-name="{{ file.name | downcase }}" 
+                 data-type="{{ ordered_type }}" 
+                 data-script-url="{{ github_script_url }}" 
+                 tabindex="0"
+                 role="button"
+                 aria-label="View script {{ file.name }} on GitHub">
               <div class="meta-head">
                 <h6 class="script-name">{{ file.name }}</h6>
                 <span class="meta-title script-type-badge {{ ordered_type }}">{{ ordered_type }}</span>
               </div>
               
-              <div class="script-actions margin-top-10" onclick="event.stopPropagation();">
+              <div class="script-actions margin-top-10">
                 {%- if ordered_type == "python" -%}
                   <div class="python-dropdown">
-                    <button class="action-button primary tools" onclick="toggleDropdown(this)" aria-label="Select platform for Python script">
+                    <button class="action-button primary tools" 
+                            data-action="toggle-dropdown"
+                            aria-label="Select platform for Python script"
+                            aria-haspopup="true"
+                            aria-expanded="false">
                       <span class="button-icon">
                         {% include Icon.html name="clipboard" size="16" %}
                       </span> Copy Command
@@ -110,13 +120,25 @@
                         {% include Icon.html name="chevron-down" size="12" %}
                       </span>
                     </button>
-                    <div class="dropdown-content">
-                      <button class="dropdown-item tools" onclick="copyCommand('{{ github_script_url }}', '{{ prefix_linux }}', '{{ postfix_python }}')" title="Click to copy command: &quot;{{ prefix_linux }} '{{ github_script_url }}' | {{ postfix_python }}&quot;" aria-label="Copy Linux command for Python script">
+                    <div class="dropdown-content" role="menu">
+                      <button class="dropdown-item tools" 
+                              data-action="copy-command"
+                              data-url="{{ github_script_url }}"
+                              data-prefix="{{ prefix_linux }}"
+                              data-postfix="{{ postfix_python }}"
+                              title="Click to copy command: &quot;{{ prefix_linux }} '{{ github_script_url }}' | {{ postfix_python }}&quot;" 
+                              aria-label="Copy Linux command for Python script">
                         <span class="platform-icon">
                           {% include Icon.html name="linux" size="16" %}
                         </span> Copy for Linux
                       </button>
-                      <button class="dropdown-item tools" onclick="copyCommand('{{ github_script_url }}', '{{ prefix_win }}', '{{ postfix_python }}')" title="Click to copy command: &quot;{{ prefix_win }} '{{ github_script_url }}' | {{ postfix_python }}&quot;" aria-label="Copy Windows command for Python script">
+                      <button class="dropdown-item tools" 
+                              data-action="copy-command"
+                              data-url="{{ github_script_url }}"
+                              data-prefix="{{ prefix_win }}"
+                              data-postfix="{{ postfix_python }}"
+                              title="Click to copy command: &quot;{{ prefix_win }} '{{ github_script_url }}' | {{ postfix_python }}&quot;" 
+                              aria-label="Copy Windows command for Python script">
                         <span class="platform-icon">
                           {% include Icon.html name="windows" size="16" %}
                         </span> Copy for Windows
@@ -124,20 +146,37 @@
                     </div>
                   </div>
                 {%- elsif ordered_type == "linux" -%}
-                  <button class="action-button primary tools" onclick="copyCommand('{{ github_script_url }}', '{{ prefix_linux }}', '{{ postfix_linux }}')" title="Click to copy command: &quot;{{ prefix_linux }} '{{ github_script_url }}' | {{ postfix_linux }}&quot;" aria-label="Copy Linux command">
+                  <button class="action-button primary tools" 
+                          data-action="copy-command"
+                          data-url="{{ github_script_url }}"
+                          data-prefix="{{ prefix_linux }}"
+                          data-postfix="{{ postfix_linux }}"
+                          title="Click to copy command: &quot;{{ prefix_linux }} '{{ github_script_url }}' | {{ postfix_linux }}&quot;" 
+                          aria-label="Copy Linux command">
                     <span class="button-icon">
                       {% include Icon.html name="clipboard" size="16" %}
                     </span> Copy Command
                   </button>
                 {%- elsif ordered_type == "windows" -%}
-                  <button class="action-button primary tools" onclick="copyCommand('{{ github_script_url }}', '{{ prefix_win }}', '{{ postfix_win }}')" title="Click to copy command: &quot;{{ prefix_win }} '{{ github_script_url }}' | {{ postfix_win }}&quot;" aria-label="Copy Windows command">
+                  <button class="action-button primary tools" 
+                          data-action="copy-command"
+                          data-url="{{ github_script_url }}"
+                          data-prefix="{{ prefix_win }}"
+                          data-postfix="{{ postfix_win }}"
+                          title="Click to copy command: &quot;{{ prefix_win }} '{{ github_script_url }}' | {{ postfix_win }}&quot;" 
+                          aria-label="Copy Windows command">
                     <span class="button-icon">
                       {% include Icon.html name="clipboard" size="16" %}
                     </span> Copy Command
                   </button>
                 {%- endif -%}
                 
-                <button class="action-button secondary tools" onclick="downloadScript('{{ github_script_url }}', '{{ file.name }}')" title="Download script file">
+                <button class="action-button secondary tools" 
+                        data-action="download"
+                        data-url="{{ github_script_url }}"
+                        data-filename="{{ file.name }}"
+                        title="Download script file"
+                        aria-label="Download {{ file.name }}">
                   <span class="button-icon">
                     {% include Icon.html name="download" size="16" %}
                   </span> Download Script
@@ -165,4 +204,4 @@
 <div id="copy-notification" role="alert" aria-live="assertive" tabindex="-1">Command copied to clipboard!</div>
 
 <link href="{{ site.baseurl }}/assets/css/tools.css" rel="stylesheet" media="all" class="default" />
-<script src="{{ site.baseurl }}/assets/js/tools.js" {{ "/assets/js/scripts.js" | sri_attrs }}></script>
+<script src="{{ site.baseurl }}/assets/js/tools-handlers.js" defer {{ "/assets/js/tools-handlers.js" | sri_attrs }}></script>

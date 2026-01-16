@@ -1,16 +1,28 @@
 # Auto-generated SRI (Subresource Integrity) hashes
-# Generated: 2026-01-15
+# Generated: 2026-01-16
 # Do not edit manually
 
 ---
+assets/js/404-random.js:
+  integrity: sha512-xjSKEHvAOLY1mzN0jvrpTmj+7HgQnzgCgaJB/4g+3x/6AMhkJzXgYS9lz04Cv4LjWcQoDwrrkCB1NBqV+2ukkg==
+  crossorigin: anonymous
 assets/js/Hamburger.js:
   integrity: sha512-cxvd/gvXSuOsawCjUte10SOYPiOOq2tkqnYqsj/Y7/pEaqPtUUVmW1JP6F/BL8qxljplZ1FFzS1Ue1VD2BU+pg==
   crossorigin: anonymous
 assets/js/Search.js:
   integrity: sha512-50P1F5VoSHsAmZo5+oBrh5Op/x58l9IdqL1WtnWsjNW5smV40r3u64k2VjOJJJR0qhN9MLKzsQHMXlUhLM3gsg==
   crossorigin: anonymous
+assets/js/back-button.js:
+  integrity: sha512-Wf1+OSKZZ7XJLynW4ai1DWbRzBXCOAQahxEZiJyOtaCTUibtTy9Oa06lsC89NCtPQ4tFHUYUIb0axazbOzhVsw==
+  crossorigin: anonymous
+assets/js/carousel.js:
+  integrity: sha512-dNsNkPu12kDy57+sN8SsypRe+yNwcBgDFD0yqTMd7S9UZDsJkh5DaldNG2oDE7CdPID3EwasEkd5+Gp0+0fC3g==
+  crossorigin: anonymous
 assets/js/modeswitcher.js:
   integrity: sha512-65cc3cs5CbbpXFppG0S5Lobpp/e/OGT3YyEsoaGhWd+2Imr7UJKCO3x8fRZBjoz/HcLo5bU398E4yvCCaDBxQQ==
+  crossorigin: anonymous
+assets/js/nav-init.js:
+  integrity: sha512-aHf83gGleo+2xEX8Fkd0mpyuB/WsPPRl8BqE5UgmjVPCTSLQtWBl+aNfIJib1T2vE5A7eJL1tr2J/lANZSq/iw==
   crossorigin: anonymous
 assets/js/photoswipe-init.js:
   integrity: sha512-bH7ksrEEI5RFSp6PvxOwkuRHRxTrdyCYNr/3cHOJ4iL6RECg8W4gyRAN8UAFyuXa+oFeDq73nmfqF1Zxf8yeYQ==
@@ -20,6 +32,12 @@ assets/js/photoswipe-lightbox.umd.min.js:
   crossorigin: anonymous
 assets/js/photoswipe.umd.min.js:
   integrity: sha512-BXwwGU7zCXVgpT2jpXnTbioT9q1Byf7NEXVxovTZPlNvelL2I/4LjOaoiB2a19L+g5za8RbkoJFH4fMPQcjFFw==
+  crossorigin: anonymous
+assets/js/preload-styles.js:
+  integrity: sha512-lBwv3ploxO2CD/pFDg29so9BCIT6FRHqUB44Qv6TTNZ0b2o9rbvZ+CJ9qllYueHAvHfgK9tmSsDH3q6d/yBU1A==
+  crossorigin: anonymous
+assets/js/tools-handlers.js:
+  integrity: sha512-6MCdugIFQDPZx7l8kBZflN8bob2wUsd1lpFCHULJ3FRRWYU8r95pcibr8W+nNVySJLUDgvuZjZIgOsoTX8WaWA==
   crossorigin: anonymous
 assets/js/tools.js:
   integrity: sha512-9BV49aHHo5jzEfPVOSBHS/Sx27fTGoQpwG6hYI6EiKOMnZ+5yHLCDD++FvH5W0W74JJ+2M5ztZ0fIlJtCrsw0g==

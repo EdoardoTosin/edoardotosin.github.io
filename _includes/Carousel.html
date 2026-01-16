@@ -93,6 +93,10 @@
   {% break %}
 {% endunless %}
 
+{% comment %} Auto-play settings {% endcomment %}
+{% assign auto_play = include.auto_play | default: carousel_data.settings.auto_play | default: false %}
+{% assign duration = include.duration | default: carousel_data.settings.duration | default: 5 %}
+
 {% comment %} Print-only fallback - show first image only {% endcomment %}
 <div class="only-print">
   {% assign first_item = carousel_data.images[0] %}
@@ -108,7 +112,11 @@
 </div>
 
 {% comment %} Interactive carousel - hidden when printing {% endcomment %}
-<div class="carousel-wrapper no-print" id="carousel-{{ carousel_id }}" data-pswp-gallery="{{ gallery_id }}">
+<div class="carousel-wrapper no-print" 
+     id="carousel-{{ carousel_id }}" 
+     data-pswp-gallery="{{ gallery_id }}"
+     data-auto-play="{{ auto_play }}"
+     data-duration="{{ duration }}">
   
   {% comment %} Carousel viewport {% endcomment %}
   <div class="carousel-viewport">
@@ -134,7 +142,7 @@
           </div>
           
           {% if item.caption %}
-          <div class="carousel-caption" onclick="event.stopPropagation()">
+          <div class="carousel-caption">
             {{ item.caption | markdownify }}
           </div>
           {% endif %}
@@ -182,172 +190,5 @@
   {% endif %}
 </div>
 
-{% comment %} Carousel JavaScript {% endcomment %}
-<script>
-(function() {
-  'use strict';
-  
-  const carouselId = '{{ carousel_id }}';
-  const carousel = document.getElementById('carousel-' + carouselId);
-  
-  if (!carousel) return;
-  
-  const track = carousel.querySelector('[data-carousel-track]');
-  const slides = Array.from(carousel.querySelectorAll('.carousel-slide'));
-  const prevBtn = carousel.querySelector('[data-carousel-prev]');
-  const nextBtn = carousel.querySelector('[data-carousel-next]');
-  const indicators = Array.from(carousel.querySelectorAll('.carousel-indicator'));
-  
-  let currentIndex = 0;
-  let isTransitioning = false;
-  
-  // Set image dimensions for PhotoSwipe
-  const links = carousel.querySelectorAll('a[data-pswp-width="auto"]');
-  links.forEach(link => {
-    const img = link.querySelector('img');
-    if (!img) return;
-    
-    const setDimensions = () => {
-      if (img.naturalWidth > 0 && img.naturalHeight > 0) {
-        link.setAttribute('data-pswp-width', img.naturalWidth);
-        link.setAttribute('data-pswp-height', img.naturalHeight);
-        return true;
-      }
-      return false;
-    };
-    
-    if (img.complete) {
-      setDimensions();
-    } else {
-      img.addEventListener('load', setDimensions, { once: true });
-    }
-  });
-  
-  function goToSlide(index, direction = 'next') {
-    if (isTransitioning || index === currentIndex) return;
-    if (index < 0 || index >= slides.length) return;
-    
-    isTransitioning = true;
-    
-    const currentSlide = slides[currentIndex];
-    const nextSlide = slides[index];
-    
-    // Update active states
-    currentSlide.classList.remove('is-active');
-    nextSlide.classList.add('is-active');
-    
-    if (indicators.length > 0) {
-      indicators[currentIndex].classList.remove('is-active');
-      indicators[currentIndex].setAttribute('aria-selected', 'false');
-      indicators[index].classList.add('is-active');
-      indicators[index].setAttribute('aria-selected', 'true');
-    }
-    
-    // Smooth transition
-    const offset = -index * 100;
-    track.style.transform = `translateX(${offset}%)`;
-    
-    currentIndex = index;
-    
-    setTimeout(() => {
-      isTransitioning = false;
-    }, 500);
-  }
-  
-  // Navigation controls
-  if (prevBtn) {
-    prevBtn.addEventListener('click', () => {
-      const prevIndex = currentIndex === 0 ? slides.length - 1 : currentIndex - 1;
-      goToSlide(prevIndex, 'prev');
-    });
-  }
-  
-  if (nextBtn) {
-    nextBtn.addEventListener('click', () => {
-      const nextIndex = (currentIndex + 1) % slides.length;
-      goToSlide(nextIndex, 'next');
-    });
-  }
-  
-  // Indicator controls
-  indicators.forEach((indicator, index) => {
-    indicator.addEventListener('click', () => {
-      goToSlide(index);
-    });
-  });
-  
-  // Keyboard navigation
-  carousel.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowLeft') {
-      e.preventDefault();
-      prevBtn && prevBtn.click();
-    } else if (e.key === 'ArrowRight') {
-      e.preventDefault();
-      nextBtn && nextBtn.click();
-    }
-  });
-  
-  // Touch swipe support
-  let touchStartX = 0;
-  let touchEndX = 0;
-  
-  track.addEventListener('touchstart', (e) => {
-    touchStartX = e.changedTouches[0].screenX;
-  }, { passive: true });
-  
-  track.addEventListener('touchend', (e) => {
-    touchEndX = e.changedTouches[0].screenX;
-    handleSwipe();
-  }, { passive: true });
-  
-  function handleSwipe() {
-    const swipeThreshold = 50;
-    const diff = touchStartX - touchEndX;
-    
-    if (Math.abs(diff) > swipeThreshold) {
-      if (diff > 0) {
-        nextBtn && nextBtn.click();
-      } else {
-        prevBtn && prevBtn.click();
-      }
-    }
-  }
-  
-  // Auto-play
-  {% assign auto_play = include.auto_play | default: carousel_data.settings.auto_play | default: false %}
-  {% assign duration = include.duration | default: carousel_data.settings.duration | default: 5 %}
-  
-  {% if auto_play %}
-  let autoPlayInterval;
-  
-  function startAutoPlay() {
-    autoPlayInterval = setInterval(() => {
-      if (document.hidden) return;
-      nextBtn && nextBtn.click();
-    }, {{ duration }} * 1000);
-  }
-  
-  function stopAutoPlay() {
-    clearInterval(autoPlayInterval);
-  }
-  
-  // Start auto-play
-  startAutoPlay();
-  
-  // Pause on hover/focus
-  carousel.addEventListener('mouseenter', stopAutoPlay);
-  carousel.addEventListener('mouseleave', startAutoPlay);
-  carousel.addEventListener('focusin', stopAutoPlay);
-  carousel.addEventListener('focusout', startAutoPlay);
-  
-  // Pause when page hidden
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) {
-      stopAutoPlay();
-    } else {
-      startAutoPlay();
-    }
-  });
-  {% endif %}
-})();
-</script>
+{% comment %} Load carousel JavaScript {% endcomment %}
+<script src="{{ site.baseurl }}/assets/js/carousel.js" defer {{ "/assets/js/carousel.js" | sri_attrs }}></script>

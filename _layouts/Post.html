@@ -44,11 +44,15 @@
     <!--<link href="/assets/css/prism.css" rel="stylesheet" />-->
     <link rel="alternate" type="application/rss+xml" href="{{ site.url }}/feed.xml">
     
-    <!-- PhotoSwipe CSS -->
-    <link rel="preload" href="{{ site.baseurl }}/assets/css/photoswipe.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <!-- PhotoSwipe CSS - Preload without inline handlers -->
+    <link rel="preload" href="{{ site.baseurl }}/assets/css/photoswipe.css" as="style">
     <noscript><link rel="stylesheet" href="{{ site.baseurl }}/assets/css/photoswipe.css"></noscript>
-    <link rel="preload" href="{{ site.baseurl }}/assets/css/photoswipe-override.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ site.baseurl }}/assets/css/photoswipe-override.css" as="style">
     <noscript><link rel="stylesheet" href="{{ site.baseurl }}/assets/css/photoswipe-override.css"></noscript>
+    
+    <!-- Preload styles handler - converts preload to stylesheet -->
+    <script src="{{ site.baseurl }}/assets/js/preload-styles.js" defer {{ "/assets/js/preload-styles.js" | sri_attrs }}></script>
+    <script src="{{ site.baseurl }}/assets/js/back-button.js" defer {{ "/assets/js/back-button.js" | sri_attrs }}></script>
 </head>
 
 <body>
@@ -117,9 +121,9 @@
                         <div class="meta-head">
                             {%- include PrintAuthor.html -%}
                             {%- if site.preferences.homepage.enabled -%}
-                            <a onclick="window.history.back();">
+                            <a href="#" data-action="history-back" class="back-link">
                             {%- else -%}
-                            <a onclick="window.location.assign('/');">
+                            <a href="/" class="back-link">
                             {%- endif -%}
                                 <p class="meta-title very-small no-print">← BACK</p>
                             </a>

@@ -2,6 +2,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 {%- comment -%}
+Content Security Policy
+{%- endcomment -%}
+{% assign github_username = site.link.github | split: "/" | last %}
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://raw.githubusercontent.com/{{ github_username }}; style-src 'self' 'unsafe-inline'; img-src 'self' data: http: https:; font-src 'self' data:; connect-src 'self' https://raw.githubusercontent.com/{{ github_username }}; frame-ancestors 'none'; base-uri 'self'; form-action 'self'">
+
+{%- comment -%}
 Locale
 {%- endcomment -%}
 {% assign lang_value = page.lang | default: site.lang | default: "en-US" %}

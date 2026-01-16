@@ -177,6 +177,7 @@ exclude:
   - _notes/000 Inbox/
   - _notes/200 Private/
   - _notes/300 Templates/
+  - CNAME
   - Dockerfile
   - README.md
   - LICENSE

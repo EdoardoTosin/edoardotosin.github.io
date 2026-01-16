@@ -144,7 +144,6 @@ robots:
       - /tags/
       - /.well-known/
       - /SearchData.json
-      - /CNAME
       - /credits
       - /contact
       - /privacy-policy

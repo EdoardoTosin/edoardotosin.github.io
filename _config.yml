@@ -137,8 +137,6 @@ defaults:
 # Robots.txt
 robots:
   - user_agent: "*"
-    allow:
-      - "/"
     disallow:
       - /assets/
       - /security-policy

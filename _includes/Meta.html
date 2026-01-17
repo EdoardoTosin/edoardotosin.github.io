@@ -5,7 +5,14 @@
 Content Security Policy
 {%- endcomment -%}
 {% assign github_username = site.link.github | split: "/" | last %}
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://raw.githubusercontent.com/{{ github_username }} 'sha256-n6q1oxIzEuXvWMMY8S0ZbN3QP1E8lrB54bUGmo8rjes=' 'sha256-YpETO48EPpxKTiDeHFBU23QXi/8Rpqh4jDdARgcDKRg=' 'unsafe-hashes'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://github.githubassets.com https://raw.githubusercontent.com/{{ github_username }}; font-src 'self' data:; connect-src 'self' https://raw.githubusercontent.com/{{ github_username }}; base-uri 'self'; form-action 'self'">
+{% if jekyll.environment == "development" %}
+  {% assign localhost_host = site.host | default: "localhost" %}
+  {% assign localhost_port = site.port | default: "4000" %}
+  {% assign localhost_src = "http://localhost:" | append: localhost_port | append: " http://127.0.0.1:" | append: localhost_port %}
+{% else %}
+  {% assign localhost_src = "" %}
+{% endif %}
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://raw.githubusercontent.com/{{ github_username }} 'sha256-n6q1oxIzEuXvWMMY8S0ZbN3QP1E8lrB54bUGmo8rjes=' 'sha256-YpETO48EPpxKTiDeHFBU23QXi/8Rpqh4jDdARgcDKRg=' 'unsafe-hashes'; style-src 'self' 'unsafe-inline'; img-src 'self' {{ localhost_src }} data: https://github.githubassets.com https://raw.githubusercontent.com; font-src 'self' data:; connect-src 'self' https://raw.githubusercontent.com/{{ github_username }}; base-uri 'self'; form-action 'self'">
 
 {%- comment -%}
 Locale

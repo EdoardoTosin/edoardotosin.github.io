@@ -118,27 +118,29 @@
      data-auto-play="{{ auto_play }}"
      data-duration="{{ duration }}">
   
-  {% comment %} Carousel viewport {% endcomment %}
-  <div class="carousel-viewport">
-    <div class="carousel-track" data-carousel-track>
+  {% comment %} Carousel viewport with inline critical styles {% endcomment %}
+  <div class="carousel-viewport" style="position: relative; overflow: hidden; width: 100%; padding-bottom: 66.67%;">
+    <div class="carousel-track" data-carousel-track style="position: absolute; top: 0; left: 0; display: flex; width: 100%; height: 100%; transform: translateX(0); transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);">
       {% for item in carousel_data.images %}
       <div class="carousel-slide{% if forloop.first %} is-active{% endif %}" 
-           data-slide-index="{{ forloop.index0 }}">
+           data-slide-index="{{ forloop.index0 }}"
+           style="flex: 0 0 100%; width: 100%; height: 100%;">
         <a href="{{ item.image }}"
            class="carousel-slide-link no-external-link-icon"
-           style="outline: none"
+           style="display: block; position: relative; width: 100%; height: 100%; outline: none; cursor: zoom-in;"
            data-pswp-slide
            data-pswp-width="auto"
            data-pswp-height="auto"
            {% if item.caption %}data-pswp-caption="{{ item.caption | markdownify | replace: '<p>', '' | replace: '</p>', '' | xml_escape }}"{% endif %}
            aria-label="View slide {{ forloop.index }} in lightbox{% if item.caption %}: {{ item.caption | strip_html }}{% endif %}">
           
-          <div class="carousel-image-container">
+          <div class="carousel-image-container" style="position: relative; width: 100%; height: 100%; background: var(--pswp-bg-primary, hsl(0, 0%, 96%)); display: flex; align-items: center; justify-content: center;">
             <img src="{{ item.image }}"
                  alt="{{ item.alt | default: item.caption | markdownify | strip_html | strip | default: 'Slide ' | append: forloop.index }}"
                  loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
                  decoding="async"
-                 class="carousel-image" />
+                 class="carousel-image"
+                 style="width: 100%; height: auto; display: block; object-fit: contain;" />
           </div>
           
           {% if item.caption %}

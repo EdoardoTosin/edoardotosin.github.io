@@ -12,7 +12,22 @@ Content Security Policy
 {% else %}
   {% assign localhost_src = "" %}
 {% endif %}
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://raw.githubusercontent.com/{{ github_username }} 'sha256-n6q1oxIzEuXvWMMY8S0ZbN3QP1E8lrB54bUGmo8rjes=' 'sha256-YpETO48EPpxKTiDeHFBU23QXi/8Rpqh4jDdARgcDKRg=' 'unsafe-hashes'; style-src 'self' 'unsafe-inline'; img-src 'self' {{ localhost_src }} data: https://github.githubassets.com https://raw.githubusercontent.com https://live.staticflickr.com; font-src 'self' data:; connect-src 'self' https://raw.githubusercontent.com/{{ github_username }}; base-uri 'self'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="
+  default-src 'self';
+  script-src 'self' https://raw.githubusercontent.com/{{ github_username }}
+    'sha256-n6q1oxIzEuXvWMMY8S0ZbN3QP1E8lrB54bUGmo8rjes='
+    'sha256-YpETO48EPpxKTiDeHFBU23QXi/8Rpqh4jDdARgcDKRg='
+    'unsafe-hashes';
+  style-src 'self' 'unsafe-inline';
+  img-src 'self' {{ localhost_src }}
+    data: https://github.githubassets.com
+    https://raw.githubusercontent.com
+    https://live.staticflickr.com;
+  font-src 'self' data:;
+  connect-src 'self' https://raw.githubusercontent.com/{{ github_username }};
+  base-uri 'self';
+  form-action 'self';
+">
 
 {%- comment -%}
 Locale

@@ -211,7 +211,7 @@ h4,
 h5,
 h6 {
     margin: 0;
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: var(--bulma-body-family);
 }
 
 p a,
@@ -575,14 +575,14 @@ hr {
 
 .site-heading-rtl>.main-page-heading {
     color: var(--color-text-main);
-    font-family: var(--primary-font-family);
+    font-family: var(--bulma-body-family);
     font-weight: 600;
     margin-right: 20px;
 }
 
 .site-heading-rtl>.main-page-tagline {
     color: var(--color-text-sub);
-    font-family: var(--primary-font-family);
+    font-family: var(--bulma-body-family);
     font-size: 0.7rem;
     font-weight: 600;
     margin-right: 20px;
@@ -592,7 +592,7 @@ hr {
 
 .site-heading-rtl>.main-page-subheading {
     color: var(--color-text-main);
-    font-family: var(--primary-font-family);
+    font-family: var(--bulma-body-family);
     font-weight: 600;
     font-size: 17.3px !important;
     margin-top: -8px;
@@ -614,14 +614,14 @@ hr {
 
 .site-heading-ltr>.main-page-heading {
     color: var(--color-text-main);
-    font-family: var(--primary-font-family);
+    font-family: var(--bulma-body-family);
     font-weight: 600;
     margin-left: 20px;
 }
 
 .site-heading-ltr>.main-page-tagline {
     color: var(--color-text-sub);
-    font-family: var(--primary-font-family);
+    font-family: var(--bulma-body-family);
     font-size: 0.7rem;
     font-weight: 600;
     margin-left: 20px;
@@ -631,7 +631,7 @@ hr {
 
 .site-heading-ltr>.main-page-subheading {
     color: var(--color-text-main);
-    font-family: var(--primary-font-family);
+    font-family: var(--bulma-body-family);
     font-weight: 600;
     font-size: 17.3px !important;
     margin-top: -8px;
@@ -651,7 +651,7 @@ hr {
 .link-to-notes a {
     color: var(--color-text-link);
     text-decoration: none;
-    font-family: var(--primary-font-family);
+    font-family: var(--bulma-body-family);
     font-size: 13px;
     margin-left: -3px;
 }
@@ -704,7 +704,7 @@ hr {
     margin-left: auto;
     font-weight: 600;
     font-size: 0.7rem;
-    font-family: var(--primary-font-family);
+    font-family: var(--bulma-body-family);
     color: var(--color-text-main);
 }
 
@@ -813,7 +813,7 @@ hr {
     width: 100%;
     height: 40px;
     border: 0px;
-    font-family: var(--secondary-font-family) !important;
+    font-family: var(--bulma-body-family) !important;
     color: var(--color-text-main);
     font-size: 18px;
     border-bottom: 1px solid var(--primary-border-color);
@@ -823,7 +823,7 @@ hr {
 ::placeholder {
     color: var(--color-bg-main);
     font-size: 18px;
-    font-family: var(--secondary-font-family) !important;
+    font-family: var(--bulma-body-family) !important;
 }
 
 .search-shortcut {
@@ -987,7 +987,7 @@ hr {
     padding-right: 0.75rem;
     padding-bottom: 0.5rem;
     padding-left: 0.75rem;
-    font-family: var(--primary-font-family) !important;
+    font-family: var(--bulma-body-family) !important;
     color: var(--color-text-main) !important;
 }
 
@@ -1077,7 +1077,7 @@ hr {
     margin-left: 20px;
     margin-right: 50px;
     font-size: 16.5px;
-    font-family: var(--primary-font-family);
+    font-family: var(--bulma-body-family);
     font-weight: 600;
 }
 
@@ -1086,7 +1086,7 @@ hr {
     margin-top: -12px;
     margin-left: 20px !important;
     margin-right: 30px;
-    font-family: var(--secondary-font-family);
+    font-family: var(--bulma-body-family);
     font-size: 15px;
 }
 
@@ -1145,7 +1145,7 @@ hr {
 .mn-right {
     float: right;
     clear: right;
-    font-family: var(--secondary-font-family) !important;
+    font-family: var(--bulma-body-family) !important;
     font-size: 14px;
     margin-right: -50%;
     width: 30%;
@@ -1160,7 +1160,7 @@ hr {
 .mn-left {
     float: left;
     clear: left;
-    font-family: var(--secondary-font-family) !important;
+    font-family: var(--bulma-body-family) !important;
     font-size: 14px;
     margin-left: -50%;
     width: 30%;
@@ -1178,7 +1178,7 @@ hr {
 .sidenote-number:after,
 .sn-left:before,
 .sn-right:before {
-    font-family: var(--secondary-font-family) !important;
+    font-family: var(--bulma-body-family) !important;
     position: relative;
     vertical-align: baseline;
 }
@@ -1442,7 +1442,7 @@ label.srs-toggle {
     color: var(--color-text-main);
     text-decoration: none;
     font-size: 12px;
-    font-family: var(--primary-font-family) !important;
+    font-family: var(--bulma-body-family) !important;
 }
 
 .context-menu__link:hover {

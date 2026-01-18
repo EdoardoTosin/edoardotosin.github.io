@@ -6,6 +6,10 @@ layout: Stylesheet
 @import "stylesheet.css";
 
 
+:root {
+  --bulma-body-family: 'IBM Plex Sans', sans-serif;
+}
+
 @media print {
   @page {
     margin-top: 1cm;
@@ -49,6 +53,11 @@ layout: Stylesheet
 
 a.navbar-item:not(:hover) {
     color: var(--color-text-main);
+}
+
+code,
+pre {
+  font-family: 'caskaydiacove_nerd_fontRg', Consolas,'Courier New', Courier, monospace;
 }
 
 body {

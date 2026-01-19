@@ -6,7 +6,6 @@ title: Privacy Policy
 description: "Information on data collection, usage, and privacy practices for this website."
 date: 2023-03-01
 last_modified_at: 2025-08-08
-sitemap: false
 ---
 
 *This Privacy Policy is effective as of {{ page.last_modified_at | date: "%d %b %Y" }}*

@@ -139,12 +139,10 @@ robots:
   - user_agent: "*"
     disallow:
       - /assets/
-      - /security-policy
       - /security/
       - /tags/
       - /.well-known/
       - /SearchData.json
-      - /privacy-policy
       - /tools
       - /404
       - /404.html

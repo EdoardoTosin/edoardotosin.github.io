@@ -6,7 +6,6 @@ title: Security Policy
 description: "Security measures, vulnerability management, and responsible disclosure policy for this website."
 date: 2023-01-29
 last_modified_at: 2025-11-15
-sitemap: false
 ---
 
 *Last updated on {{ page.last_modified_at | date: "%d %b %Y" }}.*

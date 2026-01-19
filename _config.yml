@@ -140,10 +140,8 @@ robots:
     disallow:
       - /assets/
       - /security/
-      - /tags/
       - /.well-known/
       - /SearchData.json
-      - /tools
       - /404
       - /404.html
 

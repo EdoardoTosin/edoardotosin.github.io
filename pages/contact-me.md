@@ -5,7 +5,6 @@ content-type: static
 title: Contact Me
 description: How to contact me
 sitemap: false
-noindex: nofollow
 ---
 
 <br>

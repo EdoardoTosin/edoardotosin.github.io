@@ -7,7 +7,6 @@ description: "Security measures, vulnerability management, and responsible discl
 date: 2023-01-29
 last_modified_at: 2025-11-15
 sitemap: false
-noindex: nofollow
 ---
 
 *Last updated on {{ page.last_modified_at | date: "%d %b %Y" }}.*

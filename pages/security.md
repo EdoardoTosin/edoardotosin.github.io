@@ -5,7 +5,6 @@ content-type: static
 title: Security
 description: "Security Page"
 sitemap: false
-noindex: nofollow
 ---
 
 <script>

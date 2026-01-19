@@ -4,7 +4,6 @@ layout: Post
 content-type: static
 title: Credits
 description: List of resources used to build this website.
-sitemap: false
 ---
 
 <br>

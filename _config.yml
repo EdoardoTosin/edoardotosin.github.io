@@ -150,7 +150,6 @@ robots:
       - /tools
       - /404
       - /404.html
-      - /feed.xml
 
 # Include it in the processing.
 # The following items will be processed, by default.

@@ -38,7 +38,7 @@
       {{ page.date | date: "%d %b %Y" }}
     </time>
     {%- if updated_date != published_date -%}
-      &nbsp;| Updated 
+      &nbsp;•&ensp;Updated 
       <time datetime="{{ page.last_modified_at | date_to_xmlschema }}" class="bold">
         {{ page.last_modified_at | date: "%d %b %Y" }}
       </time>

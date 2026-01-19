@@ -139,13 +139,28 @@ Categories & Tags
 {% endfor %}
 
 {%- comment -%}
-Indexing rules
+Robots meta tag based on page.noindex front matter
+Supports: true, "follow", "nofollow", or full directive
 {%- endcomment -%}
-{% if page.noindex == "follow" %}
-<meta name="robots" content="noindex">
-{% elsif page.noindex == "nofollow" %}
-<meta name="robots" content="noindex, nofollow">
-{% endif %}
+
+{%- if page.noindex -%}
+  {%- assign robots_directive = nil -%}
+
+  {%- if page.noindex == true or page.noindex == "true" -%}
+    {%- assign robots_directive = "noindex, follow" -%}
+  {%- elsif page.noindex == "follow" -%}
+    {%- assign robots_directive = "noindex, follow" -%}
+  {%- elsif page.noindex == "nofollow" -%}
+    {%- assign robots_directive = "noindex, nofollow" -%}
+  {%- else -%}
+    {%- comment -%}Allow custom directives like "noindex, noarchive"{%- endcomment -%}
+    {%- assign robots_directive = page.noindex -%}
+  {%- endif -%}
+
+  {%- if robots_directive -%}
+<meta name="robots" content="{{ robots_directive }}">
+  {%- endif -%}
+{%- endif -%}
 
 {%- comment -%}
 Page Title

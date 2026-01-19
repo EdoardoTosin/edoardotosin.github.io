@@ -144,8 +144,6 @@ robots:
       - /tags/
       - /.well-known/
       - /SearchData.json
-      - /credits
-      - /contact
       - /privacy-policy
       - /tools
       - /404

@@ -1,21 +1,27 @@
 # Jekyll build output
 /_site/
 
-# Jekyll caches
+# Jekyll caches and metadata
 /.sass-cache/
 /.jekyll-cache/
 /.jekyll-metadata
 
-# System files
+# System files (macOS and Windows)
 .DS_Store
+Thumbs.db
+Desktop.ini
 
-# Editor environments
+# Editor configuration
 .vscode/
 .obsidian/
 
-# Local HTTP/ACME files
+# Security.txt files
 /.well-known/
 !/.well-known/security.txt
 
-# Project-specific utilities
+# Project utilities
 /utilities/
+
+# Ignore root-level Bash and PowerShell scripts
+/*.sh
+/*.ps1

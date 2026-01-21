@@ -358,7 +358,6 @@
 
 /* ============================================================
    PhotoSwipe UI
-   Uses PhotoSwipe defaults with solid black background
    ============================================================ */
 
 .pswp__custom-caption {
@@ -514,11 +513,70 @@
     color: #282832 !important;
   }
 
-  /* Hide interactive carousel elements only */
-  .carousel-wrapper.no-print,
+  /* Carousel - show first slide only */
+  .carousel-wrapper {
+    margin: 1rem auto;
+    max-width: 100%;
+    page-break-inside: avoid;
+    box-shadow: none;
+    border-radius: 0;
+    overflow: visible;
+  }
+
+  .carousel-wrapper .carousel-viewport {
+    position: relative;
+    overflow: visible;
+    padding-bottom: 0;
+    height: auto;
+  }
+
+  .carousel-wrapper .carousel-track {
+    position: relative;
+    display: block;
+    transform: none !important;
+    transition: none;
+    height: auto;
+  }
+
+  .carousel-wrapper .carousel-slide {
+    display: none !important;
+  }
+
+  .carousel-wrapper .carousel-slide:first-child {
+    display: block !important;
+    opacity: 1;
+    flex: none;
+    width: 100%;
+    height: auto;
+  }
+
+  .carousel-wrapper .carousel-slide-link {
+    display: block;
+    cursor: default;
+    pointer-events: none;
+    height: auto;
+  }
+
+  .carousel-wrapper .carousel-image-container {
+    position: relative;
+    height: auto;
+    background: transparent;
+  }
+
+  .carousel-wrapper .carousel-image {
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    object-fit: none;
+    display: block;
+    margin: 0 auto;
+  }
+
+  /* Hide interactive elements */
   .carousel-overlay,
   .carousel-control,
-  .carousel-indicators {
+  .carousel-indicators,
+  .carousel-caption {
     display: none !important;
   }
 
@@ -535,6 +593,7 @@
     box-shadow: none;
     transform: none;
     border-radius: 0;
+    pointer-events: none;
   }
 
   .image-wrapper .image-link:hover {
@@ -565,18 +624,10 @@
     text-align: center;
   }
 
-  .carousel-caption {
-    display: none !important;
-  }
-
   .image-link,
   .carousel-slide-link {
     cursor: default;
     pointer-events: none;
-  }
-
-  .only-print {
-    display: block !important;
   }
 
   .pswp,
@@ -591,27 +642,6 @@
 
 .pswp-open {
   overflow: hidden;
-}
-
-.is-hidden-screen {
-  display: none;
-}
-
-@media screen {
-  .only-print {
-    display: none !important;
-  }
-}
-
-@media print {
-  .is-hidden-screen,
-  .no-print {
-    display: none !important;
-  }
-
-  .only-print {
-    display: block !important;
-  }
 }
 
 .image-loading {

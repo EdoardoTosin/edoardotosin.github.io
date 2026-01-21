@@ -644,6 +644,23 @@
   overflow: hidden;
 }
 
+/* Print visibility utilities */
+@media screen {
+  .only-print {
+    display: none !important;
+  }
+}
+
+@media print {
+  .only-print {
+    display: block !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+}
+
 .image-loading {
   position: relative;
   min-height: 200px;

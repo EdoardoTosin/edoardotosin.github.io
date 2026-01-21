@@ -98,7 +98,6 @@
 
 .image-link:hover {
   box-shadow: var(--pswp-shadow-lg);
-  transform: translateY(-1px);
 }
 
 .image-link:focus-visible {

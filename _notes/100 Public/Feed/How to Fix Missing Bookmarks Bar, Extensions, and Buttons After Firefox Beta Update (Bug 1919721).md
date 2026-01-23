@@ -4,7 +4,7 @@ description: Learn how to resolve the issue caused by bug 1919721 where the book
 feed: show
 short_url: firefox-1919721
 date: 2024-10-02 21:30:00 +0200
-last_modified_at: 2024-10-03 08:40:00 +0200
+last_modified_at: 2026-01-23 08:00:00 +0100
 lang: en
 ogimg: https://raw.githubusercontent.com/EdoardoTosin/web-assets/refs/heads/main/Notes/100%20Public/Feed/How%20to%20Fix%20Missing%20Bookmarks%20Bar%2C%20Extensions%2C%20and%20Buttons%20After%20Firefox%20Beta%20Update%20(Bug%201919721)/firefox-beta-bug-1919721.jpg
 tags:

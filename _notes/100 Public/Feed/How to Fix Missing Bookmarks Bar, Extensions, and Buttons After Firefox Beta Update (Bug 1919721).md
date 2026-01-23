@@ -30,7 +30,8 @@ Mozilla has addressed this bug in version 132.0b2.[^3][^4] However, affected use
 
 ---
 
-:warning: ***Make a copy of your profile folder before making any changes. This precaution ensures that you can revert any modifications if issues arise.*** :warning:
+> [!WARNING]
+> ***Make a copy of your profile folder before making any changes. This precaution ensures that you can revert any modifications if issues arise.***
 
 [Back up and restore information in Firefox profiles](https://support.mozilla.org/kb/back-and-restore-information-firefox-profiles)
 

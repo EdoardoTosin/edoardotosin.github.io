@@ -1685,8 +1685,8 @@ li {
     padding-bottom: var(--padding-thin);
 }
 
-    background-image: url(../img/external-link.svg);
 a[href^="http"]:not([href^="{{ '/' | absolute_url }}"]):not(.navbar-item):not(.copyright-item):not(.reversefootnote):not(.footnote):not(.no-external-link-icon):not([data-lightbox]:not(.action-button)) {
+    background-image: url(../img/icons/link-external-16.svg);
     background-repeat: no-repeat;
     background-position: right;
     padding-right: 1.3rem;

@@ -23,6 +23,7 @@ This website is powered by [Jekyll SSG](https://jekyllrb.com/) and hosted using 
 - **[Cascadia Code](https://github.com/microsoft/cascadia-code)** - Monospace font for code blocks
 - **[Fruity Pygments Theme](https://github.com/jwarby/jekyll-pygments-themes)** - Syntax highlighting
 - **[Feather Icons](https://feathericons.com/)** - Icon set
+- **[Primer Octicons](https://github.com/primer/octicons)** - A scalable set of icons
 
 ## Image Gallery & Lightbox
 

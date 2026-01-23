@@ -13,8 +13,8 @@ Creative Commons Attribution 4.0 International License
 
   const themeConfig = {
     icons: {
-      light: "{{ '/assets/img/sun.svg' | absolute_url }}",
-      dark: "{{ '/assets/img/moon.svg' | absolute_url }}",
+      light: "{{ '/assets/img/icons/sun-16.svg' | absolute_url }}",
+      dark: "{{ '/assets/img/icons/moon-16.svg' | absolute_url }}",
     },
     errorImages: {
       light: "{{ '/assets/img/404_light.gif' | absolute_url }}",

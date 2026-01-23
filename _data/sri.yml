@@ -1,5 +1,5 @@
 # Auto-generated SRI (Subresource Integrity) hashes
-# Generated: 2026-01-16
+# Generated: 2026-01-23
 # Do not edit manually
 
 ---
@@ -19,7 +19,7 @@ assets/js/carousel.js:
   integrity: sha512-dNsNkPu12kDy57+sN8SsypRe+yNwcBgDFD0yqTMd7S9UZDsJkh5DaldNG2oDE7CdPID3EwasEkd5+Gp0+0fC3g==
   crossorigin: anonymous
 assets/js/modeswitcher.js:
-  integrity: sha512-65cc3cs5CbbpXFppG0S5Lobpp/e/OGT3YyEsoaGhWd+2Imr7UJKCO3x8fRZBjoz/HcLo5bU398E4yvCCaDBxQQ==
+  integrity: sha512-X3xoMV28okT/YiUHewthQ5QsLFCWlHXw0e2Fa7RAhnIUA7FniPyrBv5UxwmSEMfayxVMfX8X1dID1Re51ACsjQ==
   crossorigin: anonymous
 assets/js/nav-init.js:
   integrity: sha512-aHf83gGleo+2xEX8Fkd0mpyuB/WsPPRl8BqE5UgmjVPCTSLQtWBl+aNfIJib1T2vE5A7eJL1tr2J/lANZSq/iw==

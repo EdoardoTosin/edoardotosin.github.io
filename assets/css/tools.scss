@@ -104,10 +104,13 @@ button.tools:hover {
   border-color: var(--color-text-link);
 }
 
-/* Sort button SVG icon styling */
-.sort-button svg {
+/* Sort button SVG icon styling - filter for external SVGs */
+.sort-button .svg-icon {
   transition: all 0.3s ease;
-  color: inherit;
+}
+
+.sort-button:hover .svg-icon {
+  filter: var(--icon-filter-inverted);
 }
 
 /* Override hover effects for script count */
@@ -205,6 +208,11 @@ button.tools:hover {
   transform: translateY(-1px);
 }
 
+/* Primary button icons - need inverted filter to show light on colored background */
+.action-button.primary .svg-icon {
+  filter: var(--icon-filter-inverted);
+}
+
 .action-button.secondary {
   background: transparent;
   color: var(--color-text-main);
@@ -216,17 +224,15 @@ button.tools:hover {
   border-color: var(--color-text-link);
 }
 
-/* SVG icon transitions */
-.action-button svg,
-.dropdown-item svg,
-.search-icon svg {
-  transition: all 0.3s ease;
+/* Secondary button icons - use default filter matching text color */
+.action-button.secondary .svg-icon {
+  filter: var(--icon-filter);
 }
 
-/* Ensure SVGs inherit button text color */
-.action-button svg,
-.dropdown-item svg {
-  color: inherit;
+/* External SVG icon transitions */
+.svg-icon {
+  transition: filter 0.3s ease;
+  filter: var(--icon-filter);
 }
 
 /* Remove underline from anchor action buttons */
@@ -252,9 +258,9 @@ a.action-button:hover {
   justify-content: center;
 }
 
-.dropdown-arrow svg {
-  transition: transform 0.3s ease;
-  color: inherit;
+.dropdown-arrow .svg-icon {
+  transition: transform 0.3s ease, filter 0.3s ease;
+  filter: var(--icon-filter-inverted);
 }
 
 .python-dropdown.active .dropdown-arrow {
@@ -294,9 +300,19 @@ a.action-button:hover {
   text-align: left;
 }
 
+/* Dropdown item icons - use default filter, invert on hover */
+.dropdown-item .svg-icon {
+  filter: var(--icon-filter);
+  transition: filter 0.3s ease;
+}
+
 .dropdown-item:hover {
   background: var(--color-text-link);
   color: var(--color-bg-main);
+}
+
+.dropdown-item:hover .svg-icon {
+  filter: var(--icon-filter-inverted);
 }
 
 .dropdown-item:first-child {
@@ -330,7 +346,15 @@ a.action-button:hover {
   display: block;
   margin-bottom: 1rem;
   opacity: 0.5;
-  color: var(--color-text-sub);
+}
+
+.no-results-icon .svg-icon {
+  filter: var(--icon-filter-muted);
+}
+
+/* Search input icon */
+.has-icons-left .icon.is-left .svg-icon {
+  filter: var(--icon-filter-muted);
 }
 
 /* Responsive Design */

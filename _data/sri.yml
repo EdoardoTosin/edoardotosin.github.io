@@ -36,11 +36,8 @@ assets/js/photoswipe.umd.min.js:
 assets/js/preload-styles.js:
   integrity: sha512-lBwv3ploxO2CD/pFDg29so9BCIT6FRHqUB44Qv6TTNZ0b2o9rbvZ+CJ9qllYueHAvHfgK9tmSsDH3q6d/yBU1A==
   crossorigin: anonymous
-assets/js/tools-handlers.js:
-  integrity: sha512-6MCdugIFQDPZx7l8kBZflN8bob2wUsd1lpFCHULJ3FRRWYU8r95pcibr8W+nNVySJLUDgvuZjZIgOsoTX8WaWA==
-  crossorigin: anonymous
 assets/js/tools.js:
-  integrity: sha512-9BV49aHHo5jzEfPVOSBHS/Sx27fTGoQpwG6hYI6EiKOMnZ+5yHLCDD++FvH5W0W74JJ+2M5ztZ0fIlJtCrsw0g==
+  integrity: sha512-gUa9Rk6Qo6aM+lowj0bUdAHoOEL+nZ6EGqiEToJ8AkefTxbVZA/lyA90gef35G5QDk6f6L0mw7/ojHukZbVJTA==
   crossorigin: anonymous
 assets/js/vendor/fuse.min.js:
   integrity: sha512-H1bWCnc4dDJwdioqpOCkU76ZxEdvBvOy9R9Dd9EqftlzQg92owjX5IVdiOw00llAyQFUZJNPrzDnWZ/lZtf25A==

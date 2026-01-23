@@ -1,290 +1,471 @@
-let currentSort = 'asc';
-let allScripts = [];
-let debounceTimeout;
+/**
+ * Tools Page - Unified JavaScript Module
+ * Single source of truth for filtering, sorting, and interactions
+ * 
+ * This file handles:
+ * - Script filtering and search
+ * - Sorting (A-Z / Z-A)
+ * - Dropdown toggle for Python scripts
+ * - Copy command to clipboard
+ * - Download script files
+ * - GitHub redirect on card click
+ */
 
-document.addEventListener('DOMContentLoaded', function() {
-  initializeScripts();
-  setupEventListeners();
-});
+(function() {
+  'use strict';
 
-function initializeScripts() {
-  const scriptCards = document.querySelectorAll('.script-card');
-  allScripts = Array.from(scriptCards).map(card => ({
-    element: card,
-    name: card.dataset.name,
-    type: card.dataset.type,
-    section: card.closest('.script-type-section')
-  }));
-  
-  // Don't show count initially - only when filtering
-}
-
-function setupEventListeners() {
-  const searchInput = document.getElementById('script-search');
-  const typeFilter = document.getElementById('type-filter');
-  const sortToggle = document.getElementById('sort-toggle');
-  
-  if (searchInput) searchInput.addEventListener('input', filterAndSortScripts);
-  if (typeFilter) typeFilter.addEventListener('change', filterAndSortScripts);
-  if (sortToggle) sortToggle.addEventListener('click', toggleSort);
-  
-  document.addEventListener('click', (event) => {
-    if (!event.target.closest('.python-dropdown')) {
-      document.querySelectorAll('.dropdown-content.show').forEach(content => {
-        content.classList.remove('show');
-        const parentDropdown = content.closest('.python-dropdown');
-        if (parentDropdown) {
-          parentDropdown.classList.remove('active');
-        }
-      });
-    }
-  });
-}
-
-function filterAndSortScripts() {
-  const searchInput = document.getElementById('script-search');
-  const typeFilter = document.getElementById('type-filter');
-  const scriptCount = document.getElementById('script-count');
-  
-  if (!searchInput || !typeFilter) return;
-  
-  const searchTerm = searchInput.value.toLowerCase();
-  const typeFilterValue = typeFilter.value;
-  
-  // Check if there's an active search or filter
-  const hasActiveSearch = searchTerm.length > 0;
-  const hasActiveFilter = typeFilterValue !== 'all';
-  const isFiltering = hasActiveSearch || hasActiveFilter;
-  
-  // Show/hide script count based on filtering state using CSS classes
-  if (scriptCount) {
-    if (isFiltering) {
-      scriptCount.classList.add('show');
-    } else {
-      scriptCount.classList.remove('show');
-    }
-  }
-  
-  let filteredScripts = allScripts.filter(script => {
-    const matchesSearch = script.name.includes(searchTerm);
-    const matchesType = typeFilterValue === 'all' || script.type === typeFilterValue;
-    return matchesSearch && matchesType;
-  });
-  
-  // Always apply sorting
-  filteredScripts.sort((a, b) => {
-    if (currentSort === 'asc') {
-      return a.name.localeCompare(b.name);
-    } else {
-      return b.name.localeCompare(a.name);
-    }
-  });
-  
-  displayFilteredScripts(filteredScripts);
-  
-  // Update results count when filtering
-  if (isFiltering) {
-    updateResultsCount(filteredScripts.length);
-  }
-}
-
-function displayFilteredScripts(filteredScripts) {
-  const container = document.getElementById('scripts-container');
-  const noResults = document.getElementById('no-results');
-  const sections = document.querySelectorAll('.script-type-section');
-  
-  if (!container || !noResults) return;
-  
-  // Hide all sections and scripts using class-based approach
-  sections.forEach(section => section.classList.add('hide'));
-  allScripts.forEach(script => script.element.classList.add('hide'));
-  
-  if (filteredScripts.length === 0) {
-    noResults.classList.remove('hide');
+  // Prevent duplicate initialization
+  if (window.ToolsPageInitialized) {
     return;
   }
-  
-  noResults.classList.add('hide');
-  
-  // Group filtered scripts by type (they're already sorted)
-  const scriptsByType = {};
-  filteredScripts.forEach(script => {
-    if (!scriptsByType[script.type]) {
-      scriptsByType[script.type] = [];
-    }
-    scriptsByType[script.type].push(script);
+  window.ToolsPageInitialized = true;
+
+  // ============================================
+  // State
+  // ============================================
+  var currentSort = 'asc';
+  var allScripts = [];
+  var debounceTimeout = null;
+
+  // ============================================
+  // Initialization
+  // ============================================
+  document.addEventListener('DOMContentLoaded', function() {
+    initializeScripts();
+    setupEventListeners();
   });
-  
-  // Show sections in the original order (linux, windows, python)
-  const orderedTypes = ['linux', 'windows', 'python'];
-  orderedTypes.forEach(type => {
-    if (scriptsByType[type]) {
-      const section = document.querySelector(`.script-type-section[data-type="${type}"]`);
-      if (section) {
-        section.classList.remove('hide');
-        
-        const grid = section.querySelector('.related-wrapper');
-        if (grid) {
-          grid.innerHTML = '';
-          
-          scriptsByType[type].forEach(script => {
-            script.element.classList.remove('hide');
-            grid.appendChild(script.element);
-          });
+
+  function initializeScripts() {
+    var scriptCards = document.querySelectorAll('.script-card');
+    allScripts = Array.from(scriptCards).map(function(card) {
+      return {
+        element: card,
+        name: card.dataset.name || '',
+        type: card.dataset.type || '',
+        section: card.closest('.script-type-section')
+      };
+    });
+  }
+
+  // ============================================
+  // Event Listeners Setup
+  // ============================================
+  function setupEventListeners() {
+    var searchInput = document.getElementById('script-search');
+    var typeFilter = document.getElementById('type-filter');
+    var sortToggle = document.getElementById('sort-toggle');
+
+    // Search and filter
+    if (searchInput) {
+      searchInput.addEventListener('input', filterAndSortScripts);
+    }
+    if (typeFilter) {
+      typeFilter.addEventListener('change', filterAndSortScripts);
+    }
+
+    // Sort toggle
+    if (sortToggle) {
+      sortToggle.addEventListener('click', toggleSort);
+    }
+
+    // Unified click handler using event delegation
+    document.addEventListener('click', handleDocumentClick);
+
+    // Keyboard support for script cards
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        var scriptCard = e.target.closest('.script-card');
+        if (scriptCard && !e.target.closest('.script-actions')) {
+          redirectToGitHub(scriptCard);
         }
       }
-    }
-  });
-}
+    });
+  }
 
-function toggleSort() {
-  currentSort = currentSort === 'asc' ? 'desc' : 'asc';
-  const sortButton = document.getElementById('sort-toggle');
-  
-  if (sortButton) {
-    if (currentSort === 'asc') {
-      sortButton.innerHTML = `
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 640 640">
-          <path d="M342.6 81.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L288 181.3V552c0 17.7 14.3 32 32 32s32-14.3 32-32V181.3l105.4 105.4c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z" fill="currentColor"/>
-        </svg> A-Z`;
-    } else {
-      sortButton.innerHTML = `
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 640 640">
-          <path d="M297.4 566.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L352 466.7V96c0-17.7-14.3-32-32-32s-32 14.3-32 32v370.7L182.6 361.3c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z" fill="currentColor"/>
-        </svg> Z-A`;
+  // ============================================
+  // Unified Click Handler
+  // ============================================
+  function handleDocumentClick(e) {
+    var target = e.target;
+
+    // Handle data-action elements first
+    var actionElement = target.closest('[data-action]');
+    if (actionElement) {
+      var action = actionElement.dataset.action;
+
+      switch (action) {
+        case 'toggle-dropdown':
+          e.preventDefault();
+          e.stopPropagation();
+          toggleDropdown(actionElement);
+          return;
+
+        case 'copy-command':
+          e.preventDefault();
+          e.stopPropagation();
+          copyCommand(
+            actionElement.dataset.url,
+            actionElement.dataset.prefix,
+            actionElement.dataset.postfix
+          );
+          return;
+
+        case 'download':
+          e.preventDefault();
+          e.stopPropagation();
+          downloadScript(
+            actionElement.dataset.url,
+            actionElement.dataset.filename
+          );
+          return;
+      }
+    }
+
+    // Handle script card clicks (redirect to GitHub)
+    var scriptCard = target.closest('.script-card');
+    if (scriptCard && !target.closest('.script-actions')) {
+      redirectToGitHub(scriptCard);
+      return;
+    }
+
+    // Close dropdowns when clicking outside
+    if (!target.closest('.python-dropdown')) {
+      closeAllDropdowns();
     }
   }
-  
-  filterAndSortScripts();
-}
 
-function updateResultsCount(count = null) {
-  const resultsCount = document.getElementById('results-count');
-  if (resultsCount) {
-    const totalCount = count !== null ? count : allScripts.length;
-    resultsCount.textContent = totalCount;
+  // ============================================
+  // Filtering and Sorting
+  // ============================================
+  function filterAndSortScripts() {
+    var searchInput = document.getElementById('script-search');
+    var typeFilter = document.getElementById('type-filter');
+    var scriptCount = document.getElementById('script-count');
+
+    if (!searchInput || !typeFilter) return;
+
+    var searchTerm = searchInput.value.toLowerCase();
+    var typeFilterValue = typeFilter.value;
+
+    // Check if there's an active search or filter
+    var hasActiveSearch = searchTerm.length > 0;
+    var hasActiveFilter = typeFilterValue !== 'all';
+    var isFiltering = hasActiveSearch || hasActiveFilter;
+
+    // Show/hide script count based on filtering state
+    if (scriptCount) {
+      if (isFiltering) {
+        scriptCount.classList.add('show');
+      } else {
+        scriptCount.classList.remove('show');
+      }
+    }
+
+    // Filter scripts
+    var filteredScripts = allScripts.filter(function(script) {
+      var matchesSearch = script.name.toLowerCase().includes(searchTerm);
+      var matchesType = typeFilterValue === 'all' || script.type === typeFilterValue;
+      return matchesSearch && matchesType;
+    });
+
+    // Sort scripts
+    filteredScripts.sort(function(a, b) {
+      var nameA = a.name.toLowerCase();
+      var nameB = b.name.toLowerCase();
+      if (currentSort === 'asc') {
+        return nameA.localeCompare(nameB);
+      } else {
+        return nameB.localeCompare(nameA);
+      }
+    });
+
+    displayFilteredScripts(filteredScripts);
+
+    // Update results count when filtering
+    if (isFiltering) {
+      updateResultsCount(filteredScripts.length);
+    }
   }
-}
 
-function copyCommand(url, prefix, postfix) {
-  const command = `${prefix} "${url}" | ${postfix}`;
+  function displayFilteredScripts(filteredScripts) {
+    var container = document.getElementById('scripts-container');
+    var noResults = document.getElementById('no-results');
+    var sections = document.querySelectorAll('.script-type-section');
 
-  if (debounceTimeout) clearTimeout(debounceTimeout);
+    if (!container || !noResults) return;
 
-  document.querySelectorAll('.dropdown-content.show').forEach(content => {
-    content.classList.remove('show');
-    const parentDropdown = content.closest('.python-dropdown');
-    if (parentDropdown) parentDropdown.classList.remove('active');
-  });
+    // Hide all sections and scripts
+    sections.forEach(function(section) {
+      section.classList.add('hide');
+    });
+    allScripts.forEach(function(script) {
+      script.element.classList.add('hide');
+    });
 
-  navigator.clipboard.writeText(command).then(() => {
-    const notification = document.getElementById('copy-notification');
-    if (notification) {
-      notification.textContent = 'Command copied to clipboard';
-      notification.style.display = 'block';
-      notification.classList.add('show');
-      notification.focus();
-      debounceTimeout = setTimeout(() => {
-        notification.style.display = 'none';
-        notification.classList.remove('show');
-      }, 2000);
+    if (filteredScripts.length === 0) {
+      noResults.classList.remove('hide');
+      return;
     }
-  }).catch(() => {
-    const notification = document.getElementById('copy-notification');
-    if (notification) {
-      notification.textContent = 'Failed to copy command';
-      notification.style.display = 'block';
-      notification.classList.add('show');
-      debounceTimeout = setTimeout(() => {
-        notification.style.display = 'none';
-        notification.classList.remove('show');
-      }, 3000);
-    }
-  });
-}
 
-function toggleDropdown(button) {
-  const dropdownContent = button.nextElementSibling;
-  const dropdown = button.closest('.python-dropdown');
-  
-  document.querySelectorAll('.dropdown-content').forEach(content => {
-    if (content !== dropdownContent) {
+    noResults.classList.add('hide');
+
+    // Group filtered scripts by type
+    var scriptsByType = {};
+    filteredScripts.forEach(function(script) {
+      if (!scriptsByType[script.type]) {
+        scriptsByType[script.type] = [];
+      }
+      scriptsByType[script.type].push(script);
+    });
+
+    // Show sections in the original order
+    var orderedTypes = ['linux', 'windows', 'python'];
+    orderedTypes.forEach(function(type) {
+      if (scriptsByType[type]) {
+        var section = document.querySelector('.script-type-section[data-type="' + type + '"]');
+        if (section) {
+          section.classList.remove('hide');
+
+          var grid = section.querySelector('.related-wrapper');
+          if (grid) {
+            // Clear and re-populate in sorted order
+            while (grid.firstChild) {
+              grid.removeChild(grid.firstChild);
+            }
+
+            scriptsByType[type].forEach(function(script) {
+              script.element.classList.remove('hide');
+              grid.appendChild(script.element);
+            });
+          }
+        }
+      }
+    });
+  }
+
+  // ============================================
+  // Sort Toggle
+  // ============================================
+  function toggleSort() {
+    // Toggle sort direction
+    currentSort = currentSort === 'asc' ? 'desc' : 'asc';
+
+    var sortButton = document.getElementById('sort-toggle');
+    if (sortButton) {
+      updateSortButtonDisplay(sortButton);
+    }
+
+    filterAndSortScripts();
+  }
+
+  function updateSortButtonDisplay(sortButton) {
+    var iconImg = sortButton.querySelector('.svg-icon');
+    var iconName = currentSort === 'asc' ? 'arrow-up-16' : 'arrow-down-16';
+    var labelText = currentSort === 'asc' ? 'A-Z' : 'Z-A';
+
+    // Update icon src if it exists
+    if (iconImg) {
+      var currentSrc = iconImg.getAttribute('src') || '';
+      var newSrc = currentSrc.replace(/arrow-(up|down)-16\.svg/, iconName + '.svg');
+      iconImg.setAttribute('src', newSrc);
+    }
+
+    // Clear all content and rebuild in correct order: icon first, then text
+    // Store reference to icon before clearing
+    var iconClone = iconImg ? iconImg.cloneNode(true) : null;
+
+    // Clear button content
+    while (sortButton.firstChild) {
+      sortButton.removeChild(sortButton.firstChild);
+    }
+
+    // Add icon first (before text)
+    if (iconClone) {
+      sortButton.appendChild(iconClone);
+    }
+
+    // Add space and label text after icon
+    sortButton.appendChild(document.createTextNode(' ' + labelText));
+  }
+
+  function updateResultsCount(count) {
+    var resultsCount = document.getElementById('results-count');
+    if (resultsCount) {
+      resultsCount.textContent = count !== null && count !== undefined ? count : allScripts.length;
+    }
+  }
+
+  // ============================================
+  // Dropdown Management
+  // ============================================
+  function closeAllDropdowns() {
+    document.querySelectorAll('.dropdown-content.show').forEach(function(content) {
       content.classList.remove('show');
-      const parentDropdown = content.closest('.python-dropdown');
+      var parentDropdown = content.closest('.python-dropdown');
       if (parentDropdown) {
         parentDropdown.classList.remove('active');
       }
-    }
-  });
-  
-  if (dropdown) {
-    dropdown.classList.toggle('active');
+    });
   }
-  dropdownContent.classList.toggle('show');
-}
 
-function redirectToGitHub(cardElement) {
-  const scriptUrl = cardElement.dataset.scriptUrl;
-  const scriptName = cardElement.dataset.name;
-  
-  const githubBaseUrl = 'https://github.com/EdoardoTosin/tools/blob/main/script/';
-  const githubRawUrl = githubBaseUrl + scriptName;
-  
-  window.open(githubRawUrl, '_blank');
-}
+  function toggleDropdown(button) {
+    var dropdownContent = button.nextElementSibling;
+    var dropdown = button.closest('.python-dropdown');
 
-function downloadScript(scriptUrl, filename) {
-  // Create a temporary notification
-  const notification = document.getElementById('copy-notification');
-  if (notification) {
-    notification.textContent = 'Downloading script...';
+    if (!dropdownContent) return;
+
+    var isCurrentlyOpen = dropdownContent.classList.contains('show');
+
+    // Close all dropdowns first
+    closeAllDropdowns();
+
+    // If it was closed, open it; if it was open, it stays closed
+    if (!isCurrentlyOpen) {
+      dropdownContent.classList.add('show');
+      if (dropdown) {
+        dropdown.classList.add('active');
+      }
+    }
+  }
+
+  // ============================================
+  // Copy Command
+  // ============================================
+  function copyCommand(url, prefix, postfix) {
+    var command = prefix + " '" + url + "' | " + postfix;
+
+    // Clear any existing timeout
+    if (debounceTimeout) {
+      clearTimeout(debounceTimeout);
+      debounceTimeout = null;
+    }
+
+    // Close any open dropdowns
+    closeAllDropdowns();
+
+    // Try modern Clipboard API first
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(command).then(function() {
+        showNotification('Command copied to clipboard', false);
+      }).catch(function() {
+        fallbackCopyToClipboard(command);
+      });
+    } else {
+      fallbackCopyToClipboard(command);
+    }
+  }
+
+  function fallbackCopyToClipboard(text) {
+    var textArea = document.createElement('textarea');
+    textArea.value = text;
+    textArea.style.position = 'fixed';
+    textArea.style.left = '-999999px';
+    textArea.style.top = '-999999px';
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+
+    try {
+      var successful = document.execCommand('copy');
+      if (successful) {
+        showNotification('Command copied to clipboard', false);
+      } else {
+        showNotification('Failed to copy command', true);
+      }
+    } catch (err) {
+      showNotification('Failed to copy command', true);
+    }
+
+    document.body.removeChild(textArea);
+  }
+
+  // ============================================
+  // Notifications
+  // ============================================
+  function showNotification(message, isError) {
+    var notification = document.getElementById('copy-notification');
+    if (!notification) return;
+
+    // Clear any existing timeout
+    if (debounceTimeout) {
+      clearTimeout(debounceTimeout);
+    }
+
+    notification.textContent = message;
     notification.style.display = 'block';
     notification.classList.add('show');
+
+    if (isError) {
+      notification.style.background = 'var(--copy-notification-bg-error)';
+    } else {
+      notification.style.background = '';
+    }
+
+    debounceTimeout = setTimeout(function() {
+      notification.style.display = 'none';
+      notification.classList.remove('show');
+      notification.style.background = '';
+    }, isError ? 3000 : 2000);
   }
-  
-  // Use the same GitHub raw URL pattern as the redirect function
-  const githubBaseUrl = 'https://raw.githubusercontent.com/EdoardoTosin/tools/refs/heads/main/script/';
-  const githubRawUrl = githubBaseUrl + filename;
-  
-  fetch(githubRawUrl)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`Failed to fetch script: ${response.status}`);
-      }
-      return response.blob();
-    })
-    .then(blob => {
-      // Create download link
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.style.display = 'none';
-      a.href = url;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      window.URL.revokeObjectURL(url);
-      document.body.removeChild(a);
-      
-      // Show success notification
-      if (notification) {
-        notification.textContent = 'Script downloaded successfully!';
-        setTimeout(() => {
-          notification.style.display = 'none';
-          notification.classList.remove('show');
-        }, 2000);
-      }
-    })
-    .catch(error => {
-      console.error('Download failed:', error);
-      // Show error notification
-      if (notification) {
-        notification.textContent = 'Download failed. Please try again.';
-        notification.style.background = 'var(--copy-notification-bg-error)';
-        setTimeout(() => {
-          notification.style.display = 'none';
-          notification.classList.remove('show');
-          notification.style.background = 'var(--copy-notification-bg)';
-        }, 3000);
-      }
-    });
-}
+
+  // ============================================
+  // Download Script
+  // ============================================
+  function downloadScript(url, filename) {
+    showNotification('Downloading script...', false);
+
+    // Construct GitHub raw URL
+    var githubBaseUrl = 'https://raw.githubusercontent.com/EdoardoTosin/tools/refs/heads/main/script/';
+    var githubRawUrl = githubBaseUrl + filename;
+
+    fetch(githubRawUrl)
+      .then(function(response) {
+        if (!response.ok) {
+          throw new Error('Failed to fetch script: ' + response.status);
+        }
+        return response.blob();
+      })
+      .then(function(blob) {
+        var downloadUrl = window.URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = downloadUrl;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(downloadUrl);
+        document.body.removeChild(a);
+
+        showNotification('Script downloaded successfully!', false);
+      })
+      .catch(function(error) {
+        console.error('Download failed:', error);
+        showNotification('Download failed. Please try again.', true);
+      });
+  }
+
+  // ============================================
+  // Redirect to GitHub
+  // ============================================
+  function redirectToGitHub(cardElement) {
+    var scriptName = cardElement.dataset.name;
+    if (!scriptName) return;
+
+    var githubBaseUrl = 'https://github.com/EdoardoTosin/tools/blob/main/script/';
+    var githubUrl = githubBaseUrl + scriptName;
+
+    window.open(githubUrl, '_blank', 'noopener,noreferrer');
+  }
+
+  // ============================================
+  // Expose functions globally for any external use
+  // ============================================
+  window.ToolsPage = {
+    copyCommand: copyCommand,
+    downloadScript: downloadScript,
+    toggleDropdown: toggleDropdown,
+    redirectToGitHub: redirectToGitHub,
+    filterAndSortScripts: filterAndSortScripts
+  };
+
+})();

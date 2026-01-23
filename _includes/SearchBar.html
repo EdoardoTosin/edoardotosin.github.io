@@ -20,7 +20,7 @@
     <div class="control">
       <input class="input is-medium{% if search_data != '' %} {{ search_data }}{% endif %}" type="text" placeholder="{{search_placeholder}} ..." id="search-input" autocomplete="off" aria-label="{{aria_label}}" aria-describedby="search-results" aria-expanded="false" aria-haspopup="listbox">
       <span class="icon is-left has-text-grey">
-        <img src="{{ '/assets/img/icons/search-16.svg' | relative_url }}" alt="" width="20" height="20">
+        {% include Icon.html name="search-16" size="20" %}
       </span>
     </div>
     <div id="search-results" class="search-results" role="listbox" aria-live="polite"></div>

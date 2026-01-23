@@ -55,7 +55,7 @@
         <div class="control has-icons-left is-expanded">
           <input class="input is-medium" type="text" id="script-search" placeholder="Search scripts..." autocomplete="off" />
           <span class="icon is-left has-text-grey">
-            {% include Icon.html name="search" size="20" %}
+            {% include Icon.html name="search-16" size="20" %}
           </span>
         </div>
       </div>
@@ -71,7 +71,7 @@
       </select>
       
       <button id="sort-toggle" class="sort-button" title="Toggle sort order">
-        {% include Icon.html name="order-up" size="16" %} A-Z
+        {% include Icon.html name="arrow-up-16" size="16" %} A-Z
       </button>
     </div>
   </div>
@@ -114,10 +114,10 @@
                             aria-haspopup="true"
                             aria-expanded="false">
                       <span class="button-icon">
-                        {% include Icon.html name="clipboard" size="16" %}
+                        {% include Icon.html name="copy-16" size="16" %}
                       </span> Copy Command
                       <span class="dropdown-arrow">
-                        {% include Icon.html name="chevron-down" size="12" %}
+                        {% include Icon.html name="chevron-down-12" size="12" %}
                       </span>
                     </button>
                     <div class="dropdown-content" role="menu">
@@ -154,7 +154,7 @@
                           title="Click to copy command: &quot;{{ prefix_linux }} '{{ github_script_url }}' | {{ postfix_linux }}&quot;" 
                           aria-label="Copy Linux command">
                     <span class="button-icon">
-                      {% include Icon.html name="clipboard" size="16" %}
+                      {% include Icon.html name="copy-16" size="16" %}
                     </span> Copy Command
                   </button>
                 {%- elsif ordered_type == "windows" -%}
@@ -166,7 +166,7 @@
                           title="Click to copy command: &quot;{{ prefix_win }} '{{ github_script_url }}' | {{ postfix_win }}&quot;" 
                           aria-label="Copy Windows command">
                     <span class="button-icon">
-                      {% include Icon.html name="clipboard" size="16" %}
+                      {% include Icon.html name="copy-16" size="16" %}
                     </span> Copy Command
                   </button>
                 {%- endif -%}
@@ -178,7 +178,7 @@
                         title="Download script file"
                         aria-label="Download {{ file.name }}">
                   <span class="button-icon">
-                    {% include Icon.html name="download" size="16" %}
+                    {% include Icon.html name="download-16" size="16" %}
                   </span> Download Script
                 </button>
               </div>
@@ -194,7 +194,7 @@
 <div id="no-results" class="centre-title hide">
   <div class="section">
     <span class="no-results-icon large">
-      {% include Icon.html name="search" size="48" %}
+      {% include Icon.html name="search-16" size="20" %}
     </span>
     <h3>No scripts found</h3>
     <p class="excerpt">Try adjusting your search terms or filters</p>
@@ -204,4 +204,4 @@
 <div id="copy-notification" role="alert" aria-live="assertive" tabindex="-1">Command copied to clipboard!</div>
 
 <link href="{{ site.baseurl }}/assets/css/tools.css" rel="stylesheet" media="all" class="default" />
-<script src="{{ site.baseurl }}/assets/js/tools-handlers.js" defer {{ "/assets/js/tools-handlers.js" | sri_attrs }}></script>
+<script src="{{ site.baseurl }}/assets/js/tools.js" defer {{ "/assets/js/tools.js" | sri_attrs }}></script>

@@ -24,6 +24,10 @@ html[data-theme="light"] {
     --copy-notification-bg-error: #b82368;
     --search-icon-filter: invert(0.4);
     --search-icon-filter-hover: invert(0.2) sepia(1) saturate(3) hue-rotate(200deg);
+    /* Icon filter variables for external SVG theming */
+    --icon-filter: brightness(0) saturate(100%) invert(14%) sepia(6%) saturate(1057%) hue-rotate(201deg) brightness(95%) contrast(91%);
+    --icon-filter-inverted: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(103%) contrast(103%);
+    --icon-filter-muted: brightness(0) saturate(100%) invert(38%) sepia(5%) saturate(746%) hue-rotate(201deg) brightness(94%) contrast(87%);
 }
 
 html[data-theme="dark"] {
@@ -44,6 +48,10 @@ html[data-theme="dark"] {
     --copy-notification-bg-error: #871a4d;
     --search-icon-filter: invert(0.7);
     --search-icon-filter-hover: invert(0.6) sepia(1) saturate(2) hue-rotate(200deg);
+    /* Icon filter variables for external SVG theming */
+    --icon-filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(103%) contrast(103%);
+    --icon-filter-inverted: brightness(0) saturate(100%) invert(14%) sepia(6%) saturate(1057%) hue-rotate(201deg) brightness(95%) contrast(91%);
+    --icon-filter-muted: brightness(0) saturate(100%) invert(70%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(90%);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -67,6 +75,10 @@ html[data-theme="dark"] {
         --copy-notification-bg-error: #871a4d;
         --search-icon-filter: invert(0.7);
         --search-icon-filter-hover: invert(0.6) sepia(1) saturate(2) hue-rotate(200deg);
+        /* Icon filter variables for external SVG theming */
+        --icon-filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(103%) contrast(103%);
+        --icon-filter-inverted: brightness(0) saturate(100%) invert(14%) sepia(6%) saturate(1057%) hue-rotate(201deg) brightness(95%) contrast(91%);
+        --icon-filter-muted: brightness(0) saturate(100%) invert(70%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(90%);
     }
 
     html[data-theme="light"] {
@@ -87,6 +99,10 @@ html[data-theme="dark"] {
         --copy-notification-bg-error: #b82368;
         --search-icon-filter: invert(0.4);
         --search-icon-filter-hover: invert(0.2) sepia(1) saturate(3) hue-rotate(200deg);
+        /* Icon filter variables for external SVG theming */
+        --icon-filter: brightness(0) saturate(100%) invert(14%) sepia(6%) saturate(1057%) hue-rotate(201deg) brightness(95%) contrast(91%);
+        --icon-filter-inverted: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(103%) contrast(103%);
+        --icon-filter-muted: brightness(0) saturate(100%) invert(38%) sepia(5%) saturate(746%) hue-rotate(201deg) brightness(94%) contrast(87%);
     }
 }
 
@@ -107,6 +123,10 @@ html[data-theme="dark"] {
         --button-bg-color: #212529 !important;
         --button-text-color: #fff !important;
         --search-icon-filter: invert(0.4) !important;
+        /* Icon filter variables for external SVG theming */
+        --icon-filter: brightness(0) saturate(100%) invert(14%) sepia(6%) saturate(1057%) hue-rotate(201deg) brightness(95%) contrast(91%) !important;
+        --icon-filter-inverted: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(103%) contrast(103%) !important;
+        --icon-filter-muted: brightness(0) saturate(100%) invert(38%) sepia(5%) saturate(746%) hue-rotate(201deg) brightness(94%) contrast(87%) !important;
         
         background-color: #FFFFFF !important;
         color: #282832 !important;

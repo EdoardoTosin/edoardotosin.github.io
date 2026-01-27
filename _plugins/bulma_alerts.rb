@@ -13,18 +13,22 @@
 module Jekyll
   module BulmaAlerts
     HOOK_PRIORITY = 10
-    ICONS_PATH = 'assets/img/icons'
+
+    DEFAULTS = {
+      emoji: true,
+      monochrome: false
+    }.freeze
 
     ALERT_TYPES = {
-      'NOTE'      => { bulma_class: 'is-info', icon_file: 'info-16.svg', title: 'Note' },
-      'TIP'       => { bulma_class: 'is-success', icon_file: 'light-bulb-16.svg', title: 'Tip' },
-      'IMPORTANT' => { bulma_class: 'is-warning', icon_file: 'report-16.svg', title: 'Important' },
-      'WARNING'   => { bulma_class: 'is-warning', icon_file: 'alert-16.svg', title: 'Warning' },
-      'CAUTION'   => { bulma_class: 'is-danger', icon_file: 'stop-16.svg', title: 'Caution' }
+      'NOTE'      => { bulma_class: 'is-info', emoji: 'ℹ️', title: 'Note' },
+      'TIP'       => { bulma_class: 'is-success', emoji: '💡', title: 'Tip' },
+      'IMPORTANT' => { bulma_class: 'is-warning', emoji: '📌', title: 'Important' },
+      'WARNING'   => { bulma_class: 'is-warning', emoji: '⚠️', title: 'Warning' },
+      'CAUTION'   => { bulma_class: 'is-danger', emoji: '⛔', title: 'Caution' }
     }.freeze
 
     TITLE_STYLE = 'display:flex;align-items:center;font-weight:600;margin-bottom:0.5rem'.freeze
-    ICON_STYLE  = 'width:1.25em;height:1.25em;margin-right:0.5em;fill:currentColor'.freeze
+    EMOJI_STYLE = 'font-size:1em;line-height:1;display:inline-flex;align-items:center;margin-right:0.5em;filter: drop-shadow(0.05em 0.05em 0.1em #000);'.freeze
 
     MODERN_ALERT_RE = /^\s*>\s*\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]\s*$/i.freeze
     LEGACY_ALERT_RE = /^\s*>\s*\*\*(Note|Tip|Important|Warning|Caution)\*\*\s*$/i.freeze
@@ -35,8 +39,10 @@ module Jekyll
       def initialize(site)
         @site = site
         @markdown = site.find_converter_instance(Jekyll::Converters::Markdown) rescue nil
-        @icons = {}
-        @icons_path = File.join(site.source, ICONS_PATH)
+
+        cfg = site.config.fetch('bulma_alerts', {})
+        @emoji_enabled = cfg.fetch('emoji', DEFAULTS[:emoji])
+        @monochrome    = cfg.fetch('monochrome', DEFAULTS[:monochrome])
       end
 
       def convert(content)
@@ -53,7 +59,7 @@ module Jekyll
             alert_lines, consumed = collect_lines(lines, i)
             html = build_notification(alert, alert_lines)
 
-            result << "\n" unless result.empty? || result.last&.strip&.empty?
+            result << "\n" unless result.empty? || result.last.strip.empty?
             result << html << "\n"
             i += consumed
           else
@@ -69,11 +75,9 @@ module Jekyll
 
       def detect_alert(line)
         if (m = line.match(MODERN_ALERT_RE))
-          type = m[1].upcase
-          { config: ALERT_TYPES[type], legacy: false }
+          { config: ALERT_TYPES[m[1].upcase], legacy: false }
         elsif (m = line.match(LEGACY_ALERT_RE))
-          type = m[1].upcase
-          { config: ALERT_TYPES[type], legacy: true }
+          { config: ALERT_TYPES[m[1].upcase], legacy: true }
         end
       end
 
@@ -109,32 +113,35 @@ module Jekyll
         cfg = alert[:config]
         body = extract_body(lines, alert[:legacy])
         body_html = @markdown ? @markdown.convert(body).strip : "<p>#{body}</p>"
-        icon = load_icon(cfg[:icon_file])
+
+        emoji = render_emoji(cfg)
 
         <<~HTML
           <div class="notification #{cfg[:bulma_class]}" role="alert">
-          <p class="notification-title" style="#{TITLE_STYLE}">#{icon}<strong>#{cfg[:title]}</strong></p>
-          #{body_html}
+            <p class="notification-title" style="#{TITLE_STYLE}">
+              #{emoji}<strong>#{cfg[:title]}</strong>
+            </p>
+            #{body_html}
           </div>
         HTML
       end
 
       def extract_body(lines, legacy)
         start = legacy ? 0 : 1
-        lines[start..].map { |l| l.match(CONTENT_RE)&.[](1) || '' }.join("\n").strip
+
+        (lines[start..] || []).map do |l|
+          m = CONTENT_RE.match(l)
+          m ? m[1] : ''
+        end.join("\n").strip
       end
 
-      def load_icon(filename)
-        return @icons[filename] if @icons.key?(filename)
+      def render_emoji(cfg)
+        return '' unless @emoji_enabled
 
-        path = File.join(@icons_path, filename)
-        return (@icons[filename] = '') unless File.exist?(path)
+        style = EMOJI_STYLE.dup
+        style << ';filter:grayscale(1)' if @monochrome
 
-        svg = File.read(path).strip
-                  .gsub(/\s*(width|height)="[^"]*"/, '')
-                  .sub(/<svg/, %(<svg style="#{ICON_STYLE}"))
-
-        @icons[filename] = svg
+        %(<span aria-hidden="true" style="#{style}">#{cfg[:emoji]}</span>)
       end
     end
 

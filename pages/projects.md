@@ -3,7 +3,7 @@ permalink: /projects
 layout: Post
 content-type: static
 title: Projects Portfolio
-description: "Collection of personal projects published on Github, including CLI-based games, image conversion tool, and more. This webpage provides links to each project."
+description: "Explore coding projects, including open-source software, tools, and practical examples in development and security."
 ---
 
 <br>

@@ -99,12 +99,12 @@ plugins:
 ## Enable Collections
 ## Suggested collects are "notes" "lists" and "blog"
 collections:
-    notes:
-      output: true
-      permalink: /note/:title
-    tags:
-      output: true
-      permalink: /notes/:path
+  notes:
+    output: true
+    permalink: /note/:slug
+  tags:
+    output: true
+    permalink: /tags/:path
 
 markdown: kramdown
 
@@ -124,14 +124,13 @@ defaults:
       type: posts
     values:
       layout: Post
-      permalink: /post/:title
+      permalink: /post/:slug
       content-type: post
   - scope:
       path: ""
       type: notes
     values:
       layout: Post
-      permalink: /note/:title
       content-type: note
 
 # Robots.txt

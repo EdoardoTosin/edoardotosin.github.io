@@ -120,14 +120,12 @@ sass:
 
 defaults:
   - scope:
-      path: ""
       type: posts
     values:
       layout: Post
       permalink: /post/:slug
       content-type: post
   - scope:
-      path: ""
       type: notes
     values:
       layout: Post

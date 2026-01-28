@@ -940,8 +940,9 @@ hr {
 }
 
 .svg-doc {
-    padding-right: 2px;
-    stroke: var(--color-text-sub) !important;
+    height: 1.75em;
+    width: 1.75em;
+    padding-right: 0.5em;
 }
 
 .search-result:hover>.svg-doc,

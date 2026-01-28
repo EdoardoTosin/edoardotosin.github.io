@@ -1,5 +1,5 @@
 # Auto-generated SRI (Subresource Integrity) hashes
-# Generated: 2026-01-23
+# Generated: 2026-01-28
 # Do not edit manually
 
 ---
@@ -10,7 +10,7 @@ assets/js/Hamburger.js:
   integrity: sha512-cxvd/gvXSuOsawCjUte10SOYPiOOq2tkqnYqsj/Y7/pEaqPtUUVmW1JP6F/BL8qxljplZ1FFzS1Ue1VD2BU+pg==
   crossorigin: anonymous
 assets/js/Search.js:
-  integrity: sha512-50P1F5VoSHsAmZo5+oBrh5Op/x58l9IdqL1WtnWsjNW5smV40r3u64k2VjOJJJR0qhN9MLKzsQHMXlUhLM3gsg==
+  integrity: sha512-dKmihy9ao0vVKyuylt34sy+8ZP57naeiiY20N2Ab0FvRKWn0SJJZZTBx601WQw0bbv10e9LrQ5MWARh/rHMvGw==
   crossorigin: anonymous
 assets/js/back-button.js:
   integrity: sha512-Wf1+OSKZZ7XJLynW4ai1DWbRzBXCOAQahxEZiJyOtaCTUibtTy9Oa06lsC89NCtPQ4tFHUYUIb0axazbOzhVsw==

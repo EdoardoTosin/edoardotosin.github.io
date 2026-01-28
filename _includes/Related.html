@@ -31,7 +31,7 @@
 {%- endcomment -%}
 
 <!-- Add related posts and notes to the current page -->
-{%- if page.content-type == "post" or page.content-type == "notes" -%}
+{%- if page.content-type == "post" or page.content-type == "note" -%}
   {%- assign sameTagCount = 0 -%}
   {%- assign minCommonTags =  1 -%}
   {%- assign relatedItems = site.posts | concat: site.notes -%} <!-- Combine posts and notes -->

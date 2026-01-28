@@ -132,7 +132,7 @@ defaults:
     values:
       layout: Post
       permalink: /note/:title
-      content-type: notes
+      content-type: note
 
 # Robots.txt
 robots:

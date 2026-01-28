@@ -62,7 +62,7 @@
     
     {%- assign homepage_path = "/" -%}
     {%- assign posts_path = "/posts" -%}
-    {%- assign notes_type = "notes" -%}
+    {%- assign note_type = "note" -%}
     {%- assign post_type = "post" -%}
     {%- assign static_type = "static" -%}
     {%- assign wide_column = "is-6-widescreen is-8-desktop is-8-tablet is-12-mobile" -%}
@@ -116,7 +116,7 @@
             </div>
 
             <!--- Notes and Post Layout -->
-            {%- elsif page.content-type == notes_type or page.content-type == post_type -%}
+            {%- elsif page.content-type == note_type or page.content-type == post_type -%}
             <div class="column {{ narrow_column }}">
                     <div class="note-page-section">
                         <div class="meta-head">
@@ -132,7 +132,7 @@
                         </div>
                         
                     <!--- List type Note Layout styling -->
-                    {%- if page.content-type == notes_type and page.format == "list" -%}
+                    {%- if page.content-type == note_type and page.format == "list" -%}
                     <style>
                         li {border-bottom: 1px solid var(--color-border-light); list-style: none; padding: 0.4rem 0 0.4rem 0;}
                         .content ul { padding-left: 0px;}

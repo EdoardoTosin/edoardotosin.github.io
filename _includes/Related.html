@@ -30,65 +30,53 @@
 *
 {%- endcomment -%}
 
-<!-- Add related posts and notes to the current page -->
-{%- if page.content-type == "post" or page.content-type == "note" -%}
-  {%- assign sameTagCount = 0 -%}
-  {%- assign minCommonTags =  1 -%}
-  {%- assign relatedItems = site.posts | concat: site.notes -%} <!-- Combine posts and notes -->
-  {%- for item in relatedItems -%}
-    {%- for tag in item.tags -%}
-      {%- if item.url != page.url -%}
-        {%- if page.tags contains tag -%}
-          {%- unless item.content contains page.title -%}
-            {%- assign sameTagCount = sameTagCount | plus: 1 -%}
-          {%- endunless -%}
-        {%- endif -%}
-      {%- endif -%}
-    {%- endfor -%}
-  {%- endfor -%}
+<!-- Related posts and notes -->
+{%- assign relatedItems = site.posts | concat: site.notes -%}
+{%- assign maxRelated = 8 -%}
+{%- assign counter = 0 -%}
 
-  {%- if sameTagCount >= minCommonTags -%}
-    {%- assign display_class = 'hide' -%}
-    {%- if site.preferences.related.enabled -%}
-      {%- assign display_class = 'show' -%}
+{%- assign filteredItems = "" | split: "" -%}
+
+{%- for item in relatedItems -%}
+  {%- if item.url != page.url and item.tags and page.tags -%}
+    {%- assign commonTags = item.tags | where_exp: "tag", "page.tags contains tag" -%}
+    {%- if commonTags.size > 0 -%}
+      {%- assign filteredItems = filteredItems | push: item -%}
     {%- endif -%}
-    <div class="related {{display_class}} no-print" id="jekyll-seamless-relatedposts" role="complementary" aria-labelledby="related-heading">
-      <h5 class="block-title no-print">Similar Content</h5>
-      <div class="related-wrapper no-print" role="navigation" aria-label="Related content navigation">
-        {%- assign maxRelated = 8 -%}
-        {%- assign minCommonTags =  1 -%}
-        {%- assign maxRelatedCounter = 0 -%}
-        {%- for item in relatedItems -%}
-          {%- assign sameTagCount = 0 -%}
-          {%- assign commonTags = '' -%}
-          {%- for tag in item.tags -%}
-            {%- if item.url != page.url -%}
-              {%- if page.tags contains tag -%}
-                {%- unless item.content contains page.title -%}
-                  {%- assign sameTagCount = sameTagCount | plus: 1 -%}
-                  {%- capture tagmarkup -%} <span class="label label-default">{{ tag }}</span> {%- endcapture -%}
-                  {%- assign commonTags = commonTags | append: tagmarkup -%}
-                {%- endunless -%}
-              {%- endif -%}
-            {%- endif -%}
-          {%- endfor -%}
-          {%- if sameTagCount >= minCommonTags -%}
-            <div class="related-group no-print">
-              <a class="no-external-link-icon" href="{{ item.url | absolute_url }}" aria-describedby="related-{{ maxRelatedCounter }}-excerpt">
-                <h6>{{ item.title }}</h6>
-                <p class="excerpt" style="margin: 0px; color: var(--color-text-main) !important;">
-                  {{ item.content | strip_html | strip | remove: "[[" | remove: "]]" | remove: "-" | escape | truncate: 100 }}
-                </p>
-              </a>
-            </div>
-            {%- assign maxRelatedCounter = maxRelatedCounter | plus: 1 -%}
-            {%- if maxRelatedCounter >= maxRelated -%}
-              {%- break -%}
-            {%- endif -%}
-          {%- endif -%}
-        {%- endfor -%}
-      </div>
-      <br/>
-    </div>
   {%- endif -%}
+{%- endfor -%}
+
+{%- if filteredItems.size > 0 and site.preferences.related.enabled -%}
+  <div class="related show no-print" id="jekyll-seamless-relatedposts" role="complementary" aria-labelledby="related-heading">
+    <h5 class="block-title no-print">Similar Content</h5>
+    <div class="related-wrapper no-print" role="navigation" aria-label="Related content navigation">
+
+      {%- for item in filteredItems -%}
+        {%- if counter >= maxRelated -%} {%- break -%} {%- endif -%}
+
+        {%- assign rendered_content = item.content | markdownify -%}
+        {%- assign excerpt_text = rendered_content
+            | strip_html
+            | strip
+            | replace: "[[", ""
+            | replace: "]]", ""
+            | escape
+            | truncate: 140
+        -%}
+
+        <div class="related-group no-print">
+          <a class="no-external-link-icon" href="{{ item.url | absolute_url }}" aria-describedby="related-{{ counter }}-excerpt">
+            <h6>{{ item.title }}</h6>
+            <p class="excerpt" style="margin:0px; color: var(--color-text-main) !important;">
+              {{ excerpt_text }}
+            </p>
+          </a>
+        </div>
+
+        {%- assign counter = counter | plus: 1 -%}
+      {%- endfor -%}
+
+    </div>
+    <br/>
+  </div>
 {%- endif -%}

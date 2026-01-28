@@ -54,7 +54,9 @@ module Jekyll
         'description' => "List of posts and notes tagged with #{tag_slug}",
         'tag'         => tag_slug,
         'items'       => items,
-        'permalink'   => "/tags/#{tag_slug}/"
+        'permalink'   => "/tags/#{tag_slug}/",
+        'sitemap'     => 'false',
+        'noindex'     => 'true',
       )
     end
   end
@@ -70,7 +72,9 @@ module Jekyll
         'title'       => "All Tags",
         'description' => "List of all tags",
         'tags'        => tags,
-        'permalink'   => "/tags/"
+        'permalink'   => "/tags/",
+        'sitemap'     => 'false',
+        'noindex'     => 'true',
       )
     end
   end

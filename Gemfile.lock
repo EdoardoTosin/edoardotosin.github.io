@@ -77,7 +77,7 @@ GEM
       rainbow (~> 3.0)
     jekyll-watch (2.2.1)
       listen (~> 3.0)
-    json (2.18.0)
+    json (2.18.1)
     katex (0.10.0)
       execjs (~> 2.8)
     kramdown (2.5.2)
@@ -205,7 +205,7 @@ CHECKSUMS
   jekyll-sitemap (1.4.0) sha256=0de08c5debc185ea5a8f980e1025c7cd3f8e0c35c8b6ef592f15c46235cf4218
   jekyll-spaceship (0.10.2) sha256=f0fb49b1a50f745b278378557460d898337bf6b28a9417f1e55825bc11b94b90
   jekyll-watch (2.2.1) sha256=bc44ed43f5e0a552836245a54dbff3ea7421ecc2856707e8a1ee203a8387a7e1
-  json (2.18.0) sha256=b10506aee4183f5cf49e0efc48073d7b75843ce3782c68dbeb763351c08fd505
+  json (2.18.1) sha256=fe112755501b8d0466b5ada6cf50c8c3f41e897fa128ac5d263ec09eedc9f986
   katex (0.10.0) sha256=f17360dd98b7b42288cb35dfa7d405ce9ec7e290c9d8a06d7f0fc8774fbfa6eb
   kramdown (2.5.2) sha256=1ba542204c66b6f9111ff00dcc26075b95b220b07f2905d8261740c82f7f02fa
   kramdown-math-katex (1.0.1) sha256=7119b299fed5ec49b9e2107d18e88f90acf4bbdf1b82a7568fd488790bb04cdc

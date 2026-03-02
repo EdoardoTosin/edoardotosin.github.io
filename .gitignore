@@ -16,8 +16,10 @@ Desktop.ini
 .obsidian/
 
 # Security.txt files
-/.well-known/
-!/.well-known/security.txt
+.well-known/*
+!.well-known/
+!.well-known/security.txt
+!.well-known/unsigned-security.txt
 
 # Project utilities
 /utilities/

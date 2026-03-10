@@ -6,7 +6,7 @@ short_url: sn2023ixf
 date: 2023-05-26 03:00:00 +0200
 last_modified_at: 2024-08-07 16:30:07 +0200
 lang: en
-ogimg: https://live.staticflickr.com/65535/52926129447_b5b2a2e102_h.jpg
+ogimg: https://raw.githubusercontent.com/EdoardoTosin/web-assets/refs/heads/main/Notes/100%20Public/Feed/Astrophotography/Supernova%20in%20the%20Pinwheel%20galaxy.webp
 carousels:
   - id: supernova_photo
     settings:

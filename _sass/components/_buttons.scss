@@ -1,0 +1,202 @@
+@use 'variables' as *;
+
+// Base
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $sp-2;
+  padding: $sp-3 $sp-6;
+  border-radius: $r-full;
+  font-family: $font-sans;
+  font-size: .9375rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: background-color .2s ease, color .2s ease,
+              border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+  text-decoration: none;
+  white-space: nowrap;
+  line-height: 1;
+  min-height: 44px;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+
+  svg { width: 17px; height: 17px; flex-shrink: 0; }
+
+  &:disabled { opacity: .45; cursor: not-allowed; pointer-events: none; }
+
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  // Primary
+  &--primary {
+    background: var(--accent);
+    color: var(--text-on-accent);
+    border-color: var(--accent);
+    box-shadow: var(--glow-accent-sm);
+
+    &:hover {
+      background: var(--accent-dark);
+      border-color: var(--accent-dark);
+      color: var(--text-on-accent);
+      transform: translateY(-2px);
+      box-shadow: var(--glow-accent-md);
+    }
+
+    &:active {
+      background: var(--accent-dark);
+      border-color: var(--accent-dark);
+      transform: translateY(0) scale(.97);
+      box-shadow: none;
+    }
+  }
+
+  // Ghost
+  &--ghost {
+    background: transparent;
+    color: var(--text-primary);
+    border-color: var(--text-secondary);
+
+    &:hover {
+      background: var(--bg-tag);
+      color: var(--text-primary);
+      border-color: var(--text-primary);
+    }
+
+    &:active {
+      background: var(--bg-tag);
+      color: var(--text-primary);
+      border-color: var(--text-secondary);
+      transform: scale(.97);
+      box-shadow: none;
+    }
+  }
+
+  // Outline
+  &--outline {
+    background: transparent;
+    color: var(--accent-text);
+    border-color: var(--accent);
+
+    &:hover {
+      background: var(--accent);
+      color: var(--text-on-accent);
+      transform: translateY(-1px);
+      box-shadow: var(--glow-accent-sm);
+    }
+
+    &:active {
+      background: var(--accent-dark);
+      border-color: var(--accent-dark);
+      color: var(--text-on-accent);
+      transform: scale(.97);
+      box-shadow: none;
+    }
+  }
+
+  // Sizes
+  &--sm {
+    padding: $sp-2 $sp-4;
+    font-size: .8125rem;
+  }
+
+  &--lg {
+    padding: $sp-4 $sp-8;
+    font-size: 1.0625rem;
+  }
+}
+
+// Theme toggle
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: $r-full;
+  border: 1px solid transparent;
+  background: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: $t-fast;
+  flex-shrink: 0;
+  padding: 0;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+
+  svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+  // Icon visibility driven by aria-checked (set by theme.js)
+  .icon-moon               { display: none; }
+  &[aria-checked="true"]  .icon-sun  { display: none; }
+  &[aria-checked="true"]  .icon-moon { display: block; }
+
+  &:hover {
+    border-color: var(--border);
+    background: var(--bg-tag);
+    color: var(--text-secondary);
+  }
+
+  &:active {
+    background: var(--bg-tag);
+    border-color: var(--border-strong);
+    transform: scale(.96);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+}
+
+// Scroll to top
+.scroll-top {
+  position: fixed;
+  bottom: $sp-6;
+  right: $sp-6;
+  z-index: 50;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--text-on-accent);
+  border: none;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--glow-accent-lg);
+  transition: opacity .3s ease, transform .3s ease, box-shadow .3s ease;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+
+  svg { width: 18px; height: 18px; }
+
+  &.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--glow-accent-xl);
+  }
+
+  &:active {
+    transform: translateY(0) scale(.92);
+    box-shadow: var(--glow-accent-sm);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+}

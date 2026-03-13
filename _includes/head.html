@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: 'en' }}" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <meta name="theme-color" id="meta-theme-color" content="#f8fafc">
+  <meta name="color-scheme" content="light dark">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="{{ site.title | truncate: 12, '' }}">
+  <meta name="mobile-web-app-capable" content="yes">
+
+  <script>
+    (function() {
+      const html = document.documentElement;
+      const storedTheme = localStorage.getItem('jekyll-theme');
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+      if (storedTheme === 'dark' || (!storedTheme && prefersDark)) {
+        html.setAttribute('data-theme', 'dark');
+        document.querySelector('meta#meta-theme-color').setAttribute('content', '#0f1117');
+      } else {
+        html.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+
+  <style>
+    html {
+      font-family: 'IBM Plex Sans', system-ui, sans-serif;
+      background-color: #f8fafc;
+      color: #0f172a;
+      transition: background-color .25s ease, color .25s ease;
+    }
+    html[data-theme="dark"] { background-color: #0f1117; color: #f1f5f9; }
+    html.no-transitions * { transition: none !important; }
+
+    @font-face {
+      font-display: swap;
+      font-family: 'IBM Plex Sans';
+      font-style: normal;
+      font-weight: 400;
+      src: url('{{ "/assets/fonts/ibm-plex-sans/ibm-plex-sans-v23-latin-regular.woff2" | relative_url }}') format('woff2');
+    }
+    @font-face {
+      font-display: swap;
+      font-family: 'Outfit';
+      font-style: normal;
+      font-weight: 700;
+      src: url('{{ "/assets/fonts/outfit/outfit-v15-latin-700.woff2" | relative_url }}') format('woff2');
+    }
+    @font-face {
+      font-display: swap;
+      font-family: 'Cascadia Code';
+      font-style: normal;
+      font-weight: 400;
+      src: url('{{ "/assets/fonts/cascadia-code/cascadia-code-v5-latin-regular.woff2" | relative_url }}') format('woff2');
+    }
+  </style>
+
+  <title>
+    {%- if page.title and page.title != "Home" -%}
+      {{ page.title }} - {{ site.title }}
+    {%- else -%}
+      {{ site.title }}
+    {%- endif -%}
+  </title>
+
+  {% include seo.html %}
+
+  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+
+  <link rel="manifest" href="{{ '/manifest.json' | relative_url }}">
+  <link rel="icon" href="{{ '/favicon.ico' | relative_url }}" sizes="any">
+  <link rel="icon" type="image/png" sizes="256x256" href="{{ site.logo | relative_url }}">
+  <link rel="apple-touch-icon" sizes="256x256" href="{{ site.logo | relative_url }}">
+  <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ '/feed.xml' | absolute_url }}">
+
+  {%- if site.social.mastodon and site.social.mastodon != '' -%}
+    <link rel="me" href="{{ site.social.mastodon | escape }}">
+  {%- endif -%}
+  {%- for _ma in site.social.mastodon_also -%}
+    {%- if _ma and _ma != '' -%}
+      <link rel="me" href="{{ _ma | escape }}">
+    {%- endif -%}
+  {%- endfor -%}
+
+  {%- if page.layout == 'post' and page.image -%}
+    <link rel="preload" as="image" href="{{ page.image | relative_url }}" fetchpriority="high">
+  {%- endif -%}
+
+  <script defer src="{{ '/assets/js/theme.js' | relative_url }}"></script>
+  {%- if page.math -%}
+    <link rel="stylesheet" href="{{ '/assets/css/katex.min.css' | relative_url }}">
+    <script defer src="{{ '/assets/js/katex.min.js' | relative_url }}"></script>
+    <script defer src="{{ '/assets/js/auto-render.min.js' | relative_url }}"></script>
+    <script defer src="{{ '/assets/js/katex-init.js' | relative_url }}"></script>
+  {%- endif -%}
+
+  {% if site.google_analytics and site.google_analytics != "" %}
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.google_analytics | escape }}"></script>
+    <script defer src="{{ '/assets/js/analytics.js' | relative_url }}" data-ga-id="{{ site.google_analytics | escape }}"></script>
+  {% endif %}
+
+  {%- if site.data and site.data.topics -%}{%- include topic-styles.html -%}{%- endif -%}
+
+  <meta name="generator" content="Jekyll {{ jekyll.version }}">
+</head>

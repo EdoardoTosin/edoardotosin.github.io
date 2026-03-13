@@ -1,186 +1,210 @@
-# Welcome to Jekyll!
-#
-# This config file is meant for settings that affect your whole blog, values
-# which you are expected to set up once and rarely edit after that. If you find
-# yourself editing this file very often, consider using Jekyll's data files
-# feature for the data you need to update frequently.
-#
-# For technical reasons, this file is *NOT* reloaded automatically when you use
-# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
-#
-# If you need help with YAML syntax, here are some quick references for you:
-# https://learn-the-web.algonquindesign.ca/topics/markdown-yaml-cheat-sheet/#yaml
-# https://learnxinyminutes.com/docs/yaml/
-#
-# Site settings
-# These are used to personalize your new site. If you look in the HTML files,
-# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
-# You can create any custom variable you would like, and they will be accessible
-# in the templates via {{ site.myvariable }}.
+# Site identity
+title:         "Edoardo Tosin"
+description:   "Personal blog on software development, cybersecurity, and open-source systems."
+keywords:      "self-hosting, dns, security, cybersecurity, linux, open source, programming, bug bounty, computer science, astrophotography"
+url:           "https://edoardotosin.com"
+baseurl:       ""
+lang:          "en"
+og_locale:     "en_US"    # Open Graph locale (og:locale). Format: language_TERRITORY
+timezone:      "Europe/Rome"
+repository:    "https://github.com/EdoardoTosin/edoardotosin.github.io"
+logo:          "/favicon.png"
 
-# URL is the base hostname with protocol for your site, eg http://example.com
-url: "https://edoardotosin.com" # the base hostname & protocol for your site, e.g. http://example.com
+# Author
+author:
+  name:              "Edoardo Tosin"
+  bio:               "Focused on software development, security exploration, and open-source projects, with hands-on experience in Linux environments."
+  tagline:           "Software · Security · Open Source"
+  hero_title:        "Hi, I'm Edoardo"
+  hero_subtitle:     "Software & Security"
+  hero_description:  "I build and explore software, documenting practical work in programming, security, Linux, and open-source projects, with the occasional telescope pointed at something far away."
+  avatar:            "/images/avatar.jpg"
+  email:             "edoardotosindev@proton.me"
+  twitter:           "edoardotosin" # Used for jekyll-feed author information
 
-# If you want to install this jekyll in a subpath (eg /digitalgarden) set it here.
-# Else keep it Empty (DON'T PUT /; Keep it empty)
-baseurl: ""
+# Navigation
+header_nav:
+  - title: "Home"
+    url:   "/"
+  - title: "Archive"
+    url:   "/archive/"
+  - title: "Topics"
+    url:   "/topics/"
+  - title: "Projects"
+    url:   "/projects/"
+  - title: "More"
+    children:
+      - title: "Now"
+        url:   "/now/"
+      - title: "About"
+        url:   "/about/"
+      - title: "Contact"
+        url:   "/contact/"
+      - title: "GitHub"
+        url:   "https://github.com/EdoardoTosin"
+        external: true
 
-# Website Header, Description, Footer year and text.
-# If you are deleting this, make sure you remove it from HTML files too
-title: Edoardo Tosin
-heading: Edoardo Tosin # Change this
-content: "CS Odyssey: Tech Insights & Adventures"
-description: "Welcome to my corner of the tech world! I'm Edoardo Tosin, a passionate coder and tech enthusiast. Here, I share my explorations in computer science-coding, cybersecurity, machine learning, and more-documenting insights, experiments, and projects that spark my curiosity and creativity."
-keywords: "computer science, programming, software development, tech blog, coding projects, cybersecurity, data science, machine learning, developer portfolio, code tutorials, personal blog, technology insights, digital experiments, open source, developer notes, coding journey, tech exploration"
-author: Edoardo Tosin
-link:
-    license: "https://creativecommons.org/licenses/by/4.0/"
-    mastodon:
-        - "https://mastodon.social/@edoardotosin"
-        - "https://infosec.exchange/@EdoardoTosin"
-    bluesky: "https://bsky.app/profile/edoardotosin.com"
-    github: "https://github.com/EdoardoTosin"
-    flickr: "https://www.flickr.com/photos/edoardo_tosin/"
+# Footer columns: each entry is a named group with its own `items` list.
+footer_nav:
+  - group: "Menu"
+    items:
+      - title: "Home"
+        url:   "/"
+      - title: "Archive"
+        url:   "/archive/"
+      - title: "Topics"
+        url:   "/topics/"
+      - title: "Projects"
+        url:   "/projects/"
+  - group: "Pages"
+    items:
+      - title: "Now"
+        url:   "/now/"
+      - title: "About"
+        url:   "/about/"
+      - title: "Contact"
+        url:   "/contact/"
+      - title: "GitHub"
+        url:   "https://github.com/EdoardoTosin"
+        external: true
+
 copyright:
   year: 2022
   msg: Contents under CC BY 4.0
+  url: "https://creativecommons.org/licenses/by/4.0/"
 
-twitter: EdoardoTosin
+# Social & contact
+social:
+  mastodon: "https://infosec.exchange/@edoardotosin"
+  mastodon_also:
+    - "https://mastodon.social/@edoardotosin"
+  bluesky:    "https://bsky.app/profile/edoardotosin.com"
+  github:     "https://github.com/EdoardoTosin"
+  #instagram:  "https://instagram.com/yourusername"
+  #youtube:    "https://youtube.com/@yourusername"
+  #linkedin:   "https://linkedin.com/in/yourusername"
 
-ogimg: "/assets/img/OGImg.jpg"
+crypto_keys:
+  pgp_key_id:      "0xB99DC787"
+  pgp_fingerprint: "1C00 582D 5121 0DC8 1516  6D67 D2DA 678D B99D C787"
+  pgp_keyserver:   "https://keys.openpgp.org/search?q=1C00582D51210DC815166D67D2DA678DB99DC787"
 
-timezone: Europe/Rome
+  gpg_key_id:      "0x39614DF0"
+  gpg_fingerprint: "E118 88C2 AC5F 9DA4 EDC4  2299 B1F7 8777 3961 4DF0"
+  gpg_keyserver:   "https://keys.openpgp.org/search?q=E11888C2AC5F9DA4EDC42299B1F7877739614DF0"
 
-lang: en
+# Content defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout:   "post"
+      image:    "/images/social-preview.jpg"
+      comments: true
+      share:    true
+      featured: false
+      video:    false
+      gallery:  false
+  - scope:
+      path: "pages"
+    values:
+      layout: "page"
 
-feed:
-  icon: /assets/img/favicon.png
-  posts_limit: 50
+# Homepage sections
+homepage:
+  enable_blog_toggle: true   # grid/list toggle on the blog feed
+  sticky_sidebar:     true
+  posts_per_page:     4
 
-# Set title and content for private & broken link tooltop
-privatelinks:
-  title: Private or Broken Links
-  msg: The page you're looking for is either not available or private!
+  featured_source: "front_matter"
+  featured_limit:  3
 
-# Theme level preferences
-# To enable set "enabled : true" else, use "enabled:false"
-preferences:
-  search:
-    homepage:
-      enabled: true
-    feed:
-      enabled: true
-  wiki_style_link:
-    enabled: true
-  pagepreview:
-    enabled: true
-  backlinks:
-    enabled: false
-    notes:
-      enabled: true
-    pages:
-      enabled: false
-# To enable a homepage, change the value to true and add content to _includes/Homepage.html
-# If enable : false, notes feed will be as homepage.
-  homepage:
-    limit: 8
-    enabled: true ##If you need a homepage, change this to true and edit _includes/Homepage.html
-  related:
-    enabled: true
+  topics_limit: 6
 
-encoding: utf-8
+  show_topic_clusters: true
 
-# Build settings
-theme: null
-plugins:
-  - jekyll-sitemap
-  - jekyll-spaceship
+  video_source: "front_matter"
+  videos_limit: 3
 
-## Enable Collections
-## Suggested collects are "notes" "lists" and "blog"
-collections:
-  notes:
-    output: true
-    permalink: /note/:slug
-  tags:
-    output: true
-    permalink: /tags/:path
+  gallery_source: "front_matter"
+  gallery_limit:  5
 
-markdown: kramdown
+# Integrations
+newsletter:
+  enabled:      false
+  action_url:   "https://your-mailchimp-list-url"
+  title:        "Subscribe"
+  description:  "Get the latest posts, videos, and updates delivered straight to your inbox."
+  button_text:  "Join Now"
+
+disqus:
+  enabled:   false
+  shortname: "your-disqus-shortname"
+
+google_analytics: ""
+
+url_shortener: ""
+
+# Build
+markdown:    kramdown
+highlighter: rouge
+permalink:   "/blog/:title"
 
 kramdown:
   input: GFM
-  hard_wrap: false
-  math_engine: katex
   smart_quotes: ["apos", "apos", "quot", "quot"]
   syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    block:
+      line_numbers: false
+
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-paginate-v2
+
+pagination:
+  enabled:      true
+  per_page:     6
+  permalink:    "/blog/page/:num/"
+  title:        ":title - page :num"
+  sort_field:   "date"
+  sort_reverse: true
+
+feed:
+  path: feed.xml
+  icon: /images/avatar.jpg
+  logo: /images/social-preview.png
 
 sass:
+  sass_dir: _sass
   style: compressed
+  quiet_deps: true
+  silence_deprecations: [legacy-js-api]
 
-defaults:
-  - scope:
-      type: posts
-    values:
-      layout: Post
-      permalink: /post/:slug
-      content-type: post
-  - scope:
-      type: notes
-    values:
-      layout: Post
-      content-type: note
-
-# Robots.txt
-robots:
-  - user_agent: "*"
-    disallow:
-      - /assets/
-      - /security/
-      - /.well-known/
-      - /SearchData.json
-      - /404
-      - /404.html
-
-# Include it in the processing.
-# The following items will be processed, by default.
 include:
   - .well-known
 
-# Exclude from processing.
-# The following items will not be processed, by default.
-# Any item listed under the `exclude:` key here will be automatically added to
-# the internal "default list".
-#
-# Excluded items can be processed by explicitly listing the directories or
-# their entries' file path in the `include:` list.
-#
 exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - .git
   - .github
   - .gitattributes
   - .gitignore
   - .gitmodules
-  - _notes/000 Inbox/
-  - _notes/200 Private/
-  - _notes/300 Templates/
   - CNAME
   - Dockerfile
   - README.md
   - LICENSE
   - debug.yml
   - docker-compose.yml
-  - blog.code-workspace
-  - utilities/
+  - utilities
+  - docs
   - .well-known/unsigned-security.txt
   - .well-known/unsigned-security.txt.asc
-  - tools/
-#   - .sass-cache/
-#   - .jekyll-cache/
-#   - gemfiles/
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules/
-#   - vendor/bundle/
-#   - vendor/cache/
-#   - vendor/gems/
-#   - vendor/ruby/
+  - blog.code-workspace
+  - tools

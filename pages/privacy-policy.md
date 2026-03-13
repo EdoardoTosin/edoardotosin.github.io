@@ -1,7 +1,6 @@
 ---
-permalink: /privacy-policy
-layout: Post
-content-type: static
+permalink: /privacy-policy/
+layout: page
 title: Privacy Policy
 description: "Information on data collection, usage, and privacy practices for this website."
 date: 2023-03-01

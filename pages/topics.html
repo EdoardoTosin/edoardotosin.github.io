@@ -1,0 +1,70 @@
+---
+layout: default
+title: "Topics"
+description: "Browse all posts by topic. Each topic is a focused area of content."
+permalink: /topics/
+---
+
+<div class="filter-page">
+  <div class="container">
+
+    <div class="filter-page__hero page-hero">
+      <h1 class="page-hero__title">Topics</h1>
+      <p class="page-hero__desc">Every post belongs to exactly one topic. Browse by subject below.</p>
+    </div>
+    {%- assign all_topics = site.posts | map: 'topic' | uniq | compact | sort -%}
+
+    <div class="filter-page__toolbar" role="search" aria-label="Filter topics">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input
+        type="search"
+        id="topic-filter-input"
+        class="filter-page__input"
+        placeholder="Filter topics…"
+        aria-label="Filter topics"
+        autocomplete="off"
+        spellcheck="false">
+    </div>
+
+    <div class="filter-page__cloud" id="topic-cloud-wrap">
+      <div class="filter-page__cloud-inner" id="topic-cloud" aria-label="Topic filter" role="group">
+        <button class="filter-page__btn is-active"
+                aria-pressed="true"
+                data-topic="all">
+          All <span class="count">{{ site.posts | size }}</span>
+        </button>
+
+        {%- for topic in all_topics -%}
+          {%- assign topic_count = site.posts | where: 'topic', topic | size -%}
+          <button
+            class="filter-page__btn"
+            aria-pressed="false"
+            data-topic="{{ topic | downcase | slugify }}"
+            data-label="{{ topic | downcase | escape }}">
+            {{ topic | downcase }}
+            <span class="count">{{ topic_count }}</span>
+          </button>
+        {%- endfor -%}
+      </div>
+    </div>
+
+    <p class="filter-page__meta" id="topic-results-meta" aria-live="polite" aria-atomic="true"></p>
+
+    <section class="filter-page__results">
+      <div class="posts-grid" id="topic-results">
+        {%- for post in site.posts -%}
+          <div class="topic-item"
+               data-topic="{{ post.topic | downcase | slugify | default: 'uncategorised' }}">
+            {% include post-card.html post=post %}
+          </div>
+        {%- endfor -%}
+      </div>
+
+      <div class="filter-page__empty" id="topic-empty" role="status" aria-live="polite">
+        <span class="filter-page__empty-icon" aria-hidden="true">📂</span>
+        <p id="topic-empty-msg">No posts found.</p>
+      </div>
+    </section>
+
+  </div>
+</div>

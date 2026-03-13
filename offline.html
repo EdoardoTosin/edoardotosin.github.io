@@ -1,0 +1,88 @@
+---
+layout: null
+permalink: /offline.html
+---
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>You're offline - {{ site.title }}</title>
+  <style>
+    :root {
+      --bg:    #0f1117;
+      --card:  #1c2132;
+      --text:  #f1f5f9;
+      --muted: #94a3b8;
+      --accent: #4ade80;
+      --border: #2e3854;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; }
+    body {
+      font-family: 'IBM Plex Sans', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 48px 40px;
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+    }
+    .icon {
+      font-size: 3.5rem;
+      line-height: 1;
+      margin-bottom: 24px;
+      display: block;
+    }
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -.03em;
+      margin-bottom: 12px;
+    }
+    p {
+      font-size: .9375rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: #0f172a;
+      font-weight: 700;
+      font-size: .9375rem;
+      padding: 12px 28px;
+      border-radius: 9999px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: opacity .15s;
+    }
+    .btn:hover { opacity: .88; }
+    @media (max-width: 480px) {
+      .card { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <span class="icon" aria-hidden="true">📡</span>
+    <h1>You're offline</h1>
+    <p>No internet connection detected. Previously visited posts are available from cache - try navigating back or wait for connectivity to return.</p>
+    <a href="/" class="btn">Try again</a>
+  </div>
+</body>
+</html>

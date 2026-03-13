@@ -1,0 +1,246 @@
+@use '../variables' as *;
+
+@media print {
+
+  // 1. Force light theme
+  :root,
+  [data-theme="dark"] {
+    --bg-body:        #ffffff !important;
+    --bg-card:        #ffffff !important;
+    --bg-header:      #ffffff !important;
+    --bg-tag:         #f1f5f9 !important;
+    --bg-input:       #f8fafc !important;
+    --text-primary:   #0f172a !important;
+    --text-secondary: #334155 !important;
+    --text-muted:     #64748b !important;
+    --border:         #e2e8f0 !important;
+    --accent:         #16a34a !important;
+    --accent-text:    #15803d !important;
+    --accent-subtle:  #f0fdf4 !important;
+    --shadow-header:  none   !important;
+    --bg-overlay:     rgba(0,0,0,.4) !important;
+  }
+
+  // 2. Hidden elements
+  .site-header, .site-footer, .sidebar, .mobile-nav, .nav-toggle,
+  .scroll-top, .reading-progress, #img-zoom, .search-overlay,
+  .theme-toggle, .header-actions__theme-desktop,
+  .post-footer__share, .post-nav, .related-posts, .post-footer__tags,
+  .author-box, .error-page__links, .skip-link, .site-nav__dropdown-menu,
+  .widget-newsletter, .hero__tagline-pic, .hero__cta, .newsletter-banner,
+  .toc-inline, [data-newsletter-open], .archive-controls,
+  .filter-page__toolbar, .filter-page__cloud, .filter-page__meta,
+  .filter-page__empty, .contact-social, button[aria-label], [data-search-toggle] {
+    display: none !important;
+  }
+
+  // 3. Body & typography
+  html, body {
+    background: #fff !important;
+    color:      #000 !important;
+    font-size:  12pt;
+    line-height: 1.55;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust:          exact;
+  }
+
+  h1 { font-size: 20pt; margin-bottom: 8pt; }
+  h2 { font-size: 16pt; margin-bottom: 6pt; }
+  h3 { font-size: 13pt; margin-bottom: 4pt; }
+  h4, h5, h6 { font-size: 12pt; }
+
+  h1, h2, h3, h4, h5, h6 { color: #000 !important; scroll-margin-top: 0; page-break-after: avoid; }
+  p, li, td, th { color: #000 !important; orphans: 3; widows: 3; }
+
+  // 4. Layout
+  body { display: block !important; min-height: 0 !important; }
+  main#main-content { flex: none !important; }
+  .content-with-sidebar { display: block !important; .sidebar { display: none !important; } }
+  .container { max-width: 100% !important; padding-left: 0 !important; padding-right: 0 !important; }
+  .site-footer { display: none !important; margin-top: 0 !important; }
+
+  details { display: block !important; }
+  details > *:not(summary) { display: block !important; }
+  summary { list-style: none !important; }
+  summary::marker, summary::-webkit-details-marker { display: none !important; }
+
+  .contact-section { break-inside: avoid; border: 1pt solid #e2e8f0 !important; margin-bottom: 12pt; padding: 8pt !important; border-radius: 0 !important; }
+  .contact-item { padding: 4pt 0 !important; background: transparent !important; }
+  .key-block    { background: #f8f8f8 !important; padding: 6pt !important; border: 1pt solid #ddd !important; }
+  .key-code     { font-size: 8pt !important; letter-spacing: .03em; }
+
+  // 5. Post
+  .post-hero { display: none !important; }
+
+  .post-header {
+    margin-top: 0 !important;
+
+    &__title {
+      position: static !important; width: auto !important; height: auto !important;
+      overflow: visible !important; clip: auto !important; clip-path: none !important;
+      white-space: normal !important; display: block !important;
+      font-size: 22pt !important; color: #000 !important; margin-bottom: 6pt;
+      page-break-after: avoid;
+    }
+
+    &__tag { display: none !important; }
+
+    &__meta {
+      font-size: 9pt; color: #555 !important; margin-top: 4pt;
+      img { display: none !important; }
+    }
+  }
+
+  .post-content {
+    max-width: 100% !important; overflow-x: visible !important;
+    a[href]::after { content: none !important; }
+    img { max-width: 100% !important; height: auto !important; box-shadow: none !important; border-radius: 0 !important; }
+    blockquote { border-left: 3pt solid #ccc; padding-left: 12pt; margin-left: 0; background: transparent !important; color: #333 !important; }
+    .heading-anchor { display: none !important; }
+  }
+
+  .filter-page__results, .posts-grid { display: block !important; }
+  .tag-item, .topic-item { display: block !important; margin-bottom: 6pt; }
+
+  // 6. Heroes & pages
+  .page-hero {
+    background: transparent !important; padding: 8pt 0 !important; text-align: left;
+    &__title { font-size: 20pt; color: #000 !important; }
+    &__desc  { color: #333 !important; }
+  }
+
+  .hero {
+    background: transparent !important; padding: 8pt 0 !important;
+    min-height: 0 !important; box-shadow: none !important;
+    &__title       { font-size: 22pt; color: #000 !important; margin-bottom: 4pt; }
+    &__subtitle    { font-size: 13pt; color: #333 !important; }
+    &__description { font-size: 11pt; color: #555 !important; }
+  }
+
+  // About page
+  .about-avatar {
+    float: none !important;
+    text-align: center;
+    margin: 0 0 12pt !important;
+    width: auto !important;
+
+    &__img {
+      width: 80pt !important;
+      height: 80pt !important;
+      margin: 0 auto 6pt !important;
+      border: 2pt solid #ccc !important;
+    }
+
+    img { width: 80pt !important; height: 80pt !important; border-radius: 50% !important; object-fit: cover; }
+  }
+
+  // Suppress flex-centred link wrappers (e.g. about page "Contact Me" button)
+  p[style*="display:flex"],
+  p[style*="display: flex"] {
+    display: block !important;
+    text-align: center;
+  }
+
+  .topic-clusters-section { display: none !important; }
+
+  // 7. Code & math - keep dark bg; token colors need #0d1117 (print-color-adjust: exact enforces it)
+
+  p code, li code, td code, th code {
+    font-size: .875em !important; background: #f0f0f0 !important;
+    color: #000 !important; border: 0.5pt solid #aaa !important; padding: 1pt 3pt; border-radius: 2pt;
+  }
+
+  .highlighter-rouge { margin: 8pt 0 !important; overflow: hidden !important; white-space: normal !important; }
+
+  .highlight,
+  .highlight pre,
+  pre.highlight,
+  .highlight pre.highlight {
+    background: #0d1117 !important; border: none !important;
+    margin: 0 !important; border-radius: 0 !important; overflow: hidden !important;
+  }
+
+  .highlight pre,
+  .highlight pre.highlight {
+    padding: 8pt 10pt !important; font-size: .875em !important; font-family: monospace !important;
+    line-height: 1.5 !important; white-space: pre-wrap !important; word-break: break-all !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  .highlight code {
+    background: transparent !important; border: none !important; padding: 0 !important;
+    font-size: inherit !important; font-family: inherit !important;
+    line-height: inherit !important; white-space: pre-wrap !important;
+    word-break: break-all !important; overflow-wrap: anywhere !important;
+  }
+
+  .code-block {
+    border: 0.5pt solid #30363d !important; border-radius: 0 !important;
+    overflow: hidden !important; margin: 0 !important;
+    background: #0d1117 !important; page-break-inside: avoid;
+    &__header { display: none !important; }
+    pre, code { border: none !important; background: transparent !important; }
+  }
+
+  pre:not(.highlight) {
+    font-size: .875em !important; font-family: monospace; padding: 8pt 10pt;
+    background: #f5f5f5 !important; color: #000 !important;
+    border: 0.5pt solid #bbb; white-space: pre-wrap !important; word-break: break-all !important;
+    page-break-inside: avoid; margin: 8pt 0; border-radius: 0; overflow: hidden !important;
+
+    code {
+      white-space: pre-wrap !important;
+      word-break: break-all !important;
+      overflow-wrap: anywhere !important;
+    }
+  }
+
+  .katex-display { overflow-x: visible !important; white-space: normal; }
+
+  // 8. Overflow & page breaks
+  *, *::before, *::after { max-width: 100% !important; overflow-x: visible !important; box-sizing: border-box; overflow-wrap: break-word; }
+
+  a { word-break: break-all; overflow-wrap: anywhere; }
+
+  table  { page-break-inside: avoid; font-size: 9pt; }
+  tr, th { page-break-inside: avoid; }
+  section { page-break-inside: auto; }
+
+  img {
+    display: block;
+    max-width: 100% !important;
+    height: auto !important;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    page-break-before: auto;
+    page-break-after: auto;
+  }
+
+  figure {
+    page-break-inside: avoid;
+    break-inside: avoid;
+    display: block;
+  }
+
+  p:has(> img:only-child) {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .callout { border-left: 3pt solid #aaa; background: #f8f8f8 !important; page-break-inside: avoid; padding: 8pt 12pt; }
+  .wikilink-broken { color: #555; text-decoration: underline dotted; }
+
+  // Render .btn links as plain underlined text in print
+  a.btn {
+    display: inline !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    color: #000 !important;
+    text-decoration: underline !important;
+    box-shadow: none !important;
+    font-weight: 600;
+  }
+
+}

@@ -1,0 +1,71 @@
+---
+layout: default
+title: "Tags"
+description: "Filter posts by classification tag."
+permalink: /tags/
+---
+
+<div class="filter-page">
+  <div class="container">
+
+    <div class="filter-page__hero page-hero">
+      <h1 class="page-hero__title">Tags</h1>
+      <p class="page-hero__desc">Tags are classification labels for individual posts. For topic-level browsing, see <a href="{{ '/topics/' | relative_url }}">Topics</a>.</p>
+    </div>
+    {%- assign all_tags = site.posts | map: 'tags' | join: ',' | split: ',' | uniq | sort -%}
+
+    <div class="filter-page__toolbar" role="search" aria-label="Filter tags">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input
+        type="search"
+        id="tag-filter-input"
+        class="filter-page__input"
+        placeholder="Filter tags…"
+        aria-label="Filter tags"
+        autocomplete="off"
+        spellcheck="false">
+    </div>
+
+    <div class="filter-page__cloud" id="tag-cloud-wrap">
+      <div class="filter-page__cloud-inner" id="tag-cloud" aria-label="Tag filter" role="group">
+        <button class="filter-page__btn is-active" aria-pressed="true" data-tag="all">
+          All <span class="count">{{ site.posts | size }}</span>
+        </button>
+
+        {%- for tag in all_tags -%}
+          {%- assign tag_trimmed = tag | strip -%}
+          {%- if tag_trimmed != "" -%}
+          {%- assign tag_count = site.posts | where_exp: 'p', 'p.tags contains tag_trimmed' | size -%}
+          <button
+            class="filter-page__btn"
+            aria-pressed="false"
+            data-tag="{{ tag_trimmed | downcase | slugify }}"
+            data-label="{{ tag_trimmed | downcase | escape }}">
+            {{ tag_trimmed }}
+            <span class="count">{{ tag_count }}</span>
+          </button>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+
+    <p class="filter-page__meta" id="tag-results-meta" aria-live="polite" aria-atomic="true"></p>
+
+    <section class="filter-page__results">
+      <div class="posts-grid" id="tag-results">
+        {%- for post in site.posts -%}
+          <div class="tag-item"
+               data-tags="{% for t in post.tags %}{{ t | downcase | slugify }} {% endfor %}">
+            {% include post-card.html post=post %}
+          </div>
+        {%- endfor -%}
+      </div>
+
+      <div class="filter-page__empty" id="tag-empty" role="status" aria-live="polite">
+        <span class="filter-page__empty-icon" aria-hidden="true">🏷️</span>
+        <p id="tag-empty-msg">No posts found.</p>
+      </div>
+    </section>
+
+  </div>
+</div>

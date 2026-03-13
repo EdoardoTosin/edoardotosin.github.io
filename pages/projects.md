@@ -1,31 +1,28 @@
 ---
-permalink: /projects
-layout: Post
-content-type: static
+permalink: /projects/
+layout: page
 title: Projects Portfolio
-description: "Explore coding projects, including open-source software, tools, and practical examples in development and security."
+description: "Open-source projects by Edoardo Tosin - terminal games, CLI tools, browser extensions, computer vision, and satellite imagery analysis."
 ---
-
-<br>
 
 ## Programming
 
 ### C
 
-- [xTetris-Game](https://github.com/EdoardoTosin/xTetris-Game): A unique reinvention of the timeless Tetris game, crafted in C for Linux, pushing your strategic thinking and stamina to new heights.
-- [miniLaska-Game](https://github.com/EdoardoTosin/miniLaska-Game): Experience the thrill of a unique variant of the classic game Lasca, where strategy meets tradition, directly from your terminal.
+- [xTetris-Game](https://github.com/EdoardoTosin/xTetris-Game): Terminal Tetris written in C89 for Linux, with ghost piece, hold queue, and next piece preview.
+- [miniLaska-Game](https://github.com/EdoardoTosin/miniLaska-Game): Terminal implementation of Lasca in C - a board game where captured pieces stack into columns instead of being removed. Runs on Windows and Linux.
 
 ### Python
 
-- [Batch-Image-Converter](https://github.com/EdoardoTosin/Batch-Image-Converter): Convert and resize images easily with a simple command-line tool.
-- [ObjectTracker](https://github.com/EdoardoTosin/ObjectTracker): Lightweight, real-time object detection and video recording tool.
+- [Batch-Image-Converter](https://github.com/EdoardoTosin/Batch-Image-Converter): CLI tool to batch-convert images to a target DPI, maximum resolution, and RGB color space. Prebuilt binaries for Linux, Windows, and macOS.
+- [ObjectTracker](https://github.com/EdoardoTosin/ObjectTracker): Real-time object detection using OpenCV and MobileNet SSD, with event-triggered video recording. Runs on Raspberry Pi, Linux, and Windows via Python or Docker.
 
 ### Web Development (HTML/CSS/JS)
 
-- [Silly-Redirect-for-Zoom-Meetings](https://github.com/EdoardoTosin/Silly-Redirect-for-Zoom-Meetings): A browser extension that effortlessly redirects your Zoom meetings to the safer web client, enhancing your online collaboration experience.
+- [Silly-Redirect-for-Zoom-Meetings](https://github.com/EdoardoTosin/Silly-Redirect-for-Zoom-Meetings): Browser extension that redirects Zoom meeting links to the web client, skipping the desktop app. Available for Firefox and Chrome. No data collected.
 
 ## Data Science
 
 ### Satellite & Geospatial Analysis
 
-- [January-2025-Southern-California-Wildfires-Burn-Severity-Sentinel2](https://github.com/EdoardoTosin/January-2025-Southern-California-Wildfires-Burn-Severity-Sentinel2): This repository contains scripts and data for analyzing burn severity of the January 2025 wildfires in Southern California using Sentinel-2 satellite imagery. The analysis utilizes the difference Normalized Burn Ratio (dNBR) and Relativized Burn Ratio (RBR) to classify areas based on burn severity.
+- [January-2025-Southern-California-Wildfires-Burn-Severity-Sentinel2](https://github.com/EdoardoTosin/January-2025-Southern-California-Wildfires-Burn-Severity-Sentinel2): Burn severity analysis of the January 2025 Southern California wildfires using Sentinel-2 satellite imagery, dNBR/RBR indices, and an interactive map overlay on OpenStreetMap.

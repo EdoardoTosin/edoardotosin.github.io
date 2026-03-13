@@ -1,24 +1,42 @@
-# Jekyll Garden
+# Personal Site
 
-This repository is a fork of the original [Jekyll Garden Theme](https://github.com/Jekyll-Garden/jekyll-garden.github.io).
+Custom Jekyll theme for a personal blog and portfolio. Dark-mode-first, responsive, accessible (WCAG AA), no CSS framework.
 
-## Features
+## Quick Start
 
-- **Responsive Layout**: Ensures the site looks great on all devices.
-- **Customizable Styles**: Allows easy tweaking of colors, fonts, and layout.
+```bash
+bundle install
+bundle exec jekyll serve --livereload
+```
 
-## Usage
+Open `http://localhost:4000`. Build for production:
 
-1. **Fork this Repository**: Use the fork button at the top right corner to clone this theme into your own GitHub account.
-2. **Rename the Repository**: Go to the repository settings and rename the repository to `yourusername.github.io`, where `yourusername` is your actual GitHub username.
-3. **Configure `_config.yml`**: Set up your site details by editing the `_config.yml` file.
-4. **Add Content**: Create posts in the `_posts` directory to start blogging.
-5. **Push Changes**: Commit and push your changes to publish your site.
+```bash
+JEKYLL_ENV=production bundle exec jekyll build
+```
 
-## Contributions
+## Pages
 
-Feel free to submit issues or pull requests to improve this theme.
+| Route | Description |
+|---|---|
+| `/` | Homepage |
+| `/archive/` | All posts by year |
+| `/topics/` | Posts filtered by topic |
+| `/tags/` | Posts filtered by tag |
+| `/projects/` | Projects |
+| `/videos/` | Posts with `video: true` |
+| `/now/` | Now page |
+| `/about/` | About |
+| `/contact/` | Contact and PGP/GPG keys |
+| `/credits/` | Attributions |
+
+## Documentation
+
+- [Configuration](docs/CONFIGURATION.md) - `_config.yml` settings, navigation, social, topics, deployment
+- [Writing Posts](docs/AUTHORING.md) - front matter, Markdown features, callouts, wikilinks
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+Code: [MIT](https://opensource.org/licenses/MIT)
+
+Content: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)

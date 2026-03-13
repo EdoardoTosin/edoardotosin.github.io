@@ -1,0 +1,53 @@
+---
+layout: null
+permalink: /manifest.json
+---
+{
+  "name": {{ site.title | jsonify }},
+  "short_name": {{ site.title | truncate: 12, '' | jsonify }},
+  "description": {{ site.description | jsonify }},
+  "lang": {{ site.lang | default: 'en' | jsonify }},
+  "start_url": {{ '/' | relative_url | jsonify }},
+  "scope": {{ '/' | relative_url | jsonify }},
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0f1117",
+  "theme_color": "#4ade80",
+  "categories": ["blog", "education", "technology"],
+  "icons": [
+    {
+      "src": "{{ site.logo | relative_url }}",
+      "sizes": "256x256",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Archive",
+      "short_name": "Archive",
+      "description": "Browse all posts",
+      "url": "{{ '/archive/' | relative_url }}",
+      "icons": [
+        {
+          "src": "{{ site.logo | relative_url }}",
+          "sizes": "256x256",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Search",
+      "short_name": "Search",
+      "description": "Search posts",
+      "url": "{{ '/?search=1' | relative_url }}",
+      "icons": [
+        {
+          "src": "{{ site.logo | relative_url }}",
+          "sizes": "256x256",
+          "type": "image/png"
+        }
+      ]
+    }
+  ]
+}

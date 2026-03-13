@@ -1,0 +1,45 @@
+{%- assign _post = include.post -%}
+{%- assign _words = _post.content | number_of_words -%}
+{%- assign _mins = _words | divided_by: 200 | plus: 1 -%}
+
+<article class="post-card" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <a href="{{ _post.url | relative_url }}" class="post-card__img" aria-hidden="true" tabindex="-1">
+    <img src="{{ _post.image | default: '/images/social-preview.jpg' | relative_url }}"
+         alt="{{ _post.title | escape }}"
+         loading="lazy"
+         width="720"
+         height="405"
+         itemprop="image">
+  </a>
+
+  <div class="post-card__body">
+    {%- if _post.topic and _post.topic != "" -%}
+    <a href="{{ '/topics/?topic=' | append: _post.topic | relative_url }}"
+       class="post-card__tag" data-topic="{{ _post.topic | downcase | escape }}"
+       rel="tag">{{ _post.topic | downcase | escape }}</a>
+    {%- endif -%}
+
+    <h2 class="post-card__title" itemprop="headline">
+      <a href="{{ _post.url | relative_url }}" itemprop="url" title="{{ _post.title | escape }}">{{ _post.title | escape }}</a>
+    </h2>
+
+    <p class="post-card__description" itemprop="description">
+      {{ _post.description | truncate: 160 | escape }}
+    </p>
+
+    <div class="post-card__meta">
+      <span class="meta-item">
+        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+        <time datetime="{{ _post.date | date_to_xmlschema }}" itemprop="datePublished">
+          {{ _post.date | date: "%d %b, %Y" }}
+        </time>
+      </span>
+      <span class="meta-item">
+        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+        {{ _mins }} min read
+      </span>
+    </div>
+  </div>
+
+</article>

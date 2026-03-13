@@ -1,0 +1,178 @@
+// Design tokens & CSS custom properties
+
+// Fonts
+$font-sans:    'IBM Plex Sans', 'Segoe UI', system-ui, -apple-system, sans-serif;
+$font-heading: 'Outfit', 'IBM Plex Sans', system-ui, sans-serif;
+$font-mono:    'Cascadia Code', 'Fira Code', ui-monospace, monospace;
+
+$font-size-base:   16px;
+$line-height-base: 1.7;
+
+// Spacing
+$sp-1:  4px;
+$sp-2:  8px;
+$sp-3:  12px;
+$sp-4:  16px;
+$sp-5:  20px;
+$sp-6:  24px;
+$sp-8:  32px;
+$sp-10: 40px;
+$sp-12: 48px;
+$sp-14: 56px;
+$sp-16: 64px;
+$sp-20: 80px;
+
+// Radii
+$r-sm:   6px;
+$r-md:   12px;
+$r-lg:   18px;
+$r-xl:   24px;
+$r-full: 9999px;
+
+// Breakpoints
+$bp-sm:  576px;
+$bp-md:  768px;
+$bp-lg:  1024px;
+$bp-xl:  1280px;
+$bp-2xl: 1440px;
+
+// Layout
+$container-max: 1200px;
+$container-pad: $sp-6;
+$sidebar-w:     320px;
+$header-h:      70px;
+
+// Transitions
+$t-fast: all .15s ease;
+$t-base: all .25s ease;
+$t-slow: all .4s ease;
+
+// Light mode (default)
+:root {
+  --accent:          #4ade80;
+  --accent-dark:     #22c55e;
+  --accent-subtle:   rgba(74, 222, 128, .12);
+  --accent-text:     #14753a;
+
+  // Accent glows
+  --glow-accent-sm:  0 4px 14px rgba(74, 222, 128, .35);
+  --glow-accent-md:  0 6px 20px rgba(74, 222, 128, .45);
+  --glow-accent-lg:  0 4px 16px rgba(74, 222, 128, .40);
+  --glow-accent-xl:  0 6px 20px rgba(74, 222, 128, .50);
+
+  --color-error:         #dc2626;
+  --color-error-subtle:  rgba(239, 68, 68, .10);
+  --color-error-border:  rgba(239, 68, 68, .30);
+
+  --color-success:        #14753a; // 5.78:1 on bg-card
+  --color-success-subtle: rgba(74, 222, 128, .12);
+  --color-success-border: rgba(74, 222, 128, .30);
+
+  --callout-note-border:      #64748b;
+  --callout-note-bg:          rgba(100, 116, 139, .07);
+  --callout-note-title:       #334155;
+  --callout-tip-border:       #4ade80;
+  --callout-tip-bg:           rgba(74, 222, 128, .07);
+  --callout-tip-title:        #14753a;
+  --callout-important-border: #a855f7;
+  --callout-important-bg:     rgba(168, 85, 247, .07);
+  --callout-important-title:  #7c3aed;
+  --callout-warning-border:   #f97316;
+  --callout-warning-bg:       rgba(249, 115, 22, .07);
+  --callout-warning-title:    #c2410c;
+  --callout-caution-border:   #ef4444;
+  --callout-caution-bg:       rgba(239, 68, 68, .07);
+  --callout-caution-title:    #b91c1c;
+
+  --bg-body:         #f8fafc;
+  --bg-card:         #ffffff;
+  --bg-header:       rgba(248, 250, 252, .95);
+  --bg-code:         #f1f5f9;
+  --bg-input:        #ffffff;
+  --bg-overlay:      rgba(15, 23, 42, .60);
+  --bg-tag:          #e2e8f0;
+
+  --text-primary:    #0f172a;
+  --text-secondary:  #475569;
+  --text-muted:      #546272;
+  --text-on-accent:  #0f172a;
+
+  --border:          #e2e8f0;
+  --border-strong:   #cbd5e1;
+  --border-ui:       #708090;
+
+  --shadow-card:     0 1px 3px rgba(0, 0, 0, .06), 0 4px 16px rgba(0, 0, 0, .09);
+  --shadow-hover:    0 8px 32px rgba(0, 0, 0, .12);
+  --shadow-header:   0 1px 0 #e2e8f0, 0 2px 16px rgba(0, 0, 0, .04);
+  --shadow-lg:       0 8px 32px rgba(0, 0, 0, .14);
+  --shadow-xl:       0 16px 48px rgba(0, 0, 0, .18);
+
+  --icon-color:      #475569;
+  --toggle-bg:       #e2e8f0;
+  --toggle-knob:     #ffffff;
+}
+
+// Dark mode
+[data-theme="dark"] {
+  --accent:          #4ade80;
+  --accent-dark:     #22c55e;
+  --accent-subtle:   rgba(74, 222, 128, .10);
+  --accent-text:     #4ade80;
+
+  // Accent glows
+  --glow-accent-sm:  0 4px 14px rgba(74, 222, 128, .30);
+  --glow-accent-md:  0 6px 20px rgba(74, 222, 128, .40);
+  --glow-accent-lg:  0 4px 16px rgba(74, 222, 128, .35);
+  --glow-accent-xl:  0 6px 20px rgba(74, 222, 128, .45);
+
+  --color-error:         #f87171;
+  --color-error-subtle:  rgba(239, 68, 68, .12);
+  --color-error-border:  rgba(239, 68, 68, .25);
+
+  --color-success:        #4ade80;
+  --color-success-subtle: rgba(74, 222, 128, .10);
+  --color-success-border: rgba(74, 222, 128, .25);
+
+  --callout-note-border:      #64748b;
+  --callout-note-bg:          rgba(100, 116, 139, .10);
+  --callout-note-title:       #94a3b8;
+  --callout-tip-border:       #4ade80;
+  --callout-tip-bg:           rgba(74, 222, 128, .10);
+  --callout-tip-title:        #4ade80;
+  --callout-important-border: #c084fc;
+  --callout-important-bg:     rgba(168, 85, 247, .10);
+  --callout-important-title:  #c084fc;
+  --callout-warning-border:   #fb923c;
+  --callout-warning-bg:       rgba(249, 115, 22, .10);
+  --callout-warning-title:    #fb923c;
+  --callout-caution-border:   #f87171;
+  --callout-caution-bg:       rgba(239, 68, 68, .10);
+  --callout-caution-title:    #f87171;
+
+  --bg-body:         #0f1117;
+  --bg-card:         #1c2132;
+  --bg-header:       rgba(15, 17, 23, .95);
+  --bg-code:         #12161f;
+  --bg-input:        #1c2132;
+  --bg-overlay:      rgba(0, 0, 0, .75);
+  --bg-tag:          #252e4c;
+
+  --text-primary:    #f1f5f9;
+  --text-secondary:  #94a3b8;
+  --text-muted:      #8899b2;
+  --text-on-accent:  #0f172a;
+
+  --border:          #2e3854;
+  --border-strong:   #3d4d72;
+  --border-ui:       #5575b5;
+
+  --shadow-card:     0 1px 3px rgba(0, 0, 0, .35), 0 4px 20px rgba(0, 0, 0, .45);
+  --shadow-hover:    0 8px 32px rgba(0, 0, 0, .40);
+  --shadow-header:   0 1px 0 #1e2438;
+  --shadow-lg:       0 8px 32px rgba(0, 0, 0, .40);
+  --shadow-xl:       0 16px 48px rgba(0, 0, 0, .50);
+
+  --icon-color:      #94a3b8;
+  --toggle-bg:       #2d3748;
+  --toggle-knob:     #f1f5f9;
+}

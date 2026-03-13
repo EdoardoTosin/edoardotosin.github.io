@@ -1,11 +1,12 @@
 ---
 title: DNS server installation and configuration (Part 5) - Pi-Hole configuration (EN)
-description: Welcome to this comprehensive guide on setting up a robust and secure DNS server using Ubuntu, Pi-Hole, and Unbound. This setup enhances your privacy and gives you better control over your network traffic.
+description: "How to configure Pi-Hole's web interface, manage blocklists, and wire it together with Unbound to complete your self-hosted, privacy-focused DNS server."
 short_url: pihole-guide-5
 date: 2024-01-02 14:00:00 +0100
 last_modified_at: 2026-02-03 19:00:00 +0100
 lang: en
-ogimg: https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/5_Pi-Hole_Web_Interface/Pi-Hole_Web_Interface_2.webp
+image: https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/5_Pi-Hole_Web_Interface/Pi-Hole_Web_Interface_2.webp
+topic: selfhosting
 tags:
   - ubuntu
   - unbound
@@ -29,42 +30,42 @@ keywords:
 
 Open the browser and enter the IP of the computer where Ubuntu Server is installed followed by `/admin` as shown in the following figure. When the page loads, click the `Login` item present in the left vertical menu.
 
-{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/5_Pi-Hole_Web_Interface/Pi-Hole_Web_Interface_2.webp" alt="Pi-Hole Web Interface 2" %}
+![](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/5_Pi-Hole_Web_Interface/Pi-Hole_Web_Interface_2.webp)
 
 The Pi-Hole web interface password will be asked. Enter it and click `Login` to confirm and enter.
 
-{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/5_Pi-Hole_Web_Interface/Pi-Hole_Web_Interface_3.webp" alt="Pi-Hole Web Interface 3" %}
+![](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/5_Pi-Hole_Web_Interface/Pi-Hole_Web_Interface_3.webp)
 
 The following screen is the one before logging in. The difference is that now there is the possibility of configuring Pi-Hole.
 
-{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/5_Pi-Hole_Web_Interface/Pi-Hole_Web_Interface_4.webp" alt="Pi-Hole Web Interface 4" %}
+![](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/5_Pi-Hole_Web_Interface/Pi-Hole_Web_Interface_4.webp)
 
 Click the `Settings` item in the left menu.
 
-{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/5_Pi-Hole_Web_Interface/Pi-Hole_Web_Interface_5.webp" alt="Pi-Hole Web Interface 5" %}
+![](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/5_Pi-Hole_Web_Interface/Pi-Hole_Web_Interface_5.webp)
 
 Click `DNS` from the items present at the top.
 
-{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/5_Pi-Hole_Web_Interface/Pi-Hole_Web_Interface_6.webp" alt="Pi-Hole Web Interface 6" %}
+![](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/5_Pi-Hole_Web_Interface/Pi-Hole_Web_Interface_6.webp)
 
 In the block titled `Upstream DNS Servers` on the left, deselect any tick present. Instead, in the homonymous block on the right, select `Custom 1 (IPv4)` and enter `127.0.0.1#5353` which are the interface and the port that were previously entered in the Unbound configuration file. This will make Pi-Hole ask Unbound for DNS resolution instead of using an external server outside the network.
 
-{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/5_Pi-Hole_Web_Interface/Pi-Hole_Web_Interface_7.webp" alt="Pi-Hole Web Interface 7" %}
+![](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/5_Pi-Hole_Web_Interface/Pi-Hole_Web_Interface_7.webp)
 
 In the block titled `Interface settings`, click the `Bind only to interface ...` voice.
 
-{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/5_Pi-Hole_Web_Interface/Pi-Hole_Web_Interface_8.webp" alt="Pi-Hole Web Interface 8" %}
+![](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/5_Pi-Hole_Web_Interface/Pi-Hole_Web_Interface_8.webp)
 
 To save all this, scroll down with the mouse and click `Save` located at the bottom right of the screen.
 
-{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/5_Pi-Hole_Web_Interface/Pi-Hole_Web_Interface_9.webp" alt="Pi-Hole Web Interface 9" %}
+![](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/5_Pi-Hole_Web_Interface/Pi-Hole_Web_Interface_9.webp)
 
 ### Backup Pi-Hole Settings
 
 For safety, download the current Pi-Hole configuration so that in case of need to restore the settings it is faster to do it from a file.
 To do this, press click from the horizontal menu present at the top the `Teleporter` voice. Finally, click `Backup` and confirm the file save.
 
-{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/5_Pi-Hole_Web_Interface/Pi-Hole_Web_Interface_10.webp" alt="Pi-Hole Web Interface 10" %}
+![](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/5_Pi-Hole_Web_Interface/Pi-Hole_Web_Interface_10.webp)
 
 ## Router Configuration
 

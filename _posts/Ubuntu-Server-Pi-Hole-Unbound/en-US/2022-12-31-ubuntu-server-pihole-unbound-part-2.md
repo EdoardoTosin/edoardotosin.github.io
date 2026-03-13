@@ -1,11 +1,12 @@
 ---
 title: DNS server installation and configuration (Part 2) - 2FA installation (EN)
-description: Welcome to this comprehensive guide on setting up a robust and secure DNS server using Ubuntu, Pi-Hole, and Unbound. This setup enhances your privacy and gives you better control over your network traffic.
+description: "How to set up two-factor authentication (2FA) on Ubuntu Server using Google Authenticator to secure SSH access before deploying Pi-Hole and Unbound."
 short_url: pihole-guide-2
 date: 2024-01-02 11:00:00 +0100
 last_modified_at: 2024-08-07 16:30:08 +0200
 lang: en
-ogimg: https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_13.webp
+image: https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_13.webp
+topic: selfhosting
 tags:
   - ubuntu
   - unbound
@@ -41,45 +42,45 @@ ssh USERNAME@IP
 Replace `IP` with the IP address of the computer where Ubuntu Server is installed.
 `-p 22` is optional since by default ssh connects to port 22 of the device.
 
-{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_1.webp" alt="2FA 1" %}
+![](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_1.webp)
 
 After pressing enter, it will ask to save the SHA256 key. Write `y` and confirm by pressing the `Enter` key.
 
-{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_2.webp" alt="2FA 2" %}
+![](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_2.webp)
 
 Now enter the password set during the Ubuntu Server installation phase (Profile settings).
 
-{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_3.webp" alt="2FA 3" %}
+![](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_3.webp)
 
 If everything has been entered correctly, it is possible to control Ubuntu Server remotely from CLI.
 
-{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_4.webp" alt="2FA 4" %}
+![](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_4.webp)
 
 ## System Update
 
-{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_5.webp" alt="2FA 5" %}
+![](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_5.webp)
 
 ### Update repositories and system
 
 To start the update, just run the line `sudo apt update && sudo apt upgrade`. Running both commands with `sudo` will ask for the user's password (the same used for login).
 
-{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_6.webp" alt="2FA 6" %}
+![](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_6.webp)
 
 ### Confirm updates
 
 To confirm the start of the updates, write `y` and press `Enter`.
 
-{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_7.webp" alt="2FA 7" %}
+![](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_7.webp)
 
 ### Restart services
 
 It is likely that a screen will appear asking which services to restart. Select `Ok` without changing anything from the list and then press `Enter` to confirm.
 
-{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_8.webp" alt="2FA 8" %}
+![](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_8.webp)
 
 Now you can restart the computer to verify that with the latest updates the system works before proceeding with the installation of applications.
 
-{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_9.webp" alt="2FA 9" %}
+![](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_9.webp)
 
 ## 2FA Installation
 
@@ -91,7 +92,7 @@ Log in again following the `Login via SSH` procedure without the paragraph regar
 
 Execute the command `sudo apt install libpam-google-authenticator` to install the package required for two-factor authentication.
 
-{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_10.webp" alt="2FA 10" %}
+![](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_10.webp)
 
 Enter the user password confirming it. Subsequently, you will be asked to confirm the installation of the package. Write `y` and press `Enter`.
 
@@ -99,58 +100,58 @@ Enter the user password confirming it. Subsequently, you will be asked to confir
 
 Now proceed to configure authentication with the temporary 6-digit code (changes every 30 seconds).
 
-{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_11.webp" alt="2FA 11" %}
+![](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_11.webp)
 
 It will be asked whether you want the tokens to be temporary. Write `y` and press `Enter`.
 
-{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_12.webp" alt="2FA 12" %}
+![](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_12.webp)
 
 A secret key (`Your new secret key is:`) will be created for generating time-based codes.
 It is important to keep a backup of this key to reduce the risk of losing it.
 Scan the QR-Code or insert the key into an application (for Debian distros and derivatives, Authenticator is suitable already present in the system repositories) and save it.
 After saving, you can see the code. Insert it into the terminal and press `Enter` to confirm.
 
-{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_13.webp" alt="2FA 13" %}
+![](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_13.webp)
 
 Subsequently, it will be asked whether you want to update the .google_authenticator file. Confirm by writing `y` and pressing `Enter`.
 
-{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_14.webp" alt="2FA 14" %}
+![](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_14.webp)
 
 To increase security, we add restrictions to login every 30 seconds (so only one successful login per each generated code).
 To confirm, write `y` and press `Enter`.
 
-{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_15.webp" alt="2FA 15" %}
+![](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_15.webp)
 
 It will be asked whether you want to extend the login with the generated code beyond the time limit from 3 codes to 17 (8 previous, current and 8 subsequent). Since 3 are already enough, it does not need to be extended further so write `n` and press `Enter`.
 
-{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_16.webp" alt="2FA 16" %}
+![](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_16.webp)
 
 Now the addition of the rate-limit will be confirmed, so that only 3 login attempts are possible every 30 seconds. To do this, write `y` and press `Enter`.
 
-{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_17.webp" alt="2FA 17" %}
+![](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_17.webp)
 
 ### Adding 2FA to login
 
 To add the just configured two-factor authentication, the common-session file must be modified with the command `sudo nano /etc/pan.d/common-session`. If the password is requested, enter the user password.
 
-{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_18.webp" alt="2FA 18" %}
+![](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_18.webp)
 
 Pressing `Enter` the file to edit will appear. After the line `# end of pam-auth-update config` you must add a new line that contains `auth required pam_google_authenticator.so` as shown in the next screen.
 To save the changes and exit the editor, press `CTRL+X` then write `y` and finally press `Enter` to confirm.
 
-{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_19.webp" alt="2FA 19" %}
+![](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_19.webp)
 
 Another file to modify is `sshd_config`. To do this, just open it again with the command `sudo nano /etc/ssh/sshd_config`. If it asks for the password, enter the user password.
 
-{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_20.webp" alt="2FA 20" %}
+![](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_20.webp)
 
 If the `KbdInteractiveAuthentication` option is set to `no`, replace it with `yes`.
 To save these changes and exit the editor, press `CTRL+X` then write `y` and finally press `Enter` to confirm.
 
-{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_21.webp" alt="2FA 21" %}
+![](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_21.webp)
 
 Restart the sshd.service service to load the changes with the command `sudo systemctl restart sshd.service`
 
-{% include Image.html src="https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_22.webp" alt="2FA 22" %}
+![](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/2_2FA/2FA_22.webp)
 
 **[Next part]({% post_url Ubuntu-Server-Pi-Hole-Unbound/en-US/2022-12-31-ubuntu-server-pihole-unbound-part-3 %})**

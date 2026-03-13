@@ -1,7 +1,6 @@
 ---
-permalink: /security-policy
-layout: Post
-content-type: static
+permalink: /security-policy/
+layout: page
 title: Security Policy
 description: "Security measures, vulnerability management, and responsible disclosure policy for this website."
 date: 2023-01-29
@@ -83,11 +82,10 @@ Security considerations apply to:
 I appreciate security researchers who help identify and report vulnerabilities responsibly.
 
 ### Reporting Process
-1. **Email Disclosure**: Send security reports to [edoardotosindev@proton.me](mailto:edoardotosindev@proton.me)
-   - Use "Security Vulnerability Report" in the subject line
-   - Encrypt sensitive reports using my [PGP key]({{ 'security/signed-email-d2da678db99dc787.txt' | absolute_url }})
-   
-2. **GitHub Issues**: For non-sensitive matters, open an issue at [EdoardoTosin/edoardotosin.github.io](https://github.com/EdoardoTosin/edoardotosin.github.io)
+1. **Email Disclosure**: Send security reports to [{{ site.author.email }}](mailto:{{ site.author.email }})
+   - Use **"Security Vulnerability Report"** in the subject line
+   - Encrypt sensitive reports using my [OpenPGP public key]({{ site.crypto_keys.pgp_keyserver }})
+2. **GitHub Issues**: For non-sensitive matters, open an issue at [{{ site.repository | append: '/issues' }}]({{ site.repository | append: '/issues' }})
 
 ### Report Requirements
 Please include:
@@ -119,8 +117,8 @@ The following are outside the scope of this security policy:
 
 ## Security Contacts and Resources
 
-- **Primary Contact**: [edoardotosindev@proton.me](mailto:edoardotosindev@proton.me)
-- **GitHub Repository**: [EdoardoTosin/edoardotosin.github.io](https://github.com/EdoardoTosin/edoardotosin.github.io)
+- **Primary Contact**: [{{ site.author.email }}](mailto:{{ site.author.email }})
+- **GitHub Repository**: [{{ site.repository }}]({{ site.repository }})
 - **General Contact**: [Contact page]({{ '/contact' | relative_url }})
 
 ## Compliance and Standards

@@ -1,0 +1,208 @@
+@use 'variables' as *;
+
+// 404 error page
+.error-page {
+  padding: clamp(#{$sp-12}, 7vw, #{$sp-20}) 0 clamp(#{$sp-10}, 6vw, #{$sp-16});
+  overflow-x: hidden;
+
+  &__content {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+    padding-bottom: clamp(#{$sp-12}, 8vw, #{$sp-20});
+  }
+
+  // Large 404 number
+  &__code {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    gap: clamp(2px, .6vw, #{$sp-2});
+    margin-bottom: clamp(#{$sp-6}, 4vw, #{$sp-10});
+    line-height: 1;
+    font-family: $font-heading;
+    font-weight: 800;
+    font-size: clamp(5rem, 16vw, 10.25rem);
+    letter-spacing: -.05em;
+    user-select: none;
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 5% -15%;
+      background: radial-gradient(ellipse at center, var(--accent) 0%, transparent 68%);
+      opacity: .09;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    span { position: relative; z-index: 1; }
+  }
+
+  &__four { color: var(--accent); }
+  &__zero { color: var(--text-primary); }
+
+  &__title {
+    font-size: clamp(1.375rem, 3vw, 2rem);
+    font-family: $font-heading;
+    font-weight: 700;
+    letter-spacing: -.02em;
+    margin-bottom: $sp-4;
+  }
+
+  &__desc {
+    font-size: clamp(.9375rem, 1.5vw, 1.0625rem);
+    color: var(--text-secondary);
+    line-height: 1.75;
+    max-width: 500px;
+    margin: 0 auto $sp-8;
+    overflow-wrap: break-word;
+  }
+
+  &__search {
+    margin-bottom: $sp-8;
+  }
+
+  &__search-wrap {
+    display: flex;
+    align-items: center;
+    background: var(--bg-input);
+    border: 1.5px solid var(--border-ui);
+    border-radius: $r-lg;
+    padding: $sp-3 $sp-4;
+    min-height: 52px;
+    gap: $sp-3;
+    width: min(440px, 100%);
+    margin: 0 auto $sp-4;
+    transition: border-color $t-fast, box-shadow $t-fast;
+
+    &:focus-within {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-subtle);
+    }
+  }
+
+  &__search-icon {
+    flex-shrink: 0;
+    color: var(--text-muted);
+  }
+
+  &__search-input {
+    flex: 1;
+    min-width: 0; // flex child shrink below content size
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1rem; // 16px - prevents iOS zoom on focus
+    font-family: $font-sans;
+    color: var(--text-primary);
+    line-height: 1.5;
+
+    &::placeholder { color: var(--text-muted); }
+  }
+
+  &__results {
+    width: min(440px, 100%);
+    margin: 0 auto;
+  }
+
+  &__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $sp-3;
+    justify-content: center;
+
+    .btn { min-width: 132px; }
+  }
+
+  &__recent {
+    border-top: 1px solid var(--border);
+    padding-top: clamp(#{$sp-10}, 6vw, #{$sp-14});
+  }
+
+  &__recent-title {
+    font-size: clamp(1.125rem, 2vw, 1.375rem);
+    font-family: $font-heading;
+    font-weight: 700;
+    letter-spacing: -.02em;
+    margin-bottom: $sp-6;
+    text-align: center;
+  }
+}
+
+// 404 inline search result cards
+.error-search {
+  &__result {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: $sp-3;
+    padding: $sp-3 $sp-4;
+    border-radius: $r-md;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: background $t-fast, border-color $t-fast, transform $t-fast;
+    margin-bottom: $sp-2;
+
+    &:hover {
+      background: var(--accent-subtle);
+      border-color: var(--accent);
+    }
+
+    &:active {
+      background: var(--accent-subtle);
+      border-color: var(--accent);
+      transform: scale(.98);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+  }
+
+  &__result-title {
+    font-size: .9375rem;
+    font-weight: 600;
+    color: inherit;
+    overflow-wrap: break-word;
+    min-width: 0;
+  }
+
+  &__result-meta {
+    font-size: .8125rem;
+    color: var(--text-muted);
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  &__empty {
+    font-size: .9375rem;
+    color: var(--text-muted);
+    text-align: center;
+    padding: $sp-4 0;
+  }
+}
+
+// breakpoints - clamp() covers scaling; these handle structural layout changes
+@media (max-width: 480px) {
+  .error-page__links {
+    flex-direction: column;
+    align-items: stretch;
+
+    .btn {
+      width: 100%;
+      min-width: 0;
+      text-align: center;
+      justify-content: center;
+    }
+  }
+
+  .error-search__result {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $sp-1;
+  }
+}

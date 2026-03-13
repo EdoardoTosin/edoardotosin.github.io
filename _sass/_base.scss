@@ -1,0 +1,224 @@
+@use 'variables' as *;
+
+.no-transitions,
+.no-transitions * {
+  transition: none !important;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: $font-size-base;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  scrollbar-gutter: stable;
+}
+
+// Offset fragment anchors below sticky header.
+[id] { scroll-margin-top: calc(var(--header-h) + #{$sp-3}); }
+
+body {
+  font-family: $font-sans;
+  font-size: 1rem;
+  line-height: $line-height-base;
+  color: var(--text-primary);
+  background-color: var(--bg-body);
+  transition: background-color .3s ease, color .3s ease;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  // overflow-x:clip preserves sticky positioning (no scroll container created).
+  overflow-x: clip;
+  word-break: break-word;
+  overflow-wrap: break-word;
+
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+main#main-content { flex: 1 0 auto; }
+
+.site-header,
+.site-footer { flex-shrink: 0; }
+
+// Typography
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-heading;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--text-primary);
+  letter-spacing: -.02em;
+}
+
+h1 { font-size: clamp(2rem,    4vw,  3rem); }
+h2 { font-size: clamp(1.5rem,  3vw,  2rem); }
+h3 { font-size: clamp(1.2rem, 2.5vw, 1.5rem); }
+h4 { font-size: 1.125rem; }
+h5 { font-size: 1rem; }
+h6 { font-size: .875rem; }
+
+p {
+  color: var(--text-secondary);
+  margin-bottom: $sp-4;
+  &:last-child { margin-bottom: 0; }
+}
+
+a {
+  color: var(--accent-text);
+  text-decoration: none;
+  transition: color $t-fast;
+  // Hover colour only on pointer devices - prevents latch on touchscreens.
+  @media (hover: hover) and (pointer: fine) {
+    &:hover { color: var(--accent); }
+  }
+}
+
+ul, ol {
+  padding-left: $sp-6;
+  color: var(--text-secondary);
+
+}
+
+img    { max-width: 100%; height: auto; display: block; }
+figure { margin: 0; }
+
+pre {
+  overflow-x: auto;
+  max-width:  100%;
+  -webkit-overflow-scrolling: touch;
+}
+
+pre code {
+  white-space:  pre;
+  word-break:   normal;
+  overflow-wrap: normal;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: $sp-8 0;
+}
+
+strong, b { color: var(--text-primary); font-weight: 700; }
+em, i     { font-style: italic; }
+
+::selection {
+  background-color: var(--accent);
+  color: var(--text-on-accent);
+}
+
+img[loading="lazy"] {
+  opacity: 0;
+  transition: opacity .4s ease;
+}
+img[loading="lazy"].loaded { opacity: 1; }
+
+.container {
+  width: 100%;
+  max-width: $container-max;
+  margin: 0 auto;
+  padding: 0 $container-pad;
+
+  @media (max-width: 375px) { padding: 0 $sp-3; }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: $sp-4;
+  z-index: 9999;
+  padding: $sp-3 $sp-5;
+  background: var(--accent);
+  color: var(--text-on-accent);
+  font-weight: 700;
+  font-size: .875rem;
+  border-radius: $r-md;
+  text-decoration: none;
+  transition: top .15s ease;
+
+  &:focus {
+    top: $sp-4;
+    outline: 2px solid var(--text-on-accent);
+    outline-offset: 2px;
+  }
+}
+
+.post-content iframe,
+.post-content video {
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+}
+
+.post-content embed,
+.post-content object {
+  max-width: 100%;
+}
+
+// Global overflow containment
+.section,
+.page-content,
+.filter-page,
+.topics-page,
+.archive-page,
+.error-page {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+// Touch: reset stuck :hover states
+@media (hover: none) {
+
+  .btn--primary:hover {
+    transform: none;
+    box-shadow: var(--glow-accent-sm);
+  }
+  .btn--outline:hover { transform: none; }
+  .btn--ghost:hover   { transform: none; }
+
+  .post-card:hover,
+  .featured-item:hover,
+  .video-card:hover   { transform: none; box-shadow: var(--shadow-card); }
+
+  .tag-pill:hover,
+  .filter-page__btn:hover { transform: none; }
+
+  .social-btn:hover   { transform: none; }
+
+  .scroll-top:hover   { transform: translateY(0); }
+
+  .share-btn:hover    { transform: none; }
+
+  .post-nav__link:hover { color: var(--text-primary); }
+
+  .toc-link:hover {
+    color: var(--text-secondary);
+    background: transparent;
+    border-left-color: transparent;
+  }
+  .toc-link.is-active:hover {
+    color: var(--accent-text);
+    background: var(--accent-subtle);
+    border-left-color: var(--accent);
+  }
+}

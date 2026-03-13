@@ -1,0 +1,9 @@
+---
+- name: astrophotography
+  color: "#1D4ED8"
+- name: firefox
+  color: "#FF5722"
+- name: challenge
+  color: "#FBBF24"
+- name: selfhosting
+  color: "#5C4EE5"

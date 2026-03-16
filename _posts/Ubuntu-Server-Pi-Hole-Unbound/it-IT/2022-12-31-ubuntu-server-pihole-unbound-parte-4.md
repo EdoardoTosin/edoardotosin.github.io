@@ -34,31 +34,31 @@ Ora di può procedere all'installazione del DNS resolver Unbound con il comando 
 È possibile che venga richiesta la password utente poiché viene lanciato con i privilegi di amministratore.
 In caso affermativo inserirla e premere `Invio`.
 
-![](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_1.webp)
+![Installazione Unbound - esecuzione di "sudo apt install unbound" per installare il DNS resolver](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_1.webp)
 
 Confermare l'installazione dell'applicazione scrivendo `y` e premendo `Invio`.
 
-![](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_2.webp)
+![Installazione Unbound - conferma dell'installazione del pacchetto digitando "y"](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_2.webp)
 
 Finita l'installazione è possibile che comparirà qualche messaggio in scritto in rosso come segue. Si può ignorare dato che non influisce sul funzionamento del sistema e delle sue applicazioni.
 
-![](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_3.webp)
+![Installazione Unbound - messaggi di avviso in rosso non critici visualizzati al termine dell'installazione (ignorabili)](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_3.webp)
 
 ### Scaricamento ip risoluzione server di registrazione dei domini
 
 Ora è possibile scaricare la lista degli IPv4 e IPv6 per risolvere i server di registrazioni dei domini. Per far ciò usare la seguente stringa: `wget -O root.hints https://www.internic.net/domain/named.root sudo mv root.hints /var/lib/unbound/`.
 
-![](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_4.webp)
+![Configurazione Unbound - download del file root hints (named.root) da internic.net tramite wget](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_4.webp)
 
 Premere `Invio` per lanciare il tutto.
 
-![](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_5.webp)
+![Configurazione Unbound - avanzamento del download del file root hints tramite wget](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_5.webp)
 
 ### Configurazione file
 
 È necessario modificare il file di configurazione di Unbound. Per far ciò scrivere il comando `sudo nano /etc/unbound/unbound.conf.d/pi-hole.conf` e confermare con la password utente siccome viene eseguito con privilegi di amministratore.
 
-![](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_6.webp)
+![Configurazione Unbound - apertura del file pi-hole.conf in nano per creare la configurazione di Unbound](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_6.webp)
 
 All'interno del file vuoto dovrà essere inserito il seguente testo:
 
@@ -110,46 +110,46 @@ Link al file di riferimento: [`pi-hole.conf`](https://raw.githubusercontent.com/
 
 Alle righe che iniziano con `interface` e `port` (in questo caso contengono rispettivamente `127.0.0.1` e `5353`) avranno le stringhe che successivamente verrano inserite nelle impostazioni di Pi-Hole da interfaccia web.
 
-![](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_7.webp)
+![Configurazione Unbound - contenuto del file pi-hole.conf con le impostazioni di interfaccia (127.0.0.1) e porta (5353)](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_7.webp)
 
 Per uscire premere `CTRL+X`. Chiederà se si vuole salvare e confermare scrivendo `y` e premere `Invio`.
 
-![](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_8.webp)
+![Configurazione Unbound - richiesta di salvataggio in nano dopo la modifica del file pi-hole.conf](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_8.webp)
 
 Confermare il nome e percorso di salvataggio del file premendo `Invio`.
 
-![](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_9.webp)
+![Configurazione Unbound - conferma del nome e del percorso di salvataggio del file pi-hole.conf in nano](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_9.webp)
 
 ### Verifica correttezza file
 
 Per avere la certezza che il file sia stato salvato correttamente copiare il seguente comando `sudo cat /etc/unbound/unbound.conf.d/pi-hole.conf` e premere `Invio` per eseguirlo.
 
-![](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_10.webp)
+![Configurazione Unbound - esecuzione di "sudo cat" per verificare il contenuto del file pi-hole.conf salvato](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_10.webp)
 
 Controllare che sia uguale a quanto precedentemente copiato.
 
-![](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_11.webp)
+![Configurazione Unbound - contenuto del file pi-hole.conf visualizzato per la verifica](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_11.webp)
 
 ### Riavvio servizio Unbound
 
 Riavviare Unbound per caricare la nuova configurazione: `sudo service unbound restart` e premere `Invio`. È possibile che venga richiesta la password utente poiché viene lanciato con i privilegi di amministratore. In caso affermativo inserirla e premere `Invio`.
 
-![](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_12.webp)
+![Unbound - riavvio del servizio Unbound per caricare la nuova configurazione](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_12.webp)
 
 ### Verifica funzionamento DNSSEC
 
 I seguenti comandi servono a verificare che DNSSEC funzioni in modo corretto.
 Primo comando: `dig pi-hole.net @127.0.0.1 -p 5353`
 
-![](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_14.webp)
+![Verifica DNSSEC - query dig per pi-hole.net che restituisce NOERROR con indirizzo IP valido](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_14.webp)
 
 Il seguente comando dovrebbe ritornare SERVFAIL senza nessun indirizzo IP: `dig sigfail.verteiltesysteme.net @127.0.0.1 -p 5353`.
 
-![](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_16.webp)
+![Verifica DNSSEC - query dig per sigfail.verteiltesysteme.net che restituisce SERVFAIL (atteso, DNSSEC funzionante)](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_16.webp)
 
 Questo comando dovrebbe ritornare NOERROR con un indirizzo IP: `dig sigok.verteiltesysteme.net @127.0.0.1 -p 5353`.
 Se entrambi ritornano in modo corretto allora DNSSEC funziona. 
 
-![](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_18.webp)
+![Verifica DNSSEC - query dig per sigok.verteiltesysteme.net che restituisce NOERROR con IP (DNSSEC funzionante)](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_18.webp)
 
 **[Parte successiva]({% post_url Ubuntu-Server-Pi-Hole-Unbound/it-IT/2022-12-31-ubuntu-server-pihole-unbound-parte-5 %})**

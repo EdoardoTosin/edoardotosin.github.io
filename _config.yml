@@ -87,11 +87,11 @@ social:
 crypto_keys:
   pgp_key_id:      "0xB99DC787"
   pgp_fingerprint: "1C00 582D 5121 0DC8 1516  6D67 D2DA 678D B99D C787"
-  pgp_keyserver:   "https://keys.openpgp.org/search?q=1C00582D51210DC815166D67D2DA678DB99DC787"
+  pgp_keyserver:   "https://keys.openpgp.org/vks/v1/by-fingerprint/1C00582D51210DC815166D67D2DA678DB99DC787"
 
   gpg_key_id:      "0x39614DF0"
   gpg_fingerprint: "E118 88C2 AC5F 9DA4 EDC4  2299 B1F7 8777 3961 4DF0"
-  gpg_keyserver:   "https://keys.openpgp.org/search?q=E11888C2AC5F9DA4EDC42299B1F7877739614DF0"
+  gpg_keyserver:   "https://keys.openpgp.org/vks/v1/by-fingerprint/E11888C2AC5F9DA4EDC42299B1F7877739614DF0"
 
 # Content defaults
 defaults:

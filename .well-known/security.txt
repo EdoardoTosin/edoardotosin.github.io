@@ -3,7 +3,7 @@ Hash: SHA512
 
 Contact: mailto:edoardotosindev@proton.me
 Expires: 2026-12-31T22:59:59.000Z
-Encryption: https://edoardotosin.com/security/signed-email-d2da678db99dc787.txt
+Encryption: https://keys.openpgp.org/vks/v1/by-fingerprint/1C00582D51210DC815166D67D2DA678DB99DC787
 Preferred-Languages: en, it
 Canonical: https://edoardotosin.com/.well-known/security.txt
 Policy: https://edoardotosin.com/security-policy
@@ -21,8 +21,9 @@ Policy: https://edoardotosin.com/security-policy
 # All references point here to ensure contact details stay updated.
 -----BEGIN PGP SIGNATURE-----
 
-iHUEARYKAB0WIQQcAFgtUSENyBUWbWfS2meNuZ3HhwUCaVKXwQAKCRDS2meNuZ3H
-hxhfAP4w+1al5ITgFId5ve0WMXKgfSP+HufmeLbebMIusOefOQD7BGe5YrqGiIpt
-Xs0wZjHHWKNxfc2wDqRSr2mW8fbOKQw=
-=Y5t/
+iKwEARYKAFQWIQQcAFgtUSENyBUWbWfS2meNuZ3HhwUCabgFLxsUgAAAAAAEAA5t
+YW51MiwyLjUrMS4xMiwyLDEaHGVkb2FyZG90b3NpbmRldkBwcm90b24ubWUACgkQ
+0tpnjbmdx4d/QgD+NmwQaD6HM/0r1dmOBGfCIcAGlwGmTlhof6NukbT2EfkBAI6H
+ZSSmLQNvCASGyXwaRCNoNb1edBPNtpDxZ+83hSAO
+=Es9Y
 -----END PGP SIGNATURE-----

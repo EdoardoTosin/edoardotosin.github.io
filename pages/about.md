@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "About"
-description: "About Edoardo Tosin - software developer and security researcher."
+description: "Who I am, what I work on, and how to get in touch."
 permalink: /about/
 ---
 

@@ -2,7 +2,7 @@
 permalink: /projects/
 layout: page
 title: Projects Portfolio
-description: "Open-source projects by Edoardo Tosin - terminal games, CLI tools, browser extensions, computer vision, and satellite imagery analysis."
+description: "Open-source projects I've built - CLI tools, browser extensions, computer vision, and satellite imagery analysis."
 ---
 
 ## Programming

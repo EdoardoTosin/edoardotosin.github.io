@@ -2,7 +2,7 @@
 permalink: /now/
 layout: page
 title: Now
-description: "What Edoardo Tosin is working on right now."
+description: "What I'm working on right now."
 date: 2024-08-12 21:00:00 +0200
 last_modified_at: 2026-03-15
 ---

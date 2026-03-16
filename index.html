@@ -125,7 +125,7 @@ pagination:
             <div class="featured-item">
               <div class="featured-item__img" aria-hidden="true">
                 <img src="{{ post.image | default: '/images/social-preview.jpg' | relative_url }}"
-                     alt="" loading="lazy" width="80" height="64">
+                     alt="{{ post.title | escape }}" loading="lazy" width="80" height="64">
               </div>
               <div class="featured-item__content">
                 <h4 class="featured-item__title">

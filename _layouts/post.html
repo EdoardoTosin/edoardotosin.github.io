@@ -17,7 +17,7 @@ layout: default
          class="post-hero__tag" data-topic="{{ page.topic | downcase | escape }}"
          rel="tag">{{ page.topic | downcase }}</a>
       {%- endif -%}
-      <h1 class="post-hero__title">{{ page.title }}</h1>
+      <p class="post-hero__title" aria-hidden="true">{{ page.title }}</p>
     </div>
   </div>
 </div>

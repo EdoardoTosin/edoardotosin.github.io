@@ -65,7 +65,7 @@
     {%- if page.title and page.title != "Home" -%}
       {{ page.title }} - {{ site.title }}
     {%- else -%}
-      {{ site.title }}
+      {{ site.title }} - {{ site.author.hero_subtitle }}
     {%- endif -%}
   </title>
 

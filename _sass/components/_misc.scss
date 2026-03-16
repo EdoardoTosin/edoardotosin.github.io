@@ -58,52 +58,6 @@
   }
 }
 
-// Prev / Next nav buttons
-.img-zoom__prev,
-.img-zoom__next {
-  position: fixed;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, .12);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, .18);
-  color: #fff;
-  cursor: pointer;
-  transition: background .15s ease, transform .15s ease, opacity .15s ease;
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-
-  &:hover  { background: rgba(255, 255, 255, .22); }
-  &:active { transform: translateY(-50%) scale(.9); }
-
-  &:focus-visible {
-    outline: 2px solid rgba(255, 255, 255, .7);
-    outline-offset: 2px;
-  }
-
-  &:disabled {
-    opacity: .25;
-    cursor: default;
-    pointer-events: none;
-  }
-}
-
-.img-zoom__prev {
-  left: calc(16px + env(safe-area-inset-left));
-}
-
-.img-zoom__next {
-  right: calc(16px + env(safe-area-inset-right));
-}
-
 // Figure / image / caption
 .img-zoom__fig {
   display: flex;

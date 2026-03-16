@@ -77,15 +77,13 @@
       else img.addEventListener('load', function () { img.classList.add('loaded'); }, { once: true });
     });
   }
-  // Image zoom (native <dialog>, fit-to-viewport, with prev/next navigation)
+  // Image zoom (native <dialog>, fit-to-viewport, swipe to navigate/close)
   function initImageZoom() {
     const dialog   = qs('#img-zoom');
     const fig      = dialog?.querySelector('.img-zoom__fig');
     const img      = dialog?.querySelector('img');
     const caption  = dialog?.querySelector('.img-zoom__caption');
     const closeBtn = dialog?.querySelector('.img-zoom__close');
-    const prevBtn  = dialog?.querySelector('.img-zoom__prev');
-    const nextBtn  = dialog?.querySelector('.img-zoom__next');
     const content  = qs('.post-content');
     if (!dialog || !fig || !img || !caption || !closeBtn || !content) return;
 
@@ -99,22 +97,13 @@
 
     let dragStart = null;
     let dragging  = false;
+    let swipingH  = false;
     let lastPointerEvent = null;
 
     const TAP_THRESH  = 8;
     const SWIPE_Y     = 72;
+    const SWIPE_X     = 60;
     const SWIPE_RATIO = 2.5;
-
-    function updateNavButtons() {
-      if (prevBtn) {
-        prevBtn.disabled = currentIdx <= 0;
-        prevBtn.style.visibility = zoomImgs.length > 1 ? '' : 'hidden';
-      }
-      if (nextBtn) {
-        nextBtn.disabled = currentIdx >= zoomImgs.length - 1;
-        nextBtn.style.visibility = zoomImgs.length > 1 ? '' : 'hidden';
-      }
-    }
 
     function loadImage(srcImg) {
       img.src    = srcImg.dataset.zoom || srcImg.currentSrc || srcImg.src;
@@ -130,7 +119,6 @@
     function open(idx) {
       currentIdx = idx;
       loadImage(zoomImgs[currentIdx]);
-      updateNavButtons();
       dialog.showModal();
       document.body.style.overflow = 'hidden';
       closeBtn.focus({ preventScroll: true });
@@ -149,19 +137,15 @@
       if (currentIdx <= 0) return;
       currentIdx--;
       loadImage(zoomImgs[currentIdx]);
-      updateNavButtons();
     }
 
     function showNext() {
       if (currentIdx >= zoomImgs.length - 1) return;
       currentIdx++;
       loadImage(zoomImgs[currentIdx]);
-      updateNavButtons();
     }
 
     closeBtn.addEventListener('click', close);
-    if (prevBtn) prevBtn.addEventListener('click', showPrev);
-    if (nextBtn) nextBtn.addEventListener('click', showNext);
 
     dialog.addEventListener('click', function(e) {
       if (e.target === dialog) close();
@@ -190,6 +174,7 @@
       if (!e.isPrimary) return;
       dragStart = { x: e.clientX, y: e.clientY };
       dragging  = false;
+      swipingH  = false;
       fig.setPointerCapture(e.pointerId);
     });
 
@@ -199,8 +184,16 @@
       const dy = e.clientY - dragStart.y;
       const adx = Math.abs(dx), ady = Math.abs(dy);
 
-      if (!dragging && adx > TAP_THRESH && adx > ady) {
-        dragStart = null;
+      // Determine swipe axis on first significant movement
+      if (!dragging && !swipingH && adx > TAP_THRESH && adx > ady) {
+        swipingH = true;
+      }
+
+      if (swipingH) {
+        dialog.classList.add('is-dragging');
+        const progress = Math.min(1, adx / 200);
+        fig.style.transform = `translateX(${dx}px)`;
+        fig.style.opacity   = String(1 - progress * 0.3);
         return;
       }
 
@@ -223,6 +216,22 @@
       const adx = Math.abs(dx), ady = Math.abs(dy);
       dragStart = null;
 
+      if (swipingH) {
+        swipingH = false;
+        if (adx >= SWIPE_X) {
+          const dir = dx < 0 ? 1 : -1;
+          fig.style.transition = 'transform .18s ease, opacity .18s ease';
+          fig.style.transform  = `translateX(${dir * 110}%)`;
+          fig.style.opacity    = '0';
+          setTimeout(function() { if (dx < 0) showNext(); else showPrev(); }, 180);
+        } else {
+          fig.style.transition = 'transform .22s ease, opacity .22s ease';
+          fig.style.transform  = '';
+          fig.style.opacity    = '';
+        }
+        return;
+      }
+
       if (!dragging) {
         if (adx < TAP_THRESH && ady < TAP_THRESH) close();
         return;
@@ -244,6 +253,7 @@
     fig.addEventListener('pointercancel', function() {
       dialog.classList.remove('is-dragging');
       dragging  = false;
+      swipingH  = false;
       dragStart = null;
       fig.style.transform = '';
       fig.style.opacity   = '';

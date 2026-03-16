@@ -1,5 +1,5 @@
 ---
-title: DNS server installation and configuration (Part 4) - Unbound installation (EN)
+title: "Pi-Hole & Unbound Setup - Part 4: Unbound Installation"
 description: "How to install Unbound on Ubuntu Server as a recursive DNS resolver that queries root nameservers directly, removing reliance on third-party DNS providers."
 short_url: pihole-guide-4
 date: 2024-01-02 13:00:00 +0100

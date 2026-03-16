@@ -1,5 +1,5 @@
 ---
-title: DNS server installation and configuration (Part 5) - Pi-Hole configuration (EN)
+title: "Pi-Hole & Unbound Setup - Part 5: Pi-Hole Configuration"
 description: "How to configure Pi-Hole's web interface, manage blocklists, and wire it together with Unbound to complete your self-hosted, privacy-focused DNS server."
 short_url: pihole-guide-5
 date: 2024-01-02 14:00:00 +0100

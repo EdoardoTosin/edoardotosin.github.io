@@ -1,5 +1,5 @@
 ---
-title: DNS server installation and configuration (Part 1) - Ubuntu Server installation (EN)
+title: "Pi-Hole & Unbound Setup - Part 1: Ubuntu Server Installation"
 description: "How to install Ubuntu Server as the foundation for a self-hosted DNS stack using Pi-Hole and Unbound - including disk partitioning, SSH setup, and initial system configuration."
 short_url: pihole-guide-1
 date: 2024-01-02 10:00:00 +0100

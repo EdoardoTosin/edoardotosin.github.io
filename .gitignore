@@ -5,7 +5,6 @@
 /.sass-cache/
 /.jekyll-cache/
 /.jekyll-metadata
-Gemfile.lock
 
 # System files (macOS and Windows)
 .DS_Store

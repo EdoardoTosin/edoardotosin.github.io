@@ -209,3 +209,5 @@ exclude:
   - .well-known/unsigned-security.txt.asc
   - blog.code-workspace
   - tools
+  - "**/*.ps1"
+  - "**/*.sh"

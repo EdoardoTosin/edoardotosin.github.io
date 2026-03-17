@@ -348,7 +348,7 @@
       btn.textContent = 'Loading\u2026';
       btn.disabled = true;
 
-      fetch('/blog/page/' + page + '/index.html')
+      fetch('/_pagination/homepage/' + page + '/index.html')
         .then(function(r) { return r.text(); })
         .then(function(html) {
           var doc   = new DOMParser().parseFromString(html, 'text/html');

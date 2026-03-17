@@ -167,7 +167,7 @@ plugins:
 pagination:
   enabled:      true
   per_page:     6
-  permalink:    "/blog/page/:num/"
+  permalink:    "/_pagination/homepage/:num/"
   title:        ":title - page :num"
   sort_field:   "date"
   sort_reverse: true

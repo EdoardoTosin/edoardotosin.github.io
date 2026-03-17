@@ -185,7 +185,7 @@ sass:
   silence_deprecations: [legacy-js-api]
 
 include:
-  - .well-known
+  - ".well-known/security.txt"
 
 exclude:
   - Gemfile

@@ -1,6 +1,6 @@
 ---
 title: "Guida Pi-Hole & Unbound - Parte 3: Installazione Pi-Hole"
-description: "Come installare Pi-Hole su Ubuntu Server per bloccare pubblicità e tracker a livello DNS su tutta la rete, come parte di uno stack DNS self-hosted con Unbound."
+description: Come installare Pi-Hole su Ubuntu Server per bloccare pubblicità e tracker a livello DNS su tutta la rete, come parte di uno stack DNS self-hosted con Unbound.
 short_url: pihole-guida-3
 date: 2022-12-31 12:00:00 +0100
 last_modified_at: 2024-08-07 16:30:08 +0200

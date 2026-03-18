@@ -1,6 +1,6 @@
 ---
 title: "Pi-Hole & Unbound Setup - Part 5: Pi-Hole Configuration"
-description: "How to configure Pi-Hole's web interface, manage blocklists, and wire it together with Unbound to complete your self-hosted, privacy-focused DNS server."
+description: How to configure Pi-Hole's web interface, manage blocklists, and wire it together with Unbound to complete your self-hosted, privacy-focused DNS server.
 short_url: pihole-guide-5
 date: 2024-01-02 14:00:00 +0100
 last_modified_at: 2026-02-03 19:00:00 +0100

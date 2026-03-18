@@ -1,6 +1,6 @@
 ---
-title: "Supernova in the Pinwheel galaxy"
-description: "My astrophotography of SN 2023ixf, a Type II supernova in the Pinwheel galaxy (M101), captured six days after its discovery in May 2023."
+title: Supernova in the Pinwheel galaxy
+description: My astrophotography of SN 2023ixf, a Type II supernova in the Pinwheel galaxy (M101), captured six days after its discovery in May 2023.
 layout: post
 gallery: true
 short_url: sn2023ixf

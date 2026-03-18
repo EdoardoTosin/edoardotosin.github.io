@@ -14,6 +14,7 @@ Desktop.ini
 # Editor configuration
 .vscode/
 .obsidian/
+.idea/
 
 # Security.txt files
 .well-known/*

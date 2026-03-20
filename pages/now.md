@@ -4,7 +4,7 @@ layout: page
 title: Now
 description: "What I'm working on right now."
 date: 2024-08-12 21:00:00 +0200
-last_modified_at: 2026-03-15
+last_modified_at: 2026-03-20
 ---
 
 *Last updated {{ page.last_modified_at | date: "%d %b %Y" }}*
@@ -13,21 +13,27 @@ last_modified_at: 2026-03-15
 
 ## Security Research
 
-Hunting vulnerabilities through bug bounties. I've been recognized in the [BSI Hall of Fame](https://www.bsi.bund.de/DE/IT-Sicherheitsvorfall/IT-Schwachstellen/Hall_of_Fame/Hall_of_Fame_node.html) for responsible disclosure. Most of the work is reading code carefully and following the logic until something breaks.
+Working on vulnerability discovery through bug bounty programs. I’ve been recognized in the [BSI Hall of Fame](https://www.bsi.bund.de/DE/IT-Sicherheitsvorfall/IT-Schwachstellen/Hall_of_Fame/Hall_of_Fame_node.html) for responsible disclosure.
 
-Keeping up with new CVEs, reading write-ups, and testing tools I haven't used before.
+Most of the work involves careful code review, understanding system behavior, and tracing execution paths until inconsistencies or security issues emerge.
+
+I regularly follow new CVEs, read technical write-ups, and experiment with tools and techniques to stay current.
+
+---
 
 ## Projects
 
-Working on open-source tools and side projects, mostly in C and Python - CLI utilities, automation scripts, and some computer vision work.
+Building and maintaining open-source tools and personal projects, primarily in C and Python. These include CLI utilities, automation workflows, and occasional computer vision experiments.
 
-My homelab runs a few self-hosted services. I like knowing what's running on my own network.
+I also run a small homelab with self-hosted services, focusing on understanding system behavior, network control, and operational reliability.
+
+---
 
 ## Other Things
 
-Recently explored burn severity analysis using Sentinel-2 satellite imagery. Interesting mix of geospatial data and scripting.
+Recently explored burn severity analysis using Sentinel-2 satellite imagery, combining geospatial data processing with scripting.
 
-When the sky cooperates, I do astrophotography - solar imaging when there's activity, deep-sky otherwise.
+Outside of software, I practice astrophotography, primarily solar imaging and deep-sky observations when conditions allow.
 
 ---
 

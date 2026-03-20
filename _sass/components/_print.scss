@@ -163,7 +163,7 @@
   .highlight pre,
   .highlight pre.highlight {
     padding: 8pt 10pt !important; font-size: .875em !important; font-family: monospace !important;
-    line-height: 1.5 !important; white-space: pre-wrap !important; word-break: break-all !important;
+    line-height: 1.5 !important; white-space: pre-wrap !important; word-break: break-word !important;
     overflow-wrap: anywhere !important;
   }
 
@@ -171,7 +171,7 @@
     background: transparent !important; border: none !important; padding: 0 !important;
     font-size: inherit !important; font-family: inherit !important;
     line-height: inherit !important; white-space: pre-wrap !important;
-    word-break: break-all !important; overflow-wrap: anywhere !important;
+    word-break: break-word !important; overflow-wrap: anywhere !important;
   }
 
   .code-block {
@@ -185,12 +185,12 @@
   pre:not(.highlight) {
     font-size: .875em !important; font-family: monospace; padding: 8pt 10pt;
     background: #f5f5f5 !important; color: #000 !important;
-    border: 0.5pt solid #bbb; white-space: pre-wrap !important; word-break: break-all !important;
+    border: 0.5pt solid #bbb; white-space: pre-wrap !important; word-break: break-word !important;
     page-break-inside: avoid; margin: 8pt 0; border-radius: 0; overflow: hidden !important;
 
     code {
       white-space: pre-wrap !important;
-      word-break: break-all !important;
+      word-break: break-word !important;
       overflow-wrap: anywhere !important;
     }
   }
@@ -200,7 +200,7 @@
   // 8. Overflow & page breaks
   *, *::before, *::after { max-width: 100% !important; overflow-x: visible !important; box-sizing: border-box; overflow-wrap: break-word; }
 
-  a { word-break: break-all; overflow-wrap: anywhere; }
+  a { word-break: break-word; overflow-wrap: anywhere; }
 
   table  { page-break-inside: avoid; font-size: 9pt; }
   tr, th { page-break-inside: avoid; }

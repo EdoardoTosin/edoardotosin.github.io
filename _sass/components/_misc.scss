@@ -239,10 +239,12 @@
     margin-bottom: $sp-6;
     padding-bottom: $sp-2;
     scrollbar-width: thin;
-    scrollbar-color: var(--border-strong) transparent;
+    scrollbar-color: transparent transparent;
     &::-webkit-scrollbar       { width: 4px; }
     &::-webkit-scrollbar-track { background: transparent; }
-    &::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 2px; }
+    &::-webkit-scrollbar-thumb { background: transparent; border-radius: 2px; transition: background .2s ease; }
+    &:hover { scrollbar-color: var(--border-strong) transparent; }
+    &:hover::-webkit-scrollbar-thumb { background: var(--border-strong); }
     &::after {
       content: '';
       position: sticky;

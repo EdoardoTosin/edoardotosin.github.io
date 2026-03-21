@@ -9,6 +9,7 @@
 {%- assign seo_image   = page.image | default: '/images/social-preview.jpg' | absolute_url -%}
 {%- assign seo_author  = page.author | default: site.author.name -%}
 {%- assign seo_robots  = page.robots | default: 'index, follow' -%}
+{%- if paginator and paginator.page > 1 -%}{%- assign seo_robots = 'noindex, follow' -%}{%- endif -%}
 {%- assign seo_modified = page.last_modified_at | default: page.date -%}
 {%- assign twitter_handle = site.author.twitter -%}
 

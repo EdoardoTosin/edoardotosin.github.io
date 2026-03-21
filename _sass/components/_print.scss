@@ -102,6 +102,13 @@
   .filter-page__results, .posts-grid { display: block !important; }
   .tag-item, .topic-item { display: block !important; margin-bottom: 6pt; }
 
+  // Blog page
+  .blog-year-filter,
+  .blog__header,
+  .blog__aside { display: none !important; }
+  .blog__body   { display: block !important; }
+  .blog-post-item { display: block !important; margin-bottom: 12pt; }
+
   // 6. Heroes & pages
   .page-hero {
     background: transparent !important; padding: 8pt 0 !important; text-align: left;

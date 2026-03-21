@@ -1,0 +1,170 @@
+---
+layout: default
+title: "Blog"
+description: "All posts on software, security, open source, and more."
+permalink: /blog/
+---
+
+{%- assign hp = site.homepage -%}
+{%- assign by_year = site.posts | group_by_exp: 'post', 'post.date | date: "%Y"' -%}
+
+<div class="page-hero">
+  <div class="container">
+    <h1 class="page-hero__title">Blog</h1>
+    <p class="page-hero__desc">{{ site.posts | size }} posts on software, security, open source, and more.</p>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="blog-year-filter" id="blog-year-filter">
+    <div class="blog-year-filter__pills" role="group" aria-label="Filter posts by year">
+      <button class="filter-page__btn is-active" data-year="all" aria-pressed="true">
+        All
+        <span class="count">{{ site.posts | size }}</span>
+      </button>
+      {%- for year_group in by_year -%}
+      <button class="filter-page__btn" data-year="{{ year_group.name }}" aria-pressed="false">
+        {{ year_group.name }}
+        <span class="count">{{ year_group.items | size }}</span>
+      </button>
+      {%- endfor -%}
+    </div>
+  </div>
+
+  <div class="blog__header">
+    <p class="blog__results-label" id="year-results-meta" aria-live="polite"></p>
+    <div class="blog__header-right">
+      {%- if hp.enable_blog_toggle != false -%}
+      <div class="view-toggle" role="group" aria-label="Switch post view">
+        <button class="view-toggle__btn is-active"
+                data-view="grid"
+                aria-pressed="true"
+                title="Grid view">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+            <rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>
+          </svg>
+          <span class="sr-only">Grid view</span>
+        </button>
+        <button class="view-toggle__btn"
+                data-view="list"
+                aria-pressed="false"
+                title="List view">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/>
+            <line x1="8" y1="18" x2="21" y2="18"/>
+            <line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/>
+            <line x1="3" y1="18" x2="3.01" y2="18"/>
+          </svg>
+          <span class="sr-only">List view</span>
+        </button>
+      </div>
+      {%- endif -%}
+      <a href="{{ '/archive/' | relative_url }}" class="section-header__link">Index &rarr;</a>
+    </div>
+  </div>
+
+  <div class="blog__body">
+    <div class="blog__main">
+
+      <div class="posts-grid" id="posts-grid">
+        {%- for post in site.posts -%}
+        <div class="blog-post-item" data-year="{{ post.date | date: '%Y' }}">
+          {% include post-card.html post=post %}
+        </div>
+        {%- endfor -%}
+      </div>
+
+      <div class="filter-page__empty" id="year-empty" aria-live="polite">
+        <span class="filter-page__empty-icon" aria-hidden="true">📭</span>
+        <p id="year-empty-msg">No posts found.</p>
+      </div>
+
+    </div>
+
+    <aside class="blog__aside{% if hp.sticky_sidebar != false %} is-sticky{% endif %}"
+           aria-label="Blog sidebar">
+
+      {%- assign fl = hp.featured_limit | default: 3 | plus: 0 -%}
+      {%- assign _feat_src = hp.featured_source | default: "front_matter" -%}
+      {%- if _feat_src == "collection" and site.featured -%}
+        {%- assign featured = site.featured | slice: 0, fl -%}
+      {%- else -%}
+        {%- assign all_featured = site.posts | where: "featured", true -%}
+        {%- assign featured = all_featured | slice: 0, fl -%}
+      {%- endif -%}
+      {%- if featured.size > 0 -%}
+      <div class="blog-widget">
+        <h3 class="blog-widget__title">&#11088; Featured</h3>
+        <div class="featured-list">
+          {%- for post in featured -%}
+          <div class="featured-item">
+            <div class="featured-item__img" aria-hidden="true">
+              <img src="{{ post.image | default: '/images/social-preview.jpg' | relative_url }}"
+                   alt="{{ post.title | escape }}" loading="lazy" width="60" height="50">
+            </div>
+            <div class="featured-item__content">
+              <h4 class="featured-item__title">
+                <a href="{{ post.url | relative_url }}" title="{{ post.title | escape }}">{{ post.title }}</a>
+              </h4>
+              <time class="featured-item__date"
+                    datetime="{{ post.date | date_to_xmlschema }}">
+                {{ post.date | date: "%d %b, %Y" }}
+              </time>
+            </div>
+          </div>
+          {%- endfor -%}
+        </div>
+      </div>
+      {%- endif -%}
+
+      {%- assign tl = hp.topics_limit | default: 6 -%}
+      {%- assign all_topics = site.posts | map: 'topic' | compact | uniq | sort -%}
+      {%- if all_topics.size > 0 -%}
+      <div class="blog-widget">
+        <h3 class="blog-widget__title">Topics</h3>
+        <div class="widget-tags">
+          {%- assign _padded = "" -%}
+          {%- for tp in all_topics -%}
+            {%- assign _cnt = site.posts | where: 'topic', tp | size | plus: 10000 -%}
+            {%- assign _entry = _cnt | append: "~" | append: tp -%}
+            {%- assign _padded = _padded | append: _entry | append: "|" -%}
+          {%- endfor -%}
+          {%- assign _sorted_topics = _padded | split: "|" | sort | reverse -%}
+          {%- assign shown = 0 -%}
+          {%- for _s in _sorted_topics -%}
+            {%- if shown < tl and _s != "" -%}
+              {%- assign _parts = _s | split: "~" -%}
+              {%- assign _tp_name = _parts[1] -%}
+              {%- if _tp_name and _tp_name != "" -%}
+              <a href="{{ '/topics/?topic=' | append: _tp_name | relative_url }}"
+                 class="tag-pill" data-topic="{{ _tp_name | downcase | escape }}">{{ _tp_name | downcase }}</a>
+              {%- assign shown = shown | plus: 1 -%}
+              {%- endif -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+      {%- endif -%}
+
+      <div class="blog-widget">
+        <h3 class="blog-widget__title">By Year</h3>
+        <nav class="blog-widget__year-nav" aria-label="Filter by year">
+          {%- for year_group in by_year -%}
+          <a href="{{ '/blog/?year=' | append: year_group.name | relative_url }}"
+             class="blog-widget__year-link"
+             data-year-link="{{ year_group.name }}">
+            <span>{{ year_group.name }}</span>
+            <span class="blog-widget__year-count">{{ year_group.items | size }}</span>
+          </a>
+          {%- endfor -%}
+        </nav>
+      </div>
+
+    </aside>
+  </div>
+
+</div>

@@ -671,6 +671,7 @@
         setActive(btn);
         filterPosts(current);
         updateURL(current);
+        if (cfg.onFilter) cfg.onFilter(current);
       });
     });
 
@@ -682,11 +683,19 @@
         current = slug;
         setActive(target);
         filterPosts(slug);
+        if (cfg.onFilter) cfg.onFilter(slug);
         target.scrollIntoView({ block: 'nearest' });
       }
     }
   }
 
+
+  // Blog page: sync "By Year" sidebar links
+  function syncYearSidebarLinks(val) {
+    qsa('[data-year-link]').forEach(function (link) {
+      link.classList.toggle('is-active', link.dataset.yearLink === val);
+    });
+  }
 
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', function () {
@@ -723,6 +732,14 @@
       suffix: function (v) { return ' in topic "' + v + '"'; },
       emptyMsg: function (v) { return 'No posts in topic "' + v + '".'; }
     });
+    initFilterPage({
+      attr: 'data-year', itemSel: '.blog-post-item', param: 'year',
+      match: function (p, v) { return p.dataset.year === v; },
+      suffix: function (v) { return ' from ' + v; },
+      emptyMsg: function (v) { return 'No posts from ' + v + '.'; },
+      onFilter: function (v) { syncYearSidebarLinks(v); }
+    });
+    syncYearSidebarLinks(new URLSearchParams(window.location.search).get('year') || 'all');
   });
 
 }());

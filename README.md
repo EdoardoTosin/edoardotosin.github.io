@@ -20,7 +20,8 @@ JEKYLL_ENV=production bundle exec jekyll build
 | Route | Description |
 |---|---|
 | `/` | Homepage |
-| `/archive/` | All posts by year |
+| `/blog/` | All posts with thumbnails, year filter, and view toggle |
+| `/archive/` | Compact text index of all posts by year |
 | `/topics/` | Posts filtered by topic |
 | `/tags/` | Posts filtered by tag |
 | `/projects/` | Projects |

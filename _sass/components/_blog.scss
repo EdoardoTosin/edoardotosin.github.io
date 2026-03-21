@@ -198,3 +198,88 @@
                 flex-direction 0s, max-height 0s;
   }
 }
+
+// Blog post item
+.blog-post-item {
+  min-width: 0;
+
+  .posts-grid[data-view="list"] & {
+    display: flex;
+    flex-direction: column;
+
+    .post-card { flex: 1; }
+  }
+}
+
+// Blog page results label
+.blog__results-label {
+  font-size: .875rem;
+  color: var(--text-muted);
+  min-height: 1.4em;
+  flex: 1;
+
+  strong { color: var(--text-secondary); }
+}
+
+// Year filter pill bar
+.blog-year-filter {
+  padding: $sp-2 0 $sp-2;
+
+  &__pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $sp-2;
+    padding-bottom: $sp-4;
+  }
+}
+
+// "By Year" sidebar widget
+.blog-widget__year-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.blog-widget__year-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $sp-2 $sp-3;
+  border-radius: $r-sm;
+  font-size: .875rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: $t-fast;
+
+  &:hover {
+    background: var(--accent-subtle);
+    color: var(--accent-text);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+  }
+
+  &.is-active {
+    background: var(--accent-subtle);
+    color: var(--accent-text);
+  }
+}
+
+.blog-widget__year-count {
+  font-size: .6875rem;
+  background: var(--bg-tag);
+  color: var(--text-muted);
+  padding: 1px $sp-2;
+  border-radius: $r-full;
+  min-width: 20px;
+  text-align: center;
+
+  .blog-widget__year-link:hover &,
+  .blog-widget__year-link.is-active & {
+    background: var(--accent);
+    color: var(--text-on-accent);
+  }
+}

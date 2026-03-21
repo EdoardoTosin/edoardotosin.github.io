@@ -202,13 +202,10 @@
 // Blog post item
 .blog-post-item {
   min-width: 0;
+  display: flex;
+  flex-direction: column;
 
-  .posts-grid[data-view="list"] & {
-    display: flex;
-    flex-direction: column;
-
-    .post-card { flex: 1; }
-  }
+  > .post-card { flex: 1; }
 }
 
 // Blog page results label

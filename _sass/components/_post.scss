@@ -190,6 +190,41 @@
   .meta-sep { color: var(--border-strong); }
 }
 
+// TL;DR summary box
+.post-tldr {
+  display: flex;
+  gap: $sp-3;
+  align-items: baseline;
+  background: var(--accent-subtle);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 $r-md $r-md 0;
+  padding: $sp-3 $sp-5;
+  margin-bottom: $sp-6;
+
+  @media (max-width: #{$bp-sm}) {
+    flex-direction: column;
+    gap: $sp-1;
+    padding: $sp-3 $sp-4;
+    margin-bottom: $sp-4;
+  }
+
+  &__label {
+    flex-shrink: 0;
+    font-size: .6875rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--accent-text);
+  }
+
+  &__text {
+    font-size: .9375rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+}
+
 // Inline mobile ToC
 .toc-inline {
   display: none;
@@ -1054,21 +1089,100 @@
 
 // Related posts
 .related-posts {
-  margin-top: $sp-12;
+  margin-top: $sp-8;
 
-  h2 {
-    font-size: 1.25rem;
-    font-family: $font-heading;
-    letter-spacing: -.02em;
-    margin-bottom: $sp-6;
+  &__title {
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: var(--text-muted);
+    margin-bottom: $sp-4;
+    padding-bottom: $sp-3;
+    border-bottom: 1px solid var(--border);
   }
 
   &__grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: $sp-6;
+    gap: $sp-4;
 
-    @media (max-width: #{$bp-sm}) { grid-template-columns: 1fr; }
+    @media (max-width: #{$bp-sm}) {
+      grid-template-columns: 1fr;
+      gap: $sp-3;
+
+      // On mobile, slim down the post cards so they don't dominate
+      .post-card {
+        flex-direction: row;
+        align-items: flex-start;
+
+        &__img {
+          aspect-ratio: auto;
+          width: 90px;
+          min-width: 90px;
+          height: 72px;
+          flex-shrink: 0;
+        }
+
+        &__body {
+          padding: $sp-3 $sp-4;
+          gap: $sp-1;
+        }
+
+        &__description { display: none; }
+
+        &__title { font-size: .9375rem; -webkit-line-clamp: 2; }
+
+        &__meta { padding-top: $sp-2; gap: $sp-3; }
+      }
+    }
+  }
+}
+
+// Backlinks (Mentioned in)
+.post-backlinks {
+  margin-top: $sp-6;
+  padding-top: $sp-5;
+  border-top: 1px solid var(--border);
+
+  &__title {
+    font-size: .8125rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: var(--text-muted);
+    margin-bottom: $sp-3;
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: $sp-1;
+
+    li {
+      display: flex;
+      align-items: baseline;
+      gap: $sp-3;
+      flex-wrap: wrap;
+      margin-bottom: 0;
+    }
+
+    a {
+      font-size: .875rem;
+      font-weight: 600;
+      color: var(--accent-text);
+      text-decoration: none;
+      &:hover { text-decoration: underline; }
+    }
+
+    time {
+      font-size: .75rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
   }
 }
 

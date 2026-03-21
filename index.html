@@ -33,7 +33,7 @@ pagination:
         <a href="{{ '/contact/' | relative_url }}" class="btn btn--primary">
           Get in Touch
         </a>
-        <a href="{{ '/archive/' | relative_url }}" class="btn btn--ghost">
+        <a href="#blog-heading" class="btn btn--ghost">
           Read the Blog
         </a>
       </div>
@@ -125,7 +125,7 @@ pagination:
             <div class="featured-item">
               <div class="featured-item__img" aria-hidden="true">
                 <img src="{{ post.image | default: '/images/social-preview.jpg' | relative_url }}"
-                     alt="{{ post.title | escape }}" loading="lazy" width="80" height="64">
+                     alt="{{ post.title | escape }}" loading="lazy" width="60" height="50">
               </div>
               <div class="featured-item__content">
                 <h4 class="featured-item__title">
@@ -161,7 +161,7 @@ pagination:
                 {%- assign _tp_name = _parts[1] -%}
                 {%- if _tp_name and _tp_name != "" -%}
                 <a href="{{ '/topics/?topic=' | append: _tp_name | relative_url }}"
-                   class="tag-pill">{{ _tp_name | downcase }}</a>
+                   class="tag-pill" data-topic="{{ _tp_name | downcase | escape }}">{{ _tp_name | downcase }}</a>
                 {%- assign shown = shown | plus: 1 -%}
                 {%- endif -%}
               {%- endif -%}
@@ -298,6 +298,7 @@ pagination:
   <div class="container">
     <div class="section-header">
       <h2 class="section-header__title" id="gallery-heading">Gallery</h2>
+      <a href="{{ '/gallery/' | relative_url }}" class="section-header__link">All Gallery &rarr;</a>
     </div>
     <div class="gallery-grid">
       {%- for post in gallery_posts -%}

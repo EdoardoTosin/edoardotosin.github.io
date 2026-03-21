@@ -65,6 +65,13 @@ layout: default
         </details>
       </div>
 
+      {%- if page.tldr and page.tldr != "" -%}
+      <div class="post-tldr" role="note" aria-label="Summary">
+        <span class="post-tldr__label">TL;DR</span>
+        <p class="post-tldr__text">{{ page.tldr }}</p>
+      </div>
+      {%- endif -%}
+
       <div class="post-content" itemprop="articleBody">
         {{ content }}
       </div>
@@ -206,12 +213,26 @@ layout: default
       {%- endif -%}
       {%- if _related.size > 0 -%}
       <section class="related-posts" aria-label="Related posts">
-        <h2>You Might Also Like</h2>
+        <h2 class="related-posts__title">You Might Also Like</h2>
         <div class="related-posts__grid">
           {%- for post in _related limit: 2 -%}
           {% include post-card.html post=post %}
           {%- endfor -%}
         </div>
+      </section>
+      {%- endif -%}
+
+      {%- if page.backlinks.size > 0 -%}
+      <section class="post-backlinks" aria-label="Mentioned in other posts">
+        <h2 class="post-backlinks__title">Mentioned in</h2>
+        <ul class="post-backlinks__list">
+          {%- for bl in page.backlinks -%}
+          <li>
+            <a href="{{ bl.url | relative_url }}" title="{{ bl.title | escape }}">{{ bl.title }}</a>
+            <time datetime="{{ bl.date | date_to_xmlschema }}">{{ bl.date | date: "%d %b %Y" }}</time>
+          </li>
+          {%- endfor -%}
+        </ul>
       </section>
       {%- endif -%}
 

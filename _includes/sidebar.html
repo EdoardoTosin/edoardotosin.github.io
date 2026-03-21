@@ -35,7 +35,7 @@
     <h2 class="sidebar-widget__title">Topics</h2>
     <div class="widget-tags">
       {%- for topic in all_topics -%}
-      <a href="{{ '/topics/?topic=' | append: topic | relative_url }}" class="tag-pill">{{ topic | downcase }}</a>
+      <a href="{{ '/topics/?topic=' | append: topic | relative_url }}" class="tag-pill" data-topic="{{ topic | downcase | escape }}">{{ topic | downcase }}</a>
       {%- endfor -%}
     </div>
   </div>

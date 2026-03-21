@@ -1,0 +1,32 @@
+---
+layout: default
+title: "Gallery"
+description: "A visual gallery of photos, astrophotography, and captured moments."
+permalink: /gallery/
+---
+
+<div class="page-hero">
+  <div class="container">
+    <h1 class="page-hero__title">Gallery</h1>
+    <p class="page-hero__desc">Photos, astrophotography, and captured moments.</p>
+  </div>
+</div>
+
+<div class="container">
+  {%- assign gallery_posts = site.posts | where: 'gallery', true -%}
+  {%- if gallery_posts.size > 0 -%}
+  <div class="gallery-grid">
+    {%- for post in gallery_posts -%}
+    <a href="{{ post.url | relative_url }}"
+       class="gallery-item"
+       aria-label="{{ post.title | escape }}">
+      <img src="{{ post.image | default: '/images/social-preview.jpg' | relative_url }}"
+           alt="{{ post.title | escape }}" loading="lazy" width="600" height="400">
+      <span class="gallery-item__caption">{{ post.caption | default: post.title }}</span>
+    </a>
+    {%- endfor -%}
+  </div>
+  {%- else -%}
+  <p class="page-empty">No gallery posts yet.</p>
+  {%- endif -%}
+</div>

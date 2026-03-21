@@ -120,6 +120,7 @@ The following are outside the scope of this security policy:
 - **Primary Contact**: [{{ site.author.email }}](mailto:{{ site.author.email }})
 - **GitHub Repository**: [{{ site.repository }}]({{ site.repository }})
 - **General Contact**: [Contact page]({{ '/contact' | relative_url }})
+- **Machine-readable disclosure**: [`/.well-known/security.txt`]({{ '/.well-known/security.txt' | relative_url }}) - a standardized [security.txt](https://securitytxt.org/) file following [RFC 9116](https://www.rfc-editor.org/rfc/rfc9116)
 
 ## Compliance and Standards
 

@@ -193,9 +193,32 @@ newsletter:
   title:       "Stay in touch"
   description: "Get the latest posts."
   button_text: "Subscribe"
+
+webmentions:
+  enabled: false
+  domain:  "yourdomain.com"
 ```
 
 All integrations are off by default. Set `enabled: true` and fill in the required fields to activate.
+
+### Webmentions
+
+[Webmention](https://www.w3.org/TR/webmention/) is an open web standard for cross-site reactions (likes, reposts, replies). This site uses [webmention.io](https://webmention.io) as a receiver.
+
+To enable:
+
+1. Sign in at [webmention.io](https://webmention.io) with your domain using IndieAuth or a rel-me link.
+2. Set `webmentions.enabled: true` and `webmentions.domain` to your bare domain (no `https://`):
+
+```yaml
+webmentions:
+  enabled: true
+  domain:  "yourdomain.com"
+```
+
+When enabled, the `<link rel="webmention">` and `<link rel="pingback">` discovery tags are added to every page, and a Webmentions section (likes, reposts, and replies) appears at the bottom of each post.
+
+No build-time API calls are made. Webmentions are fetched client-side when a visitor loads a post page.
 
 ## Reading Time
 

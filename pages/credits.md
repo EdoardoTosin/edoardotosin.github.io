@@ -64,6 +64,12 @@ All fonts are self-hosted as WOFF2 files — no external requests.
 
 ---
 
+## Diagrams
+
+- **[Mermaid](https://mermaid.js.org/)** - Diagrams from fenced code blocks, loaded from jsDelivr only on posts that need it. Respects the site's dark/light theme.
+
+---
+
 ## Search
 
 - **Custom engine** - Client-side full-text search with no external library. Runs entirely in the browser against a static index.

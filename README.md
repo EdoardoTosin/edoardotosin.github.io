@@ -25,6 +25,7 @@ JEKYLL_ENV=production bundle exec jekyll build
 | `/topics/` | Posts filtered by topic |
 | `/tags/` | Posts filtered by tag |
 | `/projects/` | Projects |
+| `/gallery/` | Posts with `gallery: true` |
 | `/videos/` | Posts with `video: true` |
 | `/now/` | Now page |
 | `/about/` | About |

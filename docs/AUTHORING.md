@@ -23,6 +23,7 @@ video: false
 gallery: false
 
 math: false
+mermaid: false
 
 robots: "noindex"
 last_modified_at: 2025-02-01
@@ -143,6 +144,7 @@ Both inline and multi-paragraph variants work:
 | `<mark>` | `<mark>text</mark>` | Accent highlight |
 | Math (inline) | `$E = mc^2$` | Requires `math: true` |
 | Math (block) | `$$\nabla \cdot E = 0$$` | Requires `math: true` |
+| Diagram | ` ```mermaid ` | Requires `mermaid: true` |
 | Details/summary | `<details><summary>` | Native HTML collapsible |
 
 ## Code Blocks
@@ -189,6 +191,27 @@ $$
 \int_0^\infty e^{-x^2} dx = \frac{\sqrt{\pi}}{2}
 $$
 ```
+
+## Diagrams (Mermaid)
+
+Enable Mermaid on a per-post basis:
+
+```yaml
+mermaid: true
+```
+
+Then use a fenced code block with the `mermaid` language tag:
+
+````markdown
+```mermaid
+graph TD
+  A[Start] --> B{Decision}
+  B -->|Yes| C[Done]
+  B -->|No| D[Skip]
+```
+````
+
+Diagrams adapt to the site's dark/light theme automatically. Mermaid is loaded from jsDelivr only on posts that enable it.
 
 ## Series Navigation
 

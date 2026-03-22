@@ -63,36 +63,36 @@
         | replace: "//", "/" -%}
       {%- if _page_clean == "" -%}{%- assign _page_clean = "/" -%}{%- endif -%}
 
-      {%- assign _footer_nav_classes = "site-footer__menu,site-footer__pages" | split: "," -%}
-      {%- for col in site.footer_nav -%}
-      {%- if col.items and col.items.size > 0 -%}
-      {%- assign _col_class = _footer_nav_classes[forloop.index0] | default: "site-footer__menu" -%}
-      <div class="{{ _col_class }}">
-        <h3 class="site-footer__col-title">{{ col.group | escape }}</h3>
-        <ul class="site-footer__nav">
-          {%- for link in col.items -%}
-          {%- unless link.external -%}
-            {%- assign _link_clean = link.url
-              | replace: site.url, ""
-              | replace: site.baseurl, ""
-              | split: "?"
-              | first
-              | replace: "index.html", ""
-              | replace: "//", "/" -%}
-            {%- if _link_clean == "" -%}{%- assign _link_clean = "/" -%}{%- endif -%}
-          {%- endunless -%}
-          <li>
-            <a href="{% if link.external %}{{ link.url }}{% else %}{{ link.url | relative_url }}{% endif %}"
-               {% if link.external %}target="_blank" rel="noopener noreferrer"{% endif %}
-               {% unless link.external %}{% if _page_clean == _link_clean %}aria-current="page"{% endif %}{% endunless %}>
-              {{ link.title | escape }}
-            </a>
-          </li>
-          {%- endfor -%}
-        </ul>
+      <div class="site-footer__nav-cols">
+        {%- for col in site.footer_nav -%}
+        {%- if col.items and col.items.size > 0 -%}
+        <div class="site-footer__nav-group">
+          <h3 class="site-footer__col-title">{{ col.group | escape }}</h3>
+          <ul class="site-footer__nav">
+            {%- for link in col.items -%}
+            {%- unless link.external -%}
+              {%- assign _link_clean = link.url
+                | replace: site.url, ""
+                | replace: site.baseurl, ""
+                | split: "?"
+                | first
+                | replace: "index.html", ""
+                | replace: "//", "/" -%}
+              {%- if _link_clean == "" -%}{%- assign _link_clean = "/" -%}{%- endif -%}
+            {%- endunless -%}
+            <li>
+              <a href="{% if link.external %}{{ link.url }}{% else %}{{ link.url | relative_url }}{% endif %}"
+                 {% if link.external %}target="_blank" rel="noopener noreferrer"{% endif %}
+                 {% unless link.external %}{% if _page_clean == _link_clean %}aria-current="page"{% endif %}{% endunless %}>
+                {{ link.title | escape }}
+              </a>
+            </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+        {%- endif -%}
+        {%- endfor -%}
       </div>
-      {%- endif -%}
-      {%- endfor -%}
 
       <div class="site-footer__recent-col">
         <h3 class="site-footer__col-title">Recent Posts</h3>

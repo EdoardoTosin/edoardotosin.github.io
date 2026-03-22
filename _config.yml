@@ -34,14 +34,18 @@ header_nav:
     url:   "/projects/"
   - title: "More"
     children:
-      - title: "Archive"
-        url:   "/archive/"
-      - title: "Now"
-        url:   "/now/"
       - title: "About"
         url:   "/about/"
       - title: "Contact"
         url:   "/contact/"
+      - title: "Archive"
+        url:   "/archive/"
+      - title: "Now"
+        url:   "/now/"
+      - title: "Gallery"
+        url:   "/gallery/"
+      - title: "Videos"
+        url:   "/videos/"
       - title: "GitHub"
         url:   "https://github.com/EdoardoTosin"
         external: true
@@ -60,17 +64,22 @@ footer_nav:
         url:   "/projects/"
   - group: "Pages"
     items:
-      - title: "Archive"
-        url:   "/archive/"
-      - title: "Now"
-        url:   "/now/"
       - title: "About"
         url:   "/about/"
+      - title: "Now"
+        url:   "/now/"
       - title: "Contact"
         url:   "/contact/"
-      - title: "GitHub"
-        url:   "https://github.com/EdoardoTosin"
-        external: true
+      - title: "Archive"
+        url:   "/archive/"
+  - group: "Explore"
+    items:
+      - title: "Gallery"
+        url:   "/gallery/"
+      - title: "Videos"
+        url:   "/videos/"
+      - title: "Tags"
+        url:   "/tags/"
 
 copyright:
   year: 2022

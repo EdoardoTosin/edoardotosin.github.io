@@ -10,6 +10,8 @@ const CACHE_REVISION = '{{ site.time | date: "%Y%m%d%H%M%S" }}';
 const STATIC_CACHE = `jekyll-static-${CACHE_REVISION}`;
 const PAGE_CACHE   = `jekyll-pages-${CACHE_REVISION}`;
 const IMAGE_CACHE  = `jekyll-images-${CACHE_REVISION}`;
+// Persistent saved-articles cache: never pruned on deploy, user-managed.
+const SAVED_CACHE  = 'jekyll-saved-articles';
 
 var PRECACHE_ASSETS = [
   '{{ "/" | relative_url }}',
@@ -43,7 +45,7 @@ self.addEventListener('install', function (event) {
 
 // Activate: prune old caches
 self.addEventListener('activate', function (event) {
-  var keepCaches = [STATIC_CACHE, PAGE_CACHE, IMAGE_CACHE];
+  var keepCaches = [STATIC_CACHE, PAGE_CACHE, IMAGE_CACHE, SAVED_CACHE];
   event.waitUntil(
     caches.keys().then(function (keys) {
       return Promise.all(
@@ -115,7 +117,7 @@ function staleWhileRevalidate(req, cacheName) {
   });
 }
 
-// Network-first: try network; fall back to cache, then /offline.html.
+// Network-first: try network; fall back to page cache, then saved cache, then /offline.html.
 function networkFirst(req, cacheName, maxItems) {
   return fetch(req).then(function (res) {
     if (res.ok) {
@@ -128,7 +130,12 @@ function networkFirst(req, cacheName, maxItems) {
   }).catch(function () {
     return caches.open(cacheName).then(function (cache) {
       return cache.match(req).then(function (cached) {
-        return cached || caches.match('/offline.html');
+        if (cached) return cached;
+        return caches.open(SAVED_CACHE).then(function (savedCache) {
+          return savedCache.match(req).then(function (saved) {
+            return saved || caches.match('/offline.html');
+          });
+        });
       });
     });
   });

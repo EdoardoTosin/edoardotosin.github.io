@@ -1,0 +1,224 @@
+@use 'variables' as *;
+
+// Command Palette overlay
+.cmd-palette {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: min(10vh, 80px) $sp-4 $sp-4;
+
+  &[hidden] { display: none; }
+
+  &__backdrop {
+    position: absolute;
+    inset: 0;
+    background: var(--bg-overlay);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    opacity: 0;
+    transition: opacity .2s ease;
+  }
+
+  &.is-open &__backdrop { opacity: 1; }
+
+  &__box {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-strong);
+    border-radius: $r-lg;
+    box-shadow: var(--shadow-xl);
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-10px) scale(.98);
+    transition: opacity .2s ease, transform .2s ease;
+  }
+
+  &.is-open &__box {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  &__input-wrap {
+    display: flex;
+    align-items: center;
+    gap: $sp-3;
+    padding: $sp-4 $sp-5;
+    border-bottom: 1px solid var(--border);
+  }
+
+  &__search-icon {
+    color: var(--text-muted);
+    flex-shrink: 0;
+  }
+
+  &__input {
+    flex: 1;
+    background: none;
+    border: none;
+    outline: none;
+    font-family: $font-sans;
+    font-size: 1rem;
+    color: var(--text-primary);
+    caret-color: var(--accent);
+
+    &::placeholder { color: var(--text-muted); }
+  }
+
+  &__results {
+    max-height: min(60vh, 420px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: $sp-2 0;
+  }
+
+  &__footer {
+    display: flex;
+    gap: $sp-5;
+    padding: $sp-3 $sp-5;
+    border-top: 1px solid var(--border);
+    font-size: .75rem;
+    color: var(--text-muted);
+
+    kbd {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1px 5px;
+      background: var(--bg-code);
+      border: 1px solid var(--border-strong);
+      border-radius: 4px;
+      font-family: $font-mono;
+      font-size: .7rem;
+      color: var(--text-secondary);
+      margin-right: 3px;
+    }
+  }
+}
+
+// Group label
+.cmd-group {
+  &__label {
+    font-size: .6875rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    padding: $sp-3 $sp-5 $sp-1;
+    margin: 0;
+  }
+}
+
+// Individual result item
+.cmd-item {
+  display: flex;
+  align-items: center;
+  gap: $sp-3;
+  width: 100%;
+  padding: $sp-3 $sp-5;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: $font-sans;
+  font-size: .9375rem;
+  color: var(--text-primary);
+  transition: background .1s ease;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  min-height: 44px;
+
+  &__icon {
+    color: var(--icon-color);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    width: 16px;
+  }
+
+  &__label {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  // Post-specific layout
+  &__body {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  &__meta {
+    display: flex;
+    align-items: center;
+    gap: $sp-2;
+    font-size: .75rem;
+    color: var(--text-muted);
+  }
+
+  &__tag {
+    display: inline-flex;
+    align-items: center;
+    font-size: .6875rem;
+    font-weight: 600;
+    padding: 0 $sp-2;
+    border-radius: $r-full;
+    background: var(--accent-subtle);
+    color: var(--accent-text);
+    text-transform: lowercase;
+  }
+
+  &__date { color: var(--text-muted); }
+
+  // Active / hover state
+  &.is-active,
+  &:hover {
+    background: var(--accent-subtle);
+
+    .cmd-item__icon  { color: var(--accent-text); }
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: -2px;
+  }
+}
+
+// Empty state
+.cmd-empty {
+  padding: $sp-6 $sp-5;
+  font-size: .9375rem;
+  color: var(--text-muted);
+  text-align: center;
+  margin: 0;
+}
+
+// Keyboard shortcut hint on search toggle (desktop only)
+.search-toggle__kbd {
+  display: none;
+
+  @media (min-width: #{$bp-lg}) {
+    display: inline-flex;
+    align-items: center;
+    padding: 1px 6px;
+    background: var(--bg-code);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-family: $font-mono;
+    font-size: .7rem;
+    color: var(--text-muted);
+    letter-spacing: 0;
+    margin-left: $sp-2;
+    opacity: .8;
+    pointer-events: none;
+  }
+}

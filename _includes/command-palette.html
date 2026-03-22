@@ -1,0 +1,33 @@
+<div id="cmd-palette"
+     class="cmd-palette"
+     role="dialog"
+     aria-modal="true"
+     aria-label="Command palette"
+     data-base-url="{{ '/' | relative_url | remove_last: '/' }}"
+     hidden>
+  <div class="cmd-palette__backdrop" aria-hidden="true"></div>
+  <div class="cmd-palette__box" role="presentation">
+    <div class="cmd-palette__input-wrap">
+      <svg class="cmd-palette__search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text"
+             id="cmd-input"
+             class="cmd-palette__input"
+             placeholder="Search pages, posts, or actions&hellip;"
+             autocomplete="off"
+             spellcheck="false"
+             aria-label="Command palette search"
+             aria-autocomplete="list"
+             aria-controls="cmd-results">
+    </div>
+    <div id="cmd-results"
+         class="cmd-palette__results"
+         role="listbox"
+         aria-label="Results"
+         aria-live="polite"></div>
+    <div class="cmd-palette__footer" aria-hidden="true">
+      <span><kbd>↑↓</kbd> navigate</span>
+      <span><kbd>↵</kbd> open</span>
+      <span><kbd>Esc</kbd> close</span>
+    </div>
+  </div>
+</div>

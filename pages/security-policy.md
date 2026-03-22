@@ -2,7 +2,7 @@
 permalink: /security-policy/
 layout: page
 title: Security Policy
-description: "Security measures, vulnerability management, and responsible disclosure policy for this website."
+description: "Security policy covering responsible disclosure, vulnerability reporting, and website architecture."
 date: 2023-01-29
 last_modified_at: 2025-11-15
 ---

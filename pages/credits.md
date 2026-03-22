@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Credits"
-description: "Tools, libraries, and resources used to build this site."
+description: "Open-source tools, libraries, fonts, and resources used to build this website, including Jekyll, IBM Plex Sans, Outfit, Cascadia Code, and more."
 permalink: /credits/
 ---
 

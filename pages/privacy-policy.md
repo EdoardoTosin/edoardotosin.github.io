@@ -2,7 +2,7 @@
 permalink: /privacy-policy/
 layout: page
 title: Privacy Policy
-description: "Information on data collection, usage, and privacy practices for this website."
+description: "Privacy policy covering data collection, third-party services, GitHub Pages hosting, Cloudflare CDN, and visitor rights."
 date: 2023-03-01
 last_modified_at: 2026-03-22
 ---

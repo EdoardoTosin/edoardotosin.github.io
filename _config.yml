@@ -1,6 +1,6 @@
 # Site identity
 title:         "Edoardo Tosin"
-description:   "Personal blog on software development, cybersecurity, and open-source systems."
+description:   "Writing on software development, security research, Linux, open-source projects, bug bounty, and astrophotography."
 keywords:      "self-hosting, dns, security, cybersecurity, linux, open source, programming, bug bounty, computer science, astrophotography"
 url:           "https://edoardotosin.com"
 baseurl:       ""
@@ -156,6 +156,12 @@ newsletter:
 disqus:
   enabled:   false
   shortname: "your-disqus-shortname"
+
+# Webmentions - optional IndieWeb reactions below posts.
+# Register your domain at https://webmention.io then set enabled: true.
+webmentions:
+  enabled: false
+  domain:  ""  # e.g. "example.com"
 
 google_analytics: ""
 

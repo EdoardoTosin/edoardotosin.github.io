@@ -3,9 +3,9 @@
   'use strict';
 
   function copyCode(el, btn) {
-    var code = el.querySelector('code') || el.querySelector('pre') || el;
-    var text = code.innerText || code.textContent || '';
-    var span = btn.querySelector('span');
+    const code = el.querySelector('code') || el.querySelector('pre') || el;
+    const text = code.innerText || code.textContent || '';
+    const span = btn.querySelector('span');
 
     function done() {
       btn.classList.add('copied');
@@ -19,7 +19,7 @@
     }
 
     function fallback() {
-      var ta = document.createElement('textarea');
+      const ta = document.createElement('textarea');
       ta.value = text;
       ta.style.cssText = 'position:fixed;opacity:0;pointer-events:none';
       document.body.appendChild(ta);
@@ -36,9 +36,9 @@
 
   document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.code-block__copy').forEach(function (btn) {
-      var block = btn.closest('.code-block');
+      const block = btn.closest('.code-block');
       if (!block) return;
-      var highlight = block.querySelector('.highlight') || block.querySelector('pre');
+      const highlight = block.querySelector('.highlight') || block.querySelector('pre');
       if (highlight) btn.addEventListener('click', function () { copyCode(highlight, btn); });
     });
   });

@@ -111,7 +111,7 @@ homepage:
 
 - `enable_blog_toggle` - show the grid/list view switch on the blog feed
 - `sticky_sidebar` - keep the sidebar fixed while scrolling
-- `posts_per_page` - number of posts shown initially on the homepage
+- `posts_per_page` - number of posts shown initially on the homepage (mobile always shows at most 3)
 - `featured_limit` - max posts shown in the Featured Posts sidebar widget
 - `topics_limit` - max topics shown in the Topics sidebar widget
 - `show_topic_clusters` - set to `false` to hide the Featured Topics section

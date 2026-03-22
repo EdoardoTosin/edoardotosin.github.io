@@ -286,7 +286,7 @@
 
       var filters = parsed.filters;
 
-      // Hard filters (return null = excluded)
+      // Hard filters
       for (var e = 0; e < parsed.excludes.length; e++) {
         if (idx.inv[parsed.excludes[e]] && idx.inv[parsed.excludes[e]][docIdx]) return null;
       }
@@ -531,7 +531,7 @@
       });
     }
 
-    // Reset mobile viewport zoom that browsers apply when focusing an input.
+    // Reset mobile viewport zoom
     function resetViewportZoom() {
       var vp = document.querySelector('meta[name="viewport"]');
       if (!vp) return;

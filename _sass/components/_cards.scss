@@ -1,6 +1,6 @@
 @use 'variables' as *;
 
-// Post card - z-index:1 on siblings keeps them independently clickable
+// Post card
 .post-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
@@ -147,7 +147,15 @@
   gap: $sp-6;
 
   @media (min-width: #{$bp-xl}) { grid-template-columns: repeat(3, 1fr); }
-  @media (max-width: #{$bp-sm}) { grid-template-columns: 1fr; }
+
+  @media (max-width: #{$bp-sm}) {
+    grid-template-columns: 1fr;
+    .post-card:nth-child(n+4) { display: none; }
+  }
+}
+
+@media (max-width: #{$bp-sm}) {
+  .load-more-wrap { display: none; }
 }
 
 // Load More
@@ -157,7 +165,11 @@
 }
 
 // Featured item
-.featured-list  { display: flex; flex-direction: column; gap: $sp-4; }
+.featured-list {
+  display: flex;
+  flex-direction: column;
+  gap: $sp-4;
+}
 
 .featured-item {
   display: flex;
@@ -221,7 +233,7 @@
   @media (max-width: 631px)  { grid-template-columns: 1fr;            .topic-group:nth-child(n+2) { display: none; } }
 }
 
-// Hide Topic Clusters on mobile - card images create excessive scroll.
+// Hide topic clusters on mobile
 .topic-clusters-section {
   @media (max-width: #{$bp-sm}) { display: none; }
 }

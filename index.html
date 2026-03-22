@@ -142,7 +142,8 @@ pagination:
         </div>
         {%- endif -%}
 
-        {%- assign tl = hp.topics_limit | default: 6 -%}        {%- assign all_topics = site.posts | map: 'topic' | compact | uniq | sort -%}
+        {%- assign tl = hp.topics_limit | default: 6 -%}
+        {%- assign all_topics = site.posts | map: 'topic' | compact | uniq | sort -%}
         {%- if all_topics.size > 0 -%}
         <div class="blog-widget">
           <h3 class="blog-widget__title">Topics</h3>

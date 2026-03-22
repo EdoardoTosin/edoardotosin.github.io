@@ -1,7 +1,6 @@
 @use 'variables' as *;
 
-// Hero image
-// __content sizes container; __img is absolute (no added document height)
+// Post hero
 .post-hero {
   position: relative;
   overflow: hidden;
@@ -1186,7 +1185,7 @@
   }
 }
 
-// Reading progress bar - width is driven entirely by JS (initReadingProgress).
+// Reading progress bar
 .reading-progress {
   position: fixed;
   top: 0;

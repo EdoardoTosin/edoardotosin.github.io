@@ -179,6 +179,7 @@
     visibility: visible;
     transform: translateY(0);
     pointer-events: auto;
+    transition-delay: 0s;
   }
 
   &__dropdown-menu {
@@ -195,7 +196,7 @@
     opacity: 0;
     visibility: hidden;
     transform: translateY(-6px);
-    transition: opacity .18s ease, transform .18s ease, visibility .18s;
+    transition: opacity .18s ease, transform .18s ease, visibility 0s linear .18s;
     pointer-events: none;
     z-index: 10;
 

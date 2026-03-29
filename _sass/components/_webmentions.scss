@@ -10,15 +10,17 @@
     font-family: $font-heading;
     font-weight: 700;
     color: var(--text-primary);
-    letter-spacing: -.02em;
+    letter-spacing: -0.02em;
     margin: 0 0 $sp-6;
   }
 
   // Likes / reposts section
-  &__likes { margin-bottom: $sp-8; }
+  &__likes {
+    margin-bottom: $sp-8;
+  }
 
   &__likes-label {
-    font-size: .8125rem;
+    font-size: 0.8125rem;
     font-weight: 600;
     color: var(--text-muted);
     margin: 0 0 $sp-3;
@@ -35,14 +37,16 @@
       border-radius: 50%;
       border: 2px solid var(--bg-card);
       object-fit: cover;
-      transition: transform .15s ease;
+      transition: transform 0.15s ease;
 
-      &:hover { transform: translateY(-2px); }
+      &:hover {
+        transform: translateY(-2px);
+      }
     }
   }
 
   &__loading {
-    font-size: .9375rem;
+    font-size: 0.9375rem;
     color: var(--text-muted);
     margin: 0;
   }
@@ -58,13 +62,15 @@
   border-radius: 50%;
   background: var(--accent-subtle);
   color: var(--accent-text);
-  font-size: .875rem;
+  font-size: 0.875rem;
   font-weight: 700;
   text-decoration: none;
   border: 2px solid var(--bg-card);
-  transition: transform .15s ease;
+  transition: transform 0.15s ease;
 
-  &:hover { transform: translateY(-2px); }
+  &:hover {
+    transform: translateY(-2px);
+  }
 }
 
 // Reply / mention cards
@@ -74,9 +80,11 @@
   border-radius: $r-md;
   padding: $sp-4 $sp-5;
   margin-bottom: $sp-4;
-  transition: border-color .2s ease;
+  transition: border-color 0.2s ease;
 
-  &:hover { border-color: var(--border-strong); }
+  &:hover {
+    border-color: var(--border-strong);
+  }
 
   &__header {
     display: flex;
@@ -121,7 +129,7 @@
   }
 
   &__name {
-    font-size: .9375rem;
+    font-size: 0.9375rem;
     font-weight: 600;
     color: var(--text-primary);
     text-decoration: none;
@@ -129,11 +137,13 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 
-    &:hover { color: var(--accent-text); }
+    &:hover {
+      color: var(--accent-text);
+    }
   }
 
   &__date {
-    font-size: .75rem;
+    font-size: 0.75rem;
     color: var(--text-muted);
   }
 
@@ -143,13 +153,15 @@
     text-decoration: none;
     padding: $sp-1;
     border-radius: $r-sm;
-    transition: color .15s ease;
+    transition: color 0.15s ease;
 
-    &:hover { color: var(--accent-text); }
+    &:hover {
+      color: var(--accent-text);
+    }
   }
 
   &__content {
-    font-size: .9375rem;
+    font-size: 0.9375rem;
     color: var(--text-secondary);
     line-height: 1.6;
     margin: 0;

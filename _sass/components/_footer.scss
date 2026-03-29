@@ -12,27 +12,35 @@
       display: grid;
       gap: $sp-10;
       grid-template-columns: 1.5fr 2fr 1.5fr;
-      grid-template-areas: "brand nav recent";
+      grid-template-areas: 'brand nav recent';
 
-      @media (max-width: #{$bp-lg}) { // tablet: brand+recent on top, nav full-width below
+      @media (max-width: #{$bp-lg}) {
+        // tablet: brand+recent on top, nav full-width below
         grid-template-columns: 1fr 1fr;
         grid-template-areas:
-          "brand  recent"
-          "nav    nav";
+          'brand  recent'
+          'nav    nav';
       }
 
-      @media (max-width: #{$bp-md}) { // phablet: single column, natural stacking
+      @media (max-width: #{$bp-md}) {
+        // phablet: single column, natural stacking
         grid-template-columns: 1fr;
         grid-template-areas:
-          "brand"
-          "nav"
-          "recent";
+          'brand'
+          'nav'
+          'recent';
         gap: $sp-8;
       }
 
-      > .site-footer__brand      { grid-area: brand;  }
-      > .site-footer__nav-cols   { grid-area: nav;    }
-      > .site-footer__recent-col { grid-area: recent; }
+      > .site-footer__brand {
+        grid-area: brand;
+      }
+      > .site-footer__nav-cols {
+        grid-area: nav;
+      }
+      > .site-footer__recent-col {
+        grid-area: recent;
+      }
     }
   }
 
@@ -53,10 +61,10 @@
   }
 
   &__col-title {
-    font-size: .8125rem;
+    font-size: 0.8125rem;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: .08em;
+    letter-spacing: 0.08em;
     color: var(--text-muted);
     margin-bottom: $sp-5;
   }
@@ -64,7 +72,7 @@
   // Brand
   &__brand {
     p {
-      font-size: .875rem;
+      font-size: 0.875rem;
       color: var(--text-secondary);
       line-height: 1.65;
       margin: $sp-4 0 $sp-5;
@@ -103,7 +111,10 @@
       transition: $t-fast;
       text-decoration: none;
 
-      svg { width: 15px; height: 15px; }
+      svg {
+        width: 15px;
+        height: 15px;
+      }
 
       &:hover {
         background: var(--accent-subtle);
@@ -115,7 +126,7 @@
         background: var(--accent-subtle);
         color: var(--accent-text);
         border-color: var(--accent);
-        transform: scale(.9);
+        transform: scale(0.9);
       }
 
       &:focus-visible {
@@ -133,12 +144,16 @@
     display: flex;
     flex-direction: column;
     gap: $sp-2;
-    li { margin-bottom: 0; }
+    li {
+      margin-bottom: 0;
+    }
 
     a {
-      font-size: .9rem;
+      font-size: 0.9rem;
       color: var(--text-secondary);
-      transition: color $t-fast, padding-left $t-fast;
+      transition:
+        color $t-fast,
+        padding-left $t-fast;
       text-decoration: none;
       display: inline-block;
 
@@ -149,7 +164,7 @@
 
       &:active {
         color: var(--accent-text);
-        opacity: .75;
+        opacity: 0.75;
       }
 
       &:focus-visible {
@@ -158,7 +173,7 @@
         border-radius: $r-sm;
       }
 
-      &[aria-current="page"] {
+      &[aria-current='page'] {
         color: var(--accent-text);
         font-weight: 700;
       }
@@ -172,7 +187,7 @@
     gap: $sp-4;
 
     &-title {
-      font-size: .8125rem;
+      font-size: 0.8125rem;
       font-weight: 700;
       line-height: 1.4;
       color: var(--text-primary);
@@ -186,15 +201,27 @@
       a {
         color: inherit;
         text-decoration: none;
-        &::after { content: ''; position: absolute; inset: 0; }
+        &::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+        }
       }
     }
 
-    &-date { font-size: .6875rem; color: var(--text-muted); }
+    &-date {
+      font-size: 0.6875rem;
+      color: var(--text-muted);
+    }
 
-    &-content { flex: 1; min-width: 0; }
+    &-content {
+      flex: 1;
+      min-width: 0;
+    }
 
-    &-post:hover &-img img { transform: scale(1.04); }
+    &-post:hover &-img img {
+      transform: scale(1.04);
+    }
   }
 
   &__recent-post {
@@ -207,7 +234,9 @@
     cursor: pointer;
     transition: background $t-fast;
 
-    &:hover { background: var(--bg-tag); }
+    &:hover {
+      background: var(--bg-tag);
+    }
   }
 
   &__recent-img {
@@ -218,7 +247,12 @@
     overflow: hidden;
     background: var(--bg-tag);
 
-    img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
   }
 
   // Bottom bar
@@ -234,13 +268,13 @@
     }
 
     p {
-      font-size: .8125rem;
+      font-size: 0.8125rem;
       color: var(--text-muted);
       margin: 0;
       text-align: center;
       line-height: 2;
       @media (max-width: #{$bp-sm}) {
-        font-size: .75rem;
+        font-size: 0.75rem;
         line-height: 2.2;
       }
     }
@@ -252,8 +286,13 @@
       transition: color $t-fast;
       white-space: nowrap;
 
-      &:hover      { color: var(--accent-text); }
-      &:active     { color: var(--accent-text); opacity: .75; }
+      &:hover {
+        color: var(--accent-text);
+      }
+      &:active {
+        color: var(--accent-text);
+        opacity: 0.75;
+      }
       &:focus-visible {
         outline: 2px solid var(--accent);
         outline-offset: 2px;

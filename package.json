@@ -1,0 +1,28 @@
+{
+  "name": "edoardotosin.github.io",
+  "version": "1.0.0",
+  "description": "Custom Jekyll theme for a personal blog and portfolio. Dark-mode-first, responsive, accessible (WCAG AA), no CSS framework.",
+  "main": "sw.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "devDependencies": {
+    "@shopify/prettier-plugin-liquid": "^1.10.2"
+  },
+  "scripts": {
+    "format": "prettier --write \"**/*.{html,js,scss}\"",
+    "format:check": "prettier --check \"**/*.{html,js,scss}\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EdoardoTosin/edoardotosin.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/EdoardoTosin/edoardotosin.github.io/issues"
+  },
+  "homepage": "https://github.com/EdoardoTosin/edoardotosin.github.io#readme"
+}

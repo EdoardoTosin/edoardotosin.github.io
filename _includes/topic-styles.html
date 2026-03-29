@@ -1,6 +1,6 @@
 <style>
-{%- for t in site.data.topics -%}{%- if t.name and t.color -%}
-[data-topic="{{ t.name | downcase | escape }}"] { --tc:{{ t.color }};--tc-s:{{ t.subtle | default: t.color }};--tc-t:{{ t.text_light | default: t.color }}; }
-[data-theme="dark"] [data-topic="{{ t.name | downcase | escape }}"],[data-topic="{{ t.name | downcase | escape }}"][data-theme="dark"] { --tc-t:{{ t.text_dark | default: t.color }};--tc-s:{{ t.subtle | default: t.color }}; }
-{%- endif -%}{%- endfor -%}
+  {%- for t in site.data.topics -%}{%- if t.name and t.color -%}
+  [data-topic="{{ t.name | downcase | escape }}"] { --tc:{{ t.color }};--tc-s:{{ t.subtle | default: t.color }};--tc-t:{{ t.text_light | default: t.color }}; }
+  [data-theme="dark"] [data-topic="{{ t.name | downcase | escape }}"],[data-topic="{{ t.name | downcase | escape }}"][data-theme="dark"] { --tc-t:{{ t.text_dark | default: t.color }};--tc-s:{{ t.subtle | default: t.color }}; }
+  {%- endif -%}{%- endfor -%}
 </style>

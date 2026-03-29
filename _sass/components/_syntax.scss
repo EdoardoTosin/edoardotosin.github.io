@@ -8,66 +8,198 @@
 }
 
 .highlight {
-  .c   { color: #8b949e; font-style: italic }
-  .err { color: #f85149 }
-  .k   { color: #ff7b72 }
-  .o   { color: #ff7b72 }
-  .cm  { color: #8b949e; font-style: italic }
-  .cp  { color: #8b949e }
-  .c1  { color: #8b949e; font-style: italic }
-  .cs  { color: #8b949e; font-style: italic }
-  .gd  { color: #ffa198 }
-  .ge  { font-style: italic }
-  .gh  { color: #e6edf3; font-weight: bold }
-  .gi  { color: #56d364 }
-  .go  { color: #8b949e }
-  .gp  { color: #8b949e }
-  .gs  { font-weight: bold }
-  .gu  { color: #8b949e; font-weight: bold }
-  .gt  { color: #f85149 }
-  .kc  { color: #79c0ff }
-  .kd  { color: #ff7b72 }
-  .kn  { color: #ff7b72 }
-  .kp  { color: #ff7b72 }
-  .kr  { color: #ff7b72 }
-  .kt  { color: #79c0ff }
-  .m   { color: #79c0ff }
-  .s   { color: #a5d6ff }
-  .na  { color: #7ee787 }
-  .nb  { color: #e6edf3 }
-  .nc  { color: #79c0ff }
-  .no  { color: #79c0ff }
-  .nd  { color: #d2a8ff }
-  .ni  { color: #e6edf3 }
-  .ne  { color: #f0883e }
-  .nf  { color: #d2a8ff }
-  .nl  { color: #7ee787 }
-  .nn  { color: #79c0ff }
-  .nx  { color: #e6edf3 }
-  .py  { color: #e6edf3 }
-  .nt  { color: #7ee787 }
-  .nv  { color: #e6edf3 }
-  .ow  { color: #ff7b72; font-weight: bold }
-  .p   { color: #e6edf3 }
-  .w   { color: #e6edf3 }
-  .mf  { color: #79c0ff }
-  .mh  { color: #79c0ff }
-  .mi  { color: #79c0ff }
-  .mo  { color: #79c0ff }
-  .sb  { color: #a5d6ff }
-  .sc  { color: #a5d6ff }
-  .sd  { color: #a5d6ff; font-style: italic }
-  .s2  { color: #a5d6ff }
-  .se  { color: #79c0ff }
-  .sh  { color: #a5d6ff }
-  .si  { color: #a5d6ff }
-  .sx  { color: #a5d6ff }
-  .sr  { color: #a5d6ff }
-  .s1  { color: #a5d6ff }
-  .ss  { color: #a5d6ff }
-  .bp  { color: #e6edf3 }
-  .vc  { color: #e6edf3 }
-  .vg  { color: #e6edf3 }
-  .vi  { color: #e6edf3 }
-  .il  { color: #79c0ff }
+  .c {
+    color: #8b949e;
+    font-style: italic;
+  }
+  .err {
+    color: #f85149;
+  }
+  .k {
+    color: #ff7b72;
+  }
+  .o {
+    color: #ff7b72;
+  }
+  .cm {
+    color: #8b949e;
+    font-style: italic;
+  }
+  .cp {
+    color: #8b949e;
+  }
+  .c1 {
+    color: #8b949e;
+    font-style: italic;
+  }
+  .cs {
+    color: #8b949e;
+    font-style: italic;
+  }
+  .gd {
+    color: #ffa198;
+  }
+  .ge {
+    font-style: italic;
+  }
+  .gh {
+    color: #e6edf3;
+    font-weight: bold;
+  }
+  .gi {
+    color: #56d364;
+  }
+  .go {
+    color: #8b949e;
+  }
+  .gp {
+    color: #8b949e;
+  }
+  .gs {
+    font-weight: bold;
+  }
+  .gu {
+    color: #8b949e;
+    font-weight: bold;
+  }
+  .gt {
+    color: #f85149;
+  }
+  .kc {
+    color: #79c0ff;
+  }
+  .kd {
+    color: #ff7b72;
+  }
+  .kn {
+    color: #ff7b72;
+  }
+  .kp {
+    color: #ff7b72;
+  }
+  .kr {
+    color: #ff7b72;
+  }
+  .kt {
+    color: #79c0ff;
+  }
+  .m {
+    color: #79c0ff;
+  }
+  .s {
+    color: #a5d6ff;
+  }
+  .na {
+    color: #7ee787;
+  }
+  .nb {
+    color: #e6edf3;
+  }
+  .nc {
+    color: #79c0ff;
+  }
+  .no {
+    color: #79c0ff;
+  }
+  .nd {
+    color: #d2a8ff;
+  }
+  .ni {
+    color: #e6edf3;
+  }
+  .ne {
+    color: #f0883e;
+  }
+  .nf {
+    color: #d2a8ff;
+  }
+  .nl {
+    color: #7ee787;
+  }
+  .nn {
+    color: #79c0ff;
+  }
+  .nx {
+    color: #e6edf3;
+  }
+  .py {
+    color: #e6edf3;
+  }
+  .nt {
+    color: #7ee787;
+  }
+  .nv {
+    color: #e6edf3;
+  }
+  .ow {
+    color: #ff7b72;
+    font-weight: bold;
+  }
+  .p {
+    color: #e6edf3;
+  }
+  .w {
+    color: #e6edf3;
+  }
+  .mf {
+    color: #79c0ff;
+  }
+  .mh {
+    color: #79c0ff;
+  }
+  .mi {
+    color: #79c0ff;
+  }
+  .mo {
+    color: #79c0ff;
+  }
+  .sb {
+    color: #a5d6ff;
+  }
+  .sc {
+    color: #a5d6ff;
+  }
+  .sd {
+    color: #a5d6ff;
+    font-style: italic;
+  }
+  .s2 {
+    color: #a5d6ff;
+  }
+  .se {
+    color: #79c0ff;
+  }
+  .sh {
+    color: #a5d6ff;
+  }
+  .si {
+    color: #a5d6ff;
+  }
+  .sx {
+    color: #a5d6ff;
+  }
+  .sr {
+    color: #a5d6ff;
+  }
+  .s1 {
+    color: #a5d6ff;
+  }
+  .ss {
+    color: #a5d6ff;
+  }
+  .bp {
+    color: #e6edf3;
+  }
+  .vc {
+    color: #e6edf3;
+  }
+  .vg {
+    color: #e6edf3;
+  }
+  .vi {
+    color: #e6edf3;
+  }
+  .il {
+    color: #79c0ff;
+  }
 }

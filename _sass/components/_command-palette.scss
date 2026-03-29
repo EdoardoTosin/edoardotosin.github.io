@@ -10,7 +10,9 @@
   justify-content: center;
   padding: min(10vh, 80px) $sp-4 $sp-4;
 
-  &[hidden] { display: none; }
+  &[hidden] {
+    display: none;
+  }
 
   &__backdrop {
     position: absolute;
@@ -19,10 +21,12 @@
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
     opacity: 0;
-    transition: opacity .2s ease;
+    transition: opacity 0.2s ease;
   }
 
-  &.is-open &__backdrop { opacity: 1; }
+  &.is-open &__backdrop {
+    opacity: 1;
+  }
 
   &__box {
     position: relative;
@@ -34,8 +38,10 @@
     box-shadow: var(--shadow-xl);
     overflow: hidden;
     opacity: 0;
-    transform: translateY(-10px) scale(.98);
-    transition: opacity .2s ease, transform .2s ease;
+    transform: translateY(-10px) scale(0.98);
+    transition:
+      opacity 0.2s ease,
+      transform 0.2s ease;
   }
 
   &.is-open &__box {
@@ -66,7 +72,9 @@
     color: var(--text-primary);
     caret-color: var(--accent);
 
-    &::placeholder { color: var(--text-muted); }
+    &::placeholder {
+      color: var(--text-muted);
+    }
   }
 
   &__results {
@@ -81,7 +89,7 @@
     gap: $sp-5;
     padding: $sp-3 $sp-5;
     border-top: 1px solid var(--border);
-    font-size: .75rem;
+    font-size: 0.75rem;
     color: var(--text-muted);
 
     kbd {
@@ -93,7 +101,7 @@
       border: 1px solid var(--border-strong);
       border-radius: 4px;
       font-family: $font-mono;
-      font-size: .7rem;
+      font-size: 0.7rem;
       color: var(--text-secondary);
       margin-right: 3px;
     }
@@ -103,9 +111,9 @@
 // Group label
 .cmd-group {
   &__label {
-    font-size: .6875rem;
+    font-size: 0.6875rem;
     font-weight: 700;
-    letter-spacing: .08em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--text-muted);
     padding: $sp-3 $sp-5 $sp-1;
@@ -125,9 +133,9 @@
   border: none;
   cursor: pointer;
   font-family: $font-sans;
-  font-size: .9375rem;
+  font-size: 0.9375rem;
   color: var(--text-primary);
-  transition: background .1s ease;
+  transition: background 0.1s ease;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
   min-height: 44px;
@@ -161,14 +169,14 @@
     display: flex;
     align-items: center;
     gap: $sp-2;
-    font-size: .75rem;
+    font-size: 0.75rem;
     color: var(--text-muted);
   }
 
   &__tag {
     display: inline-flex;
     align-items: center;
-    font-size: .6875rem;
+    font-size: 0.6875rem;
     font-weight: 600;
     padding: 0 $sp-2;
     border-radius: $r-full;
@@ -177,14 +185,18 @@
     text-transform: lowercase;
   }
 
-  &__date { color: var(--text-muted); }
+  &__date {
+    color: var(--text-muted);
+  }
 
   // Active / hover state
   &.is-active,
   &:hover {
     background: var(--accent-subtle);
 
-    .cmd-item__icon  { color: var(--accent-text); }
+    .cmd-item__icon {
+      color: var(--accent-text);
+    }
   }
 
   &:focus-visible {
@@ -196,7 +208,7 @@
 // Empty state
 .cmd-empty {
   padding: $sp-6 $sp-5;
-  font-size: .9375rem;
+  font-size: 0.9375rem;
   color: var(--text-muted);
   text-align: center;
   margin: 0;
@@ -214,11 +226,11 @@
     border: 1px solid var(--border);
     border-radius: 4px;
     font-family: $font-mono;
-    font-size: .7rem;
+    font-size: 0.7rem;
     color: var(--text-muted);
     letter-spacing: 0;
     margin-left: $sp-2;
-    opacity: .8;
+    opacity: 0.8;
     pointer-events: none;
   }
 }

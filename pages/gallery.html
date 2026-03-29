@@ -4,7 +4,6 @@ title: "Gallery"
 description: "Photos covering astrophotography, solar observations, deep-sky imaging, and other captured moments."
 permalink: /gallery/
 ---
-
 <div class="page-hero">
   <div class="container">
     <h1 class="page-hero__title">Gallery</h1>
@@ -15,18 +14,25 @@ permalink: /gallery/
 <div class="container">
   {%- assign gallery_posts = site.posts | where: 'gallery', true -%}
   {%- if gallery_posts.size > 0 -%}
-  <div class="gallery-grid">
-    {%- for post in gallery_posts -%}
-    <a href="{{ post.url | relative_url }}"
-       class="gallery-item"
-       aria-label="{{ post.title | escape }}">
-      <img src="{{ post.image | default: '/images/social-preview.jpg' | relative_url }}"
-           alt="{{ post.title | escape }}" loading="lazy" width="600" height="400">
-      <span class="gallery-item__caption">{{ post.caption | default: post.title }}</span>
-    </a>
-    {%- endfor -%}
-  </div>
+    <div class="gallery-grid">
+      {%- for post in gallery_posts -%}
+        <a
+          href="{{ post.url | relative_url }}"
+          class="gallery-item"
+          aria-label="{{ post.title | escape }}"
+        >
+          <img
+            src="{{ post.image | default: '/images/social-preview.jpg' | relative_url }}"
+            alt="{{ post.title | escape }}"
+            loading="lazy"
+            width="600"
+            height="400"
+          >
+          <span class="gallery-item__caption">{{ post.caption | default: post.title }}</span>
+        </a>
+      {%- endfor -%}
+    </div>
   {%- else -%}
-  <p class="page-empty">No gallery posts yet.</p>
+    <p class="page-empty">No gallery posts yet.</p>
   {%- endif -%}
 </div>

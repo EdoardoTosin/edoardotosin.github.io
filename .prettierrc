@@ -1,0 +1,15 @@
+{
+  "printWidth": 120,
+  "tabWidth": 2,
+  "singleQuote": true,
+  "plugins": ["@shopify/prettier-plugin-liquid"],
+  "overrides": [
+    {
+      "files": ["*.html"],
+      "options": {
+        "parser": "liquid-html",
+        "singleQuote": false
+      }
+    }
+  ]
+}

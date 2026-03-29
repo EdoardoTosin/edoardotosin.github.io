@@ -17,13 +17,13 @@
     position: relative;
     display: flex;
     justify-content: center;
-    gap: clamp(2px, .6vw, #{$sp-2});
+    gap: clamp(2px, 0.6vw, #{$sp-2});
     margin-bottom: clamp(#{$sp-6}, 4vw, #{$sp-10});
     line-height: 1;
     font-family: $font-heading;
     font-weight: 800;
     font-size: clamp(5rem, 16vw, 10.25rem);
-    letter-spacing: -.05em;
+    letter-spacing: -0.05em;
     user-select: none;
 
     &::before {
@@ -31,27 +31,34 @@
       position: absolute;
       inset: 5% -15%;
       background: radial-gradient(ellipse at center, var(--accent) 0%, transparent 68%);
-      opacity: .09;
+      opacity: 0.09;
       pointer-events: none;
       z-index: 0;
     }
 
-    span { position: relative; z-index: 1; }
+    span {
+      position: relative;
+      z-index: 1;
+    }
   }
 
-  &__four { color: var(--accent); }
-  &__zero { color: var(--text-primary); }
+  &__four {
+    color: var(--accent);
+  }
+  &__zero {
+    color: var(--text-primary);
+  }
 
   &__title {
     font-size: clamp(1.375rem, 3vw, 2rem);
     font-family: $font-heading;
     font-weight: 700;
-    letter-spacing: -.02em;
+    letter-spacing: -0.02em;
     margin-bottom: $sp-4;
   }
 
   &__desc {
-    font-size: clamp(.9375rem, 1.5vw, 1.0625rem);
+    font-size: clamp(0.9375rem, 1.5vw, 1.0625rem);
     color: var(--text-secondary);
     line-height: 1.75;
     max-width: 500px;
@@ -74,7 +81,9 @@
     gap: $sp-3;
     width: min(440px, 100%);
     margin: 0 auto $sp-4;
-    transition: border-color $t-fast, box-shadow $t-fast;
+    transition:
+      border-color $t-fast,
+      box-shadow $t-fast;
 
     &:focus-within {
       border-color: var(--accent);
@@ -98,7 +107,9 @@
     color: var(--text-primary);
     line-height: 1.5;
 
-    &::placeholder { color: var(--text-muted); }
+    &::placeholder {
+      color: var(--text-muted);
+    }
   }
 
   &__results {
@@ -112,7 +123,9 @@
     gap: $sp-3;
     justify-content: center;
 
-    .btn { min-width: 132px; }
+    .btn {
+      min-width: 132px;
+    }
   }
 
   &__recent {
@@ -124,7 +137,7 @@
     font-size: clamp(1.125rem, 2vw, 1.375rem);
     font-family: $font-heading;
     font-weight: 700;
-    letter-spacing: -.02em;
+    letter-spacing: -0.02em;
     margin-bottom: $sp-6;
     text-align: center;
   }
@@ -143,7 +156,10 @@
     border: 1px solid var(--border);
     text-decoration: none;
     color: var(--text-primary);
-    transition: background $t-fast, border-color $t-fast, transform $t-fast;
+    transition:
+      background $t-fast,
+      border-color $t-fast,
+      transform $t-fast;
     margin-bottom: $sp-2;
 
     &:hover {
@@ -154,7 +170,7 @@
     &:active {
       background: var(--accent-subtle);
       border-color: var(--accent);
-      transform: scale(.98);
+      transform: scale(0.98);
     }
 
     &:focus-visible {
@@ -164,7 +180,7 @@
   }
 
   &__result-title {
-    font-size: .9375rem;
+    font-size: 0.9375rem;
     font-weight: 600;
     color: inherit;
     overflow-wrap: break-word;
@@ -172,14 +188,14 @@
   }
 
   &__result-meta {
-    font-size: .8125rem;
+    font-size: 0.8125rem;
     color: var(--text-muted);
     flex-shrink: 0;
     white-space: nowrap;
   }
 
   &__empty {
-    font-size: .9375rem;
+    font-size: 0.9375rem;
     color: var(--text-muted);
     text-align: center;
     padding: $sp-4 0;

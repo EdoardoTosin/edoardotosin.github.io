@@ -3,9 +3,9 @@
   'use strict';
 
   const STORAGE_KEY = 'jekyll-theme';
-  const DARK  = 'dark';
+  const DARK = 'dark';
   const LIGHT = 'light';
-  const ATTR  = 'data-theme';
+  const ATTR = 'data-theme';
 
   function applyTheme(theme) {
     if (theme !== DARK && theme !== LIGHT) return;
@@ -49,4 +49,4 @@
       });
     }
   });
-}());
+})();

@@ -21,7 +21,9 @@ html {
 }
 
 // Offset fragment anchors below sticky header.
-[id] { scroll-margin-top: calc(var(--header-h) + #{$sp-3}); }
+[id] {
+  scroll-margin-top: calc(var(--header-h) + #{$sp-3});
+}
 
 body {
   font-family: $font-sans;
@@ -29,7 +31,9 @@ body {
   line-height: $line-height-base;
   color: var(--text-primary);
   background-color: var(--bg-body);
-  transition: background-color .3s ease, color .3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   // overflow-x:clip preserves sticky positioning (no scroll container created).
@@ -43,31 +47,54 @@ body {
   min-height: 100dvh;
 }
 
-main#main-content { flex: 1 0 auto; }
+main#main-content {
+  flex: 1 0 auto;
+}
 
 .site-header,
-.site-footer { flex-shrink: 0; }
+.site-footer {
+  flex-shrink: 0;
+}
 
 // Typography
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: $font-heading;
   font-weight: 700;
   line-height: 1.25;
   color: var(--text-primary);
-  letter-spacing: -.02em;
+  letter-spacing: -0.02em;
 }
 
-h1 { font-size: clamp(2rem,    4vw,  3rem); }
-h2 { font-size: clamp(1.5rem,  3vw,  2rem); }
-h3 { font-size: clamp(1.2rem, 2.5vw, 1.5rem); }
-h4 { font-size: 1.125rem; }
-h5 { font-size: 1rem; }
-h6 { font-size: .875rem; }
+h1 {
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+}
+h3 {
+  font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+}
+h4 {
+  font-size: 1.125rem;
+}
+h5 {
+  font-size: 1rem;
+}
+h6 {
+  font-size: 0.875rem;
+}
 
 p {
   color: var(--text-secondary);
   margin-bottom: $sp-4;
-  &:last-child { margin-bottom: 0; }
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 
 a {
@@ -76,27 +103,36 @@ a {
   transition: color $t-fast;
   // Hover colour only on pointer devices - prevents latch on touchscreens.
   @media (hover: hover) and (pointer: fine) {
-    &:hover { color: var(--accent); }
+    &:hover {
+      color: var(--accent);
+    }
   }
 }
 
-ul, ol {
+ul,
+ol {
   padding-left: $sp-6;
   color: var(--text-secondary);
 }
 
-img    { max-width: 100%; height: auto; display: block; }
-figure { margin: 0; }
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+figure {
+  margin: 0;
+}
 
 pre {
   overflow-x: auto;
-  max-width:  100%;
+  max-width: 100%;
   -webkit-overflow-scrolling: touch;
 }
 
 pre code {
-  white-space:  pre;
-  word-break:   normal;
+  white-space: pre;
+  word-break: normal;
   overflow-wrap: normal;
 }
 
@@ -106,19 +142,28 @@ hr {
   margin: $sp-8 0;
 }
 
-strong, b { color: var(--text-primary); font-weight: 700; }
-em, i     { font-style: italic; }
+strong,
+b {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+em,
+i {
+  font-style: italic;
+}
 
 ::selection {
   background-color: var(--accent);
   color: var(--text-on-accent);
 }
 
-img[loading="lazy"] {
+img[loading='lazy'] {
   opacity: 0;
-  transition: opacity .4s ease;
+  transition: opacity 0.4s ease;
 }
-img[loading="lazy"].loaded { opacity: 1; }
+img[loading='lazy'].loaded {
+  opacity: 1;
+}
 
 .container {
   width: 100%;
@@ -126,7 +171,9 @@ img[loading="lazy"].loaded { opacity: 1; }
   margin: 0 auto;
   padding: 0 $container-pad;
 
-  @media (max-width: 375px) { padding: 0 $sp-3; }
+  @media (max-width: 375px) {
+    padding: 0 $sp-3;
+  }
 }
 
 .sr-only {
@@ -150,10 +197,10 @@ img[loading="lazy"].loaded { opacity: 1; }
   background: var(--accent);
   color: var(--text-on-accent);
   font-weight: 700;
-  font-size: .875rem;
+  font-size: 0.875rem;
   border-radius: $r-md;
   text-decoration: none;
-  transition: top .15s ease;
+  transition: top 0.15s ease;
 
   &:focus {
     top: $sp-4;
@@ -187,28 +234,44 @@ img[loading="lazy"].loaded { opacity: 1; }
 
 // Touch: reset stuck :hover states
 @media (hover: none) {
-
   .btn--primary:hover {
     transform: none;
     box-shadow: var(--glow-accent-sm);
   }
-  .btn--outline:hover { transform: none; }
-  .btn--ghost:hover   { transform: none; }
+  .btn--outline:hover {
+    transform: none;
+  }
+  .btn--ghost:hover {
+    transform: none;
+  }
 
   .post-card:hover,
   .featured-item:hover,
-  .video-card:hover   { transform: none; box-shadow: var(--shadow-card); }
+  .video-card:hover {
+    transform: none;
+    box-shadow: var(--shadow-card);
+  }
 
   .tag-pill:hover,
-  .filter-page__btn:hover { transform: none; }
+  .filter-page__btn:hover {
+    transform: none;
+  }
 
-  .social-btn:hover   { transform: none; }
+  .social-btn:hover {
+    transform: none;
+  }
 
-  .scroll-top:hover   { transform: translateY(0); }
+  .scroll-top:hover {
+    transform: translateY(0);
+  }
 
-  .share-btn:hover    { transform: none; }
+  .share-btn:hover {
+    transform: none;
+  }
 
-  .post-nav__link:hover { color: var(--text-primary); }
+  .post-nav__link:hover {
+    color: var(--text-primary);
+  }
 
   .toc-link:hover {
     color: var(--text-secondary);

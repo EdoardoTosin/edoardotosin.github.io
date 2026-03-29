@@ -4,18 +4,32 @@ title: "Tags"
 description: "Browse and filter all blog posts by tag. Tags cover specific technologies, tools, and concepts across all posts."
 permalink: /tags/
 ---
-
 <div class="filter-page">
   <div class="container">
-
     <div class="filter-page__hero page-hero">
       <h1 class="page-hero__title">Tags</h1>
-      <p class="page-hero__desc">Tags are classification labels for individual posts. For topic-level browsing, see <a href="{{ '/topics/' | relative_url }}">Topics</a>.</p>
+      <p class="page-hero__desc">
+        Tags are classification labels for individual posts. For topic-level browsing, see
+        <a href="{{ '/topics/' | relative_url }}">Topics</a>.
+      </p>
     </div>
     {%- assign all_tags = site.posts | map: 'tags' | join: ',' | split: ',' | uniq | sort -%}
 
     <div class="filter-page__toolbar" role="search" aria-label="Filter tags">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
       <input
         type="search"
         id="tag-filter-input"
@@ -23,7 +37,8 @@ permalink: /tags/
         placeholder="Filter tags…"
         aria-label="Filter tags"
         autocomplete="off"
-        spellcheck="false">
+        spellcheck="false"
+      >
     </div>
 
     <div class="filter-page__cloud" id="tag-cloud-wrap">
@@ -34,16 +49,17 @@ permalink: /tags/
 
         {%- for tag in all_tags -%}
           {%- assign tag_trimmed = tag | strip -%}
-          {%- if tag_trimmed != "" -%}
-          {%- assign tag_count = site.posts | where_exp: 'p', 'p.tags contains tag_trimmed' | size -%}
-          <button
-            class="filter-page__btn"
-            aria-pressed="false"
-            data-tag="{{ tag_trimmed | downcase | slugify }}"
-            data-label="{{ tag_trimmed | downcase | escape }}">
-            {{ tag_trimmed }}
-            <span class="count">{{ tag_count }}</span>
-          </button>
+          {%- if tag_trimmed != '' -%}
+            {%- assign tag_count = site.posts | where_exp: 'p', 'p.tags contains tag_trimmed' | size -%}
+            <button
+              class="filter-page__btn"
+              aria-pressed="false"
+              data-tag="{{ tag_trimmed | downcase | slugify }}"
+              data-label="{{ tag_trimmed | downcase | escape }}"
+            >
+              {{ tag_trimmed }}
+              <span class="count">{{ tag_count }}</span>
+            </button>
           {%- endif -%}
         {%- endfor -%}
       </div>
@@ -54,8 +70,10 @@ permalink: /tags/
     <section class="filter-page__results">
       <div class="posts-grid" id="tag-results">
         {%- for post in site.posts -%}
-          <div class="tag-item"
-               data-tags="{% for t in post.tags %}{{ t | downcase | slugify }} {% endfor %}">
+          <div
+            class="tag-item"
+            data-tags="{% for t in post.tags %}{{ t | downcase | slugify }} {% endfor %}"
+          >
             {% include post-card.html post=post %}
           </div>
         {%- endfor -%}
@@ -66,6 +84,5 @@ permalink: /tags/
         <p id="tag-empty-msg">No posts found.</p>
       </div>
     </section>
-
   </div>
 </div>

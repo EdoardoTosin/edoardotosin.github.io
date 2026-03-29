@@ -9,12 +9,16 @@
   padding: $sp-3 $sp-6;
   border-radius: $r-full;
   font-family: $font-sans;
-  font-size: .9375rem;
+  font-size: 0.9375rem;
   font-weight: 700;
   cursor: pointer;
   border: 2px solid transparent;
-  transition: background-color .2s ease, color .2s ease,
-              border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
   text-decoration: none;
   white-space: nowrap;
   line-height: 1;
@@ -22,9 +26,17 @@
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
 
-  svg { width: 17px; height: 17px; flex-shrink: 0; }
+  svg {
+    width: 17px;
+    height: 17px;
+    flex-shrink: 0;
+  }
 
-  &:disabled { opacity: .45; cursor: not-allowed; pointer-events: none; }
+  &:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
 
   &:focus-visible {
     outline: 2px solid var(--accent);
@@ -49,7 +61,7 @@
     &:active {
       background: var(--accent-dark);
       border-color: var(--accent-dark);
-      transform: translateY(0) scale(.97);
+      transform: translateY(0) scale(0.97);
       box-shadow: none;
     }
   }
@@ -70,7 +82,7 @@
       background: var(--bg-tag);
       color: var(--text-primary);
       border-color: var(--text-secondary);
-      transform: scale(.97);
+      transform: scale(0.97);
       box-shadow: none;
     }
   }
@@ -92,7 +104,7 @@
       background: var(--accent-dark);
       border-color: var(--accent-dark);
       color: var(--text-on-accent);
-      transform: scale(.97);
+      transform: scale(0.97);
       box-shadow: none;
     }
   }
@@ -100,7 +112,7 @@
   // Sizes
   &--sm {
     padding: $sp-2 $sp-4;
-    font-size: .8125rem;
+    font-size: 0.8125rem;
   }
 
   &--lg {
@@ -127,12 +139,22 @@
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
 
-  svg { width: 18px; height: 18px; flex-shrink: 0; }
+  svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
 
   // Icon visibility driven by aria-checked (set by theme.js)
-  .icon-moon               { display: none; }
-  &[aria-checked="true"]  .icon-sun  { display: none; }
-  &[aria-checked="true"]  .icon-moon { display: block; }
+  .icon-moon {
+    display: none;
+  }
+  &[aria-checked='true'] .icon-sun {
+    display: none;
+  }
+  &[aria-checked='true'] .icon-moon {
+    display: block;
+  }
 
   &:hover {
     border-color: var(--border);
@@ -143,7 +165,7 @@
   &:active {
     background: var(--bg-tag);
     border-color: var(--border-strong);
-    transform: scale(.96);
+    transform: scale(0.96);
   }
 
   &:focus-visible {
@@ -171,12 +193,18 @@
   align-items: center;
   justify-content: center;
   box-shadow: var(--glow-accent-lg);
-  transition: opacity .3s ease, transform .3s ease, box-shadow .3s ease;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
   opacity: 0;
   visibility: hidden;
   transform: translateY(8px);
 
-  svg { width: 18px; height: 18px; }
+  svg {
+    width: 18px;
+    height: 18px;
+  }
 
   &.is-visible {
     opacity: 1;
@@ -190,7 +218,7 @@
   }
 
   &:active {
-    transform: translateY(0) scale(.92);
+    transform: translateY(0) scale(0.92);
     box-shadow: var(--glow-accent-sm);
   }
 

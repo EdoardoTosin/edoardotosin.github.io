@@ -1,0 +1,13 @@
+_site/
+node_modules/
+assets/css/katex.min.css
+assets/css/fonts.css
+assets/js/katex.min.js
+assets/js/auto-render.min.js
+
+# Jekyll partials with split HTML structure (no full document root)
+_includes/head.html
+_layouts/default.html
+
+# Jekyll-processed JS with YAML front matter
+sw.js

@@ -4,10 +4,8 @@ title: "Topics"
 description: "Browse posts by topic: astrophotography, cybersecurity, Firefox, self-hosting, and more."
 permalink: /topics/
 ---
-
 <div class="filter-page">
   <div class="container">
-
     <div class="filter-page__hero page-hero">
       <h1 class="page-hero__title">Topics</h1>
       <p class="page-hero__desc">Every post belongs to exactly one topic. Browse by subject below.</p>
@@ -15,7 +13,20 @@ permalink: /topics/
     {%- assign all_topics = site.posts | map: 'topic' | uniq | compact | sort -%}
 
     <div class="filter-page__toolbar" role="search" aria-label="Filter topics">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
       <input
         type="search"
         id="topic-filter-input"
@@ -23,14 +34,17 @@ permalink: /topics/
         placeholder="Filter topics…"
         aria-label="Filter topics"
         autocomplete="off"
-        spellcheck="false">
+        spellcheck="false"
+      >
     </div>
 
     <div class="filter-page__cloud" id="topic-cloud-wrap">
       <div class="filter-page__cloud-inner" id="topic-cloud" aria-label="Topic filter" role="group">
-        <button class="filter-page__btn is-active"
-                aria-pressed="true"
-                data-topic="all">
+        <button
+          class="filter-page__btn is-active"
+          aria-pressed="true"
+          data-topic="all"
+        >
           All <span class="count">{{ site.posts | size }}</span>
         </button>
 
@@ -40,7 +54,8 @@ permalink: /topics/
             class="filter-page__btn"
             aria-pressed="false"
             data-topic="{{ topic | downcase | slugify }}"
-            data-label="{{ topic | downcase | escape }}">
+            data-label="{{ topic | downcase | escape }}"
+          >
             {{ topic | downcase }}
             <span class="count">{{ topic_count }}</span>
           </button>
@@ -53,8 +68,10 @@ permalink: /topics/
     <section class="filter-page__results">
       <div class="posts-grid" id="topic-results">
         {%- for post in site.posts -%}
-          <div class="topic-item"
-               data-topic="{{ post.topic | downcase | slugify | default: 'uncategorised' }}">
+          <div
+            class="topic-item"
+            data-topic="{{ post.topic | downcase | slugify | default: 'uncategorised' }}"
+          >
             {% include post-card.html post=post %}
           </div>
         {%- endfor -%}
@@ -65,6 +82,5 @@ permalink: /topics/
         <p id="topic-empty-msg">No posts found.</p>
       </div>
     </section>
-
   </div>
 </div>

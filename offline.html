@@ -2,135 +2,221 @@
 layout: null
 permalink: /offline.html
 ---
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" data-theme="dark">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>You're offline - {{ site.title }}</title>
-  <style>
-    :root {
-      --bg:    #0f1117;
-      --card:  #1c2132;
-      --text:  #f1f5f9;
-      --muted: #94a3b8;
-      --accent: #4ade80;
-      --border: #2e3854;
-    }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { font-size: 16px; }
-    body {
-      font-family: 'IBM Plex Sans', system-ui, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100dvh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-    }
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 48px 40px;
-      max-width: 480px;
-      width: 100%;
-      text-align: center;
-    }
-    .icon {
-      font-size: 3.5rem;
-      line-height: 1;
-      margin-bottom: 24px;
-      display: block;
-    }
-    h1 {
-      font-size: 1.5rem;
-      font-weight: 800;
-      letter-spacing: -.03em;
-      margin-bottom: 12px;
-    }
-    p {
-      font-size: .9375rem;
-      color: var(--muted);
-      line-height: 1.7;
-      margin-bottom: 32px;
-    }
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--accent);
-      color: #0f172a;
-      font-weight: 700;
-      font-size: .9375rem;
-      padding: 12px 28px;
-      border-radius: 9999px;
-      border: none;
-      cursor: pointer;
-      text-decoration: none;
-      transition: opacity .15s;
-    }
-    .btn:hover { opacity: .88; }
-    @media (max-width: 480px) {
-      .card { padding: 32px 24px; }
-    }
-    .offline-saved { margin-top: 24px; width: 100%; text-align: left; }
-    .offline-saved__title { font-size: .75rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; opacity: .45; margin: 0 0 10px; }
-    .offline-saved__list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
-    .offline-saved__item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.07); border-radius: 10px; }
-    .offline-saved__link { flex: 1; min-width: 0; color: #f1f5f9; text-decoration: none; font-size: .875rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .offline-saved__link:hover { color: #4ade80; }
-    .offline-saved__date { font-size: .75rem; opacity: .4; flex-shrink: 0; }
-    .offline-saved__remove { flex-shrink: 0; background: none; border: none; color: rgba(255,255,255,.3); cursor: pointer; padding: 4px; border-radius: 4px; display: flex; align-items: center; transition: color .15s; }
-    .offline-saved__remove:hover { color: #f87171; }
-    .offline-saved__remove svg { width: 14px; height: 14px; }
-  </style>
-</head>
-<body>
-  <div class="card">
-    <span class="icon" aria-hidden="true">📡</span>
-    <h1>You're offline</h1>
-    <p>No internet connection detected. Previously visited posts are available from cache &mdash; try navigating back or wait for connectivity to return.</p>
-    <a href="/" class="btn">Try again</a>
-    <div id="saved-posts-wrap" class="offline-saved" hidden>
-      <p class="offline-saved__title">Saved for offline</p>
-      <ul class="offline-saved__list" id="saved-posts-list"></ul>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+      You're offline -
+      {{ site.title }}
+    </title>
+    <style>
+      :root {
+        --bg: #0f1117;
+        --card: #1c2132;
+        --text: #f1f5f9;
+        --muted: #94a3b8;
+        --accent: #4ade80;
+        --border: #2e3854;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        font-size: 16px;
+      }
+      body {
+        font-family: 'IBM Plex Sans', system-ui, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        min-height: 100dvh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+      }
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        padding: 48px 40px;
+        max-width: 480px;
+        width: 100%;
+        text-align: center;
+      }
+      .icon {
+        font-size: 3.5rem;
+        line-height: 1;
+        margin-bottom: 24px;
+        display: block;
+      }
+      h1 {
+        font-size: 1.5rem;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        margin-bottom: 12px;
+      }
+      p {
+        font-size: 0.9375rem;
+        color: var(--muted);
+        line-height: 1.7;
+        margin-bottom: 32px;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--accent);
+        color: #0f172a;
+        font-weight: 700;
+        font-size: 0.9375rem;
+        padding: 12px 28px;
+        border-radius: 9999px;
+        border: none;
+        cursor: pointer;
+        text-decoration: none;
+        transition: opacity 0.15s;
+      }
+      .btn:hover {
+        opacity: 0.88;
+      }
+      @media (max-width: 480px) {
+        .card {
+          padding: 32px 24px;
+        }
+      }
+      .offline-saved {
+        margin-top: 24px;
+        width: 100%;
+        text-align: left;
+      }
+      .offline-saved__title {
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        opacity: 0.45;
+        margin: 0 0 10px;
+      }
+      .offline-saved__list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .offline-saved__item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 12px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        border-radius: 10px;
+      }
+      .offline-saved__link {
+        flex: 1;
+        min-width: 0;
+        color: #f1f5f9;
+        text-decoration: none;
+        font-size: 0.875rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .offline-saved__link:hover {
+        color: #4ade80;
+      }
+      .offline-saved__date {
+        font-size: 0.75rem;
+        opacity: 0.4;
+        flex-shrink: 0;
+      }
+      .offline-saved__remove {
+        flex-shrink: 0;
+        background: none;
+        border: none;
+        color: rgba(255, 255, 255, 0.3);
+        cursor: pointer;
+        padding: 4px;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        transition: color 0.15s;
+      }
+      .offline-saved__remove:hover {
+        color: #f87171;
+      }
+      .offline-saved__remove svg {
+        width: 14px;
+        height: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <span class="icon" aria-hidden="true">📡</span>
+      <h1>You're offline</h1>
+      <p>
+        No internet connection detected. Previously visited posts are available from cache &mdash; try navigating back
+        or wait for connectivity to return.
+      </p>
+      <a href="/" class="btn">Try again</a>
+      <div id="saved-posts-wrap" class="offline-saved" hidden>
+        <p class="offline-saved__title">Saved for offline</p>
+        <ul class="offline-saved__list" id="saved-posts-list"></ul>
+      </div>
     </div>
-  </div>
-  <script>
-    (function () {
-      var SAVED_KEY = 'jekyll-saved-posts';
-      try {
-        var saved = JSON.parse(localStorage.getItem(SAVED_KEY) || '[]');
-        if (!saved.length) return;
-        var wrap = document.getElementById('saved-posts-wrap');
-        var list = document.getElementById('saved-posts-list');
-        wrap.removeAttribute('hidden');
-        saved.forEach(function (p) {
-          var li  = document.createElement('li');
-          li.className = 'offline-saved__item';
-          var date = p.date ? p.date.slice(0, 10) : '';
-          li.innerHTML =
-            '<a href="' + p.url + '" class="offline-saved__link">' + (p.title || p.url) + '</a>' +
-            (date ? '<span class="offline-saved__date">' + date + '</span>' : '') +
-            '<button class="offline-saved__remove" aria-label="Remove from offline" data-url="' + p.url + '">' +
+    <script>
+      (function () {
+        var SAVED_KEY = 'jekyll-saved-posts';
+        try {
+          var saved = JSON.parse(localStorage.getItem(SAVED_KEY) || '[]');
+          if (!saved.length) return;
+          var wrap = document.getElementById('saved-posts-wrap');
+          var list = document.getElementById('saved-posts-list');
+          wrap.removeAttribute('hidden');
+          saved.forEach(function (p) {
+            var li = document.createElement('li');
+            li.className = 'offline-saved__item';
+            var date = p.date ? p.date.slice(0, 10) : '';
+            li.innerHTML =
+              '<a href="' +
+              p.url +
+              '" class="offline-saved__link">' +
+              (p.title || p.url) +
+              '</a>' +
+              (date ? '<span class="offline-saved__date">' + date + '</span>' : '') +
+              '<button class="offline-saved__remove" aria-label="Remove from offline" data-url="' +
+              p.url +
+              '">' +
               '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>' +
-            '</button>';
-          list.appendChild(li);
-        });
-        list.addEventListener('click', function (e) {
-          var btn = e.target.closest('.offline-saved__remove');
-          if (!btn) return;
-          var url = btn.dataset.url;
-          var arr = JSON.parse(localStorage.getItem(SAVED_KEY) || '[]').filter(function (p) { return p.url !== url; });
-          localStorage.setItem(SAVED_KEY, JSON.stringify(arr));
-          if ('caches' in window) caches.open('jekyll-saved-articles').then(function (c) { c.delete(url); });
-          btn.closest('li').remove();
-          if (!list.children.length) wrap.setAttribute('hidden', '');
-        });
-      } catch (e) {}
-    })();
-  </script>
-</body>
+              '</button>';
+            list.appendChild(li);
+          });
+          list.addEventListener('click', function (e) {
+            var btn = e.target.closest('.offline-saved__remove');
+            if (!btn) return;
+            var url = btn.dataset.url;
+            var arr = JSON.parse(localStorage.getItem(SAVED_KEY) || '[]').filter(function (p) {
+              return p.url !== url;
+            });
+            localStorage.setItem(SAVED_KEY, JSON.stringify(arr));
+            if ('caches' in window)
+              caches.open('jekyll-saved-articles').then(function (c) {
+                c.delete(url);
+              });
+            btn.closest('li').remove();
+            if (!list.children.length) wrap.setAttribute('hidden', '');
+          });
+        } catch (e) {}
+      })();
+    </script>
+  </body>
 </html>

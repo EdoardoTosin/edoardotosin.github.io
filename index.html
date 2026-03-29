@@ -5,48 +5,49 @@ description: "Posts covering software development, security research, Linux, ope
 pagination:
   enabled: true
 ---
-
 {%- assign hp = site.homepage -%}
 
 <section class="hero" aria-label="Introduction">
   <div class="container">
     <div class="hero__content">
       <div class="hero__tagline" aria-hidden="true">
-        <img src="{{ site.author.avatar | default: '/images/avatar.jpg' | relative_url }}"
-             alt="{{ site.author.name }}"
-             class="hero__tagline-pic"
-             width="32" height="32"
-             loading="eager">
-        {%- if site.author.tagline and site.author.tagline != "" -%}
-        <span>{{ site.author.tagline }}</span>
+        <img
+          src="{{ site.author.avatar | default: '/images/avatar.jpg' | relative_url }}"
+          alt="{{ site.author.name }}"
+          class="hero__tagline-pic"
+          width="32"
+          height="32"
+          loading="eager"
+        >
+        {%- if site.author.tagline and site.author.tagline != '' -%}
+          <span>{{ site.author.tagline }}</span>
         {%- endif -%}
       </div>
-      {%- if site.author.hero_title and site.author.hero_title != "" -%}
-      <h1 class="hero__title">{{ site.author.hero_title }}</h1>
+      {%- if site.author.hero_title and site.author.hero_title != '' -%}
+        <h1 class="hero__title">{{ site.author.hero_title }}</h1>
       {%- endif -%}
-      {%- if site.author.hero_subtitle and site.author.hero_subtitle != "" -%}
-      <p class="hero__subtitle">{{ site.author.hero_subtitle }}</p>
+      {%- if site.author.hero_subtitle and site.author.hero_subtitle != '' -%}
+        <p class="hero__subtitle">{{ site.author.hero_subtitle }}</p>
       {%- endif -%}
-      {%- if site.author.hero_description and site.author.hero_description != "" -%}
-      <p class="hero__description">{{ site.author.hero_description }}</p>
+      {%- if site.author.hero_description and site.author.hero_description != '' -%}
+        <p class="hero__description">{{ site.author.hero_description }}</p>
       {%- endif -%}
       <div class="hero__actions">
-        <a href="{{ '/contact/' | relative_url }}" class="btn btn--primary">
-          Get in Touch
-        </a>
-        <a href="#blog-heading" class="btn btn--ghost">
-          Read the Blog
-        </a>
+        <a href="{{ '/contact/' | relative_url }}" class="btn btn--primary"> Get in Touch </a>
+        <a href="#blog-heading" class="btn btn--ghost"> Read the Blog </a>
       </div>
     </div>
 
     <div class="hero__image-wrap">
       <div class="hero__avatar-frame">
-        <img src="{{ site.author.avatar | default: '/images/avatar.jpg' | relative_url }}"
-             alt="{{ site.author.name }}"
-             class="hero__avatar"
-             width="400" height="400"
-             loading="eager">
+        <img
+          src="{{ site.author.avatar | default: '/images/avatar.jpg' | relative_url }}"
+          alt="{{ site.author.name }}"
+          class="hero__avatar"
+          width="400"
+          height="400"
+          loading="eager"
+        >
       </div>
     </div>
   </div>
@@ -58,32 +59,56 @@ pagination:
       <h2 class="section-header__title" id="blog-heading">Journal</h2>
       <div class="blog__header-right">
         {%- if hp.enable_blog_toggle != false -%}
-        <div class="view-toggle" role="group" aria-label="Switch post view">
-          <button class="view-toggle__btn is-active"
-                  data-view="grid"
-                  aria-pressed="true"
-                  title="Grid view">
-            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
-                 stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
-              <rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>
-            </svg>
-            <span class="sr-only">Grid view</span>
-          </button>
-          <button class="view-toggle__btn"
-                  data-view="list"
-                  aria-pressed="false"
-                  title="List view">
-            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
-                 stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/>
-              <line x1="8" y1="18" x2="21" y2="18"/>
-              <line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/>
-              <line x1="3" y1="18" x2="3.01" y2="18"/>
-            </svg>
-            <span class="sr-only">List view</span>
-          </button>
-        </div>
+          <div class="view-toggle" role="group" aria-label="Switch post view">
+            <button
+              class="view-toggle__btn is-active"
+              data-view="grid"
+              aria-pressed="true"
+              title="Grid view"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+                <rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>
+              </svg>
+              <span class="sr-only">Grid view</span>
+            </button>
+            <button
+              class="view-toggle__btn"
+              data-view="list"
+              aria-pressed="false"
+              title="List view"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/>
+                <line x1="8" y1="18" x2="21" y2="18"/>
+                <line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/>
+                <line x1="3" y1="18" x2="3.01" y2="18"/>
+              </svg>
+              <span class="sr-only">List view</span>
+            </button>
+          </div>
         {%- endif -%}
         <a href="{{ '/blog/' | relative_url }}" class="section-header__link">View all &rarr;</a>
       </div>
@@ -93,226 +118,280 @@ pagination:
       <div class="blog__main">
         <div class="posts-grid" id="posts-grid">
           {%- for post in paginator.posts -%}
-          {% include post-card.html post=post %}
+            {% include post-card.html post=post %}
           {%- endfor -%}
         </div>
 
         {%- if paginator.total_pages > 1 and paginator.next_page -%}
-        <div class="load-more-wrap">
-          <button class="btn btn--ghost"
-                  id="load-more"
-                  data-total-pages="{{ paginator.total_pages }}">
-            Load More
-          </button>
-        </div>
+          <div class="load-more-wrap">
+            <button
+              class="btn btn--ghost"
+              id="load-more"
+              data-total-pages="{{ paginator.total_pages }}"
+            >
+              Load More
+            </button>
+          </div>
         {%- endif -%}
       </div>
 
-      <aside class="blog__aside{% if hp.sticky_sidebar != false %} is-sticky{% endif %}"
-             aria-label="Blog sidebar">
+      <aside
+        class="blog__aside{% if hp.sticky_sidebar != false %} is-sticky{% endif %}"
+        aria-label="Blog sidebar"
+      >
         {%- assign fl = hp.featured_limit | default: 3 | plus: 0 -%}
-        {%- assign _feat_src = hp.featured_source | default: "front_matter" -%}
-        {%- if _feat_src == "collection" and site.featured -%}
+        {%- assign _feat_src = hp.featured_source | default: 'front_matter' -%}
+        {%- if _feat_src == 'collection' and site.featured -%}
           {%- assign featured = site.featured | slice: 0, fl -%}
         {%- else -%}
-          {%- assign all_featured = site.posts | where: "featured", true -%}
+          {%- assign all_featured = site.posts | where: 'featured', true -%}
           {%- assign featured = all_featured | slice: 0, fl -%}
         {%- endif -%}
         {%- if featured.size > 0 -%}
-        <div class="blog-widget">
-          <h3 class="blog-widget__title">⭐ Featured Posts</h3>
-          <div class="featured-list">
-            {%- for post in featured -%}
-            <div class="featured-item">
-              <div class="featured-item__img" aria-hidden="true">
-                <img src="{{ post.image | default: '/images/social-preview.jpg' | relative_url }}"
-                     alt="{{ post.title | escape }}" loading="lazy" width="60" height="50">
-              </div>
-              <div class="featured-item__content">
-                <h4 class="featured-item__title">
-                  <a href="{{ post.url | relative_url }}" title="{{ post.title | escape }}">{{ post.title }}</a>
-                </h4>
-                <time class="featured-item__date"
-                      datetime="{{ post.date | date_to_xmlschema }}">
-                  {{ post.date | date: "%d %b, %Y" }}
-                </time>
-              </div>
+          <div class="blog-widget">
+            <h3 class="blog-widget__title">⭐ Featured Posts</h3>
+            <div class="featured-list">
+              {%- for post in featured -%}
+                <div class="featured-item">
+                  <div class="featured-item__img" aria-hidden="true">
+                    <img
+                      src="{{ post.image | default: '/images/social-preview.jpg' | relative_url }}"
+                      alt="{{ post.title | escape }}"
+                      loading="lazy"
+                      width="60"
+                      height="50"
+                    >
+                  </div>
+                  <div class="featured-item__content">
+                    <h4 class="featured-item__title">
+                      <a href="{{ post.url | relative_url }}" title="{{ post.title | escape }}">{{ post.title }}</a>
+                    </h4>
+                    <time
+                      class="featured-item__date"
+                      datetime="{{ post.date | date_to_xmlschema }}"
+                    >
+                      {{ post.date | date: '%d %b, %Y' }}
+                    </time>
+                  </div>
+                </div>
+              {%- endfor -%}
             </div>
-            {%- endfor -%}
           </div>
-        </div>
         {%- endif -%}
 
         {%- assign tl = hp.topics_limit | default: 6 -%}
         {%- assign all_topics = site.posts | map: 'topic' | compact | uniq | sort -%}
         {%- if all_topics.size > 0 -%}
-        <div class="blog-widget">
-          <h3 class="blog-widget__title">Topics</h3>
-          <div class="widget-tags">
-            {%- assign _padded = "" -%}
-            {%- for tp in all_topics -%}
-              {%- assign _cnt = site.posts | where: 'topic', tp | size | plus: 10000 -%}
-              {%- assign _entry = _cnt | append: "~" | append: tp -%}
-              {%- assign _padded = _padded | append: _entry | append: "|" -%}
-            {%- endfor -%}
-            {%- assign _sorted_topics = _padded | split: "|" | sort | reverse -%}
-            {%- assign shown = 0 -%}
-            {%- for _s in _sorted_topics -%}
-              {%- if shown < tl and _s != "" -%}
-                {%- assign _parts = _s | split: "~" -%}
-                {%- assign _tp_name = _parts[1] -%}
-                {%- if _tp_name and _tp_name != "" -%}
-                <a href="{{ '/topics/?topic=' | append: _tp_name | relative_url }}"
-                   class="tag-pill" data-topic="{{ _tp_name | downcase | escape }}">{{ _tp_name | downcase }}</a>
-                {%- assign shown = shown | plus: 1 -%}
+          <div class="blog-widget">
+            <h3 class="blog-widget__title">Topics</h3>
+            <div class="widget-tags">
+              {%- assign _padded = '' -%}
+              {%- for tp in all_topics -%}
+                {%- assign _cnt = site.posts | where: 'topic', tp | size | plus: 10000 -%}
+                {%- assign _entry = _cnt | append: '~' | append: tp -%}
+                {%- assign _padded = _padded | append: _entry | append: '|' -%}
+              {%- endfor -%}
+              {%- assign _sorted_topics = _padded | split: '|' | sort | reverse -%}
+              {%- assign shown = 0 -%}
+              {%- for _s in _sorted_topics -%}
+                {%- if shown < tl and _s != '' -%}
+                  {%- assign _parts = _s | split: '~' -%}
+                  {%- assign _tp_name = _parts[1] -%}
+                  {%- if _tp_name and _tp_name != '' -%}
+                    <a
+                      href="{{ '/topics/?topic=' | append: _tp_name | relative_url }}"
+                      class="tag-pill"
+                      data-topic="{{ _tp_name | downcase | escape }}"
+                    >
+                      {{- _tp_name | downcase -}}
+                    </a>
+                    {%- assign shown = shown | plus: 1 -%}
+                  {%- endif -%}
                 {%- endif -%}
-              {%- endif -%}
-            {%- endfor -%}
+              {%- endfor -%}
+            </div>
           </div>
-        </div>
         {%- endif -%}
-
       </aside>
     </div>
   </div>
 </section>
 
 {%- if site.newsletter.enabled -%}
-<div class="container">
-  <div class="newsletter-banner">
-    <h2 class="newsletter-banner__title">{{ site.newsletter.title }}</h2>
-    <p class="newsletter-banner__desc">{{ site.newsletter.description }}</p>
-    <div class="newsletter-banner__form">
-      <input type="email"
-             class="newsletter-banner__input"
-             placeholder="Email address"
-             aria-label="Your email address">
-      <button type="button"
-              class="btn btn--primary"
-              data-newsletter-open="{{ site.newsletter.action_url | escape }}">
-        {{ site.newsletter.button_text | default: "Join Now" }}
-      </button>
+  <div class="container">
+    <div class="newsletter-banner">
+      <h2 class="newsletter-banner__title">{{ site.newsletter.title }}</h2>
+      <p class="newsletter-banner__desc">{{ site.newsletter.description }}</p>
+      <div class="newsletter-banner__form">
+        <input
+          type="email"
+          class="newsletter-banner__input"
+          placeholder="Email address"
+          aria-label="Your email address"
+        >
+        <button
+          type="button"
+          class="btn btn--primary"
+          data-newsletter-open="{{ site.newsletter.action_url | escape }}"
+        >
+          {{ site.newsletter.button_text | default: 'Join Now' }}
+        </button>
+      </div>
     </div>
   </div>
-</div>
 {%- endif -%}
 
 {%- if site.homepage.show_topic_clusters != false -%}
-{%- assign _all_topic_names = site.posts | map: 'topic' | compact | uniq -%}
-{%- assign _scored_topics = "" | split: "" -%}
-{%- for _tp in _all_topic_names -%}
-  {%- assign _tp_posts = site.posts | where: "topic", _tp -%}
-  {%- assign _tp_featured = _tp_posts | where: "featured", true -%}
-  {%- assign _score = _tp_featured.size | times: 1000 | plus: _tp_posts.size | plus: 1000000 -%}
-  {%- assign _entry = _score | append: "~" | append: _tp -%}
-  {%- assign _scored_topics = _scored_topics | push: _entry -%}
-{%- endfor -%}
-{%- assign _sorted_scored = _scored_topics | sort | reverse -%}
-{%- assign cluster_topics = "" | split: "" -%}
-{%- for _s in _sorted_scored limit: 4 -%}
-  {%- assign _tp_name = _s | split: "~" | last -%}
-  {%- if _tp_name != "" -%}
-    {%- assign cluster_topics = cluster_topics | push: _tp_name -%}
-  {%- endif -%}
-{%- endfor -%}
-{%- if cluster_topics.size > 0 -%}
-<section class="section topic-clusters-section" aria-labelledby="clusters-heading">
-  <div class="container">
-    <div class="section-header">
-      <h2 class="section-header__title" id="clusters-heading">Featured Topics</h2>
-    </div>
-    <div class="topic-cluster">
-      {%- for topic in cluster_topics -%}
-        {%- assign posts_for_topic = site.posts | where: "topic", topic -%}
-        {%- assign tp = posts_for_topic | slice: 0, 4 -%}
-        <div class="topic-group" data-topic="{{ topic | downcase | escape }}">
-          <a href="{{ '/topics/?topic=' | append: topic | relative_url }}" class="topic-group__header">
-            <img src="{{ tp.first.image | default: '/images/social-preview.jpg' | relative_url }}"
-                 alt="{{ topic | escape }}" loading="lazy" width="280" height="120">
-            <span class="topic-group__header-tag" data-topic="{{ topic | downcase | escape }}">{{ topic | downcase }}</span>
-          </a>
-          <ul class="topic-group__posts" role="list">
-            {%- for post in tp -%}
-            <li>
-              <a href="{{ post.url | relative_url }}" class="topic-group__post-link" title="{{ post.title | escape }}">{{ post.title }}</a>
-            </li>
-            {%- endfor -%}
-          </ul>
+  {%- assign _all_topic_names = site.posts | map: 'topic' | compact | uniq -%}
+  {%- assign _scored_topics = '' | split: '' -%}
+  {%- for _tp in _all_topic_names -%}
+    {%- assign _tp_posts = site.posts | where: 'topic', _tp -%}
+    {%- assign _tp_featured = _tp_posts | where: 'featured', true -%}
+    {%- assign _score = _tp_featured.size | times: 1000 | plus: _tp_posts.size | plus: 1000000 -%}
+    {%- assign _entry = _score | append: '~' | append: _tp -%}
+    {%- assign _scored_topics = _scored_topics | push: _entry -%}
+  {%- endfor -%}
+  {%- assign _sorted_scored = _scored_topics | sort | reverse -%}
+  {%- assign cluster_topics = '' | split: '' -%}
+  {%- for _s in _sorted_scored limit: 4 -%}
+    {%- assign _tp_name = _s | split: '~' | last -%}
+    {%- if _tp_name != '' -%}
+      {%- assign cluster_topics = cluster_topics | push: _tp_name -%}
+    {%- endif -%}
+  {%- endfor -%}
+  {%- if cluster_topics.size > 0 -%}
+    <section class="section topic-clusters-section" aria-labelledby="clusters-heading">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-header__title" id="clusters-heading">Featured Topics</h2>
         </div>
-      {%- endfor -%}
-    </div>
-  </div>
-</section>
-{%- endif -%}
+        <div class="topic-cluster">
+          {%- for topic in cluster_topics -%}
+            {%- assign posts_for_topic = site.posts | where: 'topic', topic -%}
+            {%- assign tp = posts_for_topic | slice: 0, 4 -%}
+            <div class="topic-group" data-topic="{{ topic | downcase | escape }}">
+              <a href="{{ '/topics/?topic=' | append: topic | relative_url }}" class="topic-group__header">
+                <img
+                  src="{{ tp.first.image | default: '/images/social-preview.jpg' | relative_url }}"
+                  alt="{{ topic | escape }}"
+                  loading="lazy"
+                  width="280"
+                  height="120"
+                >
+                <span class="topic-group__header-tag" data-topic="{{ topic | downcase | escape }}">
+                  {{- topic | downcase -}}
+                </span>
+              </a>
+              <ul class="topic-group__posts" role="list">
+                {%- for post in tp -%}
+                  <li>
+                    <a
+                      href="{{ post.url | relative_url }}"
+                      class="topic-group__post-link"
+                      title="{{ post.title | escape }}"
+                    >
+                      {{- post.title -}}
+                    </a>
+                  </li>
+                {%- endfor -%}
+              </ul>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
 {%- endif -%}
 
 {%- assign vl = hp.videos_limit | default: 3 | plus: 0 -%}
-{%- assign _vid_src = hp.video_source | default: "front_matter" -%}
-{%- if _vid_src == "collection" and site.videos -%}
+{%- assign _vid_src = hp.video_source | default: 'front_matter' -%}
+{%- if _vid_src == 'collection' and site.videos -%}
   {%- assign video_posts = site.videos | slice: 0, vl -%}
 {%- else -%}
-  {%- assign all_video_posts = site.posts | where: "video", true -%}
+  {%- assign all_video_posts = site.posts | where: 'video', true -%}
   {%- assign video_posts = all_video_posts | slice: 0, vl -%}
 {%- endif -%}
 {%- if video_posts.size > 0 -%}
-<section class="section" aria-labelledby="videos-heading">
-  <div class="container">
-    <div class="section-header">
-      <h2 class="section-header__title" id="videos-heading">Videos</h2>
-      <a href="{{ '/videos/' | relative_url }}" class="section-header__link">All Videos &rarr;</a>
+  <section class="section" aria-labelledby="videos-heading">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-header__title" id="videos-heading">Videos</h2>
+        <a href="{{ '/videos/' | relative_url }}" class="section-header__link">All Videos &rarr;</a>
+      </div>
+      <div class="video-grid">
+        {%- for post in video_posts -%}
+          <article class="video-card">
+            <a
+              href="{{ post.url | relative_url }}"
+              class="video-card__thumb"
+              aria-label="{{ post.title | escape }}"
+            >
+              <img
+                src="{{ post.image | default: '/images/social-preview.jpg' | relative_url }}"
+                alt="{{ post.title | escape }}"
+                loading="lazy"
+                width="480"
+                height="270"
+              >
+              <div class="video-card__play" aria-hidden="true">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <polygon points="5 3 19 12 5 21 5 3"/>
+                </svg>
+              </div>
+            </a>
+            <div class="video-card__body">
+              <h3>
+                <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+              </h3>
+              <p class="video-date">{{ post.date | date: '%d %b, %Y' }}</p>
+            </div>
+          </article>
+        {%- endfor -%}
+      </div>
     </div>
-    <div class="video-grid">
-      {%- for post in video_posts -%}
-      <article class="video-card">
-        <a href="{{ post.url | relative_url }}"
-           class="video-card__thumb"
-           aria-label="{{ post.title | escape }}">
-          <img src="{{ post.image | default: '/images/social-preview.jpg' | relative_url }}"
-               alt="{{ post.title | escape }}" loading="lazy" width="480" height="270">
-          <div class="video-card__play" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                 fill="currentColor" aria-hidden="true">
-              <polygon points="5 3 19 12 5 21 5 3"/>
-            </svg>
-          </div>
-        </a>
-        <div class="video-card__body">
-          <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
-          <p class="video-date">{{ post.date | date: "%d %b, %Y" }}</p>
-        </div>
-      </article>
-      {%- endfor -%}
-    </div>
-  </div>
-</section>
+  </section>
 {%- endif -%}
 
 {%- assign bl = hp.gallery_limit | default: 5 | plus: 0 -%}
-{%- assign _gal_src = hp.gallery_source | default: "front_matter" -%}
-{%- if _gal_src == "collection" and site.gallery -%}
+{%- assign _gal_src = hp.gallery_source | default: 'front_matter' -%}
+{%- if _gal_src == 'collection' and site.gallery -%}
   {%- assign gallery_posts = site.gallery | slice: 0, bl -%}
 {%- else -%}
-  {%- assign all_gallery_posts = site.posts | where: "gallery", true -%}
+  {%- assign all_gallery_posts = site.posts | where: 'gallery', true -%}
   {%- assign gallery_posts = all_gallery_posts | slice: 0, bl -%}
 {%- endif -%}
 {%- if gallery_posts.size > 0 -%}
-<section class="section" aria-labelledby="gallery-heading">
-  <div class="container">
-    <div class="section-header">
-      <h2 class="section-header__title" id="gallery-heading">Gallery</h2>
-      <a href="{{ '/gallery/' | relative_url }}" class="section-header__link">All Gallery &rarr;</a>
+  <section class="section" aria-labelledby="gallery-heading">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-header__title" id="gallery-heading">Gallery</h2>
+        <a href="{{ '/gallery/' | relative_url }}" class="section-header__link">All Gallery &rarr;</a>
+      </div>
+      <div class="gallery-grid">
+        {%- for post in gallery_posts -%}
+          <a
+            href="{{ post.url | relative_url }}"
+            class="gallery-item"
+            aria-label="{{ post.title | escape }}"
+          >
+            <img
+              src="{{ post.image | default: '/images/social-preview.jpg' | relative_url }}"
+              alt="{{ post.title | escape }}"
+              loading="lazy"
+              width="600"
+              height="400"
+            >
+            <span class="gallery-item__caption">{{ post.caption | default: post.title }}</span>
+          </a>
+        {%- endfor -%}
+      </div>
     </div>
-    <div class="gallery-grid">
-      {%- for post in gallery_posts -%}
-      <a href="{{ post.url | relative_url }}"
-         class="gallery-item"
-         aria-label="{{ post.title | escape }}">
-        <img src="{{ post.image | default: '/images/social-preview.jpg' | relative_url }}"
-             alt="{{ post.title | escape }}" loading="lazy" width="600" height="400">
-        <span class="gallery-item__caption">{{ post.caption | default: post.title }}</span>
-      </a>
-      {%- endfor -%}
-    </div>
-  </div>
-</section>
+  </section>
 {%- endif -%}

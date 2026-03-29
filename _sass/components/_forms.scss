@@ -7,13 +7,17 @@
   border: 1px solid var(--border-ui);
   border-radius: $r-md;
   font-family: $font-sans;
-  font-size: .9375rem;
+  font-size: 0.9375rem;
   color: var(--text-primary);
-  transition: border-color $t-fast, box-shadow $t-fast;
+  transition:
+    border-color $t-fast,
+    box-shadow $t-fast;
   outline: none;
   appearance: none;
 
-  &::placeholder { color: var(--text-muted); }
+  &::placeholder {
+    color: var(--text-muted);
+  }
 
   &:focus {
     border-color: var(--accent);

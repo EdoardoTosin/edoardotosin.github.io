@@ -24,14 +24,18 @@
       ta.style.cssText = 'position:fixed;opacity:0;pointer-events:none';
       document.body.appendChild(ta);
       ta.select();
-      try { document.execCommand('copy'); } catch (e) {}
+      try {
+        document.execCommand('copy');
+      } catch (e) {}
       document.body.removeChild(ta);
       done();
     }
 
     if (navigator.clipboard && window.isSecureContext) {
       navigator.clipboard.writeText(text).then(done).catch(fallback);
-    } else { fallback(); }
+    } else {
+      fallback();
+    }
   }
 
   document.addEventListener('DOMContentLoaded', function () {
@@ -39,7 +43,10 @@
       const block = btn.closest('.code-block');
       if (!block) return;
       const highlight = block.querySelector('.highlight') || block.querySelector('pre');
-      if (highlight) btn.addEventListener('click', function () { copyCode(highlight, btn); });
+      if (highlight)
+        btn.addEventListener('click', function () {
+          copyCode(highlight, btn);
+        });
     });
   });
-}());
+})();

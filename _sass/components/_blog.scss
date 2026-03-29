@@ -9,7 +9,9 @@
   gap: $sp-4;
   flex-wrap: wrap;
 
-  .section-header__title { margin-bottom: 0; }
+  .section-header__title {
+    margin-bottom: 0;
+  }
 }
 
 .blog__header-right {
@@ -18,7 +20,9 @@
   gap: $sp-4;
   flex-shrink: 0;
 
-  @media (max-width: #{$bp-md}) { display: none; }
+  @media (max-width: #{$bp-md}) {
+    display: none;
+  }
 }
 
 // Grid / List toggle
@@ -46,7 +50,9 @@
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
 
-  svg { flex-shrink: 0; }
+  svg {
+    flex-shrink: 0;
+  }
 
   &:hover {
     color: var(--text-primary);
@@ -54,7 +60,7 @@
   }
 
   &:active {
-    transform: scale(.9);
+    transform: scale(0.9);
     background: var(--bg-card);
   }
 
@@ -83,9 +89,13 @@
   gap: $sp-10;
   align-items: start;
 
-  > * { min-width: 0; }
+  > * {
+    min-width: 0;
+  }
 
-  @media (max-width: #{$bp-xl}) { grid-template-columns: 1fr 280px; }
+  @media (max-width: #{$bp-xl}) {
+    grid-template-columns: 1fr 280px;
+  }
 
   @media (max-width: #{$bp-lg}) {
     grid-template-columns: 1fr;
@@ -93,7 +103,9 @@
   }
 }
 
-.blog__main { min-width: 0; }
+.blog__main {
+  min-width: 0;
+}
 
 // Sticky aside
 .blog__aside {
@@ -108,7 +120,9 @@
     overflow-y: auto;
     overflow-x: hidden;
     scrollbar-width: none;
-    &::-webkit-scrollbar { display: none; }
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 
   @media (max-width: #{$bp-lg}) {
@@ -124,10 +138,10 @@
   padding: $sp-5 $sp-6 $sp-4 $sp-6;
 
   &__title {
-    font-size: .8125rem;
+    font-size: 0.8125rem;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: .08em;
+    letter-spacing: 0.08em;
     color: var(--text-muted);
     margin-bottom: $sp-5;
     padding-bottom: $sp-3;
@@ -136,14 +150,16 @@
 }
 
 // List view
-.posts-grid[data-view="list"] {
+.posts-grid[data-view='list'] {
   grid-template-columns: 1fr !important;
 
   .post-card {
     flex-direction: row;
     max-height: 200px;
 
-    &:hover { transform: translateX(4px) translateY(0); }
+    &:hover {
+      transform: translateX(4px) translateY(0);
+    }
   }
 
   .post-card__img {
@@ -168,7 +184,7 @@
   .post-card__description {
     -webkit-line-clamp: 2;
     line-clamp: 2;
-    font-size: .8125rem;
+    font-size: 0.8125rem;
   }
 
   // Collapse to stack layout on narrow screens
@@ -193,8 +209,12 @@
   transition: none;
 
   .post-card {
-    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease,
-                flex-direction 0s, max-height 0s;
+    transition:
+      transform 0.25s ease,
+      box-shadow 0.25s ease,
+      border-color 0.25s ease,
+      flex-direction 0s,
+      max-height 0s;
   }
 }
 
@@ -204,17 +224,21 @@
   display: flex;
   flex-direction: column;
 
-  > .post-card { flex: 1; }
+  > .post-card {
+    flex: 1;
+  }
 }
 
 // Blog page results label
 .blog__results-label {
-  font-size: .875rem;
+  font-size: 0.875rem;
   color: var(--text-muted);
   min-height: 1.4em;
   flex: 1;
 
-  strong { color: var(--text-secondary); }
+  strong {
+    color: var(--text-secondary);
+  }
 }
 
 // Year filter pill bar
@@ -242,7 +266,7 @@
   justify-content: space-between;
   padding: $sp-2 $sp-3;
   border-radius: $r-sm;
-  font-size: .875rem;
+  font-size: 0.875rem;
   font-weight: 600;
   color: var(--text-secondary);
   text-decoration: none;
@@ -265,7 +289,7 @@
 }
 
 .blog-widget__year-count {
-  font-size: .6875rem;
+  font-size: 0.6875rem;
   background: var(--bg-tag);
   color: var(--text-muted);
   padding: 1px $sp-2;

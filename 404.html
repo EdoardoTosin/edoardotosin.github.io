@@ -5,13 +5,10 @@ permalink: /404.html
 sitemap: false
 robots: "noindex, follow"
 ---
-
 <div class="error-page">
   <div class="container">
-
     <!-- Central content -->
     <div class="error-page__content">
-
       <div class="error-page__code" aria-hidden="true">
         <span class="error-page__four">4</span>
         <span class="error-page__zero">0</span>
@@ -19,15 +16,12 @@ robots: "noindex, follow"
       </div>
 
       <h1 class="error-page__title">Page Not Found</h1>
-      <p class="error-page__desc">
-        The page you're looking for has moved, been deleted, or never existed.
-      </p>
+      <p class="error-page__desc">The page you're looking for has moved, been deleted, or never existed.</p>
 
       <nav class="error-page__links" aria-label="Helpful links">
         <a href="{{ '/' | relative_url }}" class="btn btn--primary">← Back to Home</a>
         <a href="{{ '/archive/' | relative_url }}" class="btn btn--ghost">Browse All Posts</a>
       </nav>
-
     </div>
 
     <!-- Recent posts -->
@@ -35,10 +29,9 @@ robots: "noindex, follow"
       <h2 id="error-recent-heading" class="error-page__recent-title">Recent Posts</h2>
       <div class="posts-grid">
         {%- for post in site.posts limit: 3 -%}
-        {% include post-card.html post=post %}
+          {% include post-card.html post=post %}
         {%- endfor -%}
       </div>
     </section>
-
   </div>
 </div>

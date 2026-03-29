@@ -122,7 +122,7 @@
   <div class="site-footer__bottom">
     <div class="container">
       <p>
-        <a href="{% if site.social.github %}{{ site.social.github }}{% else %}{{ '/' | relative_url }}{% endif %}" 
+        <a href="{% if site.social.github %}{{ site.social.github }}{% else %}{{ '/' | relative_url }}{% endif %}"
           class="copyright-item" {% if site.social.github %}target="_blank" rel="noopener noreferrer"{% endif %}>&copy;
           {% assign current_year = site.time | date: "%Y" %}
           {% assign start_year = site.copyright.year | default: current_year %}
@@ -139,7 +139,7 @@
           </a> •
         {% endif %}
         {% if site.copyright.msg and site.copyright.url %}
-          <a href="{{ site.copyright.url | escape }}" 
+          <a href="{{ site.copyright.url | escape }}"
             class="copyright-item" target="_blank" rel="noopener noreferrer">
             {{ site.copyright.msg }}
           </a> •

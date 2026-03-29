@@ -204,7 +204,7 @@
       border-width: 0.5px;
     }
 
-      &::before {
+    &::before {
       content: '';
       position: absolute;
       top: -#{$sp-2};

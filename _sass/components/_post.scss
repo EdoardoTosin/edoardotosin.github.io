@@ -344,7 +344,7 @@
     text-decoration-color: transparent;
     transition: $t-fast;
     word-break:    break-word;
-    overflow-wrap: anywhere;  
+    overflow-wrap: anywhere;
     &:hover { text-decoration-color: var(--accent-text); }
   }
 

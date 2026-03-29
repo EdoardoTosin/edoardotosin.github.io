@@ -303,10 +303,10 @@
 
   > * { min-width: 0; }
 
-.post-hero + .container & {
-  padding-top: $sp-4;
-  @media (max-width: #{$bp-sm}) { padding-top: $sp-1; }
-}
+  .post-hero + .container & {
+    padding-top: $sp-4;
+    @media (max-width: #{$bp-sm}) { padding-top: $sp-1; }
+  }
 
   @media (max-width: #{$bp-xl}) {
     grid-template-columns: 1fr 280px;

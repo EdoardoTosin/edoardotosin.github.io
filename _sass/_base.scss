@@ -83,7 +83,6 @@ a {
 ul, ol {
   padding-left: $sp-6;
   color: var(--text-secondary);
-
 }
 
 img    { max-width: 100%; height: auto; display: block; }
@@ -137,7 +136,7 @@ img[loading="lazy"].loaded { opacity: 1; }
   padding: 0;
   margin: -1px;
   overflow: hidden;
-  clip: rect(0,0,0,0);
+  clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
 }

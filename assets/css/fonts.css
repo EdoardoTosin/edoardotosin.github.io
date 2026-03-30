@@ -82,27 +82,27 @@
   src: url('../fonts/outfit/outfit-v15-latin-800.woff2') format('woff2');
 }
 
-/* Cascadia Code (monospace / code) */
+/* Monaspace Neon NF (monospace / code) */
 @font-face {
   font-display: swap;
-  font-family: 'Cascadia Code';
+  font-family: 'Monaspace Neon NF';
   font-style: normal;
   font-weight: 400;
-  src: url('../fonts/cascadia-code/cascadia-code-v5-latin-regular.woff2') format('woff2');
+  src: url('../fonts/monaspace-neon/MonaspaceNeonNF-Regular.woff2') format('woff2');
 }
 
 @font-face {
   font-display: swap;
-  font-family: 'Cascadia Code';
+  font-family: 'Monaspace Neon NF';
   font-style: italic;
   font-weight: 400;
-  src: url('../fonts/cascadia-code/cascadia-code-v5-latin-italic.woff2') format('woff2');
+  src: url('../fonts/monaspace-neon/MonaspaceNeonNF-Italic.woff2') format('woff2');
 }
 
 @font-face {
   font-display: swap;
-  font-family: 'Cascadia Code';
+  font-family: 'Monaspace Neon NF';
   font-style: normal;
-  font-weight: 500;
-  src: url('../fonts/cascadia-code/cascadia-code-v5-latin-500.woff2') format('woff2');
+  font-weight: 700;
+  src: url('../fonts/monaspace-neon/MonaspaceNeonNF-Bold.woff2') format('woff2');
 }

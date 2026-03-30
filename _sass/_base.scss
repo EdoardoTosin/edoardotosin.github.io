@@ -124,6 +124,13 @@ figure {
   margin: 0;
 }
 
+code,
+pre,
+kbd,
+samp {
+  font-family: $font-mono;
+}
+
 pre {
   overflow-x: auto;
   max-width: 100%;

@@ -47,7 +47,7 @@ This site is built with Jekyll and the following open-source tools and resources
 - **[Outfit](https://fonts.google.com/specimen/Outfit)** - Heading font
 - **[Monaspace Neon NF](https://github.com/githubnext/monaspace)** - Monospace font for code
 
-All fonts are self-hosted as WOFF2 files — no external requests.
+All fonts are self-hosted as WOFF2 files - no external requests.
 
 ---
 

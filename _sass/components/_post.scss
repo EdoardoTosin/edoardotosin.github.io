@@ -455,14 +455,14 @@
     }
   }
 
-  code:not([class]) {
+  :not(pre) > code {
     font-family: $font-mono;
     font-size: 0.875em;
     background: var(--bg-code);
     color: var(--accent-text);
     padding: 0.15em 0.4em;
     border-radius: $r-sm;
-    border: 1px solid var(--border);
+    border: 1px solid var(--border-ui);
     word-break: break-word;
     overflow-wrap: anywhere;
     white-space: pre-wrap;

@@ -58,6 +58,10 @@
   .comments,
   .webmentions,
   .cmd-palette,
+  .hero__tagline,
+  .hero__actions,
+  .hero__image-wrap,
+  .video-card__play,
   button[aria-label],
   [data-search-toggle] {
     display: none !important;
@@ -320,6 +324,64 @@
 
   .topic-clusters-section {
     display: none !important;
+  }
+
+  // Homepage - post cards, video & gallery sections
+  .hero__content {
+    max-width: 100% !important;
+  }
+
+  .post-card {
+    background: transparent !important;
+    border: none !important;
+    border-bottom: 0.5pt solid #ccc !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    padding: 6pt 0 !important;
+    break-inside: avoid;
+
+    &__image {
+      display: none !important;
+    }
+
+    &__body {
+      padding: 0 !important;
+    }
+  }
+
+  .video-grid {
+    display: block !important;
+  }
+
+  .video-card {
+    break-inside: avoid;
+    margin-bottom: 8pt;
+
+    &__thumb img {
+      max-height: 100pt !important;
+      width: auto !important;
+    }
+  }
+
+  .gallery-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 4pt !important;
+  }
+
+  .gallery-item {
+    break-inside: avoid;
+
+    img {
+      max-height: 80pt !important;
+      width: 100% !important;
+      object-fit: cover !important;
+    }
+
+    &__caption {
+      font-size: 7pt !important;
+      display: block !important;
+    }
   }
 
   // 7. Code & math - keep dark bg; token colors need #0d1117 (print-color-adjust: exact enforces it)

@@ -2,9 +2,9 @@
 <html lang="{{ site.lang | default: 'en' }}">
 <head>
   <script>
-    document.documentElement.classList.add('no-transitions');
-
     (function() {
+      document.documentElement.classList.add('no-transitions');
+
       const storedTheme = localStorage.getItem('jekyll-theme');
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
@@ -26,18 +26,6 @@
     })();
   </script>
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-  <meta name="theme-color" id="meta-theme-color" content="#f8fafc">
-  <meta name="color-scheme" content="light dark">
-
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="{{ site.title | truncate: 12, '' }}">
-  <meta name="mobile-web-app-capable" content="yes">
-
   <style>
     html {
       font-family: 'IBM Plex Sans', system-ui, sans-serif;
@@ -55,15 +43,36 @@
       transition: none !important;
     }
 
+    html:not([data-theme]) {
+      background-color: #f8fafc;
+      color: #0f172a;
+    }
+
     @media (prefers-color-scheme: dark) {
       html:not([data-theme]) {
         background-color: #0f1117;
         color: #f1f5f9;
       }
     }
+  </style>
 
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="theme-color" id="meta-theme-color" content="#f8fafc">
+  <meta name="color-scheme" content="light dark">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="{{ site.title | truncate: 12, '' }}">
+  <meta name="mobile-web-app-capable" content="yes">
+
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="{{ '/assets/fonts/ibm-plex-sans/ibm-plex-sans-v23-latin-regular.woff2' | relative_url }}">
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="{{ '/assets/fonts/outfit/outfit-v15-latin-700.woff2' | relative_url }}">
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="{{ '/assets/fonts/monaspace-neon/MonaspaceNeonNF-Regular.woff2' | relative_url }}">
+
+  <style>
     @font-face {
-      font-display: swap;
+      font-display: optional;
       font-family: 'IBM Plex Sans';
       font-style: normal;
       font-weight: 400;
@@ -71,7 +80,7 @@
     }
 
     @font-face {
-      font-display: swap;
+      font-display: optional;
       font-family: 'Outfit';
       font-style: normal;
       font-weight: 700;
@@ -79,7 +88,7 @@
     }
 
     @font-face {
-      font-display: swap;
+      font-display: optional;
       font-family: 'Monaspace Neon NF';
       font-style: normal;
       font-weight: 400;

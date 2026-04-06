@@ -28,21 +28,13 @@
   border-radius: $r-lg;
   padding: $sp-6;
 
-  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  @include retina {
     border-width: 0.5px;
   }
 
   &__title {
-    font-size: 0.8125rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--text-muted);
-    margin-bottom: $sp-5;
-    padding-bottom: $sp-3;
-    border-bottom: 1px solid var(--border);
-
-    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    @include widget-section-title;
+    @include retina {
       border-bottom-width: 0.5px;
     }
   }
@@ -56,67 +48,21 @@
 }
 
 .widget-post {
-  display: flex;
-  gap: $sp-3;
-  align-items: flex-start;
-  padding: $sp-2;
-  border-radius: $r-sm;
-  position: relative;
-  cursor: pointer;
-  transition: background $t-fast;
-
-  &:hover {
-    background: var(--bg-tag);
-  }
+  @include mini-post-row;
 
   &__img {
-    flex-shrink: 0;
-    width: 60px;
-    height: 50px;
-    border-radius: $r-sm;
-    overflow: hidden;
-    background: var(--bg-tag);
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.4s ease;
-    }
+    @include mini-post-thumb;
   }
-
   &:hover &__img img {
     transform: scale(1.04);
   }
-
   &__content {
     flex: 1;
     min-width: 0;
   }
-
   &__title {
-    font-size: 0.8125rem;
-    font-weight: 700;
-    line-height: 1.4;
-    color: var(--text-primary);
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    margin-bottom: 2px;
-
-    a {
-      color: inherit;
-      text-decoration: none;
-      &::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-      }
-    }
+    @include mini-post-title;
   }
-
   &__date {
     font-size: 0.6875rem;
     color: var(--text-muted);
@@ -147,8 +93,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
+  @include touch-reset;
 
   &:hover {
     background: var(--tc, var(--accent));
@@ -205,8 +150,7 @@
   transition: $t-fast;
   border: 1px solid var(--border-strong);
   text-decoration: none;
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
+  @include touch-reset;
 
   svg {
     width: 18px;
@@ -228,8 +172,7 @@
   }
 
   &:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
+    @include focus-ring;
   }
 }
 
@@ -317,8 +260,7 @@
   }
 
   &:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
+    @include focus-ring;
     border-radius: $r-sm;
   }
 

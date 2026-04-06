@@ -117,6 +117,110 @@ $t-slow: all 0.4s ease;
   --toggle-knob: #ffffff;
 }
 
+// Mixins
+
+@mixin retina {
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    @content;
+  }
+}
+
+@mixin focus-ring($offset: 2px) {
+  outline: 2px solid var(--accent);
+  outline-offset: $offset;
+}
+
+@mixin touch-reset {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@mixin line-clamp($n) {
+  display: -webkit-box;
+  -webkit-line-clamp: $n;
+  line-clamp: $n;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+@mixin tag-pill-states {
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background: var(--tc, var(--accent));
+      color: var(--text-on-accent);
+    }
+  }
+  &:focus-visible {
+    background: var(--tc, var(--accent));
+    color: var(--text-on-accent);
+    outline: 2px solid var(--tc, var(--accent));
+    outline-offset: 2px;
+  }
+  &:active {
+    background: var(--tc, var(--accent));
+    color: var(--text-on-accent);
+    filter: brightness(0.92);
+  }
+}
+
+@mixin mini-post-row {
+  display: flex;
+  gap: $sp-3;
+  align-items: flex-start;
+  padding: $sp-2;
+  border-radius: $r-sm;
+  position: relative;
+  cursor: pointer;
+  transition: background $t-fast;
+  &:hover {
+    background: var(--bg-tag);
+  }
+}
+
+@mixin mini-post-thumb {
+  flex-shrink: 0;
+  width: 60px;
+  height: 50px;
+  border-radius: $r-sm;
+  overflow: hidden;
+  background: var(--bg-tag);
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+}
+
+@mixin mini-post-title {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--text-primary);
+  @include line-clamp(2);
+  margin-bottom: 2px;
+  a {
+    color: inherit;
+    text-decoration: none;
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+    }
+  }
+}
+
+@mixin widget-section-title {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: $sp-5;
+  padding-bottom: $sp-3;
+  border-bottom: 1px solid var(--border);
+}
+
 // Dark mode
 [data-theme='dark'] {
   --accent: #4ade80;

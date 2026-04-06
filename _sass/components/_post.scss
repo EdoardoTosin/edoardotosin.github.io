@@ -158,23 +158,7 @@
       background $t-fast,
       color $t-fast;
 
-    @media (hover: hover) and (pointer: fine) {
-      &:hover {
-        background: var(--tc, var(--accent));
-        color: var(--text-on-accent);
-      }
-    }
-    &:focus-visible {
-      background: var(--tc, var(--accent));
-      color: var(--text-on-accent);
-      outline: 2px solid var(--tc, var(--accent));
-      outline-offset: 2px;
-    }
-    &:active {
-      background: var(--tc, var(--accent));
-      color: var(--text-on-accent);
-      filter: brightness(0.92);
-    }
+    @include tag-pill-states;
   }
 
   &__title {
@@ -289,8 +273,7 @@
     }
 
     &:focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: -2px;
+      @include focus-ring(-2px);
     }
   }
 
@@ -378,8 +361,7 @@
 
     &:focus-visible {
       opacity: 1;
-      outline: 2px solid var(--accent);
-      outline-offset: 2px;
+      @include focus-ring;
     }
 
     &.is-copied {
@@ -1064,8 +1046,7 @@
   border: none;
   cursor: pointer;
   font-family: $font-sans;
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
+  @include touch-reset;
 
   svg {
     width: 16px;
@@ -1119,8 +1100,7 @@
   }
 
   &:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 3px;
+    @include focus-ring(3px);
   }
 }
 
@@ -1155,8 +1135,7 @@
     }
 
     &:focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 2px;
+      @include focus-ring;
     }
 
     &:active {

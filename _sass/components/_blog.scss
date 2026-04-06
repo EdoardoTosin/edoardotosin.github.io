@@ -47,8 +47,7 @@
   cursor: pointer;
   color: var(--text-secondary);
   transition: $t-fast;
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
+  @include touch-reset;
 
   svg {
     flex-shrink: 0;
@@ -77,8 +76,7 @@
   }
 
   &:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 1px;
+    @include focus-ring(1px);
   }
 }
 
@@ -138,14 +136,7 @@
   padding: $sp-5 $sp-6 $sp-4 $sp-6;
 
   &__title {
-    font-size: 0.8125rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--text-muted);
-    margin-bottom: $sp-5;
-    padding-bottom: $sp-3;
-    border-bottom: 1px solid var(--border);
+    @include widget-section-title;
   }
 }
 
@@ -278,8 +269,7 @@
   }
 
   &:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 1px;
+    @include focus-ring(1px);
   }
 
   &.is-active {

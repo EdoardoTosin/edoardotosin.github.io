@@ -32,8 +32,7 @@
   }
 
   &:focus-within {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
+    @include focus-ring;
   }
 
   &__img {
@@ -79,23 +78,7 @@
       background $t-fast,
       color $t-fast;
 
-    @media (hover: hover) and (pointer: fine) {
-      &:hover {
-        background: var(--tc, var(--accent));
-        color: var(--text-on-accent);
-      }
-    }
-    &:focus-visible {
-      background: var(--tc, var(--accent));
-      color: var(--text-on-accent);
-      outline: 2px solid var(--tc, var(--accent));
-      outline-offset: 2px;
-    }
-    &:active {
-      background: var(--tc, var(--accent));
-      color: var(--text-on-accent);
-      filter: brightness(0.92);
-    }
+    @include tag-pill-states;
   }
 
   &__title {
@@ -107,11 +90,7 @@
     a {
       color: var(--text-primary);
       text-decoration: none;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
+      @include line-clamp(2);
       position: relative;
 
       // Stretched link: covers the full card below z-index:1 siblings.
@@ -137,11 +116,7 @@
     color: var(--text-secondary);
     line-height: 1.65;
     flex: 1;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    @include line-clamp(3);
   }
 
   &__meta {
@@ -206,18 +181,7 @@
 }
 
 .featured-item {
-  display: flex;
-  gap: $sp-3;
-  align-items: flex-start;
-  padding: $sp-2;
-  border-radius: $r-sm;
-  position: relative;
-  cursor: pointer;
-  transition: background $t-fast;
-
-  &:hover {
-    background: var(--bg-tag);
-  }
+  @include mini-post-row;
   &:active {
     transform: translateX(2px);
     border-color: var(--accent);
@@ -225,53 +189,18 @@
   }
 
   &__img {
-    flex-shrink: 0;
-    width: 60px;
-    height: 50px;
-    border-radius: $r-sm;
-    overflow: hidden;
-    background: var(--bg-tag);
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.4s ease;
-    }
+    @include mini-post-thumb;
   }
-
   &:hover &__img img {
     transform: scale(1.04);
   }
-
   &__content {
     flex: 1;
     min-width: 0;
   }
-
   &__title {
-    font-size: 0.8125rem;
-    font-weight: 700;
-    line-height: 1.4;
-    color: var(--text-primary);
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    margin-bottom: 2px;
-
-    a {
-      color: inherit;
-      text-decoration: none;
-      &::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-      }
-    }
+    @include mini-post-title;
   }
-
   &__date {
     font-size: 0.6875rem;
     color: var(--text-muted);
@@ -367,6 +296,7 @@
       color $t-fast;
   }
 
+  // Promote tag-pill states through parent hover/focus
   @media (hover: hover) and (pointer: fine) {
     &__header:hover &__header-tag {
       background: var(--tc, var(--accent));
@@ -413,8 +343,7 @@
     }
 
     &:focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 1px;
+      @include focus-ring(1px);
     }
   }
 }
@@ -455,8 +384,7 @@
   }
 
   &:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
+    @include focus-ring;
   }
 
   &__thumb {
@@ -592,8 +520,7 @@
   }
 
   &:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 3px;
+    @include focus-ring(3px);
   }
 
   &__caption {

@@ -29,7 +29,7 @@
 
   box-shadow: var(--shadow-header);
 
-  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  @include retina {
     box-shadow:
       var(--shadow-header),
       inset 0 -0.5px 0 var(--border);
@@ -71,8 +71,7 @@
   }
 
   &:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 4px;
+    @include focus-ring(4px);
     border-radius: $r-sm;
   }
 
@@ -105,7 +104,8 @@
     }
   }
 
-  &__link {
+  &__link,
+  &__dropdown-btn {
     display: inline-flex;
     align-items: center;
     min-height: 44px;
@@ -116,23 +116,23 @@
     border-radius: $r-sm;
     transition: $t-fast;
     white-space: nowrap;
-    text-decoration: none;
 
     &:hover {
       color: var(--text-primary);
       background: var(--bg-tag);
     }
-
     &:active {
       background: var(--bg-tag);
       color: var(--text-primary);
       transform: scale(0.97);
     }
-
     &:focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 2px;
+      @include focus-ring;
     }
+  }
+
+  &__link {
+    text-decoration: none;
   }
 
   // Dropdown
@@ -141,36 +141,10 @@
   }
 
   &__dropdown-btn {
-    display: inline-flex;
-    align-items: center;
-    min-height: 44px;
     gap: $sp-1;
-    padding: 0 $sp-3;
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: var(--text-secondary);
-    border-radius: $r-sm;
     background: none;
     border: none;
     cursor: pointer;
-    transition: $t-fast;
-    white-space: nowrap;
-
-    &:hover {
-      color: var(--text-primary);
-      background: var(--bg-tag);
-    }
-
-    &:active {
-      background: var(--bg-tag);
-      color: var(--text-primary);
-      transform: scale(0.97);
-    }
-
-    &:focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 2px;
-    }
 
     svg {
       width: 12px;
@@ -214,7 +188,7 @@
     pointer-events: none;
     z-index: 10;
 
-    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    @include retina {
       border-width: 0.5px;
     }
 
@@ -246,8 +220,7 @@
           background: var(--bg-tag);
         }
         &:focus-visible {
-          outline: 2px solid var(--accent);
-          outline-offset: 1px;
+          @include focus-ring(1px);
         }
       }
     }
@@ -287,8 +260,7 @@
   font-size: 0.875rem;
   white-space: nowrap;
   flex-shrink: 0;
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
+  @include touch-reset;
 
   &:hover {
     border-color: var(--border);
@@ -303,8 +275,7 @@
   }
 
   &:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 3px;
+    @include focus-ring(3px);
   }
 
   svg {
@@ -318,7 +289,7 @@
     border-color: var(--border);
     background: var(--bg-body);
 
-    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    @include retina {
       border-width: 0.5px;
     }
 
@@ -370,7 +341,7 @@
     box-shadow: var(--shadow-xl);
     overflow: hidden;
 
-    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    @include retina {
       box-shadow:
         var(--shadow-xl),
         0 0 0 0.5px var(--border);
@@ -388,7 +359,7 @@
     padding: $sp-4 $sp-5;
     border-bottom: 1px solid var(--border);
 
-    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    @include retina {
       border-bottom-width: 0.5px;
     }
 
@@ -446,8 +417,7 @@
     }
 
     &:focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 2px;
+      @include focus-ring;
     }
   }
 
@@ -475,8 +445,7 @@
     }
 
     &:focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 1px;
+      @include focus-ring(1px);
     }
 
     img {
@@ -552,8 +521,7 @@
     }
 
     &:focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 2px;
+      @include focus-ring;
     }
   }
 
@@ -606,7 +574,7 @@
     color: var(--text-muted);
     user-select: none;
 
-    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    @include retina {
       border-top-width: 0.5px;
     }
 
@@ -668,8 +636,7 @@
   transition: $t-fast;
   white-space: nowrap;
   max-width: 220px;
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
+  @include touch-reset;
 
   &:hover {
     border-color: var(--border-strong);
@@ -682,8 +649,7 @@
   }
 
   &:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
+    @include focus-ring;
   }
 }
 
@@ -736,7 +702,7 @@
   line-height: 1.5;
   white-space: nowrap;
 
-  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  @include retina {
     border-width: 0.5px;
     border-bottom-width: 1px;
   }
@@ -757,8 +723,7 @@
   padding: $sp-2;
   border-radius: $r-full;
   transition: $t-fast;
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
+  @include touch-reset;
   flex-shrink: 0;
   margin-left: $sp-1;
   color: var(--text-muted);
@@ -776,8 +741,7 @@
   }
 
   &:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 3px;
+    @include focus-ring(3px);
   }
 
   span {
@@ -856,7 +820,7 @@
       color 0.15s ease,
       padding-left 0.15s ease;
 
-    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    @include retina {
       border-bottom-width: 0.5px;
     }
 
@@ -866,8 +830,7 @@
     }
 
     &:focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 2px;
+      @include focus-ring;
       border-radius: $r-sm;
     }
   }
@@ -879,7 +842,7 @@
     padding: $sp-6 0 $sp-4;
     margin-top: $sp-4;
 
-    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    @include retina {
       border-top-width: 0.5px;
     }
 

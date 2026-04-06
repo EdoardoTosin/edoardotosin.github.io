@@ -52,7 +52,7 @@
     padding-bottom: $sp-3;
     border-bottom: 1px solid var(--border);
 
-    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    @include retina {
       border-bottom-width: 0.5px;
     }
 
@@ -203,7 +203,7 @@
   border: 1px solid var(--border);
   border-radius: $r-md;
 
-  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  @include retina {
     border-width: 0.5px;
   }
 
@@ -285,8 +285,7 @@
     }
 
     &:focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 2px;
+      @include focus-ring;
     }
   }
 }

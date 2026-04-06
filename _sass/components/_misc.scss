@@ -48,8 +48,7 @@
   transition:
     background 0.15s ease,
     transform 0.15s ease;
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
+  @include touch-reset;
 
   &:hover {
     background: rgba(255, 255, 255, 0.22);
@@ -182,8 +181,7 @@
     }
 
     &:focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 2px;
+      @include focus-ring;
     }
 
     &.active {
@@ -330,8 +328,7 @@
     cursor: pointer;
     white-space: nowrap;
     min-height: 36px;
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
+    @include touch-reset;
 
     @media (max-width: #{$bp-sm}) {
       font-size: 0.8125rem;
@@ -501,8 +498,7 @@
     cursor: pointer;
     transition: $t-fast;
     white-space: nowrap;
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
+    @include touch-reset;
 
     &:hover:not(:disabled) {
       border-color: var(--border-strong);
@@ -511,8 +507,7 @@
     }
 
     &:focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 2px;
+      @include focus-ring;
     }
 
     &:disabled {
@@ -550,8 +545,7 @@
     }
 
     &:focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 2px;
+      @include focus-ring;
       border-radius: $r-sm;
     }
   }
@@ -674,23 +668,7 @@
     align-self: center;
     justify-self: start;
 
-    @media (hover: hover) and (pointer: fine) {
-      &:hover {
-        background: var(--tc, var(--accent));
-        color: var(--text-on-accent);
-      }
-    }
-    &:focus-visible {
-      background: var(--tc, var(--accent));
-      color: var(--text-on-accent);
-      outline: 2px solid var(--tc, var(--accent));
-      outline-offset: 2px;
-    }
-    &:active {
-      background: var(--tc, var(--accent));
-      color: var(--text-on-accent);
-      filter: brightness(0.92);
-    }
+    @include tag-pill-states;
 
     @media (max-width: #{$bp-sm}) {
       grid-column: 2;
@@ -744,7 +722,7 @@
   border-radius: $r-lg;
   padding: $sp-6;
 
-  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  @include retina {
     border-width: 0.5px;
   }
 
@@ -761,7 +739,7 @@
     padding-bottom: $sp-3;
     border-bottom: 1px solid var(--border);
 
-    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    @include retina {
       border-bottom-width: 0.5px;
     }
 

@@ -136,8 +136,7 @@
   font-size: 0.9375rem;
   color: var(--text-primary);
   transition: background 0.1s ease;
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
+  @include touch-reset;
   min-height: 44px;
 
   &__icon {
@@ -200,8 +199,7 @@
   }
 
   &:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: -2px;
+    @include focus-ring(-2px);
   }
 }
 

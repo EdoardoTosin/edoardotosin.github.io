@@ -23,8 +23,7 @@
   white-space: nowrap;
   line-height: 1;
   min-height: 44px;
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
+  @include touch-reset;
 
   svg {
     width: 17px;
@@ -39,8 +38,7 @@
   }
 
   &:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 3px;
+    @include focus-ring(3px);
   }
 
   // Primary
@@ -136,8 +134,7 @@
   transition: $t-fast;
   flex-shrink: 0;
   padding: 0;
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
+  @include touch-reset;
 
   svg {
     width: 18px;
@@ -169,8 +166,7 @@
   }
 
   &:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 3px;
+    @include focus-ring(3px);
   }
 }
 
@@ -187,8 +183,7 @@
   color: var(--text-on-accent);
   border: none;
   cursor: pointer;
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
+  @include touch-reset;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -223,7 +218,6 @@
   }
 
   &:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 3px;
+    @include focus-ring(3px);
   }
 }

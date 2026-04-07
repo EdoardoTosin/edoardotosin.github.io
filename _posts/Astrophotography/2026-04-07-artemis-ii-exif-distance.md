@@ -3,18 +3,18 @@ layout: post
 title: "Estimating Artemis II Spacecraft Distance from Earth Using EXIF Metadata"
 description: "Estimating the distance of Artemis II from Earth using NASA's photograph and its EXIF metadata."
 date: 2026-04-07 21:00:00 +0200
-last_modified_at: 2026-04-07
-short_url: "artemis-ii-exif-distance"
+last_modified_at: 2026-04-07 23:15:00 +0200
+short_url: artemis-ii-exif-distance
 image: https://raw.githubusercontent.com/EdoardoTosin/web-assets/refs/heads/main/blog/Astrophotography/art002e000192.webp
 topic: astrophotography
-tags: 
+tags:
   - exif
   - osint
   - space
   - artemis-ii
   - orbital-geometry
   - photography
-keywords: 
+keywords:
   - rectilinear projection
   - angular diameter
   - exif metadata
@@ -105,12 +105,12 @@ $$
 ## Final Results
 
 - Angular diameter: $\approx 46\degree$
-- Distance from Earth center: $\approx 14972 \text{km}$
-- Altitude: $\approx 8601 \text{km}$
+- Distance from Earth center: $\approx 14972\ \text{km}$
+- Altitude: $\approx 8601\ \text{km}$
 
 ## Interpretation
 
-The measured angular size places the spacecraft well above Low Earth Orbit ($\approx 400 \text{km}$), yet still far from the Moon ($\approx 384000 \text{km}$). This corresponds to a high Earth orbit, consistent with an early translunar phase.
+The measured angular size places the spacecraft well above Low Earth Orbit ($\approx 400\ \text{km}$), yet still far from the Moon ($\approx 384000\ \text{km}$). This corresponds to a high Earth orbit, consistent with an early translunar phase.
 
 ## Assumptions and Uncertainty
 
@@ -120,7 +120,7 @@ This estimate relies on a few simplifying assumptions:
 - Earth approximated as a sphere
 - Minor influence from atmosphere, clouds, and lens distortion
 
-Estimated uncertainty: $\pm 2-5 \%$ ($\approx \pm 300-750 \text{km}$)
+Estimated uncertainty: $\pm 2-5 \%$ ($\approx \pm 300-750\ \text{km}$)
 
 ## Conclusion
 

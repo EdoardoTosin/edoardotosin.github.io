@@ -165,7 +165,7 @@ webmentions:
 
 google_analytics: ""
 
-url_shortener: ""
+url_shortener: "go"
 
 # Build
 markdown:    kramdown

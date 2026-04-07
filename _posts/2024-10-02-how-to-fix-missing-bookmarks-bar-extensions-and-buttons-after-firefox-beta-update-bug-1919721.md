@@ -6,7 +6,7 @@ short_url: firefox-1919721
 date: 2024-10-02 21:30:00 +0200
 last_modified_at: 2026-01-23 08:00:00 +0100
 lang: en
-image: https://raw.githubusercontent.com/EdoardoTosin/web-assets/refs/heads/main/Notes/100%20Public/Feed/How%20to%20Fix%20Missing%20Bookmarks%20Bar%2C%20Extensions%2C%20and%20Buttons%20After%20Firefox%20Beta%20Update%20(Bug%201919721)/firefox-beta-bug-1919721.webp
+image: https://raw.githubusercontent.com/EdoardoTosin/web-assets/refs/heads/main/blog/How%20to%20Fix%20Missing%20Bookmarks%20Bar%2C%20Extensions%2C%20and%20Buttons%20After%20Firefox%20Beta%20Update%20(Bug%201919721)/firefox-beta-bug-1919721.webp
 topic: firefox
 tags:
   - firefox
@@ -30,7 +30,7 @@ featured: true
 Firefox users with Beta and Developer Edition versions may encounter the disappearance of the bookmarks bar, toolbar buttons, and pinned extensions[^1][^2] due to [bug 1919721](https://bugzilla.mozilla.org/show_bug.cgi?id=1919721). This issue arises from a flawed logical condition that affects toolbar management in Firefox.
 
 <figure>
-  <img src="https://raw.githubusercontent.com/EdoardoTosin/web-assets/refs/heads/main/Notes/100%20Public/Feed/How%20to%20Fix%20Missing%20Bookmarks%20Bar%2C%20Extensions%2C%20and%20Buttons%20After%20Firefox%20Beta%20Update%20(Bug%201919721)/firefox-beta-bug-1919721.webp" alt="Firefox Browser Screenshot">
+  <img src="https://raw.githubusercontent.com/EdoardoTosin/web-assets/refs/heads/main/blog/How%20to%20Fix%20Missing%20Bookmarks%20Bar%2C%20Extensions%2C%20and%20Buttons%20After%20Firefox%20Beta%20Update%20(Bug%201919721)/firefox-beta-bug-1919721.webp" alt="Firefox Browser Screenshot">
   <figcaption><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1919721">Bug 1919721</a> on Firefox Beta 132.0b1.</figcaption>
 </figure>
 

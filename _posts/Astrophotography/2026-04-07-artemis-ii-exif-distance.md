@@ -3,7 +3,7 @@ layout: post
 title: "Estimating Artemis II Spacecraft Distance from Earth Using EXIF Metadata"
 description: "Estimating the distance of Artemis II from Earth using NASA's photograph and its EXIF metadata."
 date: 2026-04-07 21:00:00 +0200
-last_modified_at: 2026-04-07 23:15:00 +0200
+last_modified_at: 2026-04-08 07:30:00 +0200
 short_url: artemis-ii-exif-distance
 image: https://raw.githubusercontent.com/EdoardoTosin/web-assets/refs/heads/main/blog/Astrophotography/art002e000192.webp
 topic: astrophotography
@@ -36,7 +36,7 @@ Using only the image file and its EXIF metadata, we can estimate how far the spa
 
 ## Key Metadata
 
-From the original image file ([`art002e000192.jpg`](https://www.nasa.gov/wp-content/uploads/2026/04/art002e000192.jpg)):
+From the original image file ([art002e000192.jpg](https://www.nasa.gov/wp-content/uploads/2026/04/art002e000192.jpg)):
 
 - Resolution: 5568 x 3712 px
 - Measured Earth diameter: 2896 px

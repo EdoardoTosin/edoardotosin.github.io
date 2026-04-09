@@ -148,16 +148,38 @@ layout: default
 
         {%- if page.share != false -%}
           {%- assign _share_url = page.url | absolute_url -%}
-          {%- if page.short_url != blank and site.url_shortener != blank -%}
+
+          {%- if page.short_url and site.url_shortener -%}
+            {%- assign _site_url = site.url | default: 'http://localhost:4000' | strip -%}
+
             {%- assign _shortener = site.url_shortener | strip -%}
-            {%- assign _short_code = page.short_url | strip -%}
-            {%- assign _first_char = _shortener | slice: 0 -%}
-            {%- assign _base_url = site.url | default: 'http://localhost:4000' | replace: 'http://', '' | replace: 'https://', '' -%}
-            {%- if _first_char == '/' -%}
-              {%- assign _clean_site_url = site.url | default: 'http://localhost:4000' | replace: '/$', '' -%}
-              {%- assign _share_url = _clean_site_url | append: _shortener | append: '/' | append: _short_code -%}
-            {%- else -%}
-              {%- assign _share_url = 'https://' | append: _shortener | append: '.' | append: _base_url | append: '/' | append: _short_code -%}
+            {%- assign _short_code = page.short_url | strip | uri_escape -%}
+
+            {%- assign _base_host = _site_url
+              | replace: 'https://', ''
+              | replace: 'http://', ''
+              | split: '/'
+              | first
+            -%}
+
+            {%- assign _protocol = _site_url | split: '://' | first | append: '://' -%}
+            {%- assign _first_char = _shortener | slice: 0, 1 -%}
+
+            {%- if _shortener != '' and _short_code != '' and _base_host != '' -%}
+              {%- if _first_char == '/' -%}
+                {%- assign _shortener_clean = _shortener | replace: '//', '/' -%}
+
+                {%- assign _share_url = _site_url | append: _shortener_clean | append: '/' | append: _short_code -%}
+
+              {%- else -%}
+                {%- assign _share_url = _protocol
+                  | append: _shortener
+                  | append: '.'
+                  | append: _base_host
+                  | append: '/'
+                  | append: _short_code
+                -%}
+              {%- endif -%}
             {%- endif -%}
           {%- endif -%}
           <div class="post-footer__share">

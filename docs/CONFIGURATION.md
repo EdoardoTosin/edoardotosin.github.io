@@ -157,26 +157,47 @@ Shown on the `/contact/` page. Remove the block entirely to hide the section.
 
 ## Short URL for Sharing
 
-Set `url_shortener` to enable short URLs in the post share buttons. When a post has `short_url` in its front matter and `url_shortener` is set, the share links use the short URL instead of the full page URL.
+Enable short URLs by setting `url_shortener` in `_config.yml` and `short_url` in a post's front matter. Otherwise, the full page URL is used.
+
+### Configuration
 
 ```yaml
-url_shortener: "/s"
+url_shortener: "/s"  # or a subdomain prefix like "go"
 ```
 
-Two modes:
+### Usage
 
-- **Subpath** - value starts with `/` (e.g. `/s`): short URL is `site.url + url_shortener + "/" + short_url`
-  - Example: `https://example.com/s/my-post`
-- **Subdomain** - value is a subdomain prefix (e.g. `go`): short URL is `https://subdomain.domain/short_url`
-  - Example: `https://go.example.com/my-post`
+**Subpath mode** (value starts with `/`):
 
-Leave `url_shortener` empty to use the default full page URL for all sharing.
+```
+site.url + url_shortener + "/" + short_url
+```
+Example:
+```
+https://example.com/s/my-post
+```
 
-Per-post front matter:
+**Subdomain mode** (value does not start with `/`):
+
+```
+<protocol>://<url_shortener>.<domain>/<short_url>
+```
+Example:
+```
+https://go.example.com/my-post
+```
+Protocol is taken from `site.url`.
+
+### Per-post front matter
 
 ```yaml
 short_url: "my-post"
 ```
+
+**Notes**
+
+- Whitespace is ignored; short URLs are URL-encoded automatically
+- Empty or missing values fall back to the full page URL
 
 ## Integrations
 

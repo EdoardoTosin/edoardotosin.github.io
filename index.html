@@ -23,9 +23,7 @@ pagination:
           <span>{{ site.author.tagline }}</span>
         {%- endif -%}
       </div>
-      {%- if site.author.hero_title and site.author.hero_title != '' -%}
-        <h1 class="hero__title">{{ site.author.hero_title }}</h1>
-      {%- endif -%}
+      <h1 class="hero__title">{{ site.author.hero_title | default: site.title }}</h1>
       {%- if site.author.hero_subtitle and site.author.hero_subtitle != '' -%}
         <p class="hero__subtitle">{{ site.author.hero_subtitle }}</p>
       {%- endif -%}

@@ -1,5 +1,5 @@
 ---
-title: "Guida Pi-Hole & Unbound - Parte 4: Installazione Unbound"
+title: 'Guida Pi-Hole & Unbound - Parte 4: Installazione Unbound'
 description: Come installare Unbound su Ubuntu Server come resolver DNS ricorsivo che interroga direttamente i nameserver root, eliminando la dipendenza da provider DNS di terze parti.
 short_url: pihole-guida-4
 date: 2022-12-31 13:00:00 +0100
@@ -24,7 +24,7 @@ keywords:
   - configurazione dnssec
 ---
 
-*Nella [parte precedente]({% post_url Ubuntu-Server-Pi-Hole-Unbound/it-IT/2022-12-31-ubuntu-server-pihole-unbound-parte-3 %}) è stato spiegato come installare Pi-Hole.*
+_Nella [parte precedente]({% post_url Ubuntu-Server-Pi-Hole-Unbound/it-IT/2022-12-31-ubuntu-server-pihole-unbound-parte-3 %}) è stato spiegato come installare Pi-Hole._
 
 ## Installazione Unbound
 
@@ -148,7 +148,7 @@ Il seguente comando dovrebbe ritornare SERVFAIL senza nessun indirizzo IP: `dig 
 ![Verifica DNSSEC - query dig per sigfail.verteiltesysteme.net che restituisce SERVFAIL (atteso, DNSSEC funzionante)](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_16.webp)
 
 Questo comando dovrebbe ritornare NOERROR con un indirizzo IP: `dig sigok.verteiltesysteme.net @127.0.0.1 -p 5353`.
-Se entrambi ritornano in modo corretto allora DNSSEC funziona. 
+Se entrambi ritornano in modo corretto allora DNSSEC funziona.
 
 ![Verifica DNSSEC - query dig per sigok.verteiltesysteme.net che restituisce NOERROR con IP (DNSSEC funzionante)](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/4_Unbound/Unbound_18.webp)
 

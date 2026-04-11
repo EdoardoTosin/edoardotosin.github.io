@@ -2,12 +2,12 @@
 permalink: /privacy-policy/
 layout: page
 title: Privacy Policy
-description: "Privacy policy covering data collection, third-party services, GitHub Pages hosting, Cloudflare CDN, and visitor rights."
+description: 'Privacy policy covering data collection, third-party services, GitHub Pages hosting, Cloudflare CDN, and visitor rights.'
 date: 2023-03-01
 last_modified_at: 2026-03-22
 ---
 
-*This Privacy Policy is effective as of {{ page.last_modified_at | date: "%d %b %Y" }}*
+_This Privacy Policy is effective as of {{ page.last_modified_at | date: "%d %b %Y" }}_
 
 <br>
 
@@ -28,18 +28,21 @@ This site is hosted on GitHub Pages, a static hosting platform provided by GitHu
 This is a static website with no server-side processing, user accounts, comment systems, contact forms, or interactive features. I do not directly collect, store, or process any personal information. However, certain data may be processed by the third-party services that power this website:
 
 ### GitHub Pages
+
 - **Data Collected**: Basic server logs including IP addresses, user agents, referrer URLs, timestamps, and requested pages
 - **Purpose**: Service delivery, security monitoring, and abuse prevention
 - **Retention**: As per GitHub's data retention policies
 - **Privacy Policy**: [GitHub Privacy Statement](https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement)
 
 ### Cloudflare
+
 - **Data Collected**: IP addresses, request headers, cache performance metrics, security threat data, and basic analytics
 - **Purpose**: Content delivery optimization, DDoS protection, security filtering, and performance analytics
 - **Retention**: Varies by data type (typically 30 days for logs, longer for aggregated analytics)
 - **Privacy Policy**: [Cloudflare Privacy Policy](https://www.cloudflare.com/privacypolicy/)
 
 ### jsDelivr
+
 - **When**: Only on posts that include Mermaid diagrams (`mermaid: true`)
 - **Data Collected**: IP addresses and standard request headers, as with any CDN request
 - **Purpose**: Delivering the Mermaid diagram library
@@ -85,12 +88,14 @@ Depending on your location, you may have certain rights regarding data processin
 - Right to object to certain processing activities
 
 Since I do not directly collect or control personal data, such requests should be directed to:
+
 - **GitHub**: Through their privacy contact methods
 - **Cloudflare**: Through their privacy portal
 
 ## Legal Basis for Processing
 
 Data processing by third-party services is based on:
+
 - **Legitimate interests**: For security, performance, and service delivery
 - **Necessity**: For providing the website service you requested
 - **Compliance**: With legal obligations for security and abuse prevention
@@ -98,6 +103,7 @@ Data processing by third-party services is based on:
 ## Data Retention
 
 I do not retain any user data myself. Data retention by third-party services:
+
 - **GitHub Pages**: Per GitHub's data retention schedule
 - **Cloudflare**: Typically 30 days for detailed logs, longer for aggregated data
 
@@ -108,6 +114,7 @@ This website does not knowingly collect information from children under 13 (or a
 ## Changes to This Policy
 
 This Privacy Policy may be updated to reflect changes in:
+
 - Website functionality or services used
 - Legal requirements
 - Privacy practices

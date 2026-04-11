@@ -10,8 +10,8 @@
     "@shopify/prettier-plugin-liquid": "^1.10.2"
   },
   "scripts": {
-    "format": "prettier --write \"**/*.{html,js,scss}\"",
-    "format:check": "prettier --check \"**/*.{html,js,scss}\""
+    "format": "prettier --write \"**/*.{html,js,scss,md}\"",
+    "format:check": "prettier --check \"**/*.{html,js,scss,md}\""
   },
   "repository": {
     "type": "git",

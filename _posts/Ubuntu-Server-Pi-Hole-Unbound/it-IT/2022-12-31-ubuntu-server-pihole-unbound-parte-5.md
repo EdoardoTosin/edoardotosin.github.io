@@ -1,5 +1,5 @@
 ---
-title: "Guida Pi-Hole & Unbound - Parte 5: Configurazione Pi-Hole"
+title: 'Guida Pi-Hole & Unbound - Parte 5: Configurazione Pi-Hole'
 description: Come configurare l'interfaccia web di Pi-Hole, gestire le blocklist e collegarlo a Unbound per completare il server DNS self-hosted orientato alla privacy.
 short_url: pihole-guida-5
 date: 2022-12-31 14:00:00 +0100
@@ -24,7 +24,7 @@ keywords:
   - pannello admin pi-hole
 ---
 
-*Nella [parte precedente]({% post_url Ubuntu-Server-Pi-Hole-Unbound/it-IT/2022-12-31-ubuntu-server-pihole-unbound-parte-4 %}) è stato spiegato come installare Unbound.*
+_Nella [parte precedente]({% post_url Ubuntu-Server-Pi-Hole-Unbound/it-IT/2022-12-31-ubuntu-server-pihole-unbound-parte-4 %}) è stato spiegato come installare Unbound._
 
 ## Configurazione Pi-Hole da interfaccia web
 
@@ -40,7 +40,7 @@ La seguente schermata è quella prima di fare il login. La differenza è che ora
 
 ![Interfaccia web Pi-Hole - dashboard dopo il login con le opzioni di configurazione disponibili](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/5_Pi-Hole_Web_Interface/Pi-Hole_Web_Interface_4.webp)
 
-Cliccare nel menù a sinistra alla voce `Settings`. 
+Cliccare nel menù a sinistra alla voce `Settings`.
 
 ![Interfaccia web Pi-Hole - voce Settings evidenziata nel pannello di navigazione laterale sinistro](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/5_Pi-Hole_Web_Interface/Pi-Hole_Web_Interface_5.webp)
 

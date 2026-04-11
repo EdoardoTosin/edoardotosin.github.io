@@ -1,5 +1,5 @@
 ---
-title: "Pi-Hole & Unbound Setup - Part 4: Unbound Installation"
+title: 'Pi-Hole & Unbound Setup - Part 4: Unbound Installation'
 description: How to install Unbound on Ubuntu Server as a recursive DNS resolver that queries root nameservers directly, removing reliance on third-party DNS providers.
 short_url: pihole-guide-4
 date: 2024-01-02 13:00:00 +0100
@@ -24,7 +24,7 @@ keywords:
   - dnssec configuration
 ---
 
-*In the [previous part]({% post_url Ubuntu-Server-Pi-Hole-Unbound/en-US/2022-12-31-ubuntu-server-pihole-unbound-part-3 %}) it was explained how to install Pi-Hole.*
+_In the [previous part]({% post_url Ubuntu-Server-Pi-Hole-Unbound/en-US/2022-12-31-ubuntu-server-pihole-unbound-part-3 %}) it was explained how to install Pi-Hole._
 
 ## Unbound Installation
 

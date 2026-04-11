@@ -7,7 +7,7 @@ date: 2024-08-12 21:00:00 +0200
 last_modified_at: 2026-03-20
 ---
 
-*Last updated {{ page.last_modified_at | date: "%d %b %Y" }}*
+_Last updated {{ page.last_modified_at | date: "%d %b %Y" }}_
 
 ---
 
@@ -37,4 +37,4 @@ Outside of software, I practice astrophotography, primarily solar imaging and de
 
 ---
 
-*This is a [now page](https://nownownow.com/about) inspired by Derek Sivers.*
+_This is a [now page](https://nownownow.com/about) inspired by Derek Sivers._

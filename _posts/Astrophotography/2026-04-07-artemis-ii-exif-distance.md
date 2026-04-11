@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Estimating Artemis II Spacecraft Distance from Earth Using EXIF Metadata"
+title: 'Estimating Artemis II Spacecraft Distance from Earth Using EXIF Metadata'
 description: "Estimating the distance of Artemis II from Earth using NASA's photograph and its EXIF metadata."
 date: 2026-04-07 23:00:00 +0200
 last_modified_at: 2026-04-08 07:30:00 +0200
@@ -32,7 +32,7 @@ Using only the image file and its EXIF metadata, we can estimate how far the spa
 
 ![Earth photographed from Orion spacecraft during Artemis II](https://www.nasa.gov/wp-content/uploads/2026/04/art002e000192.jpg)
 
-*Image credit: NASA / Reid Wiseman. Public domain.*
+_Image credit: NASA / Reid Wiseman. Public domain._
 
 ## Key Metadata
 
@@ -48,7 +48,7 @@ From the original image file ([art002e000192.jpg](https://www.nasa.gov/wp-conten
 > [!NOTE]
 > The field of view is derived from focal length and sensor size using:
 >
-> FOV = 2 x arctan(*sensor_width* / (2 x *focal_length*))
+> FOV = 2 x arctan(_sensor_width_ / (2 x _focal_length_))
 >
 > For a 36 mm full-frame sensor and 22 mm focal length, this yields $\approx 78.58\degree$, matching EXIF.
 
@@ -126,9 +126,9 @@ Estimated uncertainty: $\pm 2-5 \%$ ($\approx \pm 300-750\ \text{km}$)
 
 From the EXIF metadata and the measured size of Earth in the frame, it is possible to infer:
 
-- The angular size of Earth in the image  
-- The spacecraft’s distance from Earth  
-- A plausible point along its trajectory  
+- The angular size of Earth in the image
+- The spacecraft’s distance from Earth
+- A plausible point along its trajectory
 
 The image itself contains enough information to approximate the spacecraft’s position at the moment it was taken.
 

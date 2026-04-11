@@ -119,8 +119,6 @@ defaults:
       featured: false
       video:    false
       gallery:  false
-      math:     false
-      mermaid:  false
   - scope:
       path: "pages"
     values:

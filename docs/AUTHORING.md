@@ -9,8 +9,8 @@ Every post in `_posts/` supports these front matter fields:
 ```yaml
 ---
 layout: post
-title: "Post Title"
-description: "160-character description, used as SEO meta, post card preview, and social share."
+title: 'Post Title'
+description: '160-character description, used as SEO meta, post card preview, and social share.'
 date: 2025-01-15 12:00:00 +0000
 image: /images/posts/my-post.jpg
 
@@ -25,10 +25,10 @@ gallery: false
 math: false
 mermaid: false
 
-robots: "noindex"
+robots: 'noindex'
 last_modified_at: 2025-02-01
 
-short_url: "my-post"
+short_url: 'my-post'
 
 comments: true
 share: true
@@ -76,7 +76,7 @@ keywords: [arch linux, pacman, AUR]
 ### description
 
 ```yaml
-description: "A practical guide to setting up Arch Linux from scratch."
+description: 'A practical guide to setting up Arch Linux from scratch.'
 ```
 
 - Used as: SEO meta description, Open Graph, Twitter Card, post card text, search snippet.
@@ -118,34 +118,34 @@ Both inline and multi-paragraph variants work:
 
 **Visual hierarchy:**
 
-| Type | Color | Intent |
-|---|---|---|
-| `NOTE` | Neutral / slate | Informational |
-| `TIP` | Green | Helpful suggestion |
-| `IMPORTANT` | Purple | Must-read information |
-| `WARNING` | Orange | Potential issue |
-| `CAUTION` | Red | Dangerous or irreversible action |
+| Type        | Color           | Intent                           |
+| ----------- | --------------- | -------------------------------- |
+| `NOTE`      | Neutral / slate | Informational                    |
+| `TIP`       | Green           | Helpful suggestion               |
+| `IMPORTANT` | Purple          | Must-read information            |
+| `WARNING`   | Orange          | Potential issue                  |
+| `CAUTION`   | Red             | Dangerous or irreversible action |
 
 ## Supported Markdown
 
-| Element | Syntax | Notes |
-|---|---|---|
-| Headings | `## H2`, `### H3` | H1 is the post title - do not repeat it |
-| Bold / Italic | `**bold**`, `*italic*` | |
-| Inline code | `` `code` `` | Highlighted with accent color |
-| Code block | ` ```javascript ` | Always include language tag |
-| Blockquote | `> text` | Standard blockquotes are untouched |
-| Link | `[text](url)` | |
-| Image | `![alt](url)` | Auto-zoom on click, lazy-loaded |
-| Table | `\| col \| col \|` | Scrollable on small screens |
-| Task list | `- [ ] item` | GFM checklist |
-| Footnote | `text[^1]` `[^1]: note` | Rendered at bottom of post |
-| `<kbd>` | `<kbd>Ctrl</kbd>` | Keyboard shortcut styling |
-| `<mark>` | `<mark>text</mark>` | Accent highlight |
-| Math (inline) | `$E = mc^2$` | Requires `math: true` |
-| Math (block) | `$$\nabla \cdot E = 0$$` | Requires `math: true` |
-| Diagram | ` ```mermaid ` | Requires `mermaid: true` |
-| Details/summary | `<details><summary>` | Native HTML collapsible |
+| Element         | Syntax                   | Notes                                   |
+| --------------- | ------------------------ | --------------------------------------- |
+| Headings        | `## H2`, `### H3`        | H1 is the post title - do not repeat it |
+| Bold / Italic   | `**bold**`, `*italic*`   |                                         |
+| Inline code     | `` `code` ``             | Highlighted with accent color           |
+| Code block      | ` ```javascript `        | Always include language tag             |
+| Blockquote      | `> text`                 | Standard blockquotes are untouched      |
+| Link            | `[text](url)`            |                                         |
+| Image           | `![alt](url)`            | Auto-zoom on click, lazy-loaded         |
+| Table           | `\| col \| col \|`       | Scrollable on small screens             |
+| Task list       | `- [ ] item`             | GFM checklist                           |
+| Footnote        | `text[^1]` `[^1]: note`  | Rendered at bottom of post              |
+| `<kbd>`         | `<kbd>Ctrl</kbd>`        | Keyboard shortcut styling               |
+| `<mark>`        | `<mark>text</mark>`      | Accent highlight                        |
+| Math (inline)   | `$E = mc^2$`             | Requires `math: true`                   |
+| Math (block)    | `$$\nabla \cdot E = 0$$` | Requires `math: true`                   |
+| Diagram         | ` ```mermaid `           | Requires `mermaid: true`                |
+| Details/summary | `<details><summary>`     | Native HTML collapsible                 |
 
 ## Code Blocks
 
@@ -153,7 +153,7 @@ Always declare a language:
 
 ````markdown
 ```javascript
-const msg = "Hello, world!";
+const msg = 'Hello, world!';
 console.log(msg);
 ```
 ````
@@ -218,7 +218,7 @@ Diagrams adapt to the site's dark/light theme automatically. Mermaid is loaded f
 Link related posts into an ordered series:
 
 ```yaml
-series: "Linux Mastery"
+series: 'Linux Mastery'
 series_order: 2
 ```
 
@@ -229,11 +229,11 @@ Posts with matching `series` values are linked with Prev/Next navigation in read
 Use Obsidian-style `[[wikilink]]` syntax to create internal links without writing full paths:
 
 ```markdown
-[[my-post]]                     links to the page with slug or title "my-post"
-[[my-post|Display Text]]        custom link text
-[[my-post#section-heading]]     link with anchor
-[[my-post#heading|Label]]       anchor with custom text
-[[#heading]]                    same-page anchor link
+[[my-post]] links to the page with slug or title "my-post"
+[[my-post|Display Text]] custom link text
+[[my-post#section-heading]] link with anchor
+[[my-post#heading|Label]] anchor with custom text
+[[#heading]] same-page anchor link
 ```
 
 **Resolution:** the plugin looks up pages by filename slug first (e.g. `2025-01-15-my-post.md` -> `my-post`), then by front matter `title` (slugified, case-insensitive). The first match wins.

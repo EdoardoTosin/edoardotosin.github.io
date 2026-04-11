@@ -1,5 +1,5 @@
 ---
-title: "Pi-Hole & Unbound Setup - Part 5: Pi-Hole Configuration"
+title: 'Pi-Hole & Unbound Setup - Part 5: Pi-Hole Configuration'
 description: How to configure Pi-Hole's web interface, manage blocklists, and wire it together with Unbound to complete your self-hosted, privacy-focused DNS server.
 short_url: pihole-guide-5
 date: 2024-01-02 14:00:00 +0100
@@ -24,7 +24,7 @@ keywords:
   - pi-hole admin panel
 ---
 
-*In the [previous part]({% post_url Ubuntu-Server-Pi-Hole-Unbound/en-US/2022-12-31-ubuntu-server-pihole-unbound-part-4 %}) it was explained how to install Unbound.*
+_In the [previous part]({% post_url Ubuntu-Server-Pi-Hole-Unbound/en-US/2022-12-31-ubuntu-server-pihole-unbound-part-4 %}) it was explained how to install Unbound._
 
 ## Pi-Hole Web Interface Configuration
 

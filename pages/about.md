@@ -1,7 +1,7 @@
 ---
 layout: page
-title: "About"
-description: "Background in software development and security research, with interests in Linux, open-source, and astrophotography. Contact details included."
+title: 'About'
+description: 'Background in software development and security research, with interests in Linux, open-source, and astrophotography. Contact details included.'
 permalink: /about/
 ---
 

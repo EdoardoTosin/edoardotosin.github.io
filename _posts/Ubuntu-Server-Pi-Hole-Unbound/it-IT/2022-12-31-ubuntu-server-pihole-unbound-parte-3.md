@@ -1,5 +1,5 @@
 ---
-title: "Guida Pi-Hole & Unbound - Parte 3: Installazione Pi-Hole"
+title: 'Guida Pi-Hole & Unbound - Parte 3: Installazione Pi-Hole'
 description: Come installare Pi-Hole su Ubuntu Server per bloccare pubblicità e tracker a livello DNS su tutta la rete, come parte di uno stack DNS self-hosted con Unbound.
 short_url: pihole-guida-3
 date: 2022-12-31 12:00:00 +0100
@@ -24,7 +24,7 @@ keywords:
   - server blocco pubblicità
 ---
 
-*Nella [parte precedente]({% post_url Ubuntu-Server-Pi-Hole-Unbound/it-IT/2022-12-31-ubuntu-server-pihole-unbound-parte-2 %}) è stato spiegato come aggiungere l'autenticazione a due fattori (2FA) per l'accesso via SSH.*
+_Nella [parte precedente]({% post_url Ubuntu-Server-Pi-Hole-Unbound/it-IT/2022-12-31-ubuntu-server-pihole-unbound-parte-2 %}) è stato spiegato come aggiungere l'autenticazione a due fattori (2FA) per l'accesso via SSH._
 
 ## Installazione Pi-Hole
 
@@ -88,7 +88,7 @@ Abilitare il logging delle query per eventuali debug di problemi. Selezionare `Y
 
 ![Installazione Pi-Hole - abilitazione del logging delle query DNS per il debug](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_16.webp)
 
-In questa schermata si può scegliere  quanti contenuti sono visualizzabili da interfaccia web dell'admin. Lasciare a default `Show everything`. Selezionare `Continue` e premere `Invio`.
+In questa schermata si può scegliere quanti contenuti sono visualizzabili da interfaccia web dell'admin. Lasciare a default `Show everything`. Selezionare `Continue` e premere `Invio`.
 
 ![Installazione Pi-Hole - selezione della modalità di privacy per l'interfaccia web, lasciando "Show everything" come default](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_17.webp)
 
@@ -101,7 +101,6 @@ Terminata la procedura di configurazione di Pi-Hole, si può procedere a cambiar
 ![Installazione Pi-Hole - schermata di riepilogo al termine dell'installazione completata](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_19.webp)
 
 Per cambiare la password dell'interfaccia web di Pi-Hole usare il comando `pihole -a -p`.
-
 
 ![Pi-Hole - esecuzione del comando "pihole -a -p" per cambiare la password dell'interfaccia web di amministrazione](https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/3_Pi-Hole/Pi-Hole_20.webp)
 

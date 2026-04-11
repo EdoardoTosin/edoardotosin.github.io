@@ -38,7 +38,7 @@ A remarkable breakthrough in astronomy unfolded on 19 May 2023 with the discover
 ![SN 2023ixf supernova visible in the Pinwheel galaxy (M101), captured six days after discovery on 25 May 2023 (image 1)](https://live.staticflickr.com/65535/52927581723_77449759fc_h.jpg)
 ![SN 2023ixf supernova visible in the Pinwheel galaxy (M101), captured six days after discovery on 25 May 2023 (image 2)](https://live.staticflickr.com/65535/52926129447_b5b2a2e102_h.jpg)
 
-*Supernova in the Pinwheel galaxy taken from my backyard, captured six days after its discovery.[^5]*
+_Supernova in the Pinwheel galaxy taken from my backyard, captured six days after its discovery.[^5]_
 
 ### What is SN 2023ixf?
 
@@ -62,10 +62,14 @@ SN 2023ixf stands as a significant milestone in our journey to understand stella
 
 This ongoing research on SN 2023ixf is expected to continue for years, providing ample data and opportunities for new discoveries. Each observation adds to the wealth of knowledge about the life cycles of stars and the dramatic transformations that galaxies undergo as a result of these powerful events.
 
-
 [^1]: [Discovery certificate for object 2023ixf](https://www.wis-tns.org/object/2023ixf/discovery-cert). Transient Name Server.
+
 [^2]: [AstroNote 2023-119](https://www.wis-tns.org/astronotes/astronote/2023-119). Transient Name Server.
+
 [^3]: [Getting to Know the Supernova Next Door: SN 2023ixf - AAS Nova](https://aasnova.org/2023/09/27/getting-to-know-the-supernova-next-door-sn-2023ixf/)
+
 [^4]: [SN 2023ixf - Wikipedia](https://en.wikipedia.org/wiki/SN_2023ixf). Wikipedia.
+
 [^5]: [SN 2023ixf](https://www.flickr.com/photos/edoardo_tosin/albums/72177720308577781). Flickr.
+
 [^6]: [Releases 20230828 - Berkeley News](https://news.berkeley.edu/2023/08/29/releases-20230828-6895045)

@@ -1,5 +1,5 @@
 ---
-title: "Guida Pi-Hole & Unbound - Parte 2: Autenticazione a Due Fattori"
+title: 'Guida Pi-Hole & Unbound - Parte 2: Autenticazione a Due Fattori'
 description: Come configurare l'autenticazione a due fattori (2FA) su Ubuntu Server tramite Google Authenticator per proteggere l'accesso SSH prima di installare Pi-Hole e Unbound.
 short_url: pihole-guida-2
 date: 2022-12-31 11:00:00 +0100
@@ -24,7 +24,7 @@ keywords:
   - configurazione ssh 2fa
 ---
 
-*Nella [parte precedente]({% post_url Ubuntu-Server-Pi-Hole-Unbound/it-IT/2022-12-31-ubuntu-server-pihole-unbound-parte-1 %}) è stato spiegato come installare il sistema operativo Ubuntu Server.*
+_Nella [parte precedente]({% post_url Ubuntu-Server-Pi-Hole-Unbound/it-IT/2022-12-31-ubuntu-server-pihole-unbound-parte-1 %}) è stato spiegato come installare il sistema operativo Ubuntu Server._
 
 ## SSH
 

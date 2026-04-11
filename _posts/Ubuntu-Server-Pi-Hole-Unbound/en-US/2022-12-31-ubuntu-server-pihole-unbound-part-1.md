@@ -1,5 +1,5 @@
 ---
-title: "Pi-Hole & Unbound Setup - Part 1: Ubuntu Server Installation"
+title: 'Pi-Hole & Unbound Setup - Part 1: Ubuntu Server Installation'
 description: How to install Ubuntu Server as the foundation for a self-hosted DNS stack using Pi-Hole and Unbound - including disk partitioning, SSH setup, and initial system configuration.
 short_url: pihole-guide-1
 date: 2024-01-02 10:00:00 +0100
@@ -24,7 +24,7 @@ keywords:
   - linux server configuration
 ---
 
-This guide will illustrate how to install Ubuntu Server (operating system) along with the FOSS tools [Pi-Hole](https://en.wikipedia.org/wiki/Pi-hole) (dns ad-blocker) and [Unbound](https://en.wikipedia.org/wiki/Unbound_(DNS_server)) (dns resolver). Furthermore, two-factor authentication (2FA) is used as an additional protection against unauthorized access.
+This guide will illustrate how to install Ubuntu Server (operating system) along with the FOSS tools [Pi-Hole](https://en.wikipedia.org/wiki/Pi-hole) (dns ad-blocker) and [Unbound](<https://en.wikipedia.org/wiki/Unbound_(DNS_server)>) (dns resolver). Furthermore, two-factor authentication (2FA) is used as an additional protection against unauthorized access.
 
 ## Requirements
 

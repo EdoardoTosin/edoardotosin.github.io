@@ -80,27 +80,27 @@
   src: url('../fonts/outfit/outfit-v15-latin-800.woff2') format('woff2');
 }
 
-/* Monaspace Neon NF (monospace / code) */
+/* Monaspace Neon (monospace / code) */
 @font-face {
   font-display: swap;
-  font-family: 'Monaspace Neon NF';
+  font-family: 'Monaspace Neon';
   font-style: normal;
   font-weight: 400;
-  src: url('../fonts/monaspace-neon/MonaspaceNeonNF-Regular.woff2') format('woff2');
+  src: url('../fonts/monaspace-neon/MonaspaceNeon-Regular.woff2') format('woff2');
 }
 
 @font-face {
   font-display: swap;
-  font-family: 'Monaspace Neon NF';
+  font-family: 'Monaspace Neon';
   font-style: italic;
   font-weight: 400;
-  src: url('../fonts/monaspace-neon/MonaspaceNeonNF-Italic.woff2') format('woff2');
+  src: url('../fonts/monaspace-neon/MonaspaceNeon-Italic.woff2') format('woff2');
 }
 
 @font-face {
   font-display: swap;
-  font-family: 'Monaspace Neon NF';
+  font-family: 'Monaspace Neon';
   font-style: normal;
   font-weight: 700;
-  src: url('../fonts/monaspace-neon/MonaspaceNeonNF-Bold.woff2') format('woff2');
+  src: url('../fonts/monaspace-neon/MonaspaceNeon-Bold.woff2') format('woff2');
 }

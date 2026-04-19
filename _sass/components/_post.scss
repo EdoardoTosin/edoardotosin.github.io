@@ -456,7 +456,6 @@
     max-width: 100%;
     overflow-x: auto;
     overflow-y: visible;
-    -webkit-overflow-scrolling: touch;
 
     code {
       white-space: pre;
@@ -470,7 +469,6 @@
     max-width: 100%;
     overflow-x: auto;
     overflow-y: visible;
-    -webkit-overflow-scrolling: touch;
     border-radius: $r-md;
     background: var(--bg-code);
     margin: $sp-8 0;
@@ -506,7 +504,6 @@
     display: block;
     width: 100%;
     overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
     border-collapse: collapse;
     margin-bottom: $sp-8;
     font-size: 0.9rem;
@@ -566,7 +563,6 @@
     padding: $sp-3 0;
     margin: $sp-6 0;
     text-align: center;
-    -webkit-overflow-scrolling: touch;
 
     > .katex {
       max-width: none;

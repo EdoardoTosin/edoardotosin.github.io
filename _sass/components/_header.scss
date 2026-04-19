@@ -424,7 +424,6 @@
   &__results {
     max-height: min(420px, 60vh);
     overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
     padding: $sp-3;
   }
@@ -780,7 +779,6 @@
   z-index: 99;
   background: var(--bg-body);
   overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
   padding: $sp-6 calc(#{$sp-6} + var(--safe-right)) calc(#{$sp-6} + var(--safe-bottom))
     calc(#{$sp-6} + var(--safe-left));

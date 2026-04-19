@@ -12,14 +12,11 @@
 @use 'components/post';
 @use 'components/callouts';
 @use 'components/buttons';
-@use 'components/forms';
 @use 'components/footer';
 @use 'components/syntax';
 @use 'components/misc';
 @use 'components/404' as *;
-@use 'components/about';
 @use 'components/contact';
 @use 'components/print';
 @use 'components/command-palette';
-@use 'components/offline-save';
 @use 'components/webmentions';

@@ -364,6 +364,19 @@ layout: default
         </section>
       {%- endif -%}
 
+      {%- if page.cited_by.size > 0 -%}
+        <section class="post-cited-by" aria-label="Cited by">
+          <h2 class="post-cited-by__title">Cited by</h2>
+          <ul class="post-cited-by__list">
+            {%- for mention in page.cited_by -%}
+              <li>
+                <a href="{{ mention.url }}" target="_blank" rel="noopener noreferrer">{{ mention.title }}</a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </section>
+      {%- endif -%}
+
       {%- if site.webmentions.enabled -%}
         {% include webmentions.html %}
       {%- endif -%}

@@ -53,6 +53,7 @@ $t-base: all 0.25s ease;
 
 // Light mode (default)
 :root {
+  color-scheme: light dark;
   --accent: #4ade80;
   --accent-dark: #22c55e;
   --accent-subtle: rgba(74, 222, 128, 0.12);
@@ -222,6 +223,7 @@ $t-base: all 0.25s ease;
 
 // Dark mode
 [data-theme='dark'] {
+  color-scheme: dark;
   --accent: #4ade80;
   --accent-dark: #22c55e;
   --accent-subtle: rgba(74, 222, 128, 0.1);

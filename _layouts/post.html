@@ -369,8 +369,13 @@ layout: default
           <h2 class="post-cited-by__title">Cited by</h2>
           <ul class="post-cited-by__list">
             {%- for mention in page.cited_by -%}
+              {%- assign md_parts = mention | split: '](' -%}
+              {%- assign cb_title = md_parts[0] | remove_first: '[' -%}
+              {%- assign cb_url_chars = md_parts[1] | split: '' -%}
+              {%- assign cb_url_len = cb_url_chars.size | minus: 1 -%}
+              {%- assign cb_url = cb_url_chars | slice: 0, cb_url_len | join: '' -%}
               <li>
-                <a href="{{ mention.url }}" target="_blank" rel="noopener noreferrer">{{ mention.title }}</a>
+                <a href="{{ cb_url }}" target="_blank" rel="noopener noreferrer">{{ cb_title }}</a>
               </li>
             {%- endfor -%}
           </ul>

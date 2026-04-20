@@ -34,8 +34,7 @@ comments: true
 share: true
 
 cited_by:
-  - title: 'Article Title - Site Name'
-    url: https://example.com/article
+  - '[Article Title - Site Name](https://example.com/article)'
 ---
 ```
 
@@ -248,12 +247,10 @@ List external pages (articles, blogs, papers, news) that reference the current p
 
 ```yaml
 cited_by:
-  - title: 'Article Title | Site Name'
-    url: https://example.com/article
+  - '[Article Title | Site Name](https://example.com/article)'
 ```
 
-- `title`: display name of the external reference
-- `url`: full URL of the external page
+Each entry is a markdown link string: `[display title](full URL)`. This format is natively supported by Obsidian's Properties panel as a List field.
 
 ## Wikilinks
 

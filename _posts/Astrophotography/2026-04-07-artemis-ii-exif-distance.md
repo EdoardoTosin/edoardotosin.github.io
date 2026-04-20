@@ -22,6 +22,11 @@ keywords:
   - orbital analysis
 featured: true
 math: true
+cited_by:
+  - title: 'Hello, World! Ma la foto è vera o falsa? | Butac - Bufale Un Tanto Al Chilo'
+    url: https://www.butac.it/hello-world-ai/
+  - title: 'Artemis II: Hello, World! Foto è vera o falsa?'
+    url: https://www.chiccheinformatiche.com/artemis-ii-hello-world-la-foto-e-vera-o-falsa/
 ---
 
 ## Estimating Distance from a NASA Image

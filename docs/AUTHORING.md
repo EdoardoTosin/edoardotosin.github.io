@@ -32,6 +32,10 @@ short_url: 'my-post'
 
 comments: true
 share: true
+
+cited_by:
+  - title: 'Article Title - Site Name'
+    url: https://example.com/article
 ---
 ```
 
@@ -223,6 +227,33 @@ series_order: 2
 ```
 
 Posts with matching `series` values are linked with Prev/Next navigation in reading order.
+
+## Cross-references
+
+### backlinks (automatic)
+
+When a post contains a `[[wikilink]]` pointing to another post, that target post automatically shows a "Referenced in" section listing all posts that link to it. No front matter is needed because the plugin scans content at build time.
+
+To create a backlink from post A to post B, add a wikilink anywhere in post A's content:
+
+```markdown
+[[post-b-slug]] or [[Post B Title]]
+```
+
+Post B will then show post A in its "Referenced in" section.
+
+### cited_by
+
+List external pages (articles, blogs, papers, news) that reference the current post. Rendered as a "Cited by" section at the bottom of the post, visible in print/PDF.
+
+```yaml
+cited_by:
+  - title: 'Article Title | Site Name'
+    url: https://example.com/article
+```
+
+- `title`: display name of the external reference
+- `url`: full URL of the external page
 
 ## Wikilinks
 

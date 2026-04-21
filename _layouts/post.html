@@ -365,21 +365,53 @@ layout: default
       {%- endif -%}
 
       {%- if page.cited_by.size > 0 -%}
-        <section class="post-cited-by" aria-label="Cited by">
-          <h2 class="post-cited-by__title">Cited by</h2>
-          <ul class="post-cited-by__list">
-            {%- for mention in page.cited_by -%}
-              {%- assign md_parts = mention | split: '](' -%}
-              {%- assign cb_title = md_parts[0] | remove_first: '[' -%}
-              {%- assign cb_url_chars = md_parts[1] | split: '' -%}
-              {%- assign cb_url_len = cb_url_chars.size | minus: 1 -%}
-              {%- assign cb_url = cb_url_chars | slice: 0, cb_url_len | join: '' -%}
-              <li>
-                <a href="{{ cb_url }}" target="_blank" rel="noopener noreferrer">{{ cb_title }}</a>
-              </li>
-            {%- endfor -%}
-          </ul>
-        </section>
+        {%- capture _cited_by_html -%}
+          {%- for _mention in page.cited_by -%}
+            {%- unless _mention == blank -%}
+              {%- assign _m = _mention | strip -%}
+              {%- assign title = nil -%}
+              {%- assign url = nil -%}
+              {%- if _m contains '](' and _m contains '[' and _m contains ')' -%}
+                {%- assign _parts = _m | split: '](' -%}
+                {%- if _parts.size == 2 -%}
+                  {%- assign title = _parts[0] | remove_first: '[' | strip -%}
+                  {%- assign url_part = _parts[1] | strip -%}
+                  {%- assign last_char = url_part | slice: -1, 1 -%}
+                  {%- if last_char == ')' -%}
+                    {%- assign url_len = url_part.size | minus: 1 -%}
+                    {%- assign url = url_part | truncate: url_len, '' -%}
+                  {%- else -%}
+                    {%- assign url = url_part -%}
+                  {%- endif -%}
+                {%- endif -%}
+              {%- elsif _m contains '://' -%}
+                {%- assign url = _m -%}
+                {%- assign title = _m -%}
+              {%- endif -%}
+              {%- if title and url and title != '' and url != '' -%}
+                {%- assign scheme8 = url | slice: 0, 8 | downcase -%}
+                {%- assign scheme7 = url | slice: 0, 7 | downcase -%}
+                {%- if scheme8 == 'https://' or scheme7 == 'http://' -%}
+                  <li>
+                    <a href="{{ url | escape }}"
+                      target="_blank"
+                      rel="noopener noreferrer external nofollow">
+                      {{ title | escape }}
+                    </a>
+                  </li>
+                {%- endif -%}
+              {%- endif -%}
+            {%- endunless -%}
+          {%- endfor -%}
+        {%- endcapture -%}
+        {%- unless _cited_by_html == blank -%}
+          <section class="post-cited-by" aria-label="Cited by">
+            <h2 class="post-cited-by__title">Cited by</h2>
+            <ul class="post-cited-by__list">
+              {{- _cited_by_html -}}
+            </ul>
+          </section>
+        {%- endunless -%}
       {%- endif -%}
 
       {%- if site.webmentions.enabled -%}

@@ -248,9 +248,28 @@ List external pages (articles, blogs, papers, news) that reference the current p
 ```yaml
 cited_by:
   - '[Article Title | Site Name](https://example.com/article)'
+  - '[Another Reference](https://other.com/post)'
 ```
 
-Each entry is a markdown link string: `[display title](full URL)`. This format is natively supported by Obsidian's Properties panel as a List field.
+**Supported entry formats:**
+
+| Format        | Example                   | Behaviour                        |
+| ------------- | ------------------------- | -------------------------------- |
+| Markdown link | `'[Title](https://…)'`    | Renders with custom display text |
+| Bare URL      | `'https://example.com'`   | Renders with URL as display text |
+| Null / empty  | _(omitted or blank line)_ | Silently skipped                 |
+
+**Rules:**
+
+- Each entry **must** be a YAML string inside a list. The field type in Obsidian Properties must be **List**.
+- Only `https://` and `http://` URLs are rendered; entries with other schemes (e.g. `javascript:`, `data:`) are silently dropped.
+- If every entry in the list is blank or invalid, the "Cited by" section is not rendered at all.
+- Title text is HTML-escaped automatically; no manual escaping needed.
+- Obsidian always writes list properties as YAML arrays, so single-item lists are safe:
+  ```yaml
+  cited_by:
+    - '[Only one reference](https://example.com)'
+  ```
 
 ## Wikilinks
 

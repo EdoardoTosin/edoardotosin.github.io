@@ -72,7 +72,7 @@ permalink: /search.json
   "title": {{ post.title | jsonify }},
   "slug": {{ post.url | jsonify }},
   "url": {{ post.url | relative_url | jsonify }},
-  {% if post.short_url %}"short_url": {{ post.short_url | relative_url | jsonify }},{% endif %}
+  {% if post.short_url %}"short_url": {{ post.short_url | jsonify }},{% endif %}
   "description": {{ post.description | default: "" | jsonify }},
   "excerpt": {{ _excerpt | jsonify }},
   "headings": {{ _headings | strip | jsonify }},

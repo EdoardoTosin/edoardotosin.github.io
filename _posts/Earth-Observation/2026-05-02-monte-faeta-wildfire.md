@@ -41,13 +41,13 @@ All spectral bands were resampled to a common 10 m grid before index calculation
 
 ## True colour image
 
-![Sentinel-2 true colour composite](https://raw.githubusercontent.com/EdoardoTosin/Monte-Faeta-Wildfire-Early-Fire-Signal-Sentinel2-2026/refs/heads/main/outputs/figures/monte-faeta_2026_true_color.png)
+![Sentinel-2 true colour composite](https://raw.githubusercontent.com/EdoardoTosin/Monte-Faeta-Wildfire-Early-Fire-Signal-Sentinel2-2026/refs/heads/main/outputs/figures/monte-faeta_2026_true_color_low_res.jpg)
 
 The true colour composite (B04, B03, B02) shows vegetation, smoke presence, and surface disturbance. Active fire is not clearly visible in this representation due to atmospheric effects and band sensitivity.
 
 ## SWIR response
 
-![Sentinel-2 SWIR composite](https://raw.githubusercontent.com/EdoardoTosin/Monte-Faeta-Wildfire-Early-Fire-Signal-Sentinel2-2026/refs/heads/main/outputs/figures/monte-faeta_2026_swir.png)
+![Sentinel-2 SWIR composite](https://raw.githubusercontent.com/EdoardoTosin/Monte-Faeta-Wildfire-Early-Fire-Signal-Sentinel2-2026/refs/heads/main/outputs/figures/monte-faeta_2026_swir_low_res.jpg)
 
 Shortwave infrared bands (especially B12) are sensitive to high temperature surfaces and burned vegetation.
 
@@ -57,7 +57,7 @@ Elevated SWIR reflectance in the study area indicates fire-related thermal distu
 
 The Normalized Burn Ratio (NBR) is used to detect burned or fire-affected vegetation:
 
-![Sentinel-2 NBR severity](https://raw.githubusercontent.com/EdoardoTosin/Monte-Faeta-Wildfire-Early-Fire-Signal-Sentinel2-2026/refs/heads/main/outputs/figures/monte-faeta_2026_nbr.png)
+![Sentinel-2 NBR severity](https://raw.githubusercontent.com/EdoardoTosin/Monte-Faeta-Wildfire-Early-Fire-Signal-Sentinel2-2026/refs/heads/main/outputs/figures/monte-faeta_2026_nbr_low_res.jpg)
 
 Lower values of NBR indicate burned or heat-affected surfaces.
 

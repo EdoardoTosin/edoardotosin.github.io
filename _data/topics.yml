@@ -7,3 +7,5 @@
   color: "#FBBF24"
 - name: selfhosting
   color: "#5C4EE5"
+- name: earth-observation
+  color: "#0F766E"

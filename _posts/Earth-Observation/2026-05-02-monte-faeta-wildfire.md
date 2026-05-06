@@ -3,7 +3,7 @@ layout: post
 title: Detection of Early Fire Signal in Monte Faeta Using Sentinel-2
 description: Identification of the earliest detectable wildfire-related pixel in Monte Faeta, Tuscany, using Sentinel-2 L2A imagery and spectral indices (29 April 2026).
 date: 2026-05-02 23:00:00 +0200
-last_modified_at: 2026-05-02 23:00:00 +0200
+last_modified_at: 2026-05-06 14:00:00 +0200
 short_url: monte-faeta-wildfire
 image: https://raw.githubusercontent.com/EdoardoTosin/web-assets/refs/heads/main/blog/Earth-Observation/2026-05-02-monte-faeta-wildfire.webp
 topic: earth-observation
@@ -31,7 +31,7 @@ This analysis does not determine the cause or exact ignition point of the wildfi
 
 ## Data source and processing
 
-- Satellite: Sentinel-2 L2A (Copernicus Data Space)
+- Satellite: Sentinel-2 L2A (Copernicus Data Space Ecosystem)
 - Sensor: MSI (Multispectral Instrument)
 - Resolution: 10 m (bands resampled where needed)
 - Processing: OpenEO Python workflow
@@ -39,15 +39,21 @@ This analysis does not determine the cause or exact ignition point of the wildfi
 
 All spectral bands were resampled to a common 10 m grid before index calculation.
 
+All imagery and derived products are based on Copernicus Sentinel-2 data provided by the European Space Agency (ESA) through the Copernicus Data Space Ecosystem. © European Union / ESA, contains modified Copernicus Sentinel data (2026). [^sentinel]
+
 ## True colour image
 
 ![Sentinel-2 true colour composite](https://raw.githubusercontent.com/EdoardoTosin/Monte-Faeta-Wildfire-Early-Fire-Signal-Sentinel2-2026/refs/heads/main/outputs/figures/monte-faeta_2026_true_color_low_res.jpg)
 
-The true colour composite (B04, B03, B02) shows vegetation, smoke presence, and surface disturbance. Active fire is not clearly visible in this representation due to atmospheric effects and band sensitivity.
+_Figure 1: True colour composite (B04, B03, B02). [^sentinel]_
+
+The true colour composite shows vegetation, smoke presence, and surface disturbance. Active fire is not clearly visible due to atmospheric effects and band sensitivity.
 
 ## SWIR response
 
 ![Sentinel-2 SWIR composite](https://raw.githubusercontent.com/EdoardoTosin/Monte-Faeta-Wildfire-Early-Fire-Signal-Sentinel2-2026/refs/heads/main/outputs/figures/monte-faeta_2026_swir_low_res.jpg)
+
+_Figure 2: SWIR composite highlighting thermal disturbance. [^sentinel]_
 
 Shortwave infrared bands (especially B12) are sensitive to high temperature surfaces and burned vegetation.
 
@@ -58,6 +64,8 @@ Elevated SWIR reflectance in the study area indicates fire-related thermal distu
 The Normalized Burn Ratio (NBR) is used to detect burned or fire-affected vegetation:
 
 ![Sentinel-2 NBR severity](https://raw.githubusercontent.com/EdoardoTosin/Monte-Faeta-Wildfire-Early-Fire-Signal-Sentinel2-2026/refs/heads/main/outputs/figures/monte-faeta_2026_nbr_low_res.jpg)
+
+_Figure 3: Normalized Burn Ratio (NBR). [^sentinel]_
 
 Lower values of NBR indicate burned or heat-affected surfaces.
 
@@ -71,7 +79,7 @@ A single pixel shows the strongest and most consistent fire-related spectral res
 At this location:
 
 - SWIR reflectance is elevated, consistent with thermal disturbance
-- NBR is strongly negative, consistent with burned or fire-affected vegetation
+- NBR is strongly negative, consistent with burned vegetation
 - MIRBI is positive, consistent with fire-related surface conditions
 
 These indicators are spatially aligned within the same pixel.
@@ -82,14 +90,14 @@ This pixel represents:
 
 > The earliest detectable fire-related signal in the Sentinel-2 observation of this area.
 
-This does not mean it is the ignition point.
+This does not indicate the ignition point.
 
-The following limitations apply:
+Limitations:
 
 - Sentinel-2 does not measure temperature directly
-- Each pixel represents a 10 m ground area, which may contain mixed land cover
-- Fire spread dynamics can shift the location of maximum signal after ignition
-- The observation is limited to a single satellite overpass in time
+- Each pixel represents a mixed 10 m ground area
+- Fire spread dynamics can shift peak signal location
+- Only a single satellite overpass is available
 
 ## Conclusion
 
@@ -100,3 +108,5 @@ Within the analysed Sentinel-2 scene:
 - This pixel is the highest-confidence fire signal in the dataset
 
 Therefore, it is the **earliest detectable fire signal at satellite resolution** in this image.
+
+[^sentinel]: Contains modified Copernicus Sentinel-2 data (2026), processed in a custom workflow. Data sourced from the Copernicus Data Space Ecosystem. © European Union / ESA.

@@ -1,6 +1,4 @@
 {%- assign _post = include.post -%}
-{%- assign _words = _post.content | number_of_words -%}
-{%- assign _mins = _words | divided_by: 200 | plus: 1 -%}
 
 <article class="post-card" itemscope itemtype="http://schema.org/BlogPosting">
   <a href="{{ _post.url | relative_url }}" class="post-card__img" aria-hidden="true" tabindex="-1">
@@ -71,7 +69,7 @@
         >
           <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
         </svg>
-        {{ _mins }} min read
+        {{ _post.content | reading_time }}
       </span>
     </div>
   </div>

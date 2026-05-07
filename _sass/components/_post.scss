@@ -175,9 +175,15 @@ $ext-link-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    gap: $sp-5;
+    gap: $sp-3 $sp-5;
     font-size: 0.875rem;
     color: var(--text-muted);
+
+    @media (max-width: #{$bp-sm}) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: $sp-2;
+    }
   }
 
   .meta-author {
@@ -195,8 +201,40 @@ $ext-link-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg
     }
   }
 
+  // On mobile, hide the dividing dot (author stacks above the detail row)
+  .meta-author + .meta-sep {
+    @media (max-width: #{$bp-sm}) {
+      display: none;
+    }
+  }
+
   .meta-sep {
+    flex-shrink: 0;
     color: var(--border-strong);
+  }
+
+  // Date, optional updated date, reading time
+  .meta-details {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    > time,
+    > span {
+      white-space: nowrap;
+    }
+
+    // Separator before updated date and reading time
+    time + time::before,
+    time ~ span::before {
+      content: '\00B7';
+      padding: 0 $sp-3;
+      color: var(--border-strong);
+    }
+
+    @media (max-width: #{$bp-sm}) {
+      font-size: 0.8125rem;
+    }
   }
 }
 

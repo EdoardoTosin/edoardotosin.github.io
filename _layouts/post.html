@@ -60,11 +60,22 @@ layout: default
             </span>
           </span>
           <span class="meta-sep" aria-hidden="true">·</span>
-          <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
-            {{ page.date | date: '%d %b, %Y' }}
-          </time>
-          <span class="meta-sep" aria-hidden="true">·</span>
-          <span>{{ content | reading_time }}</span>
+          <div class="meta-details">
+            <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
+              {{- page.date | date: '%d %b, %Y' -}}
+            </time>
+            {%- assign _pub_str = page.date | date: '%Y-%m-%d' -%}
+            {%- assign _mod_str = page.last_modified_at | date: '%Y-%m-%d' -%}
+            {%- if page.last_modified_at and _mod_str != _pub_str -%}
+              <time datetime="{{ page.last_modified_at | date_to_xmlschema }}" itemprop="dateModified">
+                {{- 'Updated ' -}}
+                {{ page.last_modified_at | date: '%d %b, %Y' }}
+              </time>
+            {%- else -%}
+              <meta itemprop="dateModified" content="{{ page.date | date_to_xmlschema }}">
+            {%- endif -%}
+            <span>{{ content | reading_time }}</span>
+          </div>
         </div>
       </header>
 

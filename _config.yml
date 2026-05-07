@@ -80,6 +80,8 @@ footer_nav:
         url:   "/videos/"
       - title: "Tags"
         url:   "/tags/"
+      - title: "Feed"
+        url:   "/feed.xml"
 
 copyright:
   year: 2022

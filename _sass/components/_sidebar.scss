@@ -176,6 +176,44 @@
   }
 }
 
+// Feed subscribe link in Follow widget
+.widget-feed-link {
+  display: inline-flex;
+  align-items: center;
+  gap: $sp-2;
+  margin-top: $sp-3;
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color $t-fast;
+
+  svg {
+    flex-shrink: 0;
+    color: var(--text-muted);
+    transition: color $t-fast;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      color: var(--accent-text);
+
+      svg {
+        color: var(--accent-text);
+      }
+    }
+  }
+
+  &:active {
+    color: var(--accent-text);
+    opacity: 0.75;
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+    border-radius: $r-sm;
+  }
+}
+
 // Newsletter widget
 .widget-newsletter {
   &__desc {

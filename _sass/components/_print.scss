@@ -64,6 +64,7 @@
   .hero__actions,
   .hero__image-wrap,
   .video-card__play,
+  .section-header__link,
   button[aria-label],
   [data-search-toggle] {
     display: none !important;
@@ -276,9 +277,13 @@
 
   // Blog page
   .blog-year-filter,
-  .blog__header,
+  .blog__header-right,
+  .blog__results-label,
   .blog__aside {
     display: none !important;
+  }
+  .blog__header {
+    margin-bottom: 0 !important;
   }
   .blog__body {
     display: block !important;
@@ -369,7 +374,7 @@
     padding: 6pt 0 !important;
     break-inside: avoid;
 
-    &__image {
+    &__img {
       display: none !important;
     }
 

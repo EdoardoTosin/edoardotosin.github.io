@@ -1,4 +1,4 @@
-<footer class="site-footer" role="contentinfo">
+<footer class="site-footer">
   <div class="site-footer__main">
     <div class="container">
       <div class="site-footer__brand">
@@ -223,45 +223,48 @@
 
   <div class="site-footer__bottom">
     <div class="container">
-      <p>
-        <a
-          href="{% if site.social.github %}{{ site.social.github }}{% else %}{{ '/' | relative_url }}{% endif %}"
-          class="copyright-item"
-          {% if site.social.github %}
-            target="_blank" rel="noopener noreferrer"
-          {% endif %}
-          >&copy;
-          {% assign current_year = site.time | date: '%Y' %}
-          {% assign start_year = site.copyright.year | default: current_year %}
-          {% if start_year != current_year %}
-            {{ start_year }}-{{ current_year | append: '-01-01' | date: '%y' }}
-          {% else %}
-            {{ current_year }}
-          {% endif %}
-          {{ site.author.name }}
-        </a>
-        •
-        {% if site.repository %}
-          <a href="{{ site.repository | escape }}" class="copyright-item" target="_blank" rel="noopener noreferrer">
-            Source Code
-          </a>
-          •
-        {% endif %}
-        {% if site.copyright.msg and site.copyright.url %}
+      <ul class="footer-legal">
+        {%- assign _cy = site.time | date: '%Y' -%}
+        {%- assign _sy = site.copyright.year | default: _cy -%}
+        {%- if _sy != _cy -%}
+          {%- assign _yr = _cy | append: '-01-01' | date: '%y' | prepend: '-' | prepend: _sy -%}
+        {%- else -%}
+          {%- assign _yr = _cy -%}
+        {%- endif -%}
+        <li>
           <a
-            href="{{ site.copyright.url | escape }}"
+            href="{% if site.social.github %}{{ site.social.github }}{% else %}{{ '/' | relative_url }}{% endif %}"
             class="copyright-item"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {{ site.copyright.msg }}
+            {% if site.social.github %}
+              target="_blank" rel="noopener noreferrer"
+            {% endif %}
+            >&copy; {{ _yr }}
+            {{ site.author.name -}}
           </a>
-          •
-        {% endif %}
-        <a href="{{ '/privacy-policy' | relative_url }}" class="copyright-item">Privacy Policy</a> •
-        <a href="{{ '/security-policy' | relative_url }}" class="copyright-item">Security Policy</a> •
-        <a href="{{ '/credits' | relative_url }}" class="copyright-item">Credits</a>
-      </p>
+        </li>
+        {%- if site.repository -%}
+          <li>
+            <a href="{{ site.repository | escape }}" class="copyright-item" target="_blank" rel="noopener noreferrer"
+              >Source Code</a
+            >
+          </li>
+        {%- endif -%}
+        {%- if site.copyright.msg and site.copyright.url -%}
+          <li>
+            <a
+              href="{{ site.copyright.url | escape }}"
+              class="copyright-item"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {{- site.copyright.msg -}}
+            </a>
+          </li>
+        {%- endif -%}
+        <li><a href="{{ '/privacy-policy' | relative_url }}" class="copyright-item">Privacy Policy</a></li>
+        <li><a href="{{ '/security-policy' | relative_url }}" class="copyright-item">Security Policy</a></li>
+        <li><a href="{{ '/credits' | relative_url }}" class="copyright-item">Credits</a></li>
+      </ul>
     </div>
   </div>
 </footer>

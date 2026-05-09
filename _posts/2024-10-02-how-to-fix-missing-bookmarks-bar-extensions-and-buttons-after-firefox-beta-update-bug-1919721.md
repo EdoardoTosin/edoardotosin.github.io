@@ -24,7 +24,6 @@ keywords:
   - mozilla bug fix
   - restore firefox toolbar
   - pinned extensions missing
-featured: true
 ---
 
 Firefox users with Beta and Developer Edition versions may encounter the disappearance of the bookmarks bar, toolbar buttons, and pinned extensions[^1][^2] due to [bug 1919721](https://bugzilla.mozilla.org/show_bug.cgi?id=1919721). This issue arises from a flawed logical condition that affects toolbar management in Firefox.

@@ -9,7 +9,7 @@ lang:          "en"
 og_locale:     "en_US"    # Open Graph locale (og:locale). Format: language_TERRITORY
 timezone:      "Europe/Rome"
 repository:    "https://github.com/EdoardoTosin/edoardotosin.github.io"
-logo:          "/favicon.png"
+logo:          "/assets/icons/favicon.png"
 
 # Author
 author:

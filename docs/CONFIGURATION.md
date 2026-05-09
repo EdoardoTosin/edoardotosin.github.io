@@ -6,6 +6,7 @@ All settings live in `_config.yml`.
 
 ```yaml
 title: 'Your Name'
+short_name: 'You'
 description: 'What this site is about.'
 url: 'https://yourdomain.com'
 baseurl: ''
@@ -13,8 +14,11 @@ lang: 'en'
 og_locale: 'en_US'
 timezone: 'Europe/Rome'
 repository: 'https://github.com/you/repo'
-logo: 'favicon.png'
+logo: '/assets/icons/favicon.png'
 ```
+
+- `short_name`: used as the PWA app name on home screens and the iOS `apple-mobile-web-app-title`. Keep it under 12 characters for best display on Android launchers. Defaults to `title` if omitted.
+- `logo`: path to the site icon (PNG). Used in the header, footer, SEO tags, and the web app manifest. Place icon files in `assets/icons/`.
 
 ## Author
 
@@ -109,12 +113,12 @@ homepage:
   gallery_limit: 5
 ```
 
-- `enable_blog_toggle` - show the grid/list view switch on the blog feed
-- `sticky_sidebar` - keep the sidebar fixed while scrolling
-- `posts_per_page` - number of posts shown initially on the homepage (mobile always shows at most 3)
-- `featured_limit` - max posts shown in the Featured Posts sidebar widget
-- `topics_limit` - max topics shown in the Topics sidebar widget
-- `show_topic_clusters` - set to `false` to hide the Featured Topics section
+- `enable_blog_toggle`: show the grid/list view switch on the blog feed
+- `sticky_sidebar`: keep the sidebar fixed while scrolling
+- `posts_per_page`: number of posts shown initially on the homepage (mobile always shows at most 3)
+- `featured_limit`: max posts shown in the Featured Posts sidebar widget
+- `topics_limit`: max topics shown in the Topics sidebar widget
+- `show_topic_clusters`: set to `false` to hide the Featured Topics section
 
 The Featured Topics section selects topics automatically, ordered by the number of featured posts then total posts per topic. Up to four topics are shown, one per grid column.
 

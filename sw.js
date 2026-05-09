@@ -26,7 +26,7 @@ var PRECACHE_ASSETS = [
   '{{ "/assets/js/katex-init.js" | relative_url }}',
   '{{ "/assets/js/analytics.js" | relative_url }}',
   '{{ "/manifest.json" | relative_url }}',
-  '{{ "/favicon.png" | relative_url }}',
+  '{{ site.logo | relative_url }}',
   '{{ "/offline.html" | relative_url }}'
 ];
 

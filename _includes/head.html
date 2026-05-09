@@ -63,7 +63,7 @@
   <meta name="color-scheme" content="light dark">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="{{ site.title | truncate: 12, '' }}">
+  <meta name="apple-mobile-web-app-title" content="{{ site.short_name | default: site.title }}">
   <meta name="mobile-web-app-capable" content="yes">
 
   <link rel="preload" as="font" type="font/woff2" crossorigin href="{{ '/assets/fonts/ibm-plex-sans/ibm-plex-sans-v23-latin-regular.woff2' | relative_url }}">

@@ -1,5 +1,6 @@
 # Site identity
 title:         "Edoardo Tosin"
+short_name:    "Edoardo"
 description:   "Writing on software development, security research, Linux, open-source projects, bug bounty, and astrophotography."
 keywords:      "self-hosting, dns, security, cybersecurity, linux, open source, programming, bug bounty, computer science, astrophotography"
 url:           "https://edoardotosin.com"

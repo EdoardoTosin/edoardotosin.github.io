@@ -4,7 +4,7 @@ permalink: /manifest.json
 ---
 {
   "name": {{ site.title | jsonify }},
-  "short_name": {{ site.title | truncate: 12, '' | jsonify }},
+  "short_name": {{ site.short_name | default: site.title | jsonify }},
   "description": {{ site.description | jsonify }},
   "lang": {{ site.lang | default: 'en' | jsonify }},
   "start_url": {{ '/' | relative_url | jsonify }},

@@ -18,7 +18,8 @@ This site is built with Jekyll and the following open-source tools and resources
 ## Platform
 
 - **[Jekyll](https://jekyllrb.com/)** - Static site generator
-- **[Cloudflare Pages](https://pages.cloudflare.com/)** - Hosting and deployment
+- **[GitHub Pages](https://pages.github.com/)** - Hosting and deployment
+- **[Cloudflare](https://www.cloudflare.com/)** - CDN, DNS, and edge caching
 - **[Ruby](https://www.ruby-lang.org/) & [Bundler](https://bundler.io/)** - Dependency management
 
 ---
@@ -45,7 +46,7 @@ This site is built with Jekyll and the following open-source tools and resources
 
 - **[IBM Plex Sans](https://fonts.google.com/specimen/IBM+Plex+Sans)** - Body font
 - **[Outfit](https://fonts.google.com/specimen/Outfit)** - Heading font
-- **[Monaspace Neon NF](https://github.com/githubnext/monaspace)** - Monospace font for code
+- **[Monaspace Neon](https://github.com/githubnext/monaspace)** - Monospace font for code
 
 All fonts are self-hosted as WOFF2 files - no external requests.
 

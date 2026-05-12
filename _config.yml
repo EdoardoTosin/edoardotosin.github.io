@@ -166,6 +166,11 @@ webmentions:
 
 google_analytics: ""
 
+# Webmaster verification (paste only the content= value, not the full meta tag)
+site_verification:
+  google: ""   # Google Search Console
+  bing:   ""   # Bing Webmaster Tools
+
 url_shortener: "go"
 
 # Build

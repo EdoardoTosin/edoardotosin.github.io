@@ -129,6 +129,13 @@
     {%- endif -%}
   {%- endfor -%}
 
+  {%- if site.site_verification.google and site.site_verification.google != '' -%}
+    <meta name="google-site-verification" content="{{ site.site_verification.google | escape }}">
+  {%- endif -%}
+  {%- if site.site_verification.bing and site.site_verification.bing != '' -%}
+    <meta name="msvalidate.01" content="{{ site.site_verification.bing | escape }}">
+  {%- endif -%}
+
   {%- if page.layout == 'post' and page.image -%}
     <link rel="preload" as="image" href="{{ page.image | relative_url }}" fetchpriority="high">
   {%- endif -%}

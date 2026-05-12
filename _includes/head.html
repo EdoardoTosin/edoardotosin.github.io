@@ -121,6 +121,8 @@
 
   {%- if site.social.mastodon and site.social.mastodon != '' -%}
     <link rel="me" href="{{ site.social.mastodon | escape }}">
+    {%- assign _mastodon_parts = site.social.mastodon | remove: 'https://' | split: '/@' -%}
+    <meta name="fediverse:creator" content="@{{ _mastodon_parts[1] }}@{{ _mastodon_parts[0] }}">
   {%- endif -%}
 
   {%- for _ma in site.social.mastodon_also -%}

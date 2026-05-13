@@ -159,9 +159,7 @@
       "description": {{ site.description | jsonify }},
       "url": {{ site.url | append: site.baseurl | jsonify }},
       "author": {
-        "@type": "Person",
-        "name": {{ site.author.name | jsonify }},
-        "url": {{ site.url | jsonify }}
+        "@id": {{ site.url | append: site.baseurl | append: "/about/#person" | jsonify }}
       },
       "potentialAction": {
         "@type": "SearchAction",
@@ -173,12 +171,44 @@
       }
     }
   </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "@id": {{ site.url | append: site.baseurl | append: "/about/#person" | jsonify }},
+      "name": {{ site.author.name | jsonify }},
+      "url": {{ site.url | append: site.baseurl | append: "/about/" | jsonify }},
+      "image": {{ site.author.avatar | default: '/images/avatar.jpg' | absolute_url | jsonify }},
+      "description": {{ site.author.bio | jsonify }}{% if site.author.twitter and site.author.twitter != '' %},
+      "sameAs": [
+        {{ site.author.twitter | prepend: 'https://twitter.com/' | jsonify }}
+        {%- if site.social.mastodon and site.social.mastodon != '' %},
+        {{ site.social.mastodon | jsonify }}
+        {%- endif -%}
+        {%- for _ma in site.social.mastodon_also -%}
+        {%- if _ma and _ma != '' %},
+        {{ _ma | jsonify }}
+        {%- endif -%}
+        {%- endfor -%}
+        {%- if site.social.github and site.social.github != '' %},
+        {{ site.social.github | jsonify }}
+        {%- endif -%}
+        {%- if site.social.bluesky and site.social.bluesky != '' %},
+        {{ site.social.bluesky | jsonify }}
+        {%- endif -%}
+        {%- if site.social.linkedin and site.social.linkedin != '' %},
+        {{ site.social.linkedin | jsonify }}
+        {%- endif %}
+      ]{% endif %}
+    }
+  </script>
 
 {%- elsif page.url == '/about/' or page.url == '/about' -%}
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Person",
+      "@id": {{ seo_url | append: "#person" | jsonify }},
       "name": {{ site.author.name | jsonify }},
       "description": {{ site.author.bio | jsonify }},
       "url": {{ seo_url | jsonify }},

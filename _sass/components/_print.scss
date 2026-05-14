@@ -255,6 +255,53 @@
     }
   }
 
+  .post-discussions {
+    margin-top: 18pt;
+    padding-top: 12pt;
+    page-break-inside: avoid;
+
+    &__title {
+      font-size: 9pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #555 !important;
+      margin-bottom: 4pt;
+    }
+
+    &__list {
+      list-style: disc !important;
+      padding-left: 12pt !important;
+      margin: 0 !important;
+      display: block !important;
+    }
+  }
+
+  .discussion-link {
+    display: inline !important;
+    padding: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    color: #000 !important;
+    transform: none !important;
+    font-size: 9pt;
+    font-weight: 600;
+
+    svg {
+      display: none !important;
+    }
+
+    &::after {
+      content: ': ' attr(href);
+      font-weight: 400;
+      font-size: 8pt;
+      color: #555 !important;
+      word-break: break-all;
+      overflow-wrap: anywhere;
+    }
+  }
+
   .post-cited-by {
     margin-top: 18pt;
     padding-top: 12pt;

@@ -35,6 +35,10 @@ share: true
 
 cited_by:
   - '[Article Title - Site Name](https://example.com/article)'
+
+discussions:
+  - '[Hacker News](https://news.ycombinator.com/item?id=XXXXXXXX)'
+  - '[r/topic](https://reddit.com/r/topic/comments/xxxxx/post_title)'
 ---
 ```
 
@@ -240,6 +244,42 @@ To create a backlink from post A to post B, add a wikilink anywhere in post A's 
 ```
 
 Post B will then show post A in its "Referenced in" section.
+
+### discussions
+
+Link to external threads where the post has been shared and discussed. Renders as a "Discussion" section directly below the post footer, visible in both web and print views. Omit the field entirely when there are no external threads.
+
+Each entry is a Markdown link: `'[Label](url)'`. The label you write is shown as-is and also determines the platform icon and brand colour.
+
+```yaml
+discussions:
+  - '[Hacker News](https://news.ycombinator.com/item?id=XXXXXXXX)'
+  - '[r/linux](https://reddit.com/r/linux/comments/xxxxx/post_title)'
+  - '[Lobsters](https://lobste.rs/s/xxxxx/post_title)'
+  - '[Mastodon](https://fosstodon.org/@user/109876543210)'
+  - '[Bluesky](https://bsky.app/profile/user.bsky.social/post/xxxxx)'
+  - '[DEV Community](https://dev.to/user/post-title)'
+```
+
+**Platform detection** (matched from the label, case-insensitive):
+
+| Label                             | Icon          | Brand color |
+| --------------------------------- | ------------- | ----------- |
+| `Hacker News`, `HN`, `HackerNews` | Hacker News   | #ff6600     |
+| starts with `r/`                  | Reddit        | #ff4500     |
+| `Lobsters`, `Lobste.rs`           | Lobsters      | #ac130d     |
+| `Mastodon`                        | Mastodon      | #6364ff     |
+| `Bluesky`                         | Bluesky       | #0085ff     |
+| `DEV Community`, `DEV`, `DEV.to`  | DEV Community | #3d3d3d     |
+| contains `Twitter`, or `X`        | X / Twitter   | #1da1f2     |
+| `LinkedIn`                        | LinkedIn      | #0077b5     |
+| _(anything else)_                 | label text    | neutral     |
+
+**Rules:**
+
+- Each entry must be a Markdown link string `'[Label](https://…)'`. Entries without a valid `https://` or `http://` URL are silently skipped.
+- The section is not rendered at all when `discussions` is absent or every entry is invalid.
+- In print/PDF, discussions render as a bulleted list with the label and full URL shown, so readers can look up the thread.
 
 ### cited_by
 

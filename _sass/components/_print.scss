@@ -493,12 +493,62 @@
   li code,
   td code,
   th code {
+    display: inline !important;
     font-size: 0.875em !important;
+    vertical-align: baseline !important;
     background: #f0f0f0 !important;
     color: #000 !important;
     border: 0.5pt solid #aaa !important;
-    padding: 1pt 3pt;
+    padding: 0.1em 3pt !important;
     border-radius: 2pt;
+  }
+
+  // Task lists
+  .task-list {
+    list-style: none !important;
+    padding-left: 0 !important;
+  }
+
+  .task-list-item {
+    display: flex !important;
+    align-items: center !important;
+    gap: 5pt !important;
+    padding: 1pt 0 !important;
+    line-height: 1.55 !important;
+    break-inside: avoid;
+
+    &::marker {
+      content: '' !important;
+    }
+  }
+
+  .task-list-item-checkbox {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    flex-shrink: 0 !important;
+    width: 10pt !important;
+    height: 10pt !important;
+    min-width: 10pt !important;
+    margin-top: 0 !important;
+    border: 1pt solid #555 !important;
+    border-radius: 2pt !important;
+    background: #fff !important;
+    background-image: none !important;
+
+    &:checked {
+      background-color: #16a34a !important;
+      border-color: #16a34a !important;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2 6.5 4.5 9l5.5-6' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E") !important;
+      background-repeat: no-repeat !important;
+      background-position: center !important;
+      background-size: 7pt 7pt !important;
+    }
+  }
+
+  .task-list-item:has(.task-list-item-checkbox:checked) {
+    color: #555 !important;
+    text-decoration: line-through !important;
+    text-decoration-color: #999 !important;
   }
 
   .highlighter-rouge {

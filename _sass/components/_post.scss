@@ -178,13 +178,13 @@ $ext-link-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg
     font-size: 0.875rem;
     color: var(--text-muted);
 
-    .meta-byline-author {
+    .post-header__byline-author {
       display: none;
     }
   }
 
   // Date, optional updated date, reading time
-  .meta-details {
+  &__meta-details {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
@@ -1003,19 +1003,19 @@ $ext-link-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg
     }
   }
 
+  &__label {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    margin-right: $sp-2;
+  }
+
   &__tags {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: $sp-2;
     margin-bottom: $sp-8;
-
-    span.label {
-      font-size: 0.875rem;
-      color: var(--text-muted);
-      font-weight: 600;
-      margin-right: $sp-2;
-    }
   }
 
   &__share-title {

@@ -207,7 +207,7 @@
       margin-top: 4pt;
       display: block !important;
 
-      .meta-byline-author {
+      .post-header__byline-author {
         display: inline !important;
 
         &::before {
@@ -220,7 +220,7 @@
         }
       }
 
-      .meta-details {
+      .post-header__meta-details {
         display: inline-flex !important;
 
         time + time::before,

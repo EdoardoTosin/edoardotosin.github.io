@@ -144,13 +144,13 @@
   }
 
   // Icon visibility driven by aria-checked (set by theme.js)
-  .icon-moon {
+  &__icon--moon {
     display: none;
   }
-  &[aria-checked='true'] .icon-sun {
+  &[aria-checked='true'] &__icon--sun {
     display: none;
   }
-  &[aria-checked='true'] .icon-moon {
+  &[aria-checked='true'] &__icon--moon {
     display: block;
   }
 

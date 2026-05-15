@@ -80,10 +80,13 @@ permalink: /offline.html
         border: none;
         cursor: pointer;
         text-decoration: none;
-        transition: opacity 0.15s;
+        transition: transform 0.2s ease;
       }
       .btn:hover {
-        opacity: 0.88;
+        transform: translateY(-2px);
+      }
+      .btn:active {
+        transform: translateY(0) scale(0.97);
       }
       @media (max-width: 480px) {
         .card {

@@ -1121,6 +1121,42 @@ $ext-link-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg
   }
 }
 
+// Save for offline
+.share-btn.save-offline-btn {
+  background: transparent;
+  color: var(--text-secondary);
+  border-color: var(--border-strong);
+
+  &:hover {
+    background: var(--bg-tag);
+    color: var(--text-primary);
+    border-color: var(--text-primary);
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    background: var(--bg-tag);
+    border-color: var(--text-secondary);
+    transform: translateY(0) scale(0.95);
+  }
+
+  &.is-saved {
+    color: var(--accent-text);
+    border-color: var(--accent);
+    background: var(--accent-subtle);
+
+    &:hover {
+      filter: brightness(1.06);
+      transform: translateY(-1px);
+    }
+  }
+
+  &:disabled {
+    opacity: 0.55;
+    pointer-events: none;
+  }
+}
+
 // External discussion links
 .post-discussions {
   margin-top: $sp-8;

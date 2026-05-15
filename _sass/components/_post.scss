@@ -1045,7 +1045,7 @@ $ext-link-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg
   min-height: 36px;
   transition: $t-fast;
   text-decoration: none;
-  border: none;
+  border: 1.5px solid transparent;
   cursor: pointer;
   font-family: $font-sans;
   @include touch-reset;
@@ -1056,48 +1056,63 @@ $ext-link-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg
   }
 
   &--twitter {
-    background: #1da1f2;
-    color: #fff;
+    background: transparent;
+    color: #1da1f2;
+    border-color: #1da1f2;
   }
   &--linkedin {
-    background: #0077b5;
-    color: #fff;
+    background: transparent;
+    color: #0077b5;
+    border-color: #0077b5;
   }
   &--facebook {
-    background: #1877f2;
-    color: #fff;
+    background: transparent;
+    color: #1877f2;
+    border-color: #1877f2;
   }
 
   &--copy {
     background: var(--bg-tag);
     color: var(--text-secondary);
-    border: 1px solid var(--border-strong);
+    border-color: var(--border-strong);
 
     &:hover {
       background: var(--bg-card);
       color: var(--text-primary);
       border-color: var(--text-muted);
-      opacity: 1;
+      transform: translateY(-1px);
     }
 
     &:active {
       background: var(--bg-tag);
       border-color: var(--text-muted);
-      transform: scale(0.95);
+      transform: translateY(0) scale(0.95);
     }
   }
 
   &--twitter:hover,
+  &--twitter:active {
+    background: #1da1f2;
+    color: #fff;
+  }
+  &--linkedin:hover,
+  &--linkedin:active {
+    background: #0077b5;
+    color: #fff;
+  }
+  &--facebook:hover,
+  &--facebook:active {
+    background: #1877f2;
+    color: #fff;
+  }
+  &--twitter:hover,
   &--linkedin:hover,
   &--facebook:hover {
-    opacity: 0.88;
     transform: translateY(-1px);
   }
-
   &--twitter:active,
   &--linkedin:active,
   &--facebook:active {
-    opacity: 1;
     transform: scale(0.95);
   }
 

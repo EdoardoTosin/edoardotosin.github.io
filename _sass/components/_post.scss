@@ -343,6 +343,11 @@ $ext-link-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg
     &:focus-within .heading-anchor {
       opacity: 1;
     }
+
+    code {
+      color: inherit;
+      border-color: var(--border);
+    }
   }
 
   // Heading anchor link (injected by main.js)
@@ -845,6 +850,24 @@ $ext-link-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg
   ins {
     color: var(--accent-text);
     text-decoration: underline;
+  }
+
+  // Defanged URL/IP notation (hXXp://, domain[.]tld, 192.168[.]1.1 …)
+  .defanged {
+    font-family: $font-mono;
+    font-size: 0.875em;
+    color: var(--defanged-text);
+    background: var(--defanged-bg);
+    border: 1px solid var(--defanged-border);
+    border-radius: $r-sm;
+    padding: 0.1em 0.35em;
+    word-break: break-all;
+    user-select: all;
+
+    &::selection {
+      background-color: var(--defanged-sel-bg);
+      color: var(--defanged-sel-color);
+    }
   }
 
   // <details> / <summary>

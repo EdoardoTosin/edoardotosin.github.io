@@ -89,6 +89,12 @@ $t-base: all 0.25s ease;
   --callout-caution-bg: rgba(239, 68, 68, 0.07);
   --callout-caution-title: #b91c1c;
 
+  --defanged-bg: rgba(251, 191, 36, 0.1);
+  --defanged-border: rgba(245, 158, 11, 0.35);
+  --defanged-text: #92400e;
+  --defanged-sel-bg: #92400e;
+  --defanged-sel-color: #fef3c7;
+
   --bg-body: #f8fafc;
   --bg-card: #ffffff;
   --bg-header: rgba(248, 250, 252, 0.95);
@@ -258,6 +264,12 @@ $t-base: all 0.25s ease;
   --callout-caution-border: #f87171;
   --callout-caution-bg: rgba(239, 68, 68, 0.1);
   --callout-caution-title: #f87171;
+
+  --defanged-bg: rgba(251, 191, 36, 0.08);
+  --defanged-border: rgba(245, 158, 11, 0.28);
+  --defanged-text: #fbbf24;
+  --defanged-sel-bg: #fbbf24;
+  --defanged-sel-color: #451a03;
 
   --bg-body: #0f1117;
   --bg-card: #1c2132;

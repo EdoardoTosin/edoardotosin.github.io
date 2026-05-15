@@ -512,6 +512,22 @@
     border-radius: 2pt;
   }
 
+  h1 code,
+  h2 code,
+  h3 code,
+  h4 code,
+  h5 code,
+  h6 code {
+    display: inline !important;
+    font-size: 0.875em !important;
+    vertical-align: baseline !important;
+    background: #f0f0f0 !important;
+    color: inherit !important;
+    border: 0.5pt solid #aaa !important;
+    padding: 0.1em 3pt !important;
+    border-radius: 2pt;
+  }
+
   // Task lists
   .task-list {
     list-style: none !important;
@@ -706,6 +722,12 @@
   .wikilink-broken {
     color: #555;
     text-decoration: underline dotted;
+  }
+
+  .defanged {
+    background: transparent !important;
+    border-color: #b45309 !important;
+    color: #92400e !important;
   }
 
   // Render .btn links as plain underlined text in print

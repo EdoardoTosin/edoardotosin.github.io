@@ -133,6 +133,39 @@ Both inline and multi-paragraph variants work:
 | `WARNING`   | Orange          | Potential issue                  |
 | `CAUTION`   | Red             | Dangerous or irreversible action |
 
+## Defanged Indicators
+
+Write defanged URLs, IPs, and domains directly in the post body. The build
+detects recognised patterns and wraps them in an amber monospaced style,
+visually separating them from regular links and text.
+
+| Notation                   | Example                                       |
+| -------------------------- | --------------------------------------------- |
+| Defanged HTTP/HTTPS scheme | `hXXp://evil.com`, `hxxps[://]c2.example.net` |
+| Defanged domain (`[.]`)    | `evil[.]com`, `cdn[.]malware[.]io`            |
+| Defanged domain (`[dot]`)  | `evil[dot]com`, `cdn[dot]badactor[dot]ru`     |
+| Defanged IPv4              | `192.168[.]1.1`, `10[.]0[.]0[.]254`           |
+| Mixed scheme and IP        | `hXXp://192.168[.]1.1/shell.elf`              |
+
+Defanging is applied to the post body only. The post header (title, date, and
+other metadata) is never processed.
+
+The following contexts are left untouched:
+
+- Fenced and indented code blocks
+- Inline `` `code` `` spans
+- Hyperlink text and targets
+
+Write the notation as plain text in prose; no special markup is required:
+
+```markdown
+The implant beaconed to hXXps://c2[.]attacker[.]net/check-in
+and fetched a second stage from 203.0[.]113.42/payload.bin.
+```
+
+In Obsidian and on GitHub the notation renders as plain text. On the built site
+and in the RSS feed, each matched token is wrapped in an amber span.
+
 ## Supported Markdown
 
 | Element         | Syntax                   | Notes                                   |

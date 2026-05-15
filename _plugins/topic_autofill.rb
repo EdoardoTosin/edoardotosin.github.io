@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'yaml'
 require 'set'
 
 Jekyll::Hooks.register :site, :post_read do |site|
@@ -19,7 +18,14 @@ Jekyll::Hooks.register :site, :post_read do |site|
   next if new_names.empty?
 
   new_entries = new_names.map { |name| { 'name' => name, 'color' => '#64748b' } }
-  site.data['topics'] = existing + new_entries
+  all_entries = existing + new_entries
+  site.data['topics'] = all_entries
 
-  File.write(topics_path, YAML.dump(existing + new_entries))
+  yaml_out = "---\n"
+  all_entries.each do |entry|
+    color = entry['color'].to_s
+    quoted_color = color.match?(/[#:\[\]{}|&*!,>]/) || color.empty? ? "'#{color}'" : color
+    yaml_out += "- name: #{entry['name']}\n  color: #{quoted_color}\n"
+  end
+  File.write(topics_path, yaml_out)
 end

@@ -170,13 +170,14 @@
       background: var(--accent-subtle);
       color: var(--accent-text);
       border-color: var(--accent);
+      transform: translateY(-1px);
     }
 
     &:active {
       background: var(--accent-subtle);
       color: var(--accent-text);
       border-color: var(--accent);
-      transform: scale(0.95);
+      transform: translateY(0) scale(0.95);
     }
 
     &:focus-visible {

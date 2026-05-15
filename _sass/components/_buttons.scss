@@ -74,13 +74,14 @@
       background: var(--bg-tag);
       color: var(--text-primary);
       border-color: var(--text-primary);
+      transform: translateY(-2px);
     }
 
     &:active {
       background: var(--bg-tag);
       color: var(--text-primary);
       border-color: var(--text-secondary);
-      transform: scale(0.97);
+      transform: translateY(0) scale(0.97);
       box-shadow: none;
     }
   }

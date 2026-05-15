@@ -264,7 +264,8 @@
     transition:
       color $t-fast,
       border-color $t-fast,
-      background $t-fast;
+      background $t-fast,
+      transform $t-fast;
 
     svg {
       flex-shrink: 0;
@@ -274,10 +275,11 @@
       color: var(--text-primary);
       border-color: var(--border-strong);
       background: var(--bg-tag);
+      transform: translateY(-1px);
     }
 
     &:active {
-      opacity: 0.8;
+      transform: translateY(0) scale(0.97);
     }
 
     &:focus-visible {

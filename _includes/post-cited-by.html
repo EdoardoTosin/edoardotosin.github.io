@@ -1,0 +1,49 @@
+{%- if page.cited_by.size > 0 -%}
+  {%- capture _cited_by_html -%}
+    {%- for _mention in page.cited_by -%}
+      {%- unless _mention == blank -%}
+        {%- assign _m = _mention | strip -%}
+        {%- assign _title = nil -%}
+        {%- assign _url = nil -%}
+        {%- if _m contains '](' and _m contains '[' and _m contains ')' -%}
+          {%- assign _parts = _m | split: '](' -%}
+          {%- if _parts.size == 2 -%}
+            {%- assign _title = _parts[0] | remove_first: '[' | strip -%}
+            {%- assign _url_part = _parts[1] | strip -%}
+            {%- assign _last_char = _url_part | slice: -1, 1 -%}
+            {%- if _last_char == ')' -%}
+              {%- assign _url_len = _url_part.size | minus: 1 -%}
+              {%- assign _url = _url_part | truncate: _url_len, '' -%}
+            {%- else -%}
+              {%- assign _url = _url_part -%}
+            {%- endif -%}
+          {%- endif -%}
+        {%- elsif _m contains '://' -%}
+          {%- assign _url = _m -%}
+          {%- assign _title = _m -%}
+        {%- endif -%}
+        {%- if _title and _url and _title != '' and _url != '' -%}
+          {%- assign _scheme8 = _url | slice: 0, 8 | downcase -%}
+          {%- assign _scheme7 = _url | slice: 0, 7 | downcase -%}
+          {%- if _scheme8 == 'https://' or _scheme7 == 'http://' -%}
+            <li>
+              <a href="{{ _url | escape }}"
+                target="_blank"
+                rel="noopener noreferrer external nofollow">
+                {{ _title | escape }}
+              </a>
+            </li>
+          {%- endif -%}
+        {%- endif -%}
+      {%- endunless -%}
+    {%- endfor -%}
+  {%- endcapture -%}
+  {%- unless _cited_by_html == blank -%}
+    <section class="post-cited-by" aria-label="Cited by">
+      <h2 class="post-cited-by__title">Cited by</h2>
+      <ul class="post-cited-by__list">
+        {{- _cited_by_html -}}
+      </ul>
+    </section>
+  {%- endunless -%}
+{%- endif -%}

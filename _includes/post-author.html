@@ -1,0 +1,15 @@
+<div class="author-box" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img
+    src="{{ site.author.avatar | default: '/images/avatar.jpg' | relative_url }}"
+    alt="{{ site.author.name }}"
+    class="author-box__avatar"
+    width="80"
+    height="80"
+    loading="lazy"
+  >
+  <div>
+    <p class="author-box__name" itemprop="name">{{ site.author.name }}</p>
+    <p class="author-box__role">{{ site.author.tagline }}</p>
+    <p class="author-box__bio">{{ site.author.bio }}</p>
+  </div>
+</div>

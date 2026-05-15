@@ -1,0 +1,40 @@
+{%- assign _prev_post = null -%}
+{%- assign _next_post = null -%}
+
+{%- if page.series and page.series_order -%}
+  {%- assign _prev_order = page.series_order | minus: 1 -%}
+  {%- assign _next_order = page.series_order | plus: 1 -%}
+  {%- assign _prev_post = site.posts | where: 'series', page.series | where: 'series_order', _prev_order | first -%}
+  {%- assign _next_post = site.posts | where: 'series', page.series | where: 'series_order', _next_order | first -%}
+{%- endif -%}
+
+{%- unless _prev_post or _next_post -%}
+  {%- assign _prev_post = page.previous -%}
+  {%- assign _next_post = page.next -%}
+{%- endunless -%}
+
+{%- if _prev_post or _next_post -%}
+  <nav class="post-nav" aria-label="Post navigation">
+    {%- if _prev_post -%}
+      <a href="{{ _prev_post.url | relative_url }}" class="post-nav__link post-nav__link--prev" rel="prev">
+        <span class="post-nav__label">&larr; Previous</span>
+        <span class="post-nav__title" title="{{ _prev_post.title | escape }}">
+          {{- _prev_post.title | truncate: 55 -}}
+        </span>
+      </a>
+    {%- else -%}
+      <span class="post-nav__link post-nav__link--prev post-nav__link--empty" aria-hidden="true"></span>
+    {%- endif -%}
+
+    {%- if _next_post -%}
+      <a href="{{ _next_post.url | relative_url }}" class="post-nav__link post-nav__link--next" rel="next">
+        <span class="post-nav__label">Next &rarr;</span>
+        <span class="post-nav__title" title="{{ _next_post.title | escape }}">
+          {{- _next_post.title | truncate: 55 -}}
+        </span>
+      </a>
+    {%- else -%}
+      <span class="post-nav__link post-nav__link--next post-nav__link--empty" aria-hidden="true"></span>
+    {%- endif -%}
+  </nav>
+{%- endif -%}

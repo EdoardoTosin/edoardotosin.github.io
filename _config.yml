@@ -29,16 +29,14 @@ header_nav:
     url:   "/"
   - title: "Blog"
     url:   "/blog/"
-  - title: "Topics"
-    url:   "/topics/"
   - title: "Projects"
     url:   "/projects/"
+  - title: "About"
+    url:   "/about/"
   - title: "More"
     children:
-      - title: "About"
-        url:   "/about/"
-      - title: "Contact"
-        url:   "/contact/"
+      - title: "Topics"
+        url:   "/topics/"
       - title: "Archive"
         url:   "/archive/"
       - title: "Now"
@@ -47,23 +45,33 @@ header_nav:
         url:   "/gallery/"
       - title: "Videos"
         url:   "/videos/"
+      - title: "Contact"
+        url:   "/contact/"
       - title: "GitHub"
         url:   "https://github.com/EdoardoTosin"
         external: true
 
 # Footer columns: each entry is a named group with its own `items` list.
 footer_nav:
-  - group: "Menu"
+  - group: "Journal"
     items:
-      - title: "Home"
-        url:   "/"
       - title: "Blog"
         url:   "/blog/"
       - title: "Topics"
         url:   "/topics/"
+      - title: "Archive"
+        url:   "/archive/"
+      - title: "Tags"
+        url:   "/tags/"
+  - group: "Explore"
+    items:
       - title: "Projects"
         url:   "/projects/"
-  - group: "Pages"
+      - title: "Gallery"
+        url:   "/gallery/"
+      - title: "Videos"
+        url:   "/videos/"
+  - group: "About"
     items:
       - title: "About"
         url:   "/about/"
@@ -71,18 +79,6 @@ footer_nav:
         url:   "/now/"
       - title: "Contact"
         url:   "/contact/"
-      - title: "Archive"
-        url:   "/archive/"
-  - group: "Explore"
-    items:
-      - title: "Gallery"
-        url:   "/gallery/"
-      - title: "Videos"
-        url:   "/videos/"
-      - title: "Tags"
-        url:   "/tags/"
-      - title: "Feed"
-        url:   "/feed.xml"
 
 copyright:
   year: 2022

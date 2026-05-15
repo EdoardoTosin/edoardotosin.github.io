@@ -105,7 +105,7 @@ layout: default
       </div>
 
       {%- include post-footer.html -%}
-      {%- include discussions.html -%}
+      {%- include post-discussions.html -%}
       {%- include post-nav.html -%}
       {%- include post-author.html -%}
       {%- include post-related.html -%}
@@ -113,11 +113,11 @@ layout: default
       {%- include post-cited-by.html -%}
 
       {%- if site.webmentions.enabled -%}
-        {% include webmentions.html %}
+        {% include post-webmentions.html %}
       {%- endif -%}
 
       {%- if page.comments != false -%}
-        {% include disqus.html %}
+        {% include post-disqus.html %}
       {%- endif -%}
     </article>
 

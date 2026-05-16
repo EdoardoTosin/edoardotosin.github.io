@@ -298,9 +298,19 @@
 
       q = q.replace(/\bAND\b/g, ' ');
 
+      q = q.replace(/-('[^']+')/g, function (_, ph) {
+        var t = ph.slice(1, -1).trim().toLowerCase();
+        if (t) p.excludePhrases.push(t);
+        return ' ';
+      });
       q = q.replace(/-(\"[^\"]+\")/g, function (_, ph) {
         var t = ph.slice(1, -1).trim().toLowerCase();
         if (t) p.excludePhrases.push(t);
+        return ' ';
+      });
+      q = q.replace(/'([^']+)'/g, function (_, ph) {
+        var t = ph.trim().toLowerCase();
+        if (t) p.phrases.push(t);
         return ' ';
       });
       q = q.replace(/\"([^\"]+)\"/g, function (_, ph) {
@@ -427,7 +437,14 @@
     function unstemmedTokens(raw) {
       var extra = [];
       var q = raw
+        .replace(/-('[^']+')/g, ' ')
         .replace(/-(\"[^\"]+\")/g, ' ')
+        .replace(/'([^']*)'/g, function (_, p) {
+          tokenize(p, false).forEach(function (t) {
+            extra.push(t);
+          });
+          return ' ';
+        })
         .replace(/\"([^\"]*)\"/g, function (_, p) {
           tokenize(p, false).forEach(function (t) {
             extra.push(t);

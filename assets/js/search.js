@@ -362,10 +362,10 @@
         return ' ';
       });
 
-      q = q.replace(/-(\S+)/g, function (_, word) {
+      q = q.replace(/(^|\s)-(\S+)/g, function (_, ws, word) {
         var t = stem(word.toLowerCase());
         if (t) p.excludes.push(t);
-        return ' ';
+        return ws + ' ';
       });
 
       q = q.replace(/\(([^)]+)\)/g, function (_, inner) {
@@ -413,7 +413,15 @@
       if (isNaN(y)) return null;
       var m = parts[1] ? parseInt(parts[1], 10) - 1 : startOfPeriod ? 0 : 11;
       var d = parts[2] ? parseInt(parts[2], 10) : startOfPeriod ? 1 : new Date(y, m + 1, 0).getDate();
-      return new Date(y, m, d, startOfPeriod ? 0 : 23, startOfPeriod ? 0 : 59);
+      return new Date(
+        y,
+        m,
+        d,
+        startOfPeriod ? 0 : 23,
+        startOfPeriod ? 0 : 59,
+        startOfPeriod ? 0 : 59,
+        startOfPeriod ? 0 : 999,
+      );
     }
 
     function parseNumericFilter(val, minKey, maxKey, filters) {
@@ -452,7 +460,7 @@
           return ' ';
         })
         .replace(/\w+:\S+/g, '')
-        .replace(/-\S+/g, '');
+        .replace(/(^|\s)-\S+/g, '$1 ');
       return tokenize(q, false).concat(extra);
     }
 
@@ -679,7 +687,7 @@
             '" class="search-overlay__result-item" role="option">' +
             '<img src="' +
             escHtml(p.image) +
-            '" alt="" loading="eager" class="loaded" width="72" height="48">' +
+            '" alt="" loading="eager" width="72" height="48">' +
             '<div>' +
             '<h4>' +
             star +

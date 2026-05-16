@@ -426,6 +426,13 @@
     overflow-y: auto;
     overscroll-behavior: contain;
     padding: $sp-3;
+
+    mark {
+      background: var(--accent-subtle);
+      color: var(--text-primary);
+      border-radius: 2px;
+      padding: 0.05em 0.2em;
+    }
   }
 
   &__result-item {

@@ -15,6 +15,14 @@ Open `http://localhost:4000`. Build for production:
 JEKYLL_ENV=production bundle exec jekyll build
 ```
 
+## Development
+
+```bash
+npm install
+npm test
+npm run format
+```
+
 ## Pages
 
 | Route        | Description                                             |

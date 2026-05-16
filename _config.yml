@@ -216,6 +216,8 @@ exclude:
   - node_modules
   - package.json
   - package-lock.json
+  - tests
+  - jest.config.js
   - .prettierrc
   - .prettierignore
   - vendor

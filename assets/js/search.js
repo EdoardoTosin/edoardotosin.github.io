@@ -27,6 +27,280 @@
     return html;
   }
 
+  // Pure utility functions
+
+  var STOP = {
+    a: 1,
+    an: 1,
+    and: 1,
+    are: 1,
+    as: 1,
+    at: 1,
+    be: 1,
+    been: 1,
+    but: 1,
+    by: 1,
+    do: 1,
+    for: 1,
+    from: 1,
+    had: 1,
+    has: 1,
+    have: 1,
+    he: 1,
+    her: 1,
+    him: 1,
+    his: 1,
+    how: 1,
+    i: 1,
+    if: 1,
+    in: 1,
+    is: 1,
+    it: 1,
+    its: 1,
+    me: 1,
+    my: 1,
+    no: 1,
+    not: 1,
+    of: 1,
+    on: 1,
+    or: 1,
+    our: 1,
+    out: 1,
+    she: 1,
+    so: 1,
+    than: 1,
+    that: 1,
+    the: 1,
+    their: 1,
+    them: 1,
+    then: 1,
+    there: 1,
+    they: 1,
+    this: 1,
+    to: 1,
+    up: 1,
+    us: 1,
+    was: 1,
+    we: 1,
+    were: 1,
+    what: 1,
+    when: 1,
+    which: 1,
+    who: 1,
+    will: 1,
+    with: 1,
+    you: 1,
+    your: 1,
+  };
+
+  var stemRules = [
+    [/ations?$/, 'ate'],
+    [/nesses?$/, ''],
+    [/ments?$/, ''],
+    [/ities?$/, 'y'],
+    [/ings?$/, ''],
+    [/iers?$/, 'y'],
+    [/ers?$/, ''],
+    [/ies$/, 'y'],
+    [/ied$/, 'y'],
+    [/ed$/, ''],
+    [/ly$/, ''],
+    [/([^s])s$/, '$1'],
+  ];
+  function stem(w) {
+    if (w.length < 4) return w;
+    for (var i = 0; i < stemRules.length; i++) {
+      var r = w.replace(stemRules[i][0], stemRules[i][1]);
+      if (r !== w && r.length >= 3) return r;
+    }
+    return w;
+  }
+
+  function tokenize(text, doStem) {
+    if (!text) return [];
+    var out = [];
+    text
+      .toLowerCase()
+      .split(/[^\w]+/)
+      .forEach(function (w) {
+        if (w.length < 2 || STOP[w]) return;
+        out.push(doStem ? stem(w) : w);
+      });
+    return out;
+  }
+
+  function parseFilterDate(val, startOfPeriod) {
+    var parts = val.split('-');
+    var y = parseInt(parts[0], 10);
+    if (isNaN(y)) return null;
+    var m = parts[1] ? parseInt(parts[1], 10) - 1 : startOfPeriod ? 0 : 11;
+    var d = parts[2] ? parseInt(parts[2], 10) : startOfPeriod ? 1 : new Date(y, m + 1, 0).getDate();
+    return new Date(
+      y,
+      m,
+      d,
+      startOfPeriod ? 0 : 23,
+      startOfPeriod ? 0 : 59,
+      startOfPeriod ? 0 : 59,
+      startOfPeriod ? 0 : 999,
+    );
+  }
+
+  function parseNumericFilter(val, minKey, maxKey, filters) {
+    var m;
+    if ((m = val.match(/^>(\d+)$/))) {
+      filters[minKey] = parseInt(m[1], 10) + 1;
+    } else if ((m = val.match(/^<(\d+)$/))) {
+      filters[maxKey] = parseInt(m[1], 10) - 1;
+    } else if ((m = val.match(/^>=(\d+)$/))) {
+      filters[minKey] = parseInt(m[1], 10);
+    } else if ((m = val.match(/^<=(\d+)$/))) {
+      filters[maxKey] = parseInt(m[1], 10);
+    } else if ((m = val.match(/^(\d+)-(\d+)$/))) {
+      filters[minKey] = parseInt(m[1], 10);
+      filters[maxKey] = parseInt(m[2], 10);
+    } else if ((m = val.match(/^(\d+)$/))) {
+      filters[minKey] = filters[maxKey] = parseInt(m[1], 10);
+    }
+  }
+
+  // Query parser
+  function parseQuery(raw) {
+    var q = raw.trim();
+    var p = {
+      phrases: [],
+      excludePhrases: [],
+      excludes: [],
+      fields: {},
+      orGroups: null,
+      terms: [],
+      filters: {
+        after: null,
+        before: null,
+        isType: null,
+        isFeatured: null,
+        hasImage: null,
+        wordsMin: null,
+        wordsMax: null,
+        timeMin: null,
+        timeMax: null,
+        inTitle: [],
+        inUrl: [],
+      },
+      raw: raw,
+    };
+
+    q = q.replace(/\bAND\b/g, ' ');
+
+    q = q.replace(/-('[^']+')/g, function (_, ph) {
+      var t = ph.slice(1, -1).trim().toLowerCase();
+      if (t) p.excludePhrases.push(t);
+      return ' ';
+    });
+    q = q.replace(/-(\"[^\"]+\")/g, function (_, ph) {
+      var t = ph.slice(1, -1).trim().toLowerCase();
+      if (t) p.excludePhrases.push(t);
+      return ' ';
+    });
+    q = q.replace(/'([^']+)'/g, function (_, ph) {
+      var t = ph.trim().toLowerCase();
+      if (t) p.phrases.push(t);
+      return ' ';
+    });
+    q = q.replace(/\"([^\"]+)\"/g, function (_, ph) {
+      var t = ph.trim().toLowerCase();
+      if (t) p.phrases.push(t);
+      return ' ';
+    });
+
+    q = q.replace(/(\w+):(\S+)/g, function (_, field, val) {
+      field = field.toLowerCase();
+      val = val.toLowerCase();
+      switch (field) {
+        case 'before':
+          p.filters.before = parseFilterDate(val, false);
+          break;
+        case 'after':
+          p.filters.after = parseFilterDate(val, true);
+          break;
+        case 'is':
+          if (val === 'featured') p.filters.isFeatured = true;
+          else p.filters.isType = val;
+          break;
+        case 'has':
+          if (val === 'image') p.filters.hasImage = true;
+          break;
+        case 'words':
+          parseNumericFilter(val, 'wordsMin', 'wordsMax', p.filters);
+          break;
+        case 'time':
+          parseNumericFilter(val, 'timeMin', 'timeMax', p.filters);
+          break;
+        case 'intitle':
+          tokenize(val, true).forEach(function (t) {
+            p.filters.inTitle.push(t);
+          });
+          break;
+        case 'inurl':
+          tokenize(val, false).forEach(function (t) {
+            p.filters.inUrl.push(t);
+          });
+          break;
+        case 'site':
+          p.fields['topic'] = val;
+          break;
+        default:
+          p.fields[field] = val;
+          break;
+      }
+      return ' ';
+    });
+
+    q = q.replace(/(^|\s)-(\S+)/g, function (_, ws, word) {
+      var t = stem(word.toLowerCase());
+      if (t) p.excludes.push(t);
+      return ws + ' ';
+    });
+
+    q = q.replace(/\(([^)]+)\)/g, function (_, inner) {
+      var parts = inner.split(/\bOR\b/i);
+      if (parts.length > 1) {
+        var group = [];
+        parts.forEach(function (pt) {
+          tokenize(pt, true).forEach(function (t) {
+            group.push(t);
+          });
+        });
+        if (group.length) {
+          if (!p.orGroups) p.orGroups = [];
+          p.orGroups.push(group);
+        }
+        return ' __ORGROUP__ ';
+      }
+      return inner;
+    });
+
+    var parts = q.split(/\bOR\b/i);
+    if (parts.length > 1) {
+      var topOr = parts
+        .map(function (pt) {
+          return tokenize(pt.replace('__ORGROUP__', ''), true);
+        })
+        .filter(function (g) {
+          return g.length;
+        });
+      if (topOr.length > 1) {
+        p.orGroups = (p.orGroups || []).concat(topOr);
+      } else {
+        p.terms = tokenize(q.replace('__ORGROUP__', ''), true);
+      }
+    } else {
+      p.terms = tokenize(q.replace('__ORGROUP__', ''), true);
+    }
+
+    return p;
+  }
+
   function initSearch() {
     var overlay = qs('#search-overlay');
     var closeBtn = qs('#search-close');
@@ -40,70 +314,6 @@
     var debounce;
     var lastFocused = null;
     var focusedIdx = -1;
-
-    var STOP = {
-      a: 1,
-      an: 1,
-      and: 1,
-      are: 1,
-      as: 1,
-      at: 1,
-      be: 1,
-      been: 1,
-      but: 1,
-      by: 1,
-      do: 1,
-      for: 1,
-      from: 1,
-      had: 1,
-      has: 1,
-      have: 1,
-      he: 1,
-      her: 1,
-      him: 1,
-      his: 1,
-      how: 1,
-      i: 1,
-      if: 1,
-      in: 1,
-      is: 1,
-      it: 1,
-      its: 1,
-      me: 1,
-      my: 1,
-      no: 1,
-      not: 1,
-      of: 1,
-      on: 1,
-      or: 1,
-      our: 1,
-      out: 1,
-      she: 1,
-      so: 1,
-      than: 1,
-      that: 1,
-      the: 1,
-      their: 1,
-      them: 1,
-      then: 1,
-      there: 1,
-      they: 1,
-      this: 1,
-      to: 1,
-      up: 1,
-      us: 1,
-      was: 1,
-      we: 1,
-      were: 1,
-      what: 1,
-      when: 1,
-      which: 1,
-      who: 1,
-      will: 1,
-      with: 1,
-      you: 1,
-      your: 1,
-    };
 
     var K1 = 1.5,
       B = 0.75;
@@ -141,42 +351,6 @@
           ),
         );
       } catch (e) {}
-    }
-
-    var stemRules = [
-      [/ations?$/, 'ate'],
-      [/nesses?$/, ''],
-      [/ments?$/, ''],
-      [/ities?$/, 'y'],
-      [/ings?$/, ''],
-      [/iers?$/, 'y'],
-      [/ers?$/, ''],
-      [/ies$/, 'y'],
-      [/ied$/, 'y'],
-      [/ed$/, ''],
-      [/ly$/, ''],
-      [/([^s])s$/, '$1'],
-    ];
-    function stem(w) {
-      if (w.length < 4) return w;
-      for (var i = 0; i < stemRules.length; i++) {
-        var r = w.replace(stemRules[i][0], stemRules[i][1]);
-        if (r !== w && r.length >= 3) return r;
-      }
-      return w;
-    }
-
-    function tokenize(text, doStem) {
-      if (!text) return [];
-      var out = [];
-      text
-        .toLowerCase()
-        .split(/[^\w]+/)
-        .forEach(function (w) {
-          if (w.length < 2 || STOP[w]) return;
-          out.push(doStem ? stem(w) : w);
-        });
-      return out;
     }
 
     // Index builder
@@ -268,178 +442,6 @@
         if (s > best) best = s;
       }
       return best;
-    }
-
-    // Query parser
-    function parseQuery(raw) {
-      var q = raw.trim();
-      var p = {
-        phrases: [],
-        excludePhrases: [],
-        excludes: [],
-        fields: {},
-        orGroups: null,
-        terms: [],
-        filters: {
-          after: null,
-          before: null,
-          isType: null,
-          isFeatured: null,
-          hasImage: null,
-          wordsMin: null,
-          wordsMax: null,
-          timeMin: null,
-          timeMax: null,
-          inTitle: [],
-          inUrl: [],
-        },
-        raw: raw,
-      };
-
-      q = q.replace(/\bAND\b/g, ' ');
-
-      q = q.replace(/-('[^']+')/g, function (_, ph) {
-        var t = ph.slice(1, -1).trim().toLowerCase();
-        if (t) p.excludePhrases.push(t);
-        return ' ';
-      });
-      q = q.replace(/-(\"[^\"]+\")/g, function (_, ph) {
-        var t = ph.slice(1, -1).trim().toLowerCase();
-        if (t) p.excludePhrases.push(t);
-        return ' ';
-      });
-      q = q.replace(/'([^']+)'/g, function (_, ph) {
-        var t = ph.trim().toLowerCase();
-        if (t) p.phrases.push(t);
-        return ' ';
-      });
-      q = q.replace(/\"([^\"]+)\"/g, function (_, ph) {
-        var t = ph.trim().toLowerCase();
-        if (t) p.phrases.push(t);
-        return ' ';
-      });
-
-      q = q.replace(/(\w+):(\S+)/g, function (_, field, val) {
-        field = field.toLowerCase();
-        val = val.toLowerCase();
-        switch (field) {
-          case 'before':
-            p.filters.before = parseFilterDate(val, false);
-            break;
-          case 'after':
-            p.filters.after = parseFilterDate(val, true);
-            break;
-          case 'is':
-            if (val === 'featured') p.filters.isFeatured = true;
-            else p.filters.isType = val;
-            break;
-          case 'has':
-            if (val === 'image') p.filters.hasImage = true;
-            break;
-          case 'words':
-            parseNumericFilter(val, 'wordsMin', 'wordsMax', p.filters);
-            break;
-          case 'time':
-            parseNumericFilter(val, 'timeMin', 'timeMax', p.filters);
-            break;
-          case 'intitle':
-            tokenize(val, true).forEach(function (t) {
-              p.filters.inTitle.push(t);
-            });
-            break;
-          case 'inurl':
-            tokenize(val, false).forEach(function (t) {
-              p.filters.inUrl.push(t);
-            });
-            break;
-          case 'site':
-            p.fields['topic'] = val;
-            break;
-          default:
-            p.fields[field] = val;
-            break;
-        }
-        return ' ';
-      });
-
-      q = q.replace(/(^|\s)-(\S+)/g, function (_, ws, word) {
-        var t = stem(word.toLowerCase());
-        if (t) p.excludes.push(t);
-        return ws + ' ';
-      });
-
-      q = q.replace(/\(([^)]+)\)/g, function (_, inner) {
-        var parts = inner.split(/\bOR\b/i);
-        if (parts.length > 1) {
-          var group = [];
-          parts.forEach(function (pt) {
-            tokenize(pt, true).forEach(function (t) {
-              group.push(t);
-            });
-          });
-          if (group.length) {
-            if (!p.orGroups) p.orGroups = [];
-            p.orGroups.push(group);
-          }
-          return ' __ORGROUP__ ';
-        }
-        return inner;
-      });
-
-      var parts = q.split(/\bOR\b/i);
-      if (parts.length > 1) {
-        var topOr = parts
-          .map(function (pt) {
-            return tokenize(pt.replace('__ORGROUP__', ''), true);
-          })
-          .filter(function (g) {
-            return g.length;
-          });
-        if (topOr.length > 1) {
-          p.orGroups = (p.orGroups || []).concat(topOr);
-        } else {
-          p.terms = tokenize(q.replace('__ORGROUP__', ''), true);
-        }
-      } else {
-        p.terms = tokenize(q.replace('__ORGROUP__', ''), true);
-      }
-
-      return p;
-    }
-
-    function parseFilterDate(val, startOfPeriod) {
-      var parts = val.split('-');
-      var y = parseInt(parts[0], 10);
-      if (isNaN(y)) return null;
-      var m = parts[1] ? parseInt(parts[1], 10) - 1 : startOfPeriod ? 0 : 11;
-      var d = parts[2] ? parseInt(parts[2], 10) : startOfPeriod ? 1 : new Date(y, m + 1, 0).getDate();
-      return new Date(
-        y,
-        m,
-        d,
-        startOfPeriod ? 0 : 23,
-        startOfPeriod ? 0 : 59,
-        startOfPeriod ? 0 : 59,
-        startOfPeriod ? 0 : 999,
-      );
-    }
-
-    function parseNumericFilter(val, minKey, maxKey, filters) {
-      var m;
-      if ((m = val.match(/^>(\d+)$/))) {
-        filters[minKey] = parseInt(m[1], 10) + 1;
-      } else if ((m = val.match(/^<(\d+)$/))) {
-        filters[maxKey] = parseInt(m[1], 10) - 1;
-      } else if ((m = val.match(/^>=(\d+)$/))) {
-        filters[minKey] = parseInt(m[1], 10);
-      } else if ((m = val.match(/^<=(\d+)$/))) {
-        filters[maxKey] = parseInt(m[1], 10);
-      } else if ((m = val.match(/^(\d+)-(\d+)$/))) {
-        filters[minKey] = parseInt(m[1], 10);
-        filters[maxKey] = parseInt(m[2], 10);
-      } else if ((m = val.match(/^(\d+)$/))) {
-        filters[minKey] = filters[maxKey] = parseInt(m[1], 10);
-      }
     }
 
     function unstemmedTokens(raw) {
@@ -619,7 +621,7 @@
       var body = doc.content || doc.excerpt || doc.description || '';
       var fallback = doc.excerpt || doc.description || '';
       if (!rawTerms.length || !body) {
-        return fallback ? escHtml(fallback.slice(0, 150) + (fallback.length > 150 ? '\u2026' : '')) : '';
+        return fallback ? escHtml(fallback.slice(0, 150) + (fallback.length > 150 ? '…' : '')) : '';
       }
       var lower = body.toLowerCase();
       var positions = [];
@@ -632,7 +634,7 @@
         }
       });
       if (!positions.length) {
-        return fallback ? escHtml(fallback.slice(0, 150) + (fallback.length > 150 ? '\u2026' : '')) : '';
+        return fallback ? escHtml(fallback.slice(0, 150) + (fallback.length > 150 ? '…' : '')) : '';
       }
       positions.sort(function (a, b) {
         return a - b;
@@ -654,7 +656,7 @@
       });
       var start = bestStart,
         end = Math.min(body.length, start + WIN);
-      var snip = (start > 0 ? '\u2026' : '') + body.slice(start, end).trim() + (end < body.length ? '\u2026' : '');
+      var snip = (start > 0 ? '…' : '') + body.slice(start, end).trim() + (end < body.length ? '…' : '');
       return highlightTerms(snip, rawTerms);
     }
 
@@ -675,11 +677,11 @@
               escHtml(p.type) +
               '</span>';
           }
-          var star = p.featured ? '<span class="search-result__featured" aria-label="Featured">\u2B50</span>' : '';
+          var star = p.featured ? '<span class="search-result__featured" aria-label="Featured">⭐</span>' : '';
           var sub = q
             ? makeSnippet(p, rawTerms)
             : p.description
-              ? escHtml(p.description.slice(0, 120) + (p.description.length > 120 ? '\u2026' : ''))
+              ? escHtml(p.description.slice(0, 120) + (p.description.length > 120 ? '…' : ''))
               : escHtml(p.date || '');
           return (
             '<a href="' +
@@ -1047,5 +1049,10 @@
     }
   }
 
-  document.addEventListener('DOMContentLoaded', initSearch);
+  if (typeof document !== 'undefined') {
+    document.addEventListener('DOMContentLoaded', initSearch);
+  }
+  if (typeof module !== 'undefined') {
+    module.exports = { stem, tokenize, parseQuery, parseFilterDate, parseNumericFilter };
+  }
 })();

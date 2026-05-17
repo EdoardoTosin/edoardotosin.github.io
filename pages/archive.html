@@ -18,11 +18,15 @@ permalink: /archive/
   <div class="archive-controls" id="archive-controls" hidden>
     <span class="archive-controls__label">{{ site.posts | size }} posts</span>
     <div class="archive-controls__actions">
-      <button class="archive-controls__btn" id="archive-expand-all" type="button">Expand all</button>
-      <button class="archive-controls__btn" id="archive-collapse-all" type="button">Collapse all</button>
+      <button class="archive-controls__btn" id="archive-expand-all" type="button" aria-controls="archive-years">
+        Expand all
+      </button>
+      <button class="archive-controls__btn" id="archive-collapse-all" type="button" aria-controls="archive-years">
+        Collapse all
+      </button>
     </div>
   </div>
-  <div class="archive-years">
+  <div class="archive-years" id="archive-years">
     {%- assign by_year = site.posts | group_by_exp: 'post', 'post.date | date: "%Y"' -%}
     {%- for year_group in by_year -%}
       {%- assign is_latest = forloop.first -%}
@@ -54,25 +58,50 @@ permalink: /archive/
           </svg>
         </summary>
 
-        <ul class="archive-list" role="list">
-          {%- for post in year_group.items -%}
-            <li class="archive-item">
-              <time class="archive-item__date" datetime="{{ post.date | date_to_xmlschema }}">
-                {{ post.date | date: '%d %b' }}
-              </time>
-              {%- if post.topic -%}
-                <a
-                  class="archive-item__topic"
-                  data-topic="{{ post.topic | downcase | escape }}"
-                  href="{{ '/topics/' | relative_url }}?topic={{ post.topic | downcase | slugify }}"
-                >
-                  {{- post.topic -}}
-                </a>
-              {%- endif -%}
-              <a class="archive-item__title" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
-            </li>
-          {%- endfor -%}
-        </ul>
+        {%- assign _total = year_group.items | size -%}
+        {%- assign _half = _total | plus: 1 | divided_by: 2 -%}
+        <div class="archive-cols">
+          <ul class="archive-list" role="list">
+            {%- for post in year_group.items limit: _half -%}
+              <li class="archive-item">
+                <time class="archive-item__date" datetime="{{ post.date | date_to_xmlschema }}">
+                  {{ post.date | date: '%d %b' }}
+                </time>
+                {%- if post.topic -%}
+                  <a
+                    class="archive-item__topic"
+                    data-topic="{{ post.topic | downcase | escape }}"
+                    href="{{ '/topics/' | relative_url }}?topic={{ post.topic | downcase | slugify }}"
+                  >
+                    {{- post.topic -}}
+                  </a>
+                {%- endif -%}
+                <a class="archive-item__title" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+              </li>
+            {%- endfor -%}
+          </ul>
+          {%- if _half < _total -%}
+            <ul class="archive-list" role="list">
+              {%- for post in year_group.items offset: _half -%}
+                <li class="archive-item">
+                  <time class="archive-item__date" datetime="{{ post.date | date_to_xmlschema }}">
+                    {{ post.date | date: '%d %b' }}
+                  </time>
+                  {%- if post.topic -%}
+                    <a
+                      class="archive-item__topic"
+                      data-topic="{{ post.topic | downcase | escape }}"
+                      href="{{ '/topics/' | relative_url }}?topic={{ post.topic | downcase | slugify }}"
+                    >
+                      {{- post.topic -}}
+                    </a>
+                  {%- endif -%}
+                  <a class="archive-item__title" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+                </li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+        </div>
       </details>
     {%- endfor -%}
   </div>

@@ -578,7 +578,7 @@
     transform: rotate(180deg);
   }
 
-  &[open] .archive-list {
+  &[open] .archive-cols {
     animation: archiveSlideDown 0.18s ease;
   }
 }
@@ -595,25 +595,52 @@
 }
 
 // Archive list
-.archive-list {
-  list-style: none;
-  padding: 0 0 $sp-6;
-  margin: 0;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0;
+.archive-cols {
+  padding-bottom: $sp-6;
+
+  .archive-list + .archive-list .archive-item:first-child {
+    border-top: 1px solid var(--border);
+  }
 
   @media (min-width: #{$bp-md}) {
+    display: grid;
     grid-template-columns: 1fr 1fr;
     column-gap: $sp-10;
+    align-items: start;
+
+    .archive-list + .archive-list .archive-item:first-child {
+      border-top: none;
+    }
+  }
+}
+
+.archive-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  @media (min-width: #{$bp-sm}) {
+    display: grid;
+    grid-template-columns: 52px auto 1fr;
+    column-gap: $sp-3;
+  }
+
+  @media (min-width: #{$bp-md}) {
+    grid-template-columns: 56px auto 1fr;
+  }
+
+  @media (min-width: #{$bp-lg}) {
+    grid-template-columns: 60px auto 1fr;
+    column-gap: $sp-4;
   }
 }
 
 .archive-item {
   display: grid;
-  grid-template-columns: 52px auto 1fr;
+  grid-template-columns: 48px 1fr;
+  grid-template-rows: auto auto;
   align-items: center;
-  gap: $sp-2 $sp-3;
+  gap: $sp-1 $sp-3;
   padding: $sp-3 0;
   border-top: 1px solid var(--border);
 
@@ -621,25 +648,12 @@
     border-top: none;
   }
 
-  @media (min-width: #{$bp-md}) {
-    grid-template-columns: 56px auto 1fr;
-    gap: $sp-2 $sp-3;
+  @media (min-width: #{$bp-sm}) {
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
+    grid-template-rows: auto;
+    row-gap: $sp-2;
     padding: $sp-3 0;
-
-    &:nth-child(2) {
-      border-top: none;
-    }
-  }
-
-  @media (min-width: #{$bp-lg}) {
-    grid-template-columns: 60px auto 1fr;
-    gap: $sp-2 $sp-4;
-  }
-
-  @media (max-width: #{$bp-sm}) {
-    grid-template-columns: 48px 1fr;
-    grid-template-rows: auto auto;
-    gap: $sp-1 $sp-3;
   }
 
   &__date {
@@ -679,17 +693,19 @@
   }
 
   &__title {
-    font-size: 0.9375rem;
+    grid-column: 2;
+    grid-row: 1;
+    font-size: 0.875rem;
     font-weight: 500;
     color: var(--text-primary);
     text-decoration: none;
     line-height: 1.45;
     transition: color $t-fast;
 
-    @media (max-width: #{$bp-sm}) {
-      grid-column: 2;
-      grid-row: 1;
-      font-size: 0.875rem;
+    @media (min-width: #{$bp-sm}) {
+      grid-column: 3;
+      grid-row: auto;
+      font-size: 0.9375rem;
     }
 
     @media (hover: hover) and (pointer: fine) {

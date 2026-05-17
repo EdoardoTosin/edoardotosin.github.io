@@ -210,7 +210,7 @@
     });
 
     fig.addEventListener('pointerdown', function (e) {
-      if (!e.isPrimary) return;
+      if (!e.isPrimary || e.button !== 0) return;
       dragStart = { x: e.clientX, y: e.clientY };
       dragging = false;
       swipingH = false;
@@ -246,7 +246,7 @@
     });
 
     fig.addEventListener('pointerup', function (e) {
-      if (!e.isPrimary) return;
+      if (!e.isPrimary || e.button !== 0) return;
       dialog.classList.remove('is-dragging');
       if (!dragStart) return;
 

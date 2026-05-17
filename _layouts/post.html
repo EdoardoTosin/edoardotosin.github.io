@@ -50,14 +50,14 @@ layout: default
           <span class="post-header__byline-author">{{ site.author.name }}</span>
           <div class="post-header__meta-details">
             <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
-              {{- page.date | date: '%d %b, %Y' -}}
+              {{- page.date | date: '%d %b %Y' -}}
             </time>
             {%- assign _pub_str = page.date | date: '%Y-%m-%d' -%}
             {%- assign _mod_str = page.last_modified_at | date: '%Y-%m-%d' -%}
             {%- if page.last_modified_at and _mod_str != _pub_str -%}
               <time datetime="{{ page.last_modified_at | date_to_xmlschema }}" itemprop="dateModified">
                 {{- 'Updated ' -}}
-                {{ page.last_modified_at | date: '%d %b, %Y' }}
+                {{ page.last_modified_at | date: '%d %b %Y' }}
               </time>
             {%- else -%}
               <meta itemprop="dateModified" content="{{ page.date | date_to_xmlschema }}">
@@ -84,7 +84,7 @@ layout: default
               stroke-linejoin="round"
               aria-hidden="true"
             >
-              <polyline points="6 9 12 15 18 9"/>
+              <path d="m6 9 6 6 6-6"/>
             </svg>
           </summary>
           <nav aria-label="Table of contents">

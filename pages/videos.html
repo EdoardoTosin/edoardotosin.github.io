@@ -34,7 +34,7 @@ permalink: /videos/
                 fill="currentColor"
                 aria-hidden="true"
               >
-                <polygon points="5 3 19 12 5 21 5 3"/>
+                <path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/>
               </svg>
             </div>
           </a>
@@ -42,7 +42,7 @@ permalink: /videos/
             <h3>
               <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
             </h3>
-            <p class="video-date">{{ post.date | date: '%d %b, %Y' }}</p>
+            <p class="video-date">{{ post.date | date: '%d %b %Y' }}</p>
           </div>
         </article>
       {%- endfor -%}

@@ -25,7 +25,7 @@
               <a href="{{ post.url | relative_url }}" title="{{ post.title | escape }}">{{ post.title }}</a>
             </h3>
             <time class="widget-post__date" datetime="{{ post.date | date_to_xmlschema }}">
-              {{ post.date | date: '%d %b, %Y' }}
+              {{ post.date | date: '%d %b %Y' }}
             </time>
           </div>
         </article>

@@ -50,7 +50,7 @@ permalink: /archive/
             stroke-linejoin="round"
             aria-hidden="true"
           >
-            <polyline points="6 9 12 15 18 9"/>
+            <path d="m6 9 6 6 6-6"/>
           </svg>
         </summary>
 
@@ -58,7 +58,7 @@ permalink: /archive/
           {%- for post in year_group.items -%}
             <li class="archive-item">
               <time class="archive-item__date" datetime="{{ post.date | date_to_xmlschema }}">
-                {{ post.date | date: '%b %d' }}
+                {{ post.date | date: '%d %b' }}
               </time>
               {%- if post.topic -%}
                 <a

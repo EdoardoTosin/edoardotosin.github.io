@@ -76,10 +76,8 @@ permalink: /blog/
               stroke-linejoin="round"
               aria-hidden="true"
             >
-              <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/>
-              <line x1="8" y1="18" x2="21" y2="18"/>
-              <line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/>
-              <line x1="3" y1="18" x2="3.01" y2="18"/>
+              <path d="M3 5h.01"/><path d="M3 12h.01"/><path d="M3 19h.01"/>
+              <path d="M8 5h13"/><path d="M8 12h13"/><path d="M8 19h13"/>
             </svg>
             <span class="sr-only">List view</span>
           </button>
@@ -159,7 +157,7 @@ permalink: /blog/
                     class="featured-item__date"
                     datetime="{{ post.date | date_to_xmlschema }}"
                   >
-                    {{ post.date | date: '%d %b, %Y' }}
+                    {{ post.date | date: '%d %b %Y' }}
                   </time>
                 </div>
               </div>

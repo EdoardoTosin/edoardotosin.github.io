@@ -67,6 +67,7 @@
   .hero__image-wrap,
   .video-card__play,
   .section-header__link,
+  .post-download,
   button[aria-label],
   [data-search-toggle] {
     display: none !important;
@@ -486,10 +487,27 @@
     box-shadow: none !important;
     transform: none !important;
 
+    &:nth-child(1) {
+      grid-column: span 1 !important;
+    }
+
+    &__thumb {
+      height: auto !important;
+      aspect-ratio: unset !important;
+      overflow: visible !important;
+    }
+
     &__thumb img {
-      max-height: 80pt !important;
       width: 100% !important;
-      object-fit: cover !important;
+      height: auto !important;
+      object-fit: unset !important;
+      display: block !important;
+    }
+
+    &__info {
+      padding: 2pt 4pt !important;
+      border-top: 0.5pt solid #ccc !important;
+      gap: 4pt !important;
     }
 
     &__download {
@@ -500,21 +518,14 @@
       font-size: 7pt !important;
       color: #000 !important;
       white-space: normal !important;
+      overflow: visible !important;
+      text-overflow: clip !important;
     }
 
     &__date {
       font-size: 6pt !important;
       color: #555 !important;
-    }
-  }
-
-  .post-download {
-    background: none;
-    border-left-color: transparent;
-    padding-left: 0;
-
-    &__btn {
-      display: none !important;
+      margin-top: 1pt !important;
     }
   }
 

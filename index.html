@@ -145,7 +145,7 @@ pagination:
         {%- endif -%}
         {%- if featured.size > 0 -%}
           <div class="blog-widget">
-            <h3 class="blog-widget__title">⭐ Featured Posts</h3>
+            <h3 class="blog-widget__title"><span aria-hidden="true">⭐</span> Featured Posts</h3>
             <div class="featured-list">
               {%- for post in featured -%}
                 <div class="featured-item">
@@ -320,11 +320,12 @@ pagination:
             <a
               href="{{ post.url | relative_url }}"
               class="video-card__thumb"
-              aria-label="{{ post.title | escape }}"
+              aria-hidden="true"
+              tabindex="-1"
             >
               <img
                 src="{{ post.image | default: '/images/social-preview.jpg' | relative_url }}"
-                alt="{{ post.title | escape }}"
+                alt=""
                 loading="lazy"
                 width="480"
                 height="270"

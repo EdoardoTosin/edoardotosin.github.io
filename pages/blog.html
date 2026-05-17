@@ -116,7 +116,7 @@ permalink: /blog/
         {%- endfor -%}
       </div>
 
-      <div class="filter-page__empty" id="year-empty" aria-live="polite">
+      <div class="filter-page__empty" id="year-empty" role="status" aria-live="polite">
         <span class="filter-page__empty-icon" aria-hidden="true">📭</span>
         <p id="year-empty-msg">No posts found.</p>
       </div>
@@ -136,7 +136,7 @@ permalink: /blog/
       {%- endif -%}
       {%- if featured.size > 0 -%}
         <div class="blog-widget">
-          <h3 class="blog-widget__title">&#11088; Featured</h3>
+          <h3 class="blog-widget__title"><span aria-hidden="true">&#11088;</span> Featured</h3>
           <div class="featured-list">
             {%- for post in featured -%}
               <div class="featured-item">

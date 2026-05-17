@@ -4,7 +4,7 @@
   <div class="container">
     <a href="{{ '/' | relative_url }}" class="site-logo" aria-label="{{ site.title }} home">
       {%- if site.logo -%}
-        <img src="{{ site.logo | relative_url }}" alt="{{ site.title }}" height="36" width="36" loading="eager">
+        <img src="{{ site.logo | relative_url }}" alt="" height="36" width="36" loading="eager">
       {%- endif -%}
       {{ site.title }}
     </a>
@@ -16,7 +16,7 @@
             <li class="site-nav__dropdown">
               <button
                 class="site-nav__dropdown-btn"
-                aria-haspopup="true"
+                aria-haspopup="menu"
                 aria-expanded="false"
               >
                 {{ link.title | escape }}

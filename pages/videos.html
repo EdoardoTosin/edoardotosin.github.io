@@ -17,10 +17,10 @@ permalink: /videos/
     <div class="video-grid">
       {%- for post in video_posts -%}
         <article class="video-card">
-          <a href="{{ post.url | relative_url }}" class="video-card__thumb" aria-label="{{ post.title | escape }}">
+          <a href="{{ post.url | relative_url }}" class="video-card__thumb" aria-hidden="true" tabindex="-1">
             <img
               src="{{ post.image | default: '/images/social-preview.jpg' | relative_url }}"
-              alt="{{ post.title | escape }}"
+              alt=""
               loading="lazy"
               width="480"
               height="270"

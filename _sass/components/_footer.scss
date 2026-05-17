@@ -151,8 +151,8 @@
       font-size: 0.9rem;
       color: var(--text-secondary);
       transition:
-        color $t-fast,
-        padding-left $t-fast;
+        color 0.15s ease,
+        padding-left 0.15s ease;
       text-decoration: none;
       display: inline-block;
 

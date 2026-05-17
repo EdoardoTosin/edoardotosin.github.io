@@ -733,12 +733,25 @@
     break-inside: avoid;
     page-break-before: auto;
     page-break-after: auto;
+    break-before: auto;
+    break-after: auto;
+  }
+
+  p:has(img) {
+    orphans: 1;
+    widows: 1;
   }
 
   figure {
     page-break-inside: avoid;
     break-inside: avoid;
     display: block;
+  }
+
+  .js-print-img {
+    display: block;
+    page-break-inside: avoid;
+    break-inside: avoid;
   }
 
   p:has(> img:only-child) {

@@ -504,6 +504,38 @@
     });
   }
 
+  // Print image wrapping (break-inside: avoid is only reliable on block containers, not on img itself)
+  function initPrintImageWrap() {
+    var wrapped = [];
+
+    function wrapAll() {
+      var content = qs('.post-content');
+      if (!content) return;
+      qsa('img', content).forEach(function (img) {
+        if (img.closest('figure')) return;
+        var div = document.createElement('div');
+        div.className = 'js-print-img';
+        img.parentNode.insertBefore(div, img);
+        div.appendChild(img);
+        wrapped.push(div);
+      });
+    }
+
+    function unwrapAll() {
+      wrapped.forEach(function (div) {
+        var img = div.querySelector('img');
+        if (img && div.parentNode) {
+          div.parentNode.insertBefore(img, div);
+          div.parentNode.removeChild(div);
+        }
+      });
+      wrapped = [];
+    }
+
+    window.addEventListener('beforeprint', wrapAll);
+    window.addEventListener('afterprint', unwrapAll);
+  }
+
   // Reading progress
   function initReadingProgress() {
     const bar = qs('#reading-progress');
@@ -788,6 +820,7 @@
     initMobileNav();
     initLazyImages();
     initImageZoom();
+    initPrintImageWrap();
     initReadingProgress();
     initLoadMore();
     initBlogToggle();

@@ -5,7 +5,7 @@ layout: post
 gallery: true
 short_url: sn2023ixf
 date: 2023-05-26 03:00:00 +0200
-last_modified_at: 2026-05-16 16:30:00 +0200
+last_modified_at: 2026-05-17 11:00:00 +0200
 lang: en
 image: https://raw.githubusercontent.com/EdoardoTosin/web-assets/refs/heads/main/blog/Astrophotography/Supernova%20in%20the%20Pinwheel%20galaxy.webp
 carousels:
@@ -19,6 +19,8 @@ carousels:
       - image: https://live.staticflickr.com/65535/52926129447_b5b2a2e102_h.jpg
         title: Supernova six days after discovery - 25 May 2023
         alt: Supernova visible in Pinwheel galaxy
+download_url: https://www.flickr.com/photos/edoardo_tosin/albums/72177720308577781
+image_zoom: https://live.staticflickr.com/65535/52926129447_b5b2a2e102_h.jpg
 topic: astrophotography
 tags:
   - astrophotography
@@ -39,9 +41,6 @@ A remarkable breakthrough in astronomy unfolded on 19 May 2023 with the discover
 ![SN 2023ixf supernova visible in the Pinwheel galaxy (M101), captured six days after discovery on 25 May 2023 (image 2)](https://live.staticflickr.com/65535/52926129447_b5b2a2e102_h.jpg)
 
 _Supernova in the Pinwheel galaxy taken from my backyard, captured six days after its discovery.[^5]_
-
-> [!TIP]
-> The photos are free to download, share, and adapt on [Flickr](https://www.flickr.com/photos/edoardo_tosin/albums/72177720308577781) for non-commercial use with attribution.
 
 ### What is SN 2023ixf?
 

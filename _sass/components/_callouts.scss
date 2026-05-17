@@ -155,7 +155,7 @@
           content: '▸';
           float: right;
           font-style: normal;
-          transition: transform $t-fast;
+          transition: transform $t-fast-p;
         }
       }
 
@@ -185,7 +185,7 @@
       text-decoration-color: var(--callout-color);
       text-underline-offset: 0.2em;
       text-decoration-thickness: 1px;
-      transition: opacity $t-fast;
+      transition: opacity $t-fast-p;
 
       &:hover {
         opacity: 0.75;

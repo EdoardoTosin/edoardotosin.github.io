@@ -82,8 +82,8 @@
     width: min(440px, 100%);
     margin: 0 auto $sp-4;
     transition:
-      border-color $t-fast,
-      box-shadow $t-fast;
+      border-color $t-fast-p,
+      box-shadow $t-fast-p;
 
     &:focus-within {
       border-color: var(--accent);
@@ -157,9 +157,9 @@
     text-decoration: none;
     color: var(--text-primary);
     transition:
-      background $t-fast,
-      border-color $t-fast,
-      transform $t-fast;
+      background $t-fast-p,
+      border-color $t-fast-p,
+      transform $t-fast-p;
     margin-bottom: $sp-2;
 
     &:hover {

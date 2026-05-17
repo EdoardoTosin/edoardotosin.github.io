@@ -100,7 +100,7 @@ p {
 a {
   color: var(--accent-text);
   text-decoration: none;
-  transition: color $t-fast;
+  transition: color $t-fast-p;
   // Hover colour only on pointer devices - prevents latch on touchscreens.
   @media (hover: hover) and (pointer: fine) {
     &:hover {

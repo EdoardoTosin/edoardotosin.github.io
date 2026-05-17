@@ -50,6 +50,9 @@ $header-h: 70px;
 // Transitions
 $t-fast: all 0.15s ease;
 $t-base: all 0.25s ease;
+// Per-property variants: no 'all' prefix, safe in multi-value transition lists
+$t-fast-p: 0.15s ease;
+$t-base-p: 0.25s ease;
 
 // Light mode (default)
 :root {
@@ -177,7 +180,7 @@ $t-base: all 0.25s ease;
   border-radius: $r-sm;
   position: relative;
   cursor: pointer;
-  transition: background $t-fast;
+  transition: background $t-fast-p;
   &:hover {
     background: var(--bg-tag);
   }

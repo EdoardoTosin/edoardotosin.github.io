@@ -185,12 +185,12 @@
   font-size: 0.8125rem;
   color: var(--text-secondary);
   text-decoration: none;
-  transition: color $t-fast;
+  transition: color $t-fast-p;
 
   svg {
     flex-shrink: 0;
     color: var(--text-muted);
-    transition: color $t-fast;
+    transition: color $t-fast-p;
   }
 
   @media (hover: hover) and (pointer: fine) {
@@ -286,9 +286,9 @@
   border-left: 2px solid transparent;
   border-radius: 0 $r-sm $r-sm 0;
   transition:
-    color $t-fast,
-    border-color $t-fast,
-    background $t-fast;
+    color $t-fast-p,
+    border-color $t-fast-p,
+    background $t-fast-p;
   word-break: break-word;
 
   &:hover {

@@ -151,8 +151,8 @@
       font-size: 0.9rem;
       color: var(--text-secondary);
       transition:
-        color 0.15s ease,
-        padding-left 0.15s ease;
+        color $t-fast-p,
+        padding-left $t-fast-p;
       text-decoration: none;
       display: inline-block;
 
@@ -245,7 +245,7 @@
       color: var(--text-secondary);
       font-weight: 500;
       text-decoration: none;
-      transition: color $t-fast;
+      transition: color $t-fast-p;
       white-space: nowrap;
 
       &:hover {

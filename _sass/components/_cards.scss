@@ -75,8 +75,8 @@
     position: relative;
     z-index: 1;
     transition:
-      background $t-fast,
-      color $t-fast;
+      background $t-fast-p,
+      color $t-fast-p;
 
     @include tag-pill-states;
   }
@@ -292,8 +292,8 @@
     padding: $sp-1 $sp-3;
     border-radius: $r-sm;
     transition:
-      background $t-fast,
-      color $t-fast;
+      background $t-fast-p,
+      color $t-fast-p;
   }
 
   // Promote tag-pill states through parent hover/focus
@@ -552,7 +552,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     line-height: 1.4;
-    transition: color $t-fast;
+    transition: color $t-fast-p;
 
     @media (hover: hover) and (pointer: fine) {
       &:hover {

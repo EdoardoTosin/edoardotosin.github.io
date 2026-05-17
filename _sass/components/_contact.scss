@@ -84,7 +84,7 @@
   gap: $sp-4;
   padding: $sp-3 $sp-2;
   border-radius: $r-sm;
-  transition: background $t-fast;
+  transition: background $t-fast-p;
 
   &:hover {
     background: var(--bg-tag);
@@ -262,10 +262,10 @@
     border-radius: $r-md;
     text-decoration: none;
     transition:
-      color $t-fast,
-      border-color $t-fast,
-      background $t-fast,
-      transform $t-fast;
+      color $t-fast-p,
+      border-color $t-fast-p,
+      background $t-fast-p,
+      transform $t-fast-p;
 
     svg {
       flex-shrink: 0;

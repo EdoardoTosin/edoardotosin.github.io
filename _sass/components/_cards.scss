@@ -464,79 +464,146 @@
 }
 
 .gallery-item {
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-self: start;
   border-radius: $r-md;
   overflow: hidden;
-  cursor: pointer;
-  display: block;
-  text-decoration: none;
-  aspect-ratio: 4 / 3;
-  background: var(--bg-tag);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-card);
+  transition:
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
 
   // First item spans 2 columns as a hero tile.
   &:nth-child(1) {
     grid-column: span 2;
-    aspect-ratio: 16 / 9;
+
+    .gallery-item__thumb {
+      aspect-ratio: 16 / 9;
+    }
 
     @media (max-width: #{$bp-md}) {
       grid-column: span 1;
-      aspect-ratio: 4 / 3;
+
+      .gallery-item__thumb {
+        aspect-ratio: 4 / 3;
+      }
     }
   }
 
   &:nth-child(odd):not(:nth-child(1)) {
-    aspect-ratio: 3 / 2;
+    .gallery-item__thumb {
+      aspect-ratio: 3 / 2;
+    }
   }
 
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    display: block;
-    transition: transform 0.4s ease;
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-2px);
+    }
   }
 
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.25) 40%, transparent 70%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
+  &__thumb {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    flex-shrink: 0;
 
-  &:hover {
     img {
-      transform: scale(1.06);
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      cursor: zoom-in;
+      transition: transform 0.4s ease;
     }
-    &::after {
-      opacity: 1;
-    }
-    .gallery-item__caption {
-      opacity: 1;
-      transform: translateY(0);
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover img {
+        transform: scale(1.04);
+      }
     }
   }
 
-  &:focus-visible {
-    @include focus-ring(3px);
+  &__info {
+    display: flex;
+    align-items: center;
+    gap: $sp-3;
+    padding: $sp-3 $sp-4;
+    border-top: 1px solid var(--border);
   }
 
-  &__caption {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: $sp-4 $sp-5;
-    color: #fff;
+  &__meta {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__title {
+    display: block;
     font-size: 0.875rem;
     font-weight: 600;
+    color: var(--text-primary);
+    text-decoration: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     line-height: 1.4;
-    z-index: 1;
-    opacity: 0;
-    transform: translateY(10px);
+    transition: color $t-fast;
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        color: var(--accent-text);
+      }
+    }
+
+    &:focus-visible {
+      @include focus-ring(2px);
+      border-radius: $r-sm;
+      outline-offset: 1px;
+    }
+  }
+
+  &__date {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+    line-height: 1.2;
+  }
+
+  &__download {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: $r-full;
+    border: 1.5px solid var(--border);
+    color: var(--text-secondary);
+    text-decoration: none;
     transition: $t-base;
-    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+    @include touch-reset;
+
+    @media (hover: none) {
+      width: 44px;
+      height: 44px;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        background: var(--accent-subtle);
+        border-color: var(--accent);
+        color: var(--accent-text);
+      }
+    }
+
+    &:focus-visible {
+      @include focus-ring(2px);
+    }
   }
 }

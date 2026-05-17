@@ -110,13 +110,19 @@
     const img = dialog && dialog.querySelector('img');
     const caption = dialog && dialog.querySelector('.img-zoom__caption');
     const closeBtn = dialog && dialog.querySelector('.img-zoom__close');
-    const content = qs('.post-content');
-    if (!dialog || !fig || !img || !caption || !closeBtn || !content) return;
+    if (!dialog || !fig || !img || !caption || !closeBtn) return;
 
     const zoomImgs = [];
-    qsa('img', content).forEach(function (srcImg) {
-      if (!srcImg.hasAttribute('data-no-zoom')) zoomImgs.push(srcImg);
+    const content = qs('.post-content');
+    if (content) {
+      qsa('img', content).forEach(function (srcImg) {
+        if (!srcImg.hasAttribute('data-no-zoom')) zoomImgs.push(srcImg);
+      });
+    }
+    qsa('.gallery-item__thumb img:not([data-no-zoom])').forEach(function (srcImg) {
+      zoomImgs.push(srcImg);
     });
+    if (!zoomImgs.length) return;
 
     let currentIdx = 0;
     let dragStart = null;

@@ -1,0 +1,54 @@
+<div class="gallery-item">
+  <div class="gallery-item__thumb">
+    <img
+      src="{{ include.post.image | default: '/images/social-preview.jpg' | relative_url }}"
+      alt="{{ include.post.title | escape }}"
+      {%- if include.post.image_zoom and include.post.image_zoom != '' %}
+        data-zoom="{{ include.post.image_zoom }}"
+      {%- endif %}
+      loading="lazy"
+      width="600"
+      height="400"
+    >
+  </div>
+  <div class="gallery-item__info">
+    <div class="gallery-item__meta">
+      <a href="{{ include.post.url | relative_url }}" class="gallery-item__title">
+        {{- include.post.title -}}
+      </a>
+      <time
+        datetime="{{ include.post.date | date_to_xmlschema }}"
+        class="gallery-item__date"
+      >
+        {{- include.post.date | date: '%d %b %Y' -}}
+      </time>
+    </div>
+    {%- if include.post.download_url and include.post.download_url != '' -%}
+      <a
+        href="{{ include.post.download_url }}"
+        class="gallery-item__download"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Download {{ include.post.title | escape }} (opens in new tab)"
+        title="Download original (opens in new tab)"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M12 15V3"/>
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <path d="m7 10 5 5 5-5"/>
+        </svg>
+      </a>
+    {%- endif -%}
+  </div>
+</div>

@@ -67,6 +67,39 @@ layout: default
         </div>
       </header>
 
+      {%- if page.gallery and page.download_url and page.download_url != '' -%}
+        <div class="post-download">
+          <p class="post-download__text">
+            <strong>Free to download.</strong> Share and adapt with attribution for non-commercial use.
+          </p>
+          <a
+            href="{{ page.download_url }}"
+            class="btn btn--primary btn--sm post-download__btn"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Download (opens in new tab)"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M12 15V3"/>
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <path d="m7 10 5 5 5-5"/>
+            </svg>
+            Download
+          </a>
+        </div>
+      {%- endif -%}
+
       <div class="toc-inline" id="toc-widget-inline" hidden>
         <details class="toc-inline__details">
           <summary class="toc-inline__summary">

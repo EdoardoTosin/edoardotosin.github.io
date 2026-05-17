@@ -483,16 +483,38 @@
 
   .gallery-item {
     break-inside: avoid;
+    box-shadow: none !important;
+    transform: none !important;
 
-    img {
+    &__thumb img {
       max-height: 80pt !important;
       width: 100% !important;
       object-fit: cover !important;
     }
 
-    &__caption {
+    &__download {
+      display: none !important;
+    }
+
+    &__title {
       font-size: 7pt !important;
-      display: block !important;
+      color: #000 !important;
+      white-space: normal !important;
+    }
+
+    &__date {
+      font-size: 6pt !important;
+      color: #555 !important;
+    }
+  }
+
+  .post-download {
+    background: none;
+    border-left-color: transparent;
+    padding-left: 0;
+
+    &__btn {
+      display: none !important;
     }
   }
 

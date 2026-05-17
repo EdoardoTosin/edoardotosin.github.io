@@ -16,20 +16,7 @@ permalink: /gallery/
   {%- if gallery_posts.size > 0 -%}
     <div class="gallery-grid">
       {%- for post in gallery_posts -%}
-        <a
-          href="{{ post.url | relative_url }}"
-          class="gallery-item"
-          aria-label="{{ post.title | escape }}"
-        >
-          <img
-            src="{{ post.image | default: '/images/social-preview.jpg' | relative_url }}"
-            alt="{{ post.title | escape }}"
-            loading="lazy"
-            width="600"
-            height="400"
-          >
-          <span class="gallery-item__caption">{{ post.caption | default: post.title }}</span>
-        </a>
+        {%- include gallery-card.html post=post -%}
       {%- endfor -%}
     </div>
   {%- else -%}

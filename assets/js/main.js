@@ -536,6 +536,27 @@
     window.addEventListener('afterprint', unwrapAll);
   }
 
+  // Gallery print (lazy thumbnails may be unfetched if gallery was never scrolled; force eager on idle and beforeprint)
+  function initGalleryPrintFix() {
+    var galleryImgs = qsa('.gallery-item__thumb img');
+    if (!galleryImgs.length) return;
+
+    function forceEager() {
+      galleryImgs.forEach(function (img) {
+        if (img.complete && img.naturalWidth > 0) return;
+        img.loading = 'eager';
+      });
+    }
+
+    if (typeof requestIdleCallback === 'function') {
+      requestIdleCallback(forceEager, { timeout: 2000 });
+    } else {
+      setTimeout(forceEager, 800);
+    }
+
+    window.addEventListener('beforeprint', forceEager);
+  }
+
   // Reading progress
   function initReadingProgress() {
     const bar = qs('#reading-progress');
@@ -821,6 +842,7 @@
     initLazyImages();
     initImageZoom();
     initPrintImageWrap();
+    initGalleryPrintFix();
     initReadingProgress();
     initLoadMore();
     initBlogToggle();

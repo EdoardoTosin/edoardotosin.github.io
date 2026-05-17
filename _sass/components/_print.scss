@@ -484,6 +484,7 @@
 
   .gallery-item {
     break-inside: avoid;
+    overflow: visible !important;
     box-shadow: none !important;
     transform: none !important;
 

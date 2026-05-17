@@ -21,6 +21,8 @@ keywords: [webpack, vite]
 featured: false
 video: false
 gallery: false
+download_url: 'https://example.com/gallery/my-album'
+image_zoom: ''
 
 math: false
 mermaid: false
@@ -88,6 +90,34 @@ description: 'A practical guide to setting up Arch Linux from scratch.'
 
 - Used as: SEO meta description, Open Graph, Twitter Card, post card text, search snippet.
 - Aim for 120-160 characters.
+
+## Gallery Posts
+
+Mark a post as a gallery entry by setting `gallery: true`. Gallery posts appear in the `/gallery/` page and in the homepage gallery section.
+
+```yaml
+gallery: true
+```
+
+### download_url
+
+```yaml
+download_url: 'https://example.com/gallery/my-album'
+```
+
+- Optional. When set, a **Download Photo** button is shown at the top of the post and a **Download** icon appears in the gallery card info strip.
+- Use this to link to a page where visitors can download or license the full-resolution original (e.g. a hosting album or portfolio page).
+- Must be a full URL (`https://`). An empty string or omitted field hides both buttons.
+
+### image_zoom
+
+```yaml
+image_zoom: 'https://example.com/photos/my-photo-hq.jpg'
+```
+
+- Optional. When set, clicking the gallery card thumbnail opens this URL in the fullscreen image viewer instead of the card's `image`.
+- Use this to serve a higher-resolution file in the viewer while keeping a compressed image as the card thumbnail.
+- Must be a full URL (`https://`). Omit the field to fall back to the `image` URL in the viewer.
 
 ## Callout Blocks
 

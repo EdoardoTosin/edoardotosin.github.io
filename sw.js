@@ -68,7 +68,7 @@ self.addEventListener('fetch', function (event) {
   var dest = req.destination;
 
   if (dest === 'image') {
-    event.respondWith(cacheFirst(req, IMAGE_CACHE, MAX_IMAGES));
+    event.respondWith(cacheFirst(req, IMAGE_CACHE, MAX_IMAGES, SAVED_CACHE));
     return;
   }
 
@@ -88,8 +88,8 @@ self.addEventListener('fetch', function (event) {
 
 // Strategies
 
-// Cache-first: serve from cache; fetch & cache if missing.
-function cacheFirst(req, cacheName, maxItems) {
+// Cache-first: serve from cache; fetch & cache if missing; check fallbackCacheName when offline.
+function cacheFirst(req, cacheName, maxItems, fallbackCacheName) {
   return caches.open(cacheName).then(function (cache) {
     return cache.match(req).then(function (cached) {
       if (cached) return cached;
@@ -99,7 +99,14 @@ function cacheFirst(req, cacheName, maxItems) {
           cache.put(req, res.clone());
         }
         return res;
-      }).catch(function () { return new Response('', { status: 503 }); });
+      }).catch(function () {
+        if (!fallbackCacheName) return new Response('', { status: 503 });
+        return caches.open(fallbackCacheName).then(function (fb) {
+          return fb.match(req).then(function (saved) {
+            return saved || new Response('', { status: 503 });
+          });
+        });
+      });
     });
   });
 }

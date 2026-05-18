@@ -198,7 +198,7 @@
     &-post:hover &-img img {
       transform: scale(1.04);
     }
-    &-post:hover &-title a {
+    &-post:hover &-title {
       color: var(--accent-text);
     }
   }

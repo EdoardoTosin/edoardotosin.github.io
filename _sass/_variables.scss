@@ -231,6 +231,7 @@ $z-skip: 9999;
   color: var(--text-primary);
   @include line-clamp(2);
   margin-bottom: 2px;
+  transition: color $t-fast-p;
   a {
     color: inherit;
     text-decoration: none;

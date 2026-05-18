@@ -185,24 +185,37 @@
   }
 
   &__link {
-    font-size: $fs-base;
-    font-weight: 500;
-    color: var(--text-muted);
+    display: inline-flex;
+    align-items: center;
+    height: 38px;
+    padding: 0 $sp-3;
+    font-size: $fs-sm;
+    font-weight: 600;
+    color: var(--text-secondary);
+    background: var(--bg-tag);
     text-decoration: none;
-    transition: $t-fast;
+    white-space: nowrap;
+    border-radius: $r-md;
+    transition:
+      background $t-fast-p,
+      color $t-fast-p;
 
-    &:hover {
-      color: var(--accent-text);
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        background: var(--accent-subtle);
+        color: var(--accent-text);
+      }
     }
 
     &:active {
+      background: var(--accent-subtle);
       color: var(--accent-text);
-      opacity: 0.75;
+      filter: brightness(0.92);
     }
 
     &:focus-visible {
       @include focus-ring;
-      border-radius: $r-sm;
+      border-radius: $r-md;
     }
   }
 }

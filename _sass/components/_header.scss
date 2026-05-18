@@ -518,9 +518,10 @@
     cursor: pointer;
     padding: 2px $sp-1;
     border-radius: $r-sm;
-    transition: $t-fast;
+    transition: color $t-fast-p;
     line-height: 1;
     flex-shrink: 0;
+    @include touch-reset;
 
     &:hover {
       color: var(--color-error);

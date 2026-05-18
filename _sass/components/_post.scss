@@ -1108,7 +1108,11 @@ $ext-link-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg
   font-size: $fs-md;
   font-weight: 600;
   min-height: 36px;
-  transition: $t-fast;
+  transition:
+    background $t-fast-p,
+    color $t-fast-p,
+    border-color $t-fast-p,
+    transform $t-fast-p;
   text-decoration: none;
   border: 1.5px solid transparent;
   cursor: pointer;

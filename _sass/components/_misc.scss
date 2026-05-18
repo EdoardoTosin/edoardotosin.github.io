@@ -508,25 +508,37 @@
   &__btn {
     font-family: $font-sans;
     font-size: $fs-sm;
-    font-weight: 500;
+    font-weight: 600;
     color: var(--text-secondary);
-    background: none;
-    border: 1px solid var(--border);
-    border-radius: $r-full;
-    padding: 4px $sp-3;
+    background: var(--bg-tag);
+    border: none;
+    border-radius: $r-md;
+    padding: 0 $sp-3;
+    height: 38px;
     cursor: pointer;
-    transition: $t-fast;
+    transition:
+      background $t-fast-p,
+      color $t-fast-p,
+      transform $t-fast-p;
     white-space: nowrap;
     @include touch-reset;
 
-    &:hover:not(:disabled) {
-      border-color: var(--border-strong);
-      background: var(--bg-tag);
-      color: var(--text-primary);
+    @media (hover: hover) and (pointer: fine) {
+      &:hover:not(:disabled) {
+        background: var(--accent-subtle);
+        color: var(--accent-text);
+      }
+    }
+
+    &:active:not(:disabled) {
+      background: var(--accent-subtle);
+      color: var(--accent-text);
+      transform: scale(0.94);
     }
 
     &:focus-visible {
       @include focus-ring;
+      border-radius: $r-md;
     }
 
     &:disabled {

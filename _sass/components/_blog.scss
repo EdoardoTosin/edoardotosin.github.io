@@ -146,8 +146,8 @@
 
   &.is-sticky {
     position: sticky;
-    top: calc(var(--header-h) + #{$sp-6});
-    max-height: calc(100vh - var(--header-h) - #{$sp-12});
+    top: var(--header-h);
+    max-height: calc(100vh - var(--header-h) - #{$sp-6});
     overflow-y: auto;
     overflow-x: hidden;
     scrollbar-width: none;

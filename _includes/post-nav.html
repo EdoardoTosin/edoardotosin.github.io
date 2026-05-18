@@ -17,7 +17,7 @@
   <nav class="post-nav" aria-label="Post navigation">
     {%- if _prev_post -%}
       <a href="{{ _prev_post.url | relative_url }}" class="post-nav__link post-nav__link--prev" rel="prev">
-        <span class="post-nav__label">&larr; Previous</span>
+        <span class="post-nav__label">Previous</span>
         <span class="post-nav__title" title="{{ _prev_post.title | escape }}">
           {{- _prev_post.title | truncate: 55 -}}
         </span>
@@ -28,7 +28,7 @@
 
     {%- if _next_post -%}
       <a href="{{ _next_post.url | relative_url }}" class="post-nav__link post-nav__link--next" rel="next">
-        <span class="post-nav__label">Next &rarr;</span>
+        <span class="post-nav__label">Next</span>
         <span class="post-nav__title" title="{{ _next_post.title | escape }}">
           {{- _next_post.title | truncate: 55 -}}
         </span>

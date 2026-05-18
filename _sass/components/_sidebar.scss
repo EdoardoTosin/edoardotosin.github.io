@@ -56,6 +56,9 @@
   &:hover &__img img {
     transform: scale(1.04);
   }
+  &:hover &__title a {
+    color: var(--accent-text);
+  }
   &__content {
     flex: 1;
     min-width: 0;

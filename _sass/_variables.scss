@@ -234,6 +234,7 @@ $z-skip: 9999;
   a {
     color: inherit;
     text-decoration: none;
+    transition: color $t-fast-p;
     &::after {
       content: '';
       position: absolute;

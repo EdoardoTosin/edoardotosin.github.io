@@ -43,7 +43,7 @@
     display: flex;
     align-items: center;
     gap: $sp-2;
-    font-size: 0.6875rem;
+    font-size: $fs-xs;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.09em;
@@ -63,7 +63,7 @@
   }
 
   &__desc {
-    font-size: 0.875rem;
+    font-size: $fs-base;
     color: var(--text-secondary);
     margin: -$sp-2 0 $sp-5;
     line-height: 1.7;
@@ -125,7 +125,7 @@
   }
 
   &__label {
-    font-size: 0.6875rem;
+    font-size: $fs-xs;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.07em;
@@ -140,7 +140,7 @@
   }
 
   &__value {
-    font-size: 0.9375rem;
+    font-size: $fs-lg;
     color: var(--text-primary);
     font-weight: 500;
     overflow: hidden;
@@ -154,7 +154,7 @@
   }
 
   &__note {
-    font-size: 0.75rem;
+    font-size: $fs-sm;
     color: var(--text-muted);
   }
 
@@ -212,7 +212,7 @@
 
   &__label {
     flex-shrink: 0;
-    font-size: 0.6875rem;
+    font-size: $fs-xs;
     font-weight: 700;
     color: var(--text-muted);
     min-width: 76px;
@@ -227,7 +227,7 @@
 
 .key-code {
   font-family: $font-mono;
-  font-size: 0.8125rem;
+  font-size: $fs-md;
   line-height: 1.5;
   color: var(--text-primary);
   word-break: break-word;
@@ -254,7 +254,7 @@
     align-items: center;
     gap: $sp-3;
     padding: $sp-3 $sp-4;
-    font-size: 0.875rem;
+    font-size: $fs-base;
     font-weight: 500;
     color: var(--text-secondary);
     background: var(--bg-body);

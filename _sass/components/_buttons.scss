@@ -9,7 +9,7 @@
   padding: $sp-3 $sp-6;
   border-radius: $r-full;
   font-family: $font-sans;
-  font-size: 0.9375rem;
+  font-size: $fs-lg;
   font-weight: 700;
   cursor: pointer;
   border: 2px solid transparent;
@@ -111,7 +111,7 @@
   // Sizes
   &--sm {
     padding: $sp-2 $sp-4;
-    font-size: 0.8125rem;
+    font-size: $fs-md;
   }
 
   &--lg {
@@ -176,7 +176,7 @@
   position: fixed;
   bottom: $sp-6;
   right: $sp-6;
-  z-index: 50;
+  z-index: $z-sticky;
   width: 44px;
   height: 44px;
   border-radius: 50%;

@@ -40,8 +40,8 @@
   height: 40px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur($blur-md);
+  -webkit-backdrop-filter: blur($blur-md);
   border: 1px solid rgba(255, 255, 255, 0.18);
   color: #fff;
   cursor: pointer;
@@ -102,7 +102,7 @@
 }
 
 .img-zoom__caption {
-  font-size: 0.8125rem;
+  font-size: $fs-md;
   color: rgba(255, 255, 255, 0.5);
   text-align: center;
   max-width: min(92vw, 640px);
@@ -161,7 +161,7 @@
     border: 1px solid var(--border);
     background: var(--bg-card);
     color: var(--text-secondary);
-    font-size: 0.875rem;
+    font-size: $fs-base;
     font-weight: 600;
     transition: $t-fast;
     text-decoration: none;
@@ -242,7 +242,7 @@
     border: 1px solid var(--border-ui);
     border-radius: $r-full;
     font-family: $font-sans;
-    font-size: 0.9375rem;
+    font-size: $fs-lg;
     color: var(--text-primary);
     outline: none;
     transition:
@@ -320,7 +320,7 @@
     background: var(--bg-card);
     border: 1px solid var(--border);
     border-radius: $r-full;
-    font-size: 0.875rem;
+    font-size: $fs-base;
     font-weight: 600;
     color: var(--text-secondary);
     transition: $t-fast;
@@ -331,13 +331,13 @@
     @include touch-reset;
 
     @media (max-width: #{$bp-sm}) {
-      font-size: 0.8125rem;
+      font-size: $fs-md;
       padding: $sp-1 $sp-3;
       min-height: 32px;
     }
 
     .count {
-      font-size: 0.6875rem;
+      font-size: $fs-xs;
       background: var(--bg-tag);
       color: var(--text-secondary);
       padding: 1px $sp-2;
@@ -388,7 +388,7 @@
   }
 
   &__meta {
-    font-size: 0.875rem;
+    font-size: $fs-base;
     color: var(--text-muted);
     text-align: center;
     margin-bottom: $sp-8;
@@ -476,7 +476,7 @@
   margin-bottom: 0;
 
   &__label {
-    font-size: 0.8125rem;
+    font-size: $fs-md;
     font-weight: 500;
     color: var(--text-muted);
   }
@@ -488,7 +488,7 @@
 
   &__btn {
     font-family: $font-sans;
-    font-size: 0.75rem;
+    font-size: $fs-sm;
     font-weight: 500;
     color: var(--text-secondary);
     background: none;
@@ -559,7 +559,7 @@
   }
 
   &__count {
-    font-size: 0.8125rem;
+    font-size: $fs-md;
     font-weight: 500;
     color: var(--text-secondary);
     background: var(--bg-tag);
@@ -657,7 +657,7 @@
   }
 
   &__date {
-    font-size: 0.8125rem;
+    font-size: $fs-md;
     color: var(--text-muted);
     white-space: nowrap;
     font-variant-numeric: tabular-nums;
@@ -665,7 +665,7 @@
   }
 
   &__topic {
-    font-size: 0.6875rem;
+    font-size: $fs-xs;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -688,14 +688,14 @@
       grid-column: 2;
       grid-row: 2;
       align-self: start;
-      font-size: 0.625rem;
+      font-size: $fs-2xs;
     }
   }
 
   &__title {
     grid-column: 2;
     grid-row: 1;
-    font-size: 0.875rem;
+    font-size: $fs-base;
     font-weight: 500;
     color: var(--text-primary);
     text-decoration: none;
@@ -705,7 +705,7 @@
     @media (min-width: #{$bp-sm}) {
       grid-column: 3;
       grid-row: auto;
-      font-size: 0.9375rem;
+      font-size: $fs-lg;
     }
 
     @media (hover: hover) and (pointer: fine) {
@@ -746,7 +746,7 @@
     display: flex;
     align-items: center;
     gap: $sp-2;
-    font-size: 0.8125rem;
+    font-size: $fs-md;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.08em;
@@ -804,7 +804,7 @@
   border: 1px solid var(--border-ui);
   border-radius: $r-md;
   font-family: $font-sans;
-  font-size: 0.9375rem;
+  font-size: $fs-lg;
   color: var(--text-primary);
   transition:
     border-color $t-fast-p,

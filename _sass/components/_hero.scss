@@ -20,7 +20,7 @@
     display: inline-flex;
     align-items: center;
     gap: $sp-2;
-    font-size: 0.875rem;
+    font-size: $fs-base;
     font-weight: 500;
     color: var(--accent-text);
     background: var(--accent-subtle);
@@ -185,7 +185,7 @@
   }
 
   &__link {
-    font-size: 0.875rem;
+    font-size: $fs-base;
     font-weight: 500;
     color: var(--text-muted);
     text-decoration: none;
@@ -268,7 +268,7 @@
     border: 1px solid var(--border-ui);
     border-radius: $r-full;
     font-family: $font-sans;
-    font-size: 0.9375rem;
+    font-size: $fs-lg;
     color: var(--text-primary);
     outline: none;
     transition: $t-fast;

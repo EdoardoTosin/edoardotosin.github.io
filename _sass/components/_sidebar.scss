@@ -64,7 +64,7 @@
     @include mini-post-title;
   }
   &__date {
-    font-size: 0.6875rem;
+    font-size: $fs-xs;
     color: var(--text-muted);
   }
 }
@@ -82,7 +82,7 @@
   padding: $sp-1 $sp-3;
   background: var(--tc-s, var(--bg-tag));
   color: var(--tc-t, var(--text-secondary));
-  font-size: 0.75rem;
+  font-size: $fs-sm;
   font-weight: 600;
   border-radius: $r-full;
   transition: $t-fast;
@@ -182,7 +182,7 @@
   align-items: center;
   gap: $sp-2;
   margin-top: $sp-3;
-  font-size: 0.8125rem;
+  font-size: $fs-md;
   color: var(--text-secondary);
   text-decoration: none;
   transition: color $t-fast-p;
@@ -217,7 +217,7 @@
 // Newsletter widget
 .widget-newsletter {
   &__desc {
-    font-size: 0.8125rem;
+    font-size: $fs-md;
     color: var(--text-secondary);
     line-height: 1.6;
     margin-bottom: $sp-4;
@@ -278,7 +278,7 @@
 
 .toc-link {
   display: block;
-  font-size: 0.8125rem;
+  font-size: $fs-md;
   line-height: 1.45;
   color: var(--text-secondary);
   text-decoration: none;

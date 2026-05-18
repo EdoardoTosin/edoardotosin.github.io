@@ -23,7 +23,7 @@
     align-items: center;
     gap: 0.4em;
     font-family: $font-heading;
-    font-size: 0.75rem;
+    font-size: $fs-sm;
     font-weight: 700;
     letter-spacing: 0.07em;
     text-transform: uppercase;
@@ -32,7 +32,7 @@
     &::before {
       font-family: system-ui, sans-serif;
       font-style: normal;
-      font-size: 0.9375rem;
+      font-size: $fs-lg;
       line-height: 1;
       flex-shrink: 0;
       display: inline-block;
@@ -42,7 +42,7 @@
   }
 
   .callout__content {
-    font-size: 0.9375rem;
+    font-size: $fs-lg;
     line-height: 1.7;
     color: var(--text-primary);
 
@@ -142,7 +142,7 @@
         cursor: pointer;
         padding: $sp-2 $sp-3;
         font-weight: 600;
-        font-size: 0.875rem;
+        font-size: $fs-base;
         list-style: none;
         background: var(--surface-raised);
         user-select: none;
@@ -222,7 +222,7 @@
       }
 
       figcaption {
-        font-size: 0.8125rem;
+        font-size: $fs-md;
         color: var(--text-muted);
         text-align: center;
         margin-top: $sp-1;

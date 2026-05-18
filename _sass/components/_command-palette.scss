@@ -4,7 +4,7 @@
 .cmd-palette {
   position: fixed;
   inset: 0;
-  z-index: 200;
+  z-index: $z-overlay;
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -18,8 +18,8 @@
     position: absolute;
     inset: 0;
     background: var(--bg-overlay);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur($blur-sm);
+    -webkit-backdrop-filter: blur($blur-sm);
     opacity: 0;
     transition: opacity 0.2s ease;
   }
@@ -89,7 +89,7 @@
     gap: $sp-5;
     padding: $sp-3 $sp-5;
     border-top: 1px solid var(--border);
-    font-size: 0.75rem;
+    font-size: $fs-sm;
     color: var(--text-muted);
 
     kbd {
@@ -111,7 +111,7 @@
 // Group label
 .cmd-group {
   &__label {
-    font-size: 0.6875rem;
+    font-size: $fs-xs;
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -133,7 +133,7 @@
   border: none;
   cursor: pointer;
   font-family: $font-sans;
-  font-size: 0.9375rem;
+  font-size: $fs-lg;
   color: var(--text-primary);
   transition: background 0.1s ease;
   @include touch-reset;
@@ -168,14 +168,14 @@
     display: flex;
     align-items: center;
     gap: $sp-2;
-    font-size: 0.75rem;
+    font-size: $fs-sm;
     color: var(--text-muted);
   }
 
   &__tag {
     display: inline-flex;
     align-items: center;
-    font-size: 0.6875rem;
+    font-size: $fs-xs;
     font-weight: 600;
     padding: 0 $sp-2;
     border-radius: $r-full;
@@ -206,7 +206,7 @@
 // Empty state
 .cmd-empty {
   padding: $sp-6 $sp-5;
-  font-size: 0.9375rem;
+  font-size: $fs-lg;
   color: var(--text-muted);
   text-align: center;
   margin: 0;

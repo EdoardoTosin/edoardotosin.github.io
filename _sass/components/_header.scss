@@ -17,15 +17,15 @@
 .site-header {
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: $z-header;
   height: var(--header-h);
 
   padding-left: var(--safe-left);
   padding-right: var(--safe-right);
 
   background: var(--bg-header);
-  backdrop-filter: blur(16px) saturate(1.6);
-  -webkit-backdrop-filter: blur(16px) saturate(1.6);
+  backdrop-filter: blur($blur-lg) saturate(1.6);
+  -webkit-backdrop-filter: blur($blur-lg) saturate(1.6);
 
   box-shadow: var(--shadow-header);
 
@@ -110,7 +110,7 @@
     align-items: center;
     min-height: 44px;
     padding: 0 $sp-3;
-    font-size: 0.875rem;
+    font-size: $fs-base;
     font-weight: 500;
     color: var(--text-secondary);
     border-radius: $r-sm;
@@ -186,7 +186,7 @@
       transform 0.18s ease,
       visibility 0s linear 0.18s;
     pointer-events: none;
-    z-index: 10;
+    z-index: $z-dropdown;
 
     @include retina {
       border-width: 0.5px;
@@ -209,7 +209,7 @@
         align-items: center;
         min-height: 40px;
         padding: 0 $sp-3;
-        font-size: 0.875rem;
+        font-size: $fs-base;
         color: var(--text-secondary);
         border-radius: $r-sm;
         text-decoration: none;
@@ -257,7 +257,7 @@
   cursor: pointer;
   transition: $t-fast;
   font-family: $font-sans;
-  font-size: 0.875rem;
+  font-size: $fs-base;
   white-space: nowrap;
   flex-shrink: 0;
   @include touch-reset;
@@ -301,7 +301,7 @@
 
   &__text {
     display: none;
-    font-size: 0.8125rem;
+    font-size: $fs-md;
 
     @media (min-width: #{$bp-xl}) {
       display: inline;
@@ -315,7 +315,7 @@
   inset: 0;
   padding-left: var(--safe-left);
   padding-right: var(--safe-right);
-  z-index: 210;
+  z-index: $z-overlay-top;
   background: var(--bg-overlay);
   display: flex;
   align-items: flex-start;
@@ -464,13 +464,13 @@
     }
 
     h4 {
-      font-size: 0.875rem;
+      font-size: $fs-base;
       color: var(--text-primary);
       margin-bottom: 2px;
       line-height: 1.35;
     }
     span {
-      font-size: 0.75rem;
+      font-size: $fs-sm;
       color: var(--text-muted);
       -webkit-line-clamp: 1;
       line-clamp: 1;
@@ -481,7 +481,7 @@
 
   &__section-label {
     display: block;
-    font-size: 0.6875rem;
+    font-size: $fs-xs;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.07em;
@@ -492,7 +492,7 @@
       font-weight: 600;
       text-transform: none;
       letter-spacing: 0;
-      font-size: 0.75rem;
+      font-size: $fs-sm;
       font-style: italic;
     }
   }
@@ -510,7 +510,7 @@
 
   &__clear-btn {
     font-family: $font-sans;
-    font-size: 0.6875rem;
+    font-size: $fs-xs;
     font-weight: 500;
     color: var(--text-muted);
     background: none;
@@ -553,7 +553,7 @@
     }
 
     p {
-      font-size: 0.875rem;
+      font-size: $fs-base;
       margin: 0;
 
       strong {
@@ -564,7 +564,7 @@
   }
 
   &__empty-hint {
-    font-size: 0.75rem;
+    font-size: $fs-sm;
     opacity: 0.7;
   }
 
@@ -576,7 +576,7 @@
     gap: $sp-1 $sp-4;
     padding: $sp-2 $sp-4 $sp-3;
     border-top: 1px solid var(--border);
-    font-size: 0.6875rem;
+    font-size: $fs-xs;
     color: var(--text-muted);
     user-select: none;
 
@@ -598,7 +598,7 @@
   margin-left: $sp-2;
   padding: 1px 7px;
   border-radius: $r-full;
-  font-size: 0.6875rem;
+  font-size: $fs-xs;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -623,7 +623,7 @@
 .search-result__featured {
   color: var(--accent);
   margin-right: 3px;
-  font-size: 0.75rem;
+  font-size: $fs-sm;
 }
 
 // Search history chips
@@ -637,7 +637,7 @@
   background: var(--bg-body);
   color: var(--text-secondary);
   font-family: $font-sans;
-  font-size: 0.75rem;
+  font-size: $fs-sm;
   cursor: pointer;
   transition: $t-fast;
   white-space: nowrap;
@@ -704,7 +704,7 @@
   background: var(--bg-body);
   color: var(--text-secondary);
   font-family: $font-mono;
-  font-size: 0.625rem;
+  font-size: $fs-2xs;
   line-height: 1.5;
   white-space: nowrap;
 
@@ -783,7 +783,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 99;
+  z-index: $z-nav-mobile;
   background: var(--bg-body);
   overflow-y: auto;
   overscroll-behavior: contain;

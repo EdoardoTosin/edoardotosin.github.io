@@ -20,7 +20,7 @@
   }
 
   &__likes-label {
-    font-size: 0.8125rem;
+    font-size: $fs-md;
     font-weight: 600;
     color: var(--text-muted);
     margin: 0 0 $sp-3;
@@ -46,7 +46,7 @@
   }
 
   &__loading {
-    font-size: 0.9375rem;
+    font-size: $fs-lg;
     color: var(--text-muted);
     margin: 0;
   }
@@ -62,7 +62,7 @@
   border-radius: 50%;
   background: var(--accent-subtle);
   color: var(--accent-text);
-  font-size: 0.875rem;
+  font-size: $fs-base;
   font-weight: 700;
   text-decoration: none;
   border: 2px solid var(--bg-card);
@@ -129,7 +129,7 @@
   }
 
   &__name {
-    font-size: 0.9375rem;
+    font-size: $fs-lg;
     font-weight: 600;
     color: var(--text-primary);
     text-decoration: none;
@@ -143,7 +143,7 @@
   }
 
   &__date {
-    font-size: 0.75rem;
+    font-size: $fs-sm;
     color: var(--text-muted);
   }
 
@@ -161,7 +161,7 @@
   }
 
   &__content {
-    font-size: 0.9375rem;
+    font-size: $fs-lg;
     color: var(--text-secondary);
     line-height: 1.6;
     margin: 0;

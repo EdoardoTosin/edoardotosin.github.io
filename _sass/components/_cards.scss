@@ -63,7 +63,7 @@
     display: inline-flex;
     align-self: flex-start;
     width: fit-content;
-    font-size: 0.75rem;
+    font-size: $fs-sm;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.06em;
@@ -112,7 +112,7 @@
   }
 
   &__description {
-    font-size: 0.875rem;
+    font-size: $fs-base;
     color: var(--text-secondary);
     line-height: 1.65;
     flex: 1;
@@ -123,7 +123,7 @@
     display: flex;
     align-items: center;
     gap: $sp-4;
-    font-size: 0.75rem;
+    font-size: $fs-sm;
     color: var(--text-muted);
     padding-top: $sp-3;
     border-top: 1px solid var(--border);
@@ -202,7 +202,7 @@
     @include mini-post-title;
   }
   &__date {
-    font-size: 0.6875rem;
+    font-size: $fs-xs;
     color: var(--text-muted);
   }
 }
@@ -285,7 +285,7 @@
     z-index: 1;
     color: var(--tc-t, var(--accent-text));
     background: var(--tc-s, var(--accent-subtle));
-    font-size: 0.75rem;
+    font-size: $fs-sm;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.06em;
@@ -326,7 +326,7 @@
 
   &__post-link {
     display: block;
-    font-size: 0.875rem;
+    font-size: $fs-base;
     font-weight: 600;
     color: var(--text-secondary);
     padding: $sp-2 $sp-3;
@@ -442,7 +442,7 @@
     }
 
     .video-date {
-      font-size: 0.8125rem;
+      font-size: $fs-md;
       color: var(--text-muted);
       margin-top: $sp-1;
     }
@@ -544,7 +544,7 @@
 
   &__title {
     display: block;
-    font-size: 0.875rem;
+    font-size: $fs-base;
     font-weight: 600;
     color: var(--text-primary);
     text-decoration: none;
@@ -569,7 +569,7 @@
 
   &__date {
     display: block;
-    font-size: 0.75rem;
+    font-size: $fs-sm;
     color: var(--text-muted);
     margin-top: 2px;
     line-height: 1.2;

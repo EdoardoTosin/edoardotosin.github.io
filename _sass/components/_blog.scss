@@ -85,7 +85,7 @@
   display: inline-flex;
   align-items: center;
   gap: $sp-1;
-  font-size: 0.875rem;
+  font-size: $fs-base;
   font-weight: 500;
   color: var(--text-muted);
   text-decoration: none;
@@ -208,7 +208,7 @@
   .post-card__description {
     -webkit-line-clamp: 2;
     line-clamp: 2;
-    font-size: 0.8125rem;
+    font-size: $fs-md;
   }
 
   // Collapse to stack layout on narrow screens
@@ -255,7 +255,7 @@
 
 // Blog page results label
 .blog__results-label {
-  font-size: 0.875rem;
+  font-size: $fs-base;
   color: var(--text-muted);
   min-height: 1.4em;
   flex: 1;
@@ -290,7 +290,7 @@
   justify-content: space-between;
   padding: $sp-2 $sp-3;
   border-radius: $r-sm;
-  font-size: 0.875rem;
+  font-size: $fs-base;
   font-weight: 600;
   color: var(--text-secondary);
   text-decoration: none;
@@ -312,7 +312,7 @@
 }
 
 .blog-widget__year-count {
-  font-size: 0.6875rem;
+  font-size: $fs-xs;
   background: var(--bg-tag);
   color: var(--text-muted);
   padding: 1px $sp-2;

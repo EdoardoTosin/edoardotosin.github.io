@@ -54,6 +54,29 @@ $t-base: all 0.25s ease;
 $t-fast-p: 0.15s ease;
 $t-base-p: 0.25s ease;
 
+// Font-size scale
+$fs-2xs: 0.625rem;
+$fs-xs: 0.6875rem;
+$fs-sm: 0.75rem;
+$fs-md: 0.8125rem;
+$fs-base: 0.875rem;
+$fs-lg: 0.9375rem;
+
+// Blur scale
+$blur-sm: 4px;
+$blur-md: 8px;
+$blur-lg: 16px;
+
+// Z-index scale
+$z-dropdown: 10;
+$z-sticky: 50;
+$z-nav-mobile: 99;
+$z-header: 100;
+$z-modal: 199;
+$z-overlay: 200;
+$z-overlay-top: 210;
+$z-skip: 9999;
+
 // Light mode (default)
 :root {
   color-scheme: light dark;
@@ -202,7 +225,7 @@ $t-base-p: 0.25s ease;
 }
 
 @mixin mini-post-title {
-  font-size: 0.8125rem;
+  font-size: $fs-md;
   font-weight: 700;
   line-height: 1.4;
   color: var(--text-primary);
@@ -220,7 +243,7 @@ $t-base-p: 0.25s ease;
 }
 
 @mixin widget-section-title {
-  font-size: 0.8125rem;
+  font-size: $fs-md;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;

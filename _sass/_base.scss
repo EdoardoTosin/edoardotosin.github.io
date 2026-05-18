@@ -86,7 +86,7 @@ h5 {
   font-size: 1rem;
 }
 h6 {
-  font-size: 0.875rem;
+  font-size: $fs-base;
 }
 
 p {
@@ -198,12 +198,12 @@ img[loading='lazy'].loaded {
   position: absolute;
   top: -100%;
   left: $sp-4;
-  z-index: 9999;
+  z-index: $z-skip;
   padding: $sp-3 $sp-5;
   background: var(--accent);
   color: var(--text-on-accent);
   font-weight: 700;
-  font-size: 0.875rem;
+  font-size: $fs-base;
   border-radius: $r-md;
   text-decoration: none;
   transition: top 0.15s ease;

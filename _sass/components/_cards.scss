@@ -21,10 +21,10 @@
     transform: translateY(-4px);
     box-shadow: var(--shadow-hover);
     border-color: var(--border-strong);
+  }
 
-    .post-card__img img {
-      transform: scale(1.04);
-    }
+  &:hover:not(:has(.post-card__tag:hover)) .post-card__img img {
+    transform: scale(1.04);
   }
 
   &:hover:not(:has(.post-card__tag:hover)) .post-card__title a {

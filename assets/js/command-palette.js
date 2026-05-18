@@ -26,9 +26,17 @@
   var posts = null;
   var isOpen = false;
   var activeIdx = -1;
+  var lastFocused = null;
+
+  function getFocusable() {
+    return Array.from(palette.querySelectorAll('input,button,[tabindex]:not([tabindex="-1"])')).filter(function (el) {
+      return !el.disabled;
+    });
+  }
 
   function open() {
     isOpen = true;
+    lastFocused = document.activeElement;
     palette.removeAttribute('hidden');
     document.body.style.overflow = 'hidden';
     requestAnimationFrame(function () {
@@ -48,6 +56,7 @@
     setTimeout(function () {
       if (!isOpen) palette.setAttribute('hidden', '');
     }, 200);
+    if (lastFocused && lastFocused.focus) lastFocused.focus();
   }
 
   function loadPosts() {
@@ -251,6 +260,22 @@
     if (e.key === 'Escape') {
       e.preventDefault();
       close();
+      return;
+    }
+    if (e.key === 'Tab') {
+      var f = getFocusable();
+      if (!f.length) return;
+      if (e.shiftKey) {
+        if (document.activeElement === f[0]) {
+          e.preventDefault();
+          f[f.length - 1].focus();
+        }
+      } else {
+        if (document.activeElement === f[f.length - 1]) {
+          e.preventDefault();
+          f[0].focus();
+        }
+      }
       return;
     }
     if (e.key === 'ArrowDown') {

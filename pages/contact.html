@@ -38,7 +38,7 @@ permalink: /contact/
             Messaging
           </h2>
 
-          <dl class="contact-list">
+          <div class="contact-list">
             {%- if site.author.email and site.author.email != '' -%}
               <div class="contact-item">
                 <div class="contact-item__icon" aria-hidden="true">
@@ -58,12 +58,12 @@ permalink: /contact/
                   </svg>
                 </div>
                 <div class="contact-item__body">
-                  <dt class="contact-item__label">Email</dt>
-                  <dd class="contact-item__value">
+                  <div class="contact-item__label">Email</div>
+                  <div class="contact-item__value">
                     <a href="mailto:{{ site.author.email | escape }}" class="contact-link">
                       {{- site.author.email | escape -}}
                     </a>
-                  </dd>
+                  </div>
                 </div>
               </div>
             {%- endif -%}
@@ -84,8 +84,8 @@ permalink: /contact/
                   </svg>
                 </div>
                 <div class="contact-item__body">
-                  <dt class="contact-item__label">Mastodon</dt>
-                  <dd class="contact-item__value">
+                  <div class="contact-item__label">Mastodon</div>
+                  <div class="contact-item__value">
                     <a
                       href="{{ site.social.mastodon | escape }}"
                       class="contact-link"
@@ -94,7 +94,7 @@ permalink: /contact/
                     >
                       {{- mastodon_handle | escape }}@{{ mastodon_instance | escape -}}
                     </a>
-                  </dd>
+                  </div>
                   <span class="contact-item__note">{{ mastodon_instance | escape }}</span>
                 </div>
               </div>
@@ -115,8 +115,8 @@ permalink: /contact/
                   </svg>
                 </div>
                 <div class="contact-item__body">
-                  <dt class="contact-item__label">Bluesky</dt>
-                  <dd class="contact-item__value">
+                  <div class="contact-item__label">Bluesky</div>
+                  <div class="contact-item__value">
                     <a
                       href="{{ site.social.bluesky | escape }}"
                       class="contact-link"
@@ -124,11 +124,11 @@ permalink: /contact/
                       target="_blank"
                       >@{{ bsky_handle -}}
                     </a>
-                  </dd>
+                  </div>
                 </div>
               </div>
             {%- endif -%}
-          </dl>
+          </div>
         </section>
 
         {%- if site.crypto_keys -%}
@@ -153,7 +153,7 @@ permalink: /contact/
             </h2>
             <p class="contact-section__desc">Use these keys to send encrypted email or verify my signed Git commits.</p>
 
-            <dl class="contact-list">
+            <div class="contact-list">
               {%- if site.crypto_keys.pgp_fingerprint and site.crypto_keys.pgp_fingerprint != '' -%}
                 <div class="contact-item contact-item--key">
                   <div class="contact-item__header">
@@ -174,12 +174,12 @@ permalink: /contact/
                         <circle cx="7.5" cy="15.5" r="5.5"/>
                       </svg>
                     </div>
-                    <dt class="contact-item__label">
+                    <div class="contact-item__label">
                       PGP Key
                       <span class="contact-item__label-note"> · email signing</span>
-                    </dt>
+                    </div>
                   </div>
-                  <dd class="contact-item__value" style="width:100%">
+                  <div class="contact-item__value" style="width:100%">
                     <div class="key-block">
                       <div class="key-block__row">
                         <span class="key-block__label">Key ID</span>
@@ -204,7 +204,7 @@ permalink: /contact/
                         </div>
                       {%- endif -%}
                     </div>
-                  </dd>
+                  </div>
                 </div>
               {%- endif -%}
 
@@ -227,12 +227,12 @@ permalink: /contact/
                         <path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/>
                       </svg>
                     </div>
-                    <dt class="contact-item__label">
+                    <div class="contact-item__label">
                       GPG Key
                       <span class="contact-item__label-note"> · Git commit signing</span>
-                    </dt>
+                    </div>
                   </div>
-                  <dd class="contact-item__value" style="width:100%">
+                  <div class="contact-item__value" style="width:100%">
                     <div class="key-block">
                       <div class="key-block__row">
                         <span class="key-block__label">Key ID</span>
@@ -257,10 +257,10 @@ permalink: /contact/
                         </div>
                       {%- endif -%}
                     </div>
-                  </dd>
+                  </div>
                 </div>
               {%- endif -%}
-            </dl>
+            </div>
           </section>
         {%- endif -%}
       </div>

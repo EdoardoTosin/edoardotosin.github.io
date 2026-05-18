@@ -163,7 +163,7 @@
         {%- for col in site.footer_nav -%}
           {%- if col.items and col.items.size > 0 -%}
             <div class="site-footer__nav-group">
-              <h3 class="site-footer__col-title">{{ col.group | escape }}</h3>
+              <h2 class="site-footer__col-title">{{ col.group | escape }}</h2>
               <ul class="site-footer__nav">
                 {%- for link in col.items -%}
                   {%- unless link.external -%}
@@ -198,7 +198,7 @@
       </div>
 
       <div class="site-footer__recent-col">
-        <h3 class="site-footer__col-title">Recent Posts</h3>
+        <h2 class="site-footer__col-title">Recent Posts</h2>
         <div class="site-footer__recent">
           {%- for post in site.posts limit: 3 -%}
             <div class="site-footer__recent-post">

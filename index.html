@@ -131,7 +131,7 @@ pagination:
         {%- endif -%}
       </div>
 
-      <aside
+      <div
         class="blog__aside{% if hp.sticky_sidebar != false %} is-sticky{% endif %}"
         aria-label="Blog sidebar"
       >
@@ -152,7 +152,7 @@ pagination:
                   <div class="featured-item__img" aria-hidden="true">
                     <img
                       src="{{ post.image | default: '/images/social-preview.jpg' | relative_url }}"
-                      alt="{{ post.title | escape }}"
+                      alt=""
                       loading="lazy"
                       width="60"
                       height="50"
@@ -208,7 +208,7 @@ pagination:
             </div>
           </div>
         {%- endif -%}
-      </aside>
+      </div>
     </div>
   </div>
 </section>
@@ -269,7 +269,7 @@ pagination:
               <a href="{{ '/topics/?topic=' | append: topic | relative_url }}" class="topic-group__header">
                 <img
                   src="{{ tp.first.image | default: '/images/social-preview.jpg' | relative_url }}"
-                  alt="{{ topic | escape }}"
+                  alt=""
                   loading="lazy"
                   width="280"
                   height="120"

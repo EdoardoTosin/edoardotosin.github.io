@@ -323,7 +323,11 @@
     font-size: $fs-base;
     font-weight: 600;
     color: var(--text-secondary);
-    transition: $t-fast;
+    transition:
+      background $t-fast-p,
+      color $t-fast-p,
+      border-color $t-fast-p,
+      transform $t-fast-p;
     text-decoration: none;
     cursor: pointer;
     white-space: nowrap;
@@ -342,17 +346,32 @@
       color: var(--text-secondary);
       padding: 1px $sp-2;
       border-radius: $r-full;
-      transition: $t-fast;
+      transition:
+        background $t-fast-p,
+        color $t-fast-p;
       min-width: 18px;
       text-align: center;
     }
 
-    &:hover,
+    @media (hover: hover) and (pointer: fine) {
+      &:hover:not(.is-active) {
+        background: var(--accent-subtle);
+        color: var(--accent-text);
+        border-color: var(--accent);
+        transform: translateY(-1px);
+
+        .count {
+          background: var(--accent);
+          color: var(--text-on-accent);
+        }
+      }
+    }
+
     &:focus-visible {
       background: var(--accent-subtle);
       color: var(--accent-text);
       border-color: var(--accent);
-      transform: translateY(-1px);
+      @include focus-ring;
 
       .count {
         background: var(--accent);
@@ -371,10 +390,6 @@
       background: var(--accent-subtle);
       color: var(--accent-text);
       border-color: var(--accent);
-
-      &:hover {
-        transform: none;
-      }
 
       .count {
         background: var(--accent);

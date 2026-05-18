@@ -91,7 +91,6 @@
       color: var(--text-primary);
       text-decoration: none;
       @include line-clamp(2);
-      position: relative;
 
       // Stretched link: covers the full card below z-index:1 siblings.
       &::after {

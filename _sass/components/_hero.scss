@@ -199,6 +199,7 @@
     transition:
       background $t-fast-p,
       color $t-fast-p;
+    @include touch-reset;
 
     @media (hover: hover) and (pointer: fine) {
       &:hover {

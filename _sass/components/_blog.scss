@@ -99,6 +99,7 @@
   transition:
     background $t-fast-p,
     color $t-fast-p;
+  @include touch-reset;
 
   svg {
     flex-shrink: 0;
@@ -304,11 +305,16 @@
   font-weight: 600;
   color: var(--text-secondary);
   text-decoration: none;
-  transition: $t-fast;
+  transition:
+    background $t-fast-p,
+    color $t-fast-p;
+  @include touch-reset;
 
-  &:hover {
-    background: var(--accent-subtle);
-    color: var(--accent-text);
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background: var(--accent-subtle);
+      color: var(--accent-text);
+    }
   }
 
   &:focus-visible {
@@ -330,7 +336,13 @@
   min-width: 20px;
   text-align: center;
 
-  .blog-widget__year-link:hover &,
+  @media (hover: hover) and (pointer: fine) {
+    .blog-widget__year-link:hover & {
+      background: var(--accent);
+      color: var(--text-on-accent);
+    }
+  }
+
   .blog-widget__year-link.is-active & {
     background: var(--accent);
     color: var(--text-on-accent);

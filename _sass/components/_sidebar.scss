@@ -88,7 +88,10 @@
   font-size: $fs-sm;
   font-weight: 600;
   border-radius: $r-full;
-  transition: $t-fast;
+  transition:
+    background $t-fast-p,
+    color $t-fast-p,
+    border-color $t-fast-p;
   border: 1px solid transparent;
   text-decoration: none;
   max-width: 200px;
@@ -98,10 +101,12 @@
   white-space: nowrap;
   @include touch-reset;
 
-  &:hover {
-    background: var(--tc, var(--accent));
-    color: var(--text-on-accent);
-    border-color: var(--tc, var(--accent));
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background: var(--tc, var(--accent));
+      color: var(--text-on-accent);
+      border-color: var(--tc, var(--accent));
+    }
   }
 
   &:active {

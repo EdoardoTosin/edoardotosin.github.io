@@ -337,12 +337,17 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    transition: $t-fast;
+    transition:
+      background $t-fast-p,
+      color $t-fast-p;
     text-decoration: none;
+    @include touch-reset;
 
-    &:hover {
-      color: var(--accent-text);
-      background: var(--accent-subtle);
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        color: var(--accent-text);
+        background: var(--accent-subtle);
+      }
     }
 
     &:focus-visible {
@@ -595,7 +600,10 @@
     border: 1.5px solid var(--border);
     color: var(--text-secondary);
     text-decoration: none;
-    transition: $t-base;
+    transition:
+      background $t-fast-p,
+      border-color $t-fast-p,
+      color $t-fast-p;
     @include touch-reset;
 
     @media (hover: none) {

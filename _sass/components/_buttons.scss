@@ -48,12 +48,14 @@
     border-color: var(--accent);
     box-shadow: var(--glow-accent-sm);
 
-    &:hover {
-      background: var(--accent-dark);
-      border-color: var(--accent-dark);
-      color: var(--text-on-accent);
-      transform: translateY(-2px);
-      box-shadow: var(--glow-accent-md);
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        background: var(--accent-dark);
+        border-color: var(--accent-dark);
+        color: var(--text-on-accent);
+        transform: translateY(-2px);
+        box-shadow: var(--glow-accent-md);
+      }
     }
 
     &:active {
@@ -70,11 +72,13 @@
     color: var(--text-primary);
     border-color: var(--text-secondary);
 
-    &:hover {
-      background: var(--bg-tag);
-      color: var(--text-primary);
-      border-color: var(--text-primary);
-      transform: translateY(-2px);
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        background: var(--bg-tag);
+        color: var(--text-primary);
+        border-color: var(--text-primary);
+        transform: translateY(-2px);
+      }
     }
 
     &:active {
@@ -92,11 +96,13 @@
     color: var(--accent-text);
     border-color: var(--accent);
 
-    &:hover {
-      background: var(--accent);
-      color: var(--text-on-accent);
-      transform: translateY(-1px);
-      box-shadow: var(--glow-accent-sm);
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        background: var(--accent);
+        color: var(--text-on-accent);
+        transform: translateY(-1px);
+        box-shadow: var(--glow-accent-sm);
+      }
     }
 
     &:active {

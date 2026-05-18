@@ -233,6 +233,7 @@ exclude:
   - debug.yml
   - docker-compose.yml
   - utilities
+  - scripts
   - docs
   - .well-known/unsigned-security.txt
   - .well-known/unsigned-security.txt.asc

@@ -12,6 +12,7 @@
   },
   "scripts": {
     "test": "jest",
+    "audit": "node scripts/audit.js",
     "format": "prettier --write \"**/*.{html,js,scss,md,yml}\"",
     "format:check": "prettier --check \"**/*.{html,js,scss,md,yml}\""
   },
@@ -28,7 +29,16 @@
   },
   "homepage": "https://github.com/EdoardoTosin/edoardotosin.github.io#readme",
   "jest": {
-    "testMatch": ["**/tests/**/*.test.js"],
-    "testPathIgnorePatterns": ["/node_modules/", "/_site/"]
+    "testMatch": [
+      "**/tests/**/*.test.js"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/_site/"
+    ]
+  },
+  "dependencies": {
+    "axe-core": "^4.11.4",
+    "jsdom": "^29.1.1"
   }
 }

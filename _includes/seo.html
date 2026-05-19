@@ -99,6 +99,8 @@
       "keywords": {{ seo_keywords | jsonify }}{% endif %}
     }
   </script>
+  {%- assign _bc_topic_slug = page.topic | downcase | url_encode -%}
+  {%- assign _bc_tag_slug = page.tags.first | downcase | url_encode -%}
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -108,7 +110,7 @@
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": {{ site.url | append: site.baseurl | jsonify }}
+          "item": {{ site.url | append: site.baseurl | append: "/" | jsonify }}
         },
         {
           "@type": "ListItem",
@@ -120,7 +122,7 @@
           "@type": "ListItem",
           "position": 3,
           "name": {{ page.topic | downcase | jsonify }},
-          "item": {{ site.url | append: site.baseurl | append: "/topics/?topic=" | append: page.topic | downcase | jsonify }}
+          "item": {{ site.url | append: site.baseurl | append: "/topics/?topic=" | append: _bc_topic_slug | jsonify }}
         },
         {
           "@type": "ListItem",
@@ -132,7 +134,7 @@
           "@type": "ListItem",
           "position": 3,
           "name": {{ page.tags.first | downcase | jsonify }},
-          "item": {{ site.url | append: site.baseurl | append: "/tags/?tag=" | append: page.tags.first | jsonify }}
+          "item": {{ site.url | append: site.baseurl | append: "/tags/?tag=" | append: _bc_tag_slug | jsonify }}
         },
         {
           "@type": "ListItem",

@@ -212,7 +212,7 @@
     }
 
     p {
-      font-size: 1.0625rem;
+      font-size: $fs-xl;
       color: var(--text-secondary);
       max-width: 520px;
       margin: 0 auto;
@@ -450,7 +450,7 @@
   }
 
   &__desc {
-    font-size: 1.0625rem;
+    font-size: $fs-xl;
     color: var(--text-secondary);
     max-width: 560px;
     margin: 0 auto;
@@ -700,8 +700,8 @@
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: var(--tc-t, var(--accent-text));
-    background: var(--tc-s, var(--accent-subtle));
+    color: var(--topic-color-text, var(--accent-text));
+    background: var(--topic-color-subtle, var(--accent-subtle));
     padding: 2px $sp-2;
     border-radius: $r-sm;
     text-decoration: none;
@@ -757,7 +757,7 @@
 .page-empty {
   text-align: center;
   color: var(--text-muted);
-  font-size: 1.0625rem;
+  font-size: $fs-xl;
   padding: $sp-20 0;
 }
 

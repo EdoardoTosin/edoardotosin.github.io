@@ -99,11 +99,11 @@
       padding: 1px 5px;
       background: var(--bg-code);
       border: 1px solid var(--border-strong);
-      border-radius: 4px;
+      border-radius: $r-xs;
       font-family: $font-mono;
-      font-size: 0.7rem;
+      font-size: $fs-sm;
       color: var(--text-secondary);
-      margin-right: 3px;
+      margin-right: $sp-1;
     }
   }
 }
@@ -222,9 +222,9 @@
     padding: 1px 6px;
     background: var(--bg-code);
     border: 1px solid var(--border);
-    border-radius: 4px;
+    border-radius: $r-xs;
     font-family: $font-mono;
-    font-size: 0.7rem;
+    font-size: $fs-sm;
     color: var(--text-muted);
     letter-spacing: 0;
     margin-left: $sp-2;

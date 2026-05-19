@@ -67,8 +67,8 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.06em;
-    color: var(--tc-t, var(--accent-text));
-    background: var(--tc-s, var(--accent-subtle));
+    color: var(--topic-color-text, var(--accent-text));
+    background: var(--topic-color-subtle, var(--accent-subtle));
     padding: $sp-1 $sp-3;
     border-radius: $r-sm;
     text-decoration: none;
@@ -285,8 +285,8 @@
     bottom: $sp-3;
     left: $sp-4;
     z-index: 1;
-    color: var(--tc-t, var(--accent-text));
-    background: var(--tc-s, var(--accent-subtle));
+    color: var(--topic-color-text, var(--accent-text));
+    background: var(--topic-color-subtle, var(--accent-subtle));
     font-size: $fs-sm;
     font-weight: 700;
     text-transform: uppercase;
@@ -301,16 +301,16 @@
   // Promote tag-pill states through parent hover/focus
   @media (hover: hover) and (pointer: fine) {
     &__header:hover &__header-tag {
-      background: var(--tc, var(--accent));
+      background: var(--topic-color, var(--accent));
       color: var(--text-on-accent);
     }
   }
   &__header:focus-visible &__header-tag {
-    background: var(--tc, var(--accent));
+    background: var(--topic-color, var(--accent));
     color: var(--text-on-accent);
   }
   &__header:active &__header-tag {
-    background: var(--tc, var(--accent));
+    background: var(--topic-color, var(--accent));
     color: var(--text-on-accent);
     filter: brightness(0.92);
   }
@@ -434,7 +434,7 @@
 
     svg {
       color: var(--text-on-accent);
-      margin-left: 3px;
+      margin-left: $sp-1;
     }
   }
 

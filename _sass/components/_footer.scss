@@ -148,7 +148,7 @@
     }
 
     a {
-      font-size: 0.9rem;
+      font-size: $fs-lg;
       color: var(--text-secondary);
       transition:
         color $t-fast-p,

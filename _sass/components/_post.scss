@@ -150,8 +150,8 @@ $ext-link-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.06em;
-    color: var(--tc-t, var(--accent-text));
-    background: var(--tc-s, var(--accent-subtle));
+    color: var(--topic-color-text, var(--accent-text));
+    background: var(--topic-color-subtle, var(--accent-subtle));
     padding: $sp-1 $sp-3;
     border-radius: $r-sm;
     margin-bottom: $sp-4;
@@ -309,7 +309,7 @@ $ext-link-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg
 
 // Article body
 .post-content {
-  font-size: 1.0625rem;
+  font-size: $fs-xl;
   line-height: 1.8;
   color: var(--text-secondary);
   max-width: inherit;
@@ -411,7 +411,7 @@ $ext-link-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg
       display: inline-block;
       width: 11px;
       height: 11px;
-      margin-left: 3px;
+      margin-left: $sp-1;
       vertical-align: -0.1em;
       flex-shrink: 0;
       background-color: currentColor;
@@ -519,7 +519,7 @@ $ext-link-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg
     overflow-x: auto;
     border-collapse: collapse;
     margin-bottom: $sp-8;
-    font-size: 0.9rem;
+    font-size: $fs-lg;
     min-width: 480px;
 
     th,
@@ -1611,7 +1611,7 @@ $ext-link-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg
         display: inline-block;
         width: 11px;
         height: 11px;
-        margin-left: 3px;
+        margin-left: $sp-1;
         vertical-align: -0.1em;
         flex-shrink: 0;
         background-color: currentColor;

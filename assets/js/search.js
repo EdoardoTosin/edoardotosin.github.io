@@ -16,12 +16,12 @@
 
   function highlightTerms(text, terms) {
     if (!terms || !terms.length) return escHtml(text);
-    var html = escHtml(text);
-    var seen = {};
+    let html = escHtml(text);
+    const seen = {};
     terms.forEach(function (term) {
       if (!term || seen[term]) return;
       seen[term] = true;
-      var re = new RegExp('(' + term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+      const re = new RegExp('(' + term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
       html = html.replace(re, '<mark>$1</mark>');
     });
     return html;
@@ -29,7 +29,7 @@
 
   // Pure utility functions
 
-  var STOP = {
+  const STOP = {
     a: 1,
     an: 1,
     and: 1,
@@ -93,7 +93,7 @@
     your: 1,
   };
 
-  var stemRules = [
+  const stemRules = [
     [/ations?$/, 'ate'],
     [/nesses?$/, ''],
     [/ments?$/, ''],
@@ -109,8 +109,8 @@
   ];
   function stem(w) {
     if (w.length < 4) return w;
-    for (var i = 0; i < stemRules.length; i++) {
-      var r = w.replace(stemRules[i][0], stemRules[i][1]);
+    for (let i = 0; i < stemRules.length; i++) {
+      const r = w.replace(stemRules[i][0], stemRules[i][1]);
       if (r !== w && r.length >= 3) return r;
     }
     return w;
@@ -118,7 +118,7 @@
 
   function tokenize(text, doStem) {
     if (!text) return [];
-    var out = [];
+    const out = [];
     text
       .toLowerCase()
       .split(/[^\w]+/)
@@ -130,11 +130,11 @@
   }
 
   function parseFilterDate(val, startOfPeriod) {
-    var parts = val.split('-');
-    var y = parseInt(parts[0], 10);
+    const parts = val.split('-');
+    const y = parseInt(parts[0], 10);
     if (isNaN(y)) return null;
-    var m = parts[1] ? parseInt(parts[1], 10) - 1 : startOfPeriod ? 0 : 11;
-    var d = parts[2] ? parseInt(parts[2], 10) : startOfPeriod ? 1 : new Date(y, m + 1, 0).getDate();
+    const m = parts[1] ? parseInt(parts[1], 10) - 1 : startOfPeriod ? 0 : 11;
+    const d = parts[2] ? parseInt(parts[2], 10) : startOfPeriod ? 1 : new Date(y, m + 1, 0).getDate();
     return new Date(
       y,
       m,
@@ -147,7 +147,7 @@
   }
 
   function parseNumericFilter(val, minKey, maxKey, filters) {
-    var m;
+    let m;
     if ((m = val.match(/^>(\d+)$/))) {
       filters[minKey] = parseInt(m[1], 10) + 1;
     } else if ((m = val.match(/^<(\d+)$/))) {
@@ -166,8 +166,8 @@
 
   // Query parser
   function parseQuery(raw) {
-    var q = raw.trim();
-    var p = {
+    let q = raw.trim();
+    const p = {
       phrases: [],
       excludePhrases: [],
       excludes: [],
@@ -193,22 +193,22 @@
     q = q.replace(/\bAND\b/g, ' ');
 
     q = q.replace(/-('[^']+')/g, function (_, ph) {
-      var t = ph.slice(1, -1).trim().toLowerCase();
+      const t = ph.slice(1, -1).trim().toLowerCase();
       if (t) p.excludePhrases.push(t);
       return ' ';
     });
     q = q.replace(/-(\"[^\"]+\")/g, function (_, ph) {
-      var t = ph.slice(1, -1).trim().toLowerCase();
+      const t = ph.slice(1, -1).trim().toLowerCase();
       if (t) p.excludePhrases.push(t);
       return ' ';
     });
     q = q.replace(/'([^']+)'/g, function (_, ph) {
-      var t = ph.trim().toLowerCase();
+      const t = ph.trim().toLowerCase();
       if (t) p.phrases.push(t);
       return ' ';
     });
     q = q.replace(/\"([^\"]+)\"/g, function (_, ph) {
-      var t = ph.trim().toLowerCase();
+      const t = ph.trim().toLowerCase();
       if (t) p.phrases.push(t);
       return ' ';
     });
@@ -257,15 +257,15 @@
     });
 
     q = q.replace(/(^|\s)-(\S+)/g, function (_, ws, word) {
-      var t = stem(word.toLowerCase());
+      const t = stem(word.toLowerCase());
       if (t) p.excludes.push(t);
       return ws + ' ';
     });
 
     q = q.replace(/\(([^)]+)\)/g, function (_, inner) {
-      var parts = inner.split(/\bOR\b/i);
+      const parts = inner.split(/\bOR\b/i);
       if (parts.length > 1) {
-        var group = [];
+        const group = [];
         parts.forEach(function (pt) {
           tokenize(pt, true).forEach(function (t) {
             group.push(t);
@@ -280,9 +280,9 @@
       return inner;
     });
 
-    var parts = q.split(/\bOR\b/i);
+    const parts = q.split(/\bOR\b/i);
     if (parts.length > 1) {
-      var topOr = parts
+      const topOr = parts
         .map(function (pt) {
           return tokenize(pt.replace('__ORGROUP__', ''), true);
         })
@@ -302,24 +302,24 @@
   }
 
   function initSearch() {
-    var overlay = qs('#search-overlay');
-    var closeBtn = qs('#search-close');
-    var input = qs('#search-input');
-    var results = qs('#search-results');
-    var toggleBtns = qsa('[data-search-toggle]');
+    const overlay = qs('#search-overlay');
+    const closeBtn = qs('#search-close');
+    const input = qs('#search-input');
+    const results = qs('#search-results');
+    const toggleBtns = qsa('[data-search-toggle]');
     if (!overlay) return;
 
-    var cache = null;
-    var idx = null;
-    var debounce;
-    var lastFocused = null;
-    var focusedIdx = -1;
+    let cache = null;
+    let idx = null;
+    let debounce;
+    let lastFocused = null;
+    let focusedIdx = -1;
 
-    var K1 = 1.5,
+    const K1 = 1.5,
       B = 0.75;
-    var FW = { title: 6, headings: 4, topic: 3, tags: 2.5, kws: 2, desc: 1.5, body: 1 };
+    const FW = { title: 6, headings: 4, topic: 3, tags: 2.5, kws: 2, desc: 1.5, body: 1 };
 
-    var HIST_KEY = 'jekyll-search-hist',
+    const HIST_KEY = 'jekyll-search-hist',
       HIST_MAX = 6;
     function getHistory() {
       try {
@@ -331,8 +331,8 @@
     function pushHistory(q) {
       q = q.trim();
       if (q.length < 3) return;
-      var s = stem(q.toLowerCase());
-      var h = getHistory().filter(function (x) {
+      const s = stem(q.toLowerCase());
+      const h = getHistory().filter(function (x) {
         return stem(x.toLowerCase()) !== s;
       });
       h.unshift(q);
@@ -355,11 +355,11 @@
 
     // Index builder
     function buildIndex(docs) {
-      var inv = {},
+      const inv = {},
         dl = {},
         N = docs.length;
       docs.forEach(function (doc, i) {
-        var fields = {
+        const fields = {
           title: doc.title || '',
           headings: doc.headings || '',
           topic: doc.topic || '',
@@ -370,9 +370,9 @@
         };
         dl[i] = {};
         Object.keys(fields).forEach(function (f) {
-          var toks = tokenize(fields[f], true);
+          const toks = tokenize(fields[f], true);
           dl[i][f] = toks.length;
-          var freq = {};
+          const freq = {};
           toks.forEach(function (t) {
             freq[t] = (freq[t] || 0) + 1;
           });
@@ -383,32 +383,32 @@
           });
         });
       });
-      var avgdl = {};
+      const avgdl = {};
       Object.keys(FW).forEach(function (f) {
-        var sum = 0;
-        for (var i = 0; i < N; i++) sum += (dl[i] && dl[i][f]) || 0;
+        let sum = 0;
+        for (let i = 0; i < N; i++) sum += (dl[i] && dl[i][f]) || 0;
         avgdl[f] = sum / N || 1;
       });
-      var idf = {};
+      const idf = {};
       Object.keys(inv).forEach(function (t) {
-        var df = Object.keys(inv[t]).length;
+        const df = Object.keys(inv[t]).length;
         idf[t] = Math.log((N - df + 0.5) / (df + 0.5) + 1);
       });
       return { inv: inv, idf: idf, avgdl: avgdl, dl: dl, N: N, vocab: Object.keys(inv).sort() };
     }
 
     function bm25(token, docIdx) {
-      var entry = idx.inv[token];
+      const entry = idx.inv[token];
       if (!entry || !entry[docIdx]) return 0;
-      var termIdf = idx.idf[token] || 0;
-      var docDl = idx.dl[docIdx];
-      var score = 0;
+      const termIdf = idx.idf[token] || 0;
+      const docDl = idx.dl[docIdx];
+      let score = 0;
       Object.keys(FW).forEach(function (f) {
-        var tf = entry[docIdx][f] || 0;
+        const tf = entry[docIdx][f] || 0;
         if (!tf) return;
-        var avgdl = idx.avgdl[f] || 1;
-        var docLen = (docDl && docDl[f]) || 0;
-        var tfN = (tf * (K1 + 1)) / (tf + K1 * (1 - B + (B * docLen) / avgdl));
+        const avgdl = idx.avgdl[f] || 1;
+        const docLen = (docDl && docDl[f]) || 0;
+        const tfN = (tf * (K1 + 1)) / (tf + K1 * (1 - B + (B * docLen) / avgdl));
         score += termIdf * tfN * FW[f];
       });
       return score;
@@ -416,37 +416,37 @@
 
     // Prefix search (binary search on sorted vocab)
     function prefixDocMatch(pfx, docIdx) {
-      var v = idx.vocab,
-        lo = 0,
+      const v = idx.vocab;
+      let lo = 0,
         hi = v.length - 1;
       while (lo <= hi) {
-        var mid = (lo + hi) >> 1;
+        const mid = (lo + hi) >> 1;
         if (v[mid] < pfx) lo = mid + 1;
         else hi = mid - 1;
       }
-      for (var i = lo; i < v.length && v[i].indexOf(pfx) === 0; i++) if (idx.inv[v[i]][docIdx]) return true;
+      for (let i = lo; i < v.length && v[i].indexOf(pfx) === 0; i++) if (idx.inv[v[i]][docIdx]) return true;
       return false;
     }
     function prefixBm25(pfx, docIdx) {
-      var v = idx.vocab,
-        lo = 0,
+      const v = idx.vocab;
+      let lo = 0,
         hi = v.length - 1,
         best = 0;
       while (lo <= hi) {
-        var mid = (lo + hi) >> 1;
+        const mid = (lo + hi) >> 1;
         if (v[mid] < pfx) lo = mid + 1;
         else hi = mid - 1;
       }
-      for (var i = lo; i < v.length && v[i].indexOf(pfx) === 0; i++) {
-        var s = bm25(v[i], docIdx);
+      for (let i = lo; i < v.length && v[i].indexOf(pfx) === 0; i++) {
+        const s = bm25(v[i], docIdx);
         if (s > best) best = s;
       }
       return best;
     }
 
     function unstemmedTokens(raw) {
-      var extra = [];
-      var q = raw
+      const extra = [];
+      const q = raw
         .replace(/-('[^']+')/g, ' ')
         .replace(/-(\"[^\"]+\")/g, ' ')
         .replace(/'([^']*)'/g, function (_, p) {
@@ -468,39 +468,39 @@
 
     // Score one document
     function scoreDoc(parsed, doc, docIdx) {
-      var title = (doc.title || '').toLowerCase();
-      var topic = (doc.topic || '').toLowerCase();
-      var url = (doc.url || doc.slug || '').toLowerCase();
-      var desc = (doc.description || '').toLowerCase();
-      var tags = (Array.isArray(doc.tags) ? doc.tags.join(' ') : doc.tags || '').toLowerCase();
-      var author = (doc.author || '').toLowerCase();
-      var type = (doc.type || 'post').toLowerCase();
-      var allText = [title, topic, tags, desc, doc.content || ''].join(' ').toLowerCase();
+      const title = (doc.title || '').toLowerCase();
+      const topic = (doc.topic || '').toLowerCase();
+      const url = (doc.url || doc.slug || '').toLowerCase();
+      const desc = (doc.description || '').toLowerCase();
+      const tags = (Array.isArray(doc.tags) ? doc.tags.join(' ') : doc.tags || '').toLowerCase();
+      const author = (doc.author || '').toLowerCase();
+      const type = (doc.type || 'post').toLowerCase();
+      const allText = [title, topic, tags, desc, doc.content || ''].join(' ').toLowerCase();
 
-      var filters = parsed.filters;
+      const filters = parsed.filters;
 
       // Hard filters
-      for (var e = 0; e < parsed.excludes.length; e++) {
+      for (let e = 0; e < parsed.excludes.length; e++) {
         if (idx.inv[parsed.excludes[e]] && idx.inv[parsed.excludes[e]][docIdx]) return null;
       }
 
-      for (var ep = 0; ep < parsed.excludePhrases.length; ep++) {
+      for (let ep = 0; ep < parsed.excludePhrases.length; ep++) {
         if (allText.indexOf(parsed.excludePhrases[ep]) !== -1) return null;
       }
 
-      for (var ph = 0; ph < parsed.phrases.length; ph++) {
+      for (let ph = 0; ph < parsed.phrases.length; ph++) {
         if (allText.indexOf(parsed.phrases[ph]) === -1) return null;
       }
 
-      var rawTagsArr = (Array.isArray(doc.tags) ? doc.tags : String(doc.tags || '').split(/\s+/))
+      const rawTagsArr = (Array.isArray(doc.tags) ? doc.tags : String(doc.tags || '').split(/\s+/))
         .map(function (t) {
           return String(t).toLowerCase();
         })
         .filter(Boolean);
 
-      for (var f in parsed.fields) {
+      for (const f in parsed.fields) {
         if (!Object.prototype.hasOwnProperty.call(parsed.fields, f)) continue;
-        var fval = parsed.fields[f];
+        const fval = parsed.fields[f];
         if (f === 'topic' || f === 'site') {
           if (topic !== fval) return null;
         } else if (f === 'tag' || f === 'tags') {
@@ -517,17 +517,17 @@
         }
       }
 
-      for (var it = 0; it < filters.inTitle.length; it++) {
-        var tt = filters.inTitle[it];
+      for (let it = 0; it < filters.inTitle.length; it++) {
+        const tt = filters.inTitle[it];
         if (title.indexOf(tt) === -1 && !prefixDocMatch(tt, docIdx)) return null;
       }
 
-      for (var iu = 0; iu < filters.inUrl.length; iu++) {
+      for (let iu = 0; iu < filters.inUrl.length; iu++) {
         if (url.indexOf(filters.inUrl[iu]) === -1) return null;
       }
 
       if (doc.date_iso) {
-        var postDate = new Date(doc.date_iso);
+        const postDate = new Date(doc.date_iso);
         if (filters.after && postDate < filters.after) return null;
         if (filters.before && postDate > filters.before) return null;
       }
@@ -539,7 +539,7 @@
         if (type !== filters.isType) return null;
       }
       if (filters.hasImage) {
-        var img = doc.image || '';
+        const img = doc.image || '';
         if (!img || img.indexOf('social-preview') !== -1) return null;
       }
 
@@ -553,12 +553,12 @@
         return null;
 
       // Scoring
-      var score = 0;
+      let score = 0;
 
       if (parsed.orGroups && parsed.orGroups.length) {
-        var matched = false;
+        let matched = false;
         parsed.orGroups.forEach(function (group) {
-          var groupHit = group.some(function (t) {
+          const groupHit = group.some(function (t) {
             return (idx.inv[t] && idx.inv[t][docIdx]) || prefixDocMatch(t, docIdx);
           });
           if (groupHit) {
@@ -573,11 +573,11 @@
         });
         if (!matched && !parsed.terms.length) return null;
       } else {
-        for (var ti = 0; ti < parsed.terms.length; ti++) {
-          var t = parsed.terms[ti];
-          var inI = !!(idx.inv[t] && idx.inv[t][docIdx]);
-          var inP = !inI && prefixDocMatch(t, docIdx);
-          var inTx = !inI && !inP && allText.indexOf(t) !== -1;
+        for (let ti = 0; ti < parsed.terms.length; ti++) {
+          const t = parsed.terms[ti];
+          const inI = !!(idx.inv[t] && idx.inv[t][docIdx]);
+          const inP = !inI && prefixDocMatch(t, docIdx);
+          const inTx = !inI && !inP && allText.indexOf(t) !== -1;
           if (!inI && !inP && !inTx) return null;
           score += inI ? bm25(t, docIdx) : inP ? prefixBm25(t, docIdx) * 0.8 : 0.1;
         }
@@ -590,7 +590,7 @@
         else score += 1;
       });
 
-      var allInTitle =
+      const allInTitle =
         parsed.terms.length > 0 &&
         parsed.terms.every(function (t) {
           return title.indexOf(t) !== -1 || prefixDocMatch(t, docIdx);
@@ -600,7 +600,7 @@
       if (title === parsed.terms.join(' ') || title === parsed.raw.trim().toLowerCase()) score += 20;
 
       if (parsed.terms.length > 1) {
-        var joined = parsed.terms.join(' ');
+        const joined = parsed.terms.join(' ');
         if (allText.indexOf(joined) !== -1) score += 2;
       }
 
@@ -609,7 +609,7 @@
       if (doc.featured) score += 0.5;
 
       if (doc.date_iso) {
-        var ageDays = (Date.now() - new Date(doc.date_iso).getTime()) / 86400000;
+        const ageDays = (Date.now() - new Date(doc.date_iso).getTime()) / 86400000;
         if (ageDays < 180) score += 1.2 * (1 - ageDays / 180);
       }
 
@@ -618,16 +618,16 @@
 
     // Snippet
     function makeSnippet(doc, rawTerms) {
-      var body = doc.content || doc.excerpt || doc.description || '';
-      var fallback = doc.excerpt || doc.description || '';
+      const body = doc.content || doc.excerpt || doc.description || '';
+      const fallback = doc.excerpt || doc.description || '';
       if (!rawTerms.length || !body) {
         return fallback ? escHtml(fallback.slice(0, 150) + (fallback.length > 150 ? '…' : '')) : '';
       }
-      var lower = body.toLowerCase();
-      var positions = [];
+      const lower = body.toLowerCase();
+      const positions = [];
       rawTerms.forEach(function (tok) {
-        var pos = 0,
-          found;
+        let pos = 0;
+        let found;
         while ((found = lower.indexOf(tok, pos)) !== -1) {
           positions.push(found);
           pos = found + 1;
@@ -639,14 +639,14 @@
       positions.sort(function (a, b) {
         return a - b;
       });
-      var WIN = 220,
-        bestStart = Math.max(0, positions[0] - 40),
+      const WIN = 220;
+      let bestStart = Math.max(0, positions[0] - 40),
         bestCount = 0;
       positions.forEach(function (pos) {
-        var ws = Math.max(0, pos - 40),
-          we = ws + WIN,
-          cnt = 0;
-        for (var pi = 0; pi < positions.length; pi++) {
+        const ws = Math.max(0, pos - 40),
+          we = ws + WIN;
+        let cnt = 0;
+        for (let pi = 0; pi < positions.length; pi++) {
           if (positions[pi] >= ws && positions[pi] <= we) cnt++;
         }
         if (cnt > bestCount) {
@@ -654,21 +654,21 @@
           bestStart = ws;
         }
       });
-      var start = bestStart,
+      const start = bestStart,
         end = Math.min(body.length, start + WIN);
-      var snip = (start > 0 ? '…' : '') + body.slice(start, end).trim() + (end < body.length ? '…' : '');
+      const snip = (start > 0 ? '…' : '') + body.slice(start, end).trim() + (end < body.length ? '…' : '');
       return highlightTerms(snip, rawTerms);
     }
 
     function safeUrl(url) {
-      var s = String(url || '');
+      const s = String(url || '');
       return /^https?:\/\/|^\//.test(s) ? s : '';
     }
 
     function renderHits(hits, q, rawTerms) {
       return hits
         .map(function (p) {
-          var typeBadge = '';
+          let typeBadge = '';
           if (p.type && p.type !== 'post') {
             typeBadge =
               '<span class="search-result__badge search-result__badge--' +
@@ -677,8 +677,8 @@
               escHtml(p.type) +
               '</span>';
           }
-          var star = p.featured ? '<span class="search-result__featured" aria-label="Featured">⭐</span>' : '';
-          var sub = q
+          const star = p.featured ? '<span class="search-result__featured" aria-label="Featured">⭐</span>' : '';
+          const sub = q
             ? makeSnippet(p, rawTerms)
             : p.description
               ? escHtml(p.description.slice(0, 120) + (p.description.length > 120 ? '…' : ''))
@@ -707,9 +707,9 @@
     }
 
     // History / homepage
-    var SVG_CLOCK =
+    const SVG_CLOCK =
       '<svg class="search-history__icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>';
-    var SVG_X =
+    const SVG_X =
       '<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
 
     function showHomepage() {
@@ -717,8 +717,8 @@
         results.innerHTML = '';
         return;
       }
-      var html = '',
-        hist = getHistory();
+      let html = '';
+      const hist = getHistory();
       if (hist.length) {
         html +=
           '<div class="search-overlay__section-header">' +
@@ -751,7 +751,7 @@
         html += '<div class="search-overlay__section-label">Recent posts</div>' + renderHits(cache.slice(0, 5), '', []);
       }
       results.innerHTML = html;
-      var clearBtn = results.querySelector('[data-clear-hist]');
+      const clearBtn = results.querySelector('[data-clear-hist]');
       if (clearBtn)
         clearBtn.addEventListener('click', function () {
           try {
@@ -761,14 +761,14 @@
         });
       results.querySelectorAll('.search-history__item').forEach(function (btn) {
         btn.addEventListener('click', function (e) {
-          var rmEl = e.target.closest('[data-rm]');
+          const rmEl = e.target.closest('[data-rm]');
           if (rmEl) {
             e.stopPropagation();
             removeHistory(rmEl.dataset.rm);
             showHomepage();
             return;
           }
-          var q = btn.dataset.hist;
+          const q = btn.dataset.hist;
           if (input) {
             input.value = q;
             runSearch(q);
@@ -776,7 +776,7 @@
         });
         btn.addEventListener('keydown', function (e) {
           if (e.key !== 'Enter' && e.key !== ' ') return;
-          var rmEl = e.target.closest('[data-rm]');
+          const rmEl = e.target.closest('[data-rm]');
           if (rmEl) {
             e.preventDefault();
             e.stopPropagation();
@@ -797,7 +797,7 @@
     }
     function trapFocus(e) {
       if (e.key !== 'Tab' || !overlay.classList.contains('is-open')) return;
-      var f = getFocusable();
+      const f = getFocusable();
       if (!f.length) return;
       if (e.shiftKey) {
         if (document.activeElement === f[0]) {
@@ -818,7 +818,7 @@
     }
     function navResults(e) {
       if (!overlay.classList.contains('is-open')) return;
-      var links = getLinks();
+      const links = getLinks();
       if (e.key === 'ArrowDown') {
         e.preventDefault();
         focusedIdx = Math.min(focusedIdx + 1, links.length - 1);
@@ -834,7 +834,7 @@
     }
     if (input) {
       input.addEventListener('keydown', function (e) {
-        var links = getLinks();
+        const links = getLinks();
         if ((e.key === 'ArrowDown' || e.key === 'Tab') && !e.shiftKey && links.length) {
           e.preventDefault();
           focusedIdx = 0;
@@ -848,9 +848,9 @@
 
     // Reset mobile viewport zoom
     function resetViewportZoom() {
-      var vp = document.querySelector('meta[name="viewport"]');
+      const vp = document.querySelector('meta[name="viewport"]');
       if (!vp) return;
-      var orig = vp.getAttribute('content') || '';
+      const orig = vp.getAttribute('content') || '';
       if (!orig) return;
       vp.setAttribute('content', orig + ', maximum-scale=1');
       setTimeout(function () {
@@ -900,12 +900,12 @@
     });
 
     results.addEventListener('click', function (e) {
-      var link = e.target.closest('a.search-overlay__result-item');
+      const link = e.target.closest('a.search-overlay__result-item');
       if (link && input && input.value.trim()) pushHistory(input.value.trim());
     });
     results.addEventListener('keydown', function (e) {
       if (e.key !== 'Enter') return;
-      var link = e.target.closest('a.search-overlay__result-item');
+      const link = e.target.closest('a.search-overlay__result-item');
       if (link && input && input.value.trim()) pushHistory(input.value.trim());
     });
     document.addEventListener('keydown', function (e) {
@@ -946,7 +946,7 @@
       input.addEventListener('input', function () {
         focusedIdx = -1;
         clearTimeout(debounce);
-        var q = input.value.trim();
+        const q = input.value.trim();
         debounce = setTimeout(function () {
           q ? runSearch(q) : showHomepage();
         }, 150);
@@ -960,11 +960,11 @@
         return;
       }
 
-      var parsed = parseQuery(rawQ);
-      var rawTerms = unstemmedTokens(rawQ);
-      var filters = parsed.filters;
+      const parsed = parseQuery(rawQ);
+      const rawTerms = unstemmedTokens(rawQ);
+      const filters = parsed.filters;
 
-      var hasQuery =
+      const hasQuery =
         parsed.terms.length ||
         parsed.phrases.length ||
         parsed.orGroups ||
@@ -987,20 +987,20 @@
         return;
       }
 
-      var scored = [];
+      const scored = [];
       cache.forEach(function (doc, i) {
-        var score = scoreDoc(parsed, doc, i);
+        const score = scoreDoc(parsed, doc, i);
         if (score !== null) scored.push({ item: doc, score: score });
       });
       scored.sort(function (a, b) {
         return b.score - a.score;
       });
-      var hits = scored.slice(0, 10).map(function (s) {
+      const hits = scored.slice(0, 10).map(function (s) {
         return s.item;
       });
 
       if (!hits.length && parsed.terms.length > 1 && !parsed.phrases.length && !parsed.orGroups) {
-        var relaxed = {
+        const relaxed = {
           phrases: [],
           excludePhrases: parsed.excludePhrases,
           excludes: parsed.excludes,
@@ -1010,15 +1010,15 @@
           filters: parsed.filters,
           raw: parsed.raw,
         };
-        var relScored = [];
+        const relScored = [];
         cache.forEach(function (doc, i) {
-          var s = scoreDoc(relaxed, doc, i);
+          const s = scoreDoc(relaxed, doc, i);
           if (s !== null) relScored.push({ item: doc, score: s });
         });
         relScored.sort(function (a, b) {
           return b.score - a.score;
         });
-        var relHits = relScored.slice(0, 8).map(function (s) {
+        const relHits = relScored.slice(0, 8).map(function (s) {
           return s.item;
         });
         if (relHits.length) {
@@ -1030,7 +1030,7 @@
       }
 
       if (!hits.length) {
-        var isFilterOnly = !parsed.terms.length && !parsed.phrases.length && !parsed.orGroups;
+        const isFilterOnly = !parsed.terms.length && !parsed.phrases.length && !parsed.orGroups;
         results.innerHTML =
           '<div class="search-overlay__empty">' +
           '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M8 11h6"/></svg>' +
@@ -1043,7 +1043,7 @@
         return;
       }
 
-      var label = escHtml(String(scored.length)) + ' result' + (scored.length === 1 ? '' : 's');
+      const label = escHtml(String(scored.length)) + ' result' + (scored.length === 1 ? '' : 's');
       results.innerHTML =
         '<div class="search-overlay__section-label">' + label + '</div>' + renderHits(hits, rawQ, rawTerms);
     }

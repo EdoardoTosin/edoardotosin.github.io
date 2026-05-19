@@ -7,19 +7,24 @@
   &__main {
     padding: $sp-16 0 $sp-10;
 
-    // Three stable grid areas: brand | nav-cols | recent
+    // Three stable grid areas: brand | recent | nav
     .container {
       display: grid;
       gap: $sp-10;
-      grid-template-columns: 1.5fr 2fr 1.5fr;
-      grid-template-areas: 'brand nav recent';
+      grid-template-columns: 1.5fr 1fr 2fr;
+      grid-template-areas: 'brand recent nav';
 
       @media (max-width: #{$bp-lg}) {
-        // tablet: brand+recent on top, nav full-width below
+        // tablet: brand+recent stacked left, nav right spanning both rows
         grid-template-columns: 1fr 1fr;
         grid-template-areas:
-          'brand  recent'
-          'nav    nav';
+          'brand  nav'
+          'recent nav';
+        row-gap: $sp-6;
+
+        > .site-footer__nav-cols {
+          align-self: start;
+        }
       }
 
       @media (max-width: #{$bp-md}) {
@@ -27,8 +32,8 @@
         grid-template-columns: 1fr;
         grid-template-areas:
           'brand'
-          'nav'
-          'recent';
+          'recent'
+          'nav';
         gap: $sp-8;
       }
 

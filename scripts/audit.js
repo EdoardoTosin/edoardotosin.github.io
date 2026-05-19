@@ -60,8 +60,11 @@ async function auditPage(pageUrl) {
 
 async function main() {
   let totalViolations = 0;
+  let pagesWithViolations = 0;
 
-  for (const page of PAGES) {
+  for (const [i, page] of PAGES.entries()) {
+    if (i > 0) console.log('');
+
     let results;
     try {
       results = await auditPage(page);
@@ -70,11 +73,14 @@ async function main() {
       continue;
     }
 
+    const incompleteNote = results.incomplete.length ? `, ${results.incomplete.length} need review` : '';
+
     if (results.violations.length === 0) {
-      console.log(`✓ ${page} — 0 violations (${results.passes.length} rules passed)`);
+      console.log(`✓ ${page} - 0 violations (${results.passes.length} passed${incompleteNote})`);
     } else {
+      pagesWithViolations++;
       totalViolations += results.violations.length;
-      console.log(`✗ ${page} — ${results.violations.length} violation(s):`);
+      console.log(`✗ ${page} - ${results.violations.length} violation(s)${incompleteNote}:`);
       results.violations.forEach((v) => {
         const impact = v.impact ? `[${v.impact.toUpperCase()}]` : '';
         console.log(`  ${impact} ${v.id}: ${v.description}`);
@@ -85,13 +91,10 @@ async function main() {
         if (v.nodes.length > 2) console.log(`    … +${v.nodes.length - 2} more`);
       });
     }
-
-    if (results.incomplete.length) {
-      console.log(`  (${results.incomplete.length} item(s) need manual review)`);
-    }
   }
 
-  console.log(`\nTotal violations: ${totalViolations}`);
+  const pagesPassed = PAGES.length - pagesWithViolations;
+  console.log(`\n${pagesPassed}/${PAGES.length} pages passed - ${totalViolations} total violation(s)`);
   process.exit(totalViolations > 0 ? 1 : 0);
 }
 

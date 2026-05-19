@@ -5,7 +5,7 @@
 {%- endif -%}
 
 {%- assign seo_desc = page.description | default: site.description | strip_html | strip_newlines | truncate: 160 -%}
-{%- assign seo_url = page.url | absolute_url -%}
+{%- assign seo_url = page.url | replace: '/index.html', '/' | absolute_url -%}
 {%- assign seo_image = page.image | default: '/images/social-preview.jpg' | absolute_url -%}
 {%- assign seo_author = page.author | default: site.author.name -%}
 {%- assign seo_robots = page.robots | default: 'index, follow' -%}

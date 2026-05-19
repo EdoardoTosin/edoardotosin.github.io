@@ -66,12 +66,11 @@
   }
 
   &__col-title {
-    font-size: $fs-md;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--text-muted);
-    margin-bottom: $sp-5;
+    @include widget-section-title;
+
+    @include retina {
+      border-bottom-width: 0.5px;
+    }
   }
 
   // Brand
@@ -104,34 +103,43 @@
     }
 
     a {
-      width: 34px;
-      height: 34px;
+      width: 44px;
+      height: 44px;
       border-radius: $r-full;
-      background: var(--bg-body);
-      border: 1px solid var(--border);
+      background: var(--bg-tag);
+      border: 1px solid var(--border-strong);
       display: flex;
       align-items: center;
       justify-content: center;
       color: var(--text-muted);
       transition: $t-fast;
       text-decoration: none;
+      flex-shrink: 0;
+      @include touch-reset;
 
-      svg {
-        width: 15px;
-        height: 15px;
+      @include retina {
+        border-width: 0.5px;
       }
 
-      &:hover {
-        background: var(--accent-subtle);
-        color: var(--accent-text);
-        border-color: var(--accent);
+      svg {
+        width: 18px;
+        height: 18px;
+      }
+
+      @media (hover: hover) and (pointer: fine) {
+        &:hover {
+          background: var(--accent-subtle);
+          color: var(--accent-text);
+          border-color: var(--accent);
+          transform: translateY(-2px);
+        }
       }
 
       &:active {
         background: var(--accent-subtle);
         color: var(--accent-text);
         border-color: var(--accent);
-        transform: scale(0.9);
+        transform: translateY(0) scale(0.93);
       }
 
       &:focus-visible {
@@ -161,9 +169,11 @@
       text-decoration: none;
       display: inline-block;
 
-      &:hover {
-        color: var(--accent-text);
-        padding-left: $sp-2;
+      @media (hover: hover) and (pointer: fine) {
+        &:hover {
+          color: var(--accent-text);
+          padding-left: $sp-2;
+        }
       }
 
       &:active {

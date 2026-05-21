@@ -9,3 +9,5 @@
   color: '#5C4EE5'
 - name: earth-observation
   color: '#0F766E'
+- name: cybersecurity
+  color: '#0EA5E9'

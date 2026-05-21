@@ -230,6 +230,7 @@ exclude:
   - Dockerfile
   - README.md
   - LICENSE
+  - LICENSE-CONTENT
   - debug.yml
   - docker-compose.yml
   - utilities

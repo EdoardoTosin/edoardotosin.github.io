@@ -48,6 +48,6 @@ npm run format
 
 ## License
 
-Code: [MIT](https://opensource.org/licenses/MIT)
+Code: [MIT](LICENSE)
 
-Content: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+Content: [CC BY 4.0](LICENSE-CONTENT)

@@ -19,6 +19,7 @@
     align-items: center;
     justify-content: center;
     animation: iz-backdrop-in 0.22s ease both;
+    touch-action: none;
   }
 
   &::backdrop {
@@ -92,7 +93,10 @@
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     user-select: none;
-    cursor: zoom-out;
+    -webkit-user-drag: none;
+    cursor: zoom-in;
+    will-change: transform;
+    transform-origin: center center;
 
     @media (max-width: #{$bp-sm}) {
       max-width: 92vw;

@@ -165,15 +165,67 @@
     if (!zoomImgs.length) return;
 
     let currentIdx = 0;
-    let dragStart = null;
-    let dragging = false;
-    let swipingH = false;
     let lastPointerEvent = null;
 
-    const TAP_THRESH = 8;
-    const SWIPE_Y = 72;
-    const SWIPE_X = 60;
-    const SWIPE_RATIO = 2.5;
+    let scale = 1;
+    let panX = 0;
+    let panY = 0;
+    const ZOOM_MIN = 1;
+    const ZOOM_MAX = 8;
+    const ZOOM_CLICK = 2.5;
+
+    let naturalCx = 0;
+    let naturalCy = 0;
+    function cacheNaturalCentre() {
+      // Call BEFORE any zoom transform is applied (scale===1, pan===0).
+      const r = img.getBoundingClientRect();
+      naturalCx = r.left + r.width / 2;
+      naturalCy = r.top + r.height / 2;
+    }
+
+    function clampPan() {
+      if (scale <= ZOOM_MIN) {
+        panX = 0;
+        panY = 0;
+        return;
+      }
+      // img.offsetWidth/Height = layout size, unaffected by CSS transform.
+      const maxX = Math.max(0, (img.offsetWidth * scale - window.innerWidth) / 2);
+      const maxY = Math.max(0, (img.offsetHeight * scale - window.innerHeight) / 2);
+      panX = Math.max(-maxX, Math.min(maxX, panX));
+      panY = Math.max(-maxY, Math.min(maxY, panY));
+    }
+
+    function applyZoom(animated, grabbing) {
+      img.style.transition = animated ? 'transform .22s cubic-bezier(.34,1.4,.64,1)' : 'none';
+      img.style.transform = 'translate(' + panX + 'px,' + panY + 'px) scale(' + scale + ')';
+      img.style.cursor = scale > ZOOM_MIN ? (grabbing ? 'grabbing' : 'grab') : 'zoom-in';
+    }
+
+    function resetZoom(animated) {
+      scale = ZOOM_MIN;
+      panX = 0;
+      panY = 0;
+      applyZoom(animated, false);
+    }
+
+    function zoomAt(cx, cy, newScale) {
+      newScale = Math.max(ZOOM_MIN, Math.min(ZOOM_MAX, newScale));
+      const ratio = newScale / scale;
+      panX = panX * ratio + (cx - naturalCx) * (1 - ratio);
+      panY = panY * ratio + (cy - naturalCy) * (1 - ratio);
+      scale = newScale;
+      clampPan();
+    }
+
+    function toggleZoom(cx, cy) {
+      if (scale > ZOOM_MIN) {
+        resetZoom(true);
+      } else {
+        zoomAt(cx, cy, ZOOM_CLICK);
+        applyZoom(true, false);
+      }
+    }
 
     function loadImage(srcImg) {
       img.src = srcImg.dataset.zoom || srcImg.currentSrc || srcImg.src;
@@ -184,6 +236,9 @@
       fig.style.transition = '';
       fig.style.transform = '';
       fig.style.opacity = '';
+      naturalCx = 0;
+      naturalCy = 0; // invalidate cache; re-measured on first interaction
+      resetZoom(false);
     }
 
     function open(idx) {
@@ -192,9 +247,12 @@
       dialog.showModal();
       document.body.style.overflow = 'hidden';
       closeBtn.focus({ preventScroll: true });
+      // Measure natural centre after layout stabilises.
+      requestAnimationFrame(cacheNaturalCentre);
     }
 
     function close() {
+      resetZoom(false);
       dialog.close();
       document.body.style.overflow = '';
       setTimeout(function () {
@@ -207,28 +265,31 @@
     }
 
     function showPrev() {
-      if (currentIdx <= 0) return;
-      currentIdx--;
-      loadImage(zoomImgs[currentIdx]);
+      if (currentIdx > 0) {
+        currentIdx--;
+        loadImage(zoomImgs[currentIdx]);
+      }
     }
-
     function showNext() {
-      if (currentIdx >= zoomImgs.length - 1) return;
-      currentIdx++;
-      loadImage(zoomImgs[currentIdx]);
+      if (currentIdx < zoomImgs.length - 1) {
+        currentIdx++;
+        loadImage(zoomImgs[currentIdx]);
+      }
     }
 
     closeBtn.addEventListener('click', close);
 
     dialog.addEventListener('click', function (e) {
+      if (mSuppress) {
+        mSuppress = false;
+        return;
+      }
       if (e.target === dialog) close();
     });
 
     dialog.addEventListener('pointerdown', function (e) {
-      if (!e.isPrimary) return;
-      lastPointerEvent = e;
+      if (e.isPrimary) lastPointerEvent = e;
     });
-
     dialog.addEventListener('cancel', function (e) {
       if (lastPointerEvent && lastPointerEvent.button === 2) {
         e.preventDefault();
@@ -237,67 +298,276 @@
       close();
     });
 
-    // Arrow-key navigation
+    dialog.addEventListener(
+      'wheel',
+      function (e) {
+        e.preventDefault();
+        if (!naturalCx) cacheNaturalCentre();
+        const raw = e.deltaY * (e.deltaMode === 1 ? 40 : e.deltaMode === 2 ? 800 : 1);
+        const factor = Math.exp(-raw / 500);
+        const ns = Math.max(ZOOM_MIN, Math.min(ZOOM_MAX, scale * factor));
+        if (ns === scale) return;
+        zoomAt(e.clientX, e.clientY, ns);
+        applyZoom(false, false);
+      },
+      { passive: false },
+    );
+
     dialog.addEventListener('keydown', function (e) {
       if (e.key === 'ArrowLeft') {
         e.preventDefault();
-        showPrev();
+        if (scale > ZOOM_MIN) {
+          panX -= 80;
+          clampPan();
+          applyZoom(true, false);
+        } else showPrev();
       }
       if (e.key === 'ArrowRight') {
         e.preventDefault();
-        showNext();
+        if (scale > ZOOM_MIN) {
+          panX += 80;
+          clampPan();
+          applyZoom(true, false);
+        } else showNext();
+      }
+      if (e.key === 'ArrowUp' && scale > ZOOM_MIN) {
+        e.preventDefault();
+        panY -= 80;
+        clampPan();
+        applyZoom(true, false);
+      }
+      if (e.key === 'ArrowDown' && scale > ZOOM_MIN) {
+        e.preventDefault();
+        panY += 80;
+        clampPan();
+        applyZoom(true, false);
+      }
+      if (e.key === '+' || e.key === '=') {
+        e.preventDefault();
+        zoomAt(window.innerWidth / 2, window.innerHeight / 2, scale * 1.4);
+        applyZoom(true, false);
+      }
+      if (e.key === '-') {
+        e.preventDefault();
+        const ns = scale / 1.4;
+        if (ns <= ZOOM_MIN) resetZoom(true);
+        else {
+          zoomAt(window.innerWidth / 2, window.innerHeight / 2, ns);
+          applyZoom(true, false);
+        }
+      }
+      if (e.key === '0') {
+        e.preventDefault();
+        resetZoom(true);
       }
     });
+
+    let mDown = false;
+    let mMoved = false;
+    let mSuppress = false; // suppress backdrop-click after a drag ends outside the fig
+    let mStartX = 0;
+    let mStartY = 0;
+    let mLastX = 0;
+    let mLastY = 0;
+
+    const TAP_THRESH = 8;
+    const SWIPE_X = 60;
+    const SWIPE_Y = 72;
+    const SWIPE_RATIO = 2.5;
+
+    fig.addEventListener('mousedown', function (e) {
+      if (e.button !== 0) return;
+      e.preventDefault();
+      mDown = true;
+      mMoved = false;
+      mSuppress = false;
+      mStartX = mLastX = e.clientX;
+      mStartY = mLastY = e.clientY;
+      if (scale > ZOOM_MIN) img.style.cursor = 'grabbing';
+    });
+
+    window.addEventListener('mousemove', function (e) {
+      if (!mDown) return;
+      if (Math.abs(e.clientX - mStartX) > TAP_THRESH || Math.abs(e.clientY - mStartY) > TAP_THRESH) mMoved = true;
+      if (scale > ZOOM_MIN) {
+        panX += e.clientX - mLastX;
+        panY += e.clientY - mLastY;
+        clampPan();
+        applyZoom(false, true);
+      }
+      mLastX = e.clientX;
+      mLastY = e.clientY;
+    });
+
+    window.addEventListener('mouseup', function (e) {
+      if (e.button !== 0 || !mDown) return;
+      mDown = false;
+      if (mMoved) {
+        mSuppress = true;
+        if (scale > ZOOM_MIN) applyZoom(false, false);
+      } else {
+        if (!naturalCx) cacheNaturalCentre();
+        toggleZoom(e.clientX, e.clientY);
+      }
+    });
+
+    const ptrs = new Map();
+    let pinching = false;
+    let pinchDist = 0;
+    let pinchMidX = 0;
+    let pinchMidY = 0;
+
+    let tId = -1;
+    let tDown = false;
+    let tStartX = 0;
+    let tStartY = 0;
+    let tLastX = 0;
+    let tLastY = 0;
+    let tMoved = false;
+    let swipeDir = null;
+
+    function abortSwipe() {
+      dialog.classList.remove('is-dragging');
+      fig.style.transition = 'transform .22s ease, opacity .22s ease';
+      fig.style.transform = '';
+      fig.style.opacity = '';
+      swipeDir = null;
+    }
+
+    function touchReset() {
+      pinching = false;
+      pinchDist = 0;
+      ptrs.clear();
+      tId = -1;
+      tDown = false;
+      tMoved = false;
+      swipeDir = null;
+      dialog.classList.remove('is-dragging');
+      fig.style.transition = '';
+      fig.style.transform = '';
+      fig.style.opacity = '';
+      applyZoom(false, false);
+    }
 
     fig.addEventListener('pointerdown', function (e) {
-      if (!e.isPrimary || e.button !== 0) return;
-      dragStart = { x: e.clientX, y: e.clientY };
-      dragging = false;
-      swipingH = false;
-      fig.setPointerCapture(e.pointerId);
-    });
+      if (e.pointerType === 'mouse') return;
+      ptrs.set(e.pointerId, { x: e.clientX, y: e.clientY });
 
-    fig.addEventListener('pointermove', function (e) {
-      if (!e.isPrimary || !dragStart) return;
-      const dx = e.clientX - dragStart.x;
-      const dy = e.clientY - dragStart.y;
-      const adx = Math.abs(dx);
-      const ady = Math.abs(dy);
-
-      if (!dragging && !swipingH && adx > TAP_THRESH && adx > ady) {
-        swipingH = true;
-      }
-
-      if (swipingH) {
-        dialog.classList.add('is-dragging');
-        const progress = Math.min(1, adx / 200);
-        fig.style.transform = 'translateX(' + dx + 'px)';
-        fig.style.opacity = String(1 - progress * 0.3);
+      if (ptrs.size >= 2) {
+        if (swipeDir) abortSwipe();
+        tDown = false;
+        tId = -1;
+        const vals = Array.from(ptrs.values());
+        pinchDist = Math.hypot(vals[1].x - vals[0].x, vals[1].y - vals[0].y);
+        pinchMidX = (vals[0].x + vals[1].x) / 2;
+        pinchMidY = (vals[0].y + vals[1].y) / 2;
+        pinching = true;
+        if (!naturalCx) cacheNaturalCentre();
         return;
       }
 
-      if (ady > TAP_THRESH || dragging) {
-        dragging = true;
+      tId = e.pointerId;
+      tDown = true;
+      tMoved = false;
+      swipeDir = null;
+      tStartX = tLastX = e.clientX;
+      tStartY = tLastY = e.clientY;
+    });
+
+    document.addEventListener('pointermove', function (e) {
+      if (e.pointerType === 'mouse') return;
+      if (!tDown && !pinching) return;
+
+      if (pinching && ptrs.has(e.pointerId)) {
+        ptrs.set(e.pointerId, { x: e.clientX, y: e.clientY });
+        const vals = Array.from(ptrs.values());
+        if (vals.length >= 2) {
+          const dist = Math.hypot(vals[1].x - vals[0].x, vals[1].y - vals[0].y);
+          const midX = (vals[0].x + vals[1].x) / 2;
+          const midY = (vals[0].y + vals[1].y) / 2;
+          if (pinchDist > 0) {
+            zoomAt(pinchMidX, pinchMidY, scale * (dist / pinchDist));
+            panX += midX - pinchMidX;
+            panY += midY - pinchMidY;
+            clampPan();
+            applyZoom(false, false);
+          }
+          pinchDist = dist;
+          pinchMidX = midX;
+          pinchMidY = midY;
+        }
+        return;
+      }
+
+      if (!tDown || e.pointerId !== tId) return;
+
+      const dx = e.clientX - tStartX;
+      const dy = e.clientY - tStartY;
+      const adx = Math.abs(dx);
+      const ady = Math.abs(dy);
+      if (adx > TAP_THRESH || ady > TAP_THRESH) tMoved = true;
+
+      if (scale > ZOOM_MIN) {
+        panX += e.clientX - tLastX;
+        panY += e.clientY - tLastY;
+        clampPan();
+        applyZoom(false, true);
+        tLastX = e.clientX;
+        tLastY = e.clientY;
+        return;
+      }
+
+      if (!swipeDir && tMoved) swipeDir = adx > ady ? 'H' : 'V';
+      if (swipeDir === 'H') {
         dialog.classList.add('is-dragging');
+        fig.style.transition = 'none';
+        fig.style.transform = 'translateX(' + dx + 'px)';
+        fig.style.opacity = String(Math.max(0, 1 - (adx / 200) * 0.3));
+      } else if (swipeDir === 'V') {
+        dialog.classList.add('is-dragging');
+        fig.style.transition = 'none';
         const progress = Math.min(1, ady / 200);
         fig.style.transform = 'translateY(' + dy + 'px) scale(' + (1 - progress * 0.06) + ')';
         fig.style.opacity = String(1 - progress * 0.5);
       }
+      tLastX = e.clientX;
+      tLastY = e.clientY;
     });
 
-    fig.addEventListener('pointerup', function (e) {
-      if (!e.isPrimary || e.button !== 0) return;
-      dialog.classList.remove('is-dragging');
-      if (!dragStart) return;
+    document.addEventListener('pointerup', function (e) {
+      if (e.pointerType === 'mouse') return;
+      if (!tDown && !pinching) return;
 
-      const dx = e.clientX - dragStart.x;
-      const dy = e.clientY - dragStart.y;
+      if (pinching && ptrs.has(e.pointerId)) {
+        ptrs.delete(e.pointerId);
+        if (ptrs.size < 2) {
+          pinching = false;
+          pinchDist = 0;
+          if (ptrs.size === 1 && scale > ZOOM_MIN) {
+            const rem = Array.from(ptrs.values())[0];
+            tId = Array.from(ptrs.keys())[0];
+            tDown = true;
+            tMoved = false;
+            swipeDir = null;
+            tStartX = tLastX = rem.x;
+            tStartY = tLastY = rem.y;
+          }
+        }
+        return;
+      }
+
+      if (!tDown || e.pointerId !== tId) return;
+      ptrs.delete(e.pointerId);
+      tDown = false;
+      tId = -1;
+
+      const dx = e.clientX - tStartX;
+      const dy = e.clientY - tStartY;
       const adx = Math.abs(dx);
       const ady = Math.abs(dy);
-      dragStart = null;
 
-      if (swipingH) {
-        swipingH = false;
+      if (swipeDir === 'H') {
+        dialog.classList.remove('is-dragging');
         if (adx >= SWIPE_X) {
           const dir = dx < 0 ? 1 : -1;
           fig.style.transition = 'transform .18s ease, opacity .18s ease';
@@ -308,46 +578,54 @@
             else showPrev();
           }, 180);
         } else {
-          fig.style.transition = 'transform .22s ease, opacity .22s ease';
-          fig.style.transform = '';
-          fig.style.opacity = '';
+          abortSwipe();
         }
+        swipeDir = null;
         return;
       }
 
-      if (!dragging) {
-        if (adx < TAP_THRESH && ady < TAP_THRESH) close();
+      if (swipeDir === 'V') {
+        dialog.classList.remove('is-dragging');
+        if (dy > SWIPE_Y && dy > adx * SWIPE_RATIO) {
+          fig.style.transition = 'transform .22s ease, opacity .22s ease';
+          fig.style.transform = 'translateY(110%)';
+          fig.style.opacity = '0';
+          setTimeout(close, 220);
+        } else {
+          abortSwipe();
+        }
+        swipeDir = null;
         return;
       }
-      dragging = false;
 
-      if (dy > SWIPE_Y && dy > adx * SWIPE_RATIO) {
-        fig.style.transition = 'transform .22s ease, opacity .22s ease';
-        fig.style.transform = 'translateY(110%)';
-        fig.style.opacity = '0';
-        setTimeout(close, 220);
-      } else {
-        fig.style.transition = 'transform .22s ease, opacity .22s ease';
-        fig.style.transform = '';
-        fig.style.opacity = '';
+      if (!tMoved) {
+        if (!naturalCx) cacheNaturalCentre();
+        toggleZoom(e.clientX, e.clientY);
       }
+
+      if (scale > ZOOM_MIN) applyZoom(false, false);
     });
 
-    fig.addEventListener('pointercancel', function () {
-      dialog.classList.remove('is-dragging');
-      dragging = false;
-      swipingH = false;
-      dragStart = null;
-      fig.style.transform = '';
-      fig.style.opacity = '';
+    document.addEventListener('pointercancel', function (e) {
+      if (e.pointerType === 'mouse') return;
+      if (!ptrs.has(e.pointerId) && e.pointerId !== tId) return;
+      ptrs.delete(e.pointerId);
+      if (e.pointerId === tId || ptrs.size === 0) touchReset();
     });
 
     img.setAttribute('tabindex', '0');
+    img.setAttribute('draggable', 'false');
+    img.addEventListener('dragstart', function (e) {
+      e.preventDefault();
+    });
     img.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape') return;
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        close();
+        if (scale > ZOOM_MIN) resetZoom(true);
+        else {
+          zoomAt(window.innerWidth / 2, window.innerHeight / 2, ZOOM_CLICK);
+          applyZoom(true, false);
+        }
       }
     });
 
@@ -355,9 +633,7 @@
       srcImg.style.cursor = 'zoom-in';
       srcImg.setAttribute('tabindex', '0');
       srcImg.setAttribute('role', 'button');
-      if (!srcImg.getAttribute('alt')) {
-        srcImg.setAttribute('aria-label', 'Open full size');
-      }
+      if (!srcImg.getAttribute('alt')) srcImg.setAttribute('aria-label', 'Open full size');
       srcImg.addEventListener('click', function () {
         open(idx);
       });

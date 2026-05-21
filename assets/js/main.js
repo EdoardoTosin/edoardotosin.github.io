@@ -152,6 +152,8 @@
     const closeBtn = dialog && dialog.querySelector('.img-zoom__close');
     if (!dialog || !fig || !img || !caption || !closeBtn) return;
 
+    fig.style.touchAction = 'none';
+
     const zoomImgs = [];
     const content = qs('.post-content');
     if (content) {
@@ -228,6 +230,8 @@
     }
 
     function loadImage(srcImg) {
+      stopInertia();
+      lastTapTime = 0;
       img.src = srcImg.dataset.zoom || srcImg.currentSrc || srcImg.src;
       img.srcset = srcImg.dataset.zoom ? '' : srcImg.getAttribute('srcset') || '';
       img.sizes = img.srcset ? '92vw' : '';
@@ -237,7 +241,7 @@
       fig.style.transform = '';
       fig.style.opacity = '';
       naturalCx = 0;
-      naturalCy = 0; // invalidate cache; re-measured on first interaction
+      naturalCy = 0;
       resetZoom(false);
     }
 
@@ -252,6 +256,7 @@
     }
 
     function close() {
+      stopInertia();
       resetZoom(false);
       dialog.close();
       document.body.style.overflow = '';
@@ -411,37 +416,78 @@
       }
     });
 
-    const ptrs = new Map();
-    let pinching = false;
-    let pinchDist = 0;
-    let pinchMidX = 0;
-    let pinchMidY = 0;
+    const ptrs = new Map(); // pointerId → {x, y}
+    let mode = 'idle'; // 'idle' | 'pan' | 'swipe-h' | 'swipe-v' | 'pinch'
 
     let tId = -1;
-    let tDown = false;
-    let tStartX = 0;
-    let tStartY = 0;
-    let tLastX = 0;
-    let tLastY = 0;
+    let tStartX = 0,
+      tStartY = 0;
+    let tLastX = 0,
+      tLastY = 0;
     let tMoved = false;
-    let swipeDir = null;
+
+    let lastTapTime = 0,
+      lastTapX = 0,
+      lastTapY = 0;
+
+    let pinchDist = 0,
+      pinchMidX = 0,
+      pinchMidY = 0;
+
+    let inertiaRaf = null;
+    let velX = 0,
+      velY = 0,
+      velTs = 0;
+
+    const INERTIA_DECAY = 0.94; // velocity fraction retained per ms at 60 fps
+    const INERTIA_MIN = 0.05; // px/ms - stop below this speed
+
+    function stopInertia() {
+      if (inertiaRaf) {
+        cancelAnimationFrame(inertiaRaf);
+        inertiaRaf = null;
+      }
+    }
+
+    function startInertia() {
+      stopInertia();
+      if (scale <= ZOOM_MIN) return;
+      if (Math.abs(velX) < INERTIA_MIN && Math.abs(velY) < INERTIA_MIN) return;
+      var last = performance.now();
+      function tick(ts) {
+        var dt = Math.min(ts - last, 64);
+        last = ts;
+        var k = Math.pow(INERTIA_DECAY, dt);
+        velX *= k;
+        velY *= k;
+        panX += velX * dt;
+        panY += velY * dt;
+        clampPan();
+        applyZoom(false, false);
+        if (Math.abs(velX) > INERTIA_MIN || Math.abs(velY) > INERTIA_MIN) {
+          inertiaRaf = requestAnimationFrame(tick);
+        } else {
+          inertiaRaf = null;
+        }
+      }
+      inertiaRaf = requestAnimationFrame(tick);
+    }
 
     function abortSwipe() {
       dialog.classList.remove('is-dragging');
       fig.style.transition = 'transform .22s ease, opacity .22s ease';
       fig.style.transform = '';
       fig.style.opacity = '';
-      swipeDir = null;
     }
 
     function touchReset() {
-      pinching = false;
+      stopInertia();
+      mode = 'idle';
       pinchDist = 0;
       ptrs.clear();
       tId = -1;
-      tDown = false;
       tMoved = false;
-      swipeDir = null;
+      velX = velY = 0;
       dialog.classList.remove('is-dragging');
       fig.style.transition = '';
       fig.style.transform = '';
@@ -449,127 +495,148 @@
       applyZoom(false, false);
     }
 
+    function beginPinch() {
+      var vals = Array.from(ptrs.values());
+      pinchDist = Math.hypot(vals[1].x - vals[0].x, vals[1].y - vals[0].y);
+      pinchMidX = (vals[0].x + vals[1].x) / 2;
+      pinchMidY = (vals[0].y + vals[1].y) / 2;
+      if (!naturalCx) cacheNaturalCentre();
+    }
+
+    function endPinch() {
+      pinchDist = 0;
+      if (ptrs.size === 1) {
+        var entry = Array.from(ptrs.entries())[0];
+        tId = entry[0];
+        tStartX = tLastX = entry[1].x;
+        tStartY = tLastY = entry[1].y;
+        tMoved = true; // came from pinch - prevent lift registering as a tap
+        velX = velY = 0;
+        velTs = performance.now();
+        mode = scale > ZOOM_MIN ? 'pan' : 'idle';
+      } else {
+        mode = 'idle';
+        tId = -1;
+      }
+    }
+
     fig.addEventListener('pointerdown', function (e) {
       if (e.pointerType === 'mouse') return;
+      e.preventDefault();
+      stopInertia();
+      fig.setPointerCapture(e.pointerId);
       ptrs.set(e.pointerId, { x: e.clientX, y: e.clientY });
 
       if (ptrs.size >= 2) {
-        if (swipeDir) abortSwipe();
-        tDown = false;
+        if (mode === 'swipe-h' || mode === 'swipe-v') abortSwipe();
+        mode = 'pinch';
         tId = -1;
-        const vals = Array.from(ptrs.values());
-        pinchDist = Math.hypot(vals[1].x - vals[0].x, vals[1].y - vals[0].y);
-        pinchMidX = (vals[0].x + vals[1].x) / 2;
-        pinchMidY = (vals[0].y + vals[1].y) / 2;
-        pinching = true;
-        if (!naturalCx) cacheNaturalCentre();
+        beginPinch();
         return;
       }
 
+      mode = 'idle';
       tId = e.pointerId;
-      tDown = true;
       tMoved = false;
-      swipeDir = null;
+      velX = velY = 0;
+      velTs = performance.now();
       tStartX = tLastX = e.clientX;
       tStartY = tLastY = e.clientY;
     });
 
-    document.addEventListener('pointermove', function (e) {
+    fig.addEventListener('pointermove', function (e) {
       if (e.pointerType === 'mouse') return;
-      if (!tDown && !pinching) return;
+      e.preventDefault();
 
-      if (pinching && ptrs.has(e.pointerId)) {
+      if (mode === 'pinch') {
+        if (!ptrs.has(e.pointerId)) return;
         ptrs.set(e.pointerId, { x: e.clientX, y: e.clientY });
-        const vals = Array.from(ptrs.values());
-        if (vals.length >= 2) {
-          const dist = Math.hypot(vals[1].x - vals[0].x, vals[1].y - vals[0].y);
-          const midX = (vals[0].x + vals[1].x) / 2;
-          const midY = (vals[0].y + vals[1].y) / 2;
-          if (pinchDist > 0) {
-            zoomAt(pinchMidX, pinchMidY, scale * (dist / pinchDist));
-            panX += midX - pinchMidX;
-            panY += midY - pinchMidY;
-            clampPan();
-            applyZoom(false, false);
-          }
-          pinchDist = dist;
-          pinchMidX = midX;
-          pinchMidY = midY;
-        }
+        var vals = Array.from(ptrs.values());
+        if (vals.length < 2 || pinchDist === 0) return;
+        var dist = Math.hypot(vals[1].x - vals[0].x, vals[1].y - vals[0].y);
+        var midX = (vals[0].x + vals[1].x) / 2;
+        var midY = (vals[0].y + vals[1].y) / 2;
+        zoomAt(pinchMidX, pinchMidY, scale * (dist / pinchDist));
+        panX += midX - pinchMidX;
+        panY += midY - pinchMidY;
+        clampPan();
+        applyZoom(false, false);
+        pinchDist = dist;
+        pinchMidX = midX;
+        pinchMidY = midY;
         return;
       }
 
-      if (!tDown || e.pointerId !== tId) return;
+      if (e.pointerId !== tId) return;
 
-      const dx = e.clientX - tStartX;
-      const dy = e.clientY - tStartY;
-      const adx = Math.abs(dx);
-      const ady = Math.abs(dy);
-      if (adx > TAP_THRESH || ady > TAP_THRESH) tMoved = true;
+      var now = performance.now();
+      var elapsed = now - velTs;
+      if (elapsed > 0 && elapsed < 100) {
+        velX = (e.clientX - tLastX) / elapsed;
+        velY = (e.clientY - tLastY) / elapsed;
+      }
+      velTs = now;
 
-      if (scale > ZOOM_MIN) {
+      var dx = e.clientX - tStartX;
+      var dy = e.clientY - tStartY;
+      var adx = Math.abs(dx);
+      var ady = Math.abs(dy);
+      if (!tMoved && (adx > TAP_THRESH || ady > TAP_THRESH)) tMoved = true;
+
+      if (mode === 'idle' && tMoved) {
+        mode = scale > ZOOM_MIN ? 'pan' : adx >= ady ? 'swipe-h' : 'swipe-v';
+      }
+
+      if (mode === 'pan') {
         panX += e.clientX - tLastX;
         panY += e.clientY - tLastY;
         clampPan();
-        applyZoom(false, true);
-        tLastX = e.clientX;
-        tLastY = e.clientY;
-        return;
-      }
-
-      if (!swipeDir && tMoved) swipeDir = adx > ady ? 'H' : 'V';
-      if (swipeDir === 'H') {
+        applyZoom(false, false);
+      } else if (mode === 'swipe-h') {
         dialog.classList.add('is-dragging');
         fig.style.transition = 'none';
         fig.style.transform = 'translateX(' + dx + 'px)';
         fig.style.opacity = String(Math.max(0, 1 - (adx / 200) * 0.3));
-      } else if (swipeDir === 'V') {
+      } else if (mode === 'swipe-v') {
         dialog.classList.add('is-dragging');
         fig.style.transition = 'none';
-        const progress = Math.min(1, ady / 200);
+        var progress = Math.min(1, ady / 200);
         fig.style.transform = 'translateY(' + dy + 'px) scale(' + (1 - progress * 0.06) + ')';
         fig.style.opacity = String(1 - progress * 0.5);
       }
+
       tLastX = e.clientX;
       tLastY = e.clientY;
     });
 
-    document.addEventListener('pointerup', function (e) {
+    fig.addEventListener('pointerup', function (e) {
       if (e.pointerType === 'mouse') return;
-      if (!tDown && !pinching) return;
 
-      if (pinching && ptrs.has(e.pointerId)) {
+      if (mode === 'pinch' && ptrs.has(e.pointerId)) {
         ptrs.delete(e.pointerId);
-        if (ptrs.size < 2) {
-          pinching = false;
-          pinchDist = 0;
-          if (ptrs.size === 1 && scale > ZOOM_MIN) {
-            const rem = Array.from(ptrs.values())[0];
-            tId = Array.from(ptrs.keys())[0];
-            tDown = true;
-            tMoved = false;
-            swipeDir = null;
-            tStartX = tLastX = rem.x;
-            tStartY = tLastY = rem.y;
-          }
+        if (ptrs.size >= 2) {
+          beginPinch();
+        } else {
+          endPinch();
         }
         return;
       }
 
-      if (!tDown || e.pointerId !== tId) return;
+      if (e.pointerId !== tId) {
+        ptrs.delete(e.pointerId);
+        return;
+      }
       ptrs.delete(e.pointerId);
-      tDown = false;
       tId = -1;
 
-      const dx = e.clientX - tStartX;
-      const dy = e.clientY - tStartY;
-      const adx = Math.abs(dx);
-      const ady = Math.abs(dy);
+      var dx = e.clientX - tStartX;
+      var dy = e.clientY - tStartY;
+      var adx = Math.abs(dx);
 
-      if (swipeDir === 'H') {
+      if (mode === 'swipe-h') {
         dialog.classList.remove('is-dragging');
         if (adx >= SWIPE_X) {
-          const dir = dx < 0 ? 1 : -1;
+          var dir = dx < 0 ? 1 : -1;
           fig.style.transition = 'transform .18s ease, opacity .18s ease';
           fig.style.transform = 'translateX(' + dir * 110 + '%)';
           fig.style.opacity = '0';
@@ -580,11 +647,11 @@
         } else {
           abortSwipe();
         }
-        swipeDir = null;
+        mode = 'idle';
         return;
       }
 
-      if (swipeDir === 'V') {
+      if (mode === 'swipe-v') {
         dialog.classList.remove('is-dragging');
         if (dy > SWIPE_Y && dy > adx * SWIPE_RATIO) {
           fig.style.transition = 'transform .22s ease, opacity .22s ease';
@@ -594,23 +661,49 @@
         } else {
           abortSwipe();
         }
-        swipeDir = null;
+        mode = 'idle';
         return;
       }
 
-      if (!tMoved) {
-        if (!naturalCx) cacheNaturalCentre();
-        toggleZoom(e.clientX, e.clientY);
+      if (mode === 'pan') {
+        mode = 'idle';
+        startInertia();
+        return;
       }
 
-      if (scale > ZOOM_MIN) applyZoom(false, false);
+      // mode === 'idle': no movement - check for double-tap to toggle zoom
+      if (!tMoved) {
+        var tapNow = performance.now();
+        var tapDdist = Math.hypot(e.clientX - lastTapX, e.clientY - lastTapY);
+        if (tapNow - lastTapTime < 300 && tapDdist < 40) {
+          if (!naturalCx) cacheNaturalCentre();
+          if (scale > ZOOM_MIN) {
+            resetZoom(true);
+          } else {
+            zoomAt(e.clientX, e.clientY, ZOOM_CLICK);
+            applyZoom(true, false);
+          }
+          lastTapTime = 0;
+        } else {
+          lastTapTime = tapNow;
+          lastTapX = e.clientX;
+          lastTapY = e.clientY;
+        }
+      }
+
+      mode = 'idle';
     });
 
-    document.addEventListener('pointercancel', function (e) {
+    fig.addEventListener('pointercancel', function (e) {
       if (e.pointerType === 'mouse') return;
       if (!ptrs.has(e.pointerId) && e.pointerId !== tId) return;
+      if (mode === 'swipe-h' || mode === 'swipe-v') abortSwipe();
       ptrs.delete(e.pointerId);
-      if (e.pointerId === tId || ptrs.size === 0) touchReset();
+      if (ptrs.size === 0) {
+        touchReset();
+      } else if (mode === 'pinch' && ptrs.size < 2) {
+        endPinch();
+      }
     });
 
     img.setAttribute('tabindex', '0');

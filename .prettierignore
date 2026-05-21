@@ -5,6 +5,7 @@ assets/css/katex.min.css
 assets/css/fonts.css
 assets/js/katex.min.js
 assets/js/auto-render.min.js
+assets/js/mermaid.min.js
 
 # Jekyll partials with split HTML structure (no full document root)
 _includes/head.html

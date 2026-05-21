@@ -4,7 +4,7 @@ layout: page
 title: Privacy Policy
 description: 'Privacy policy covering data collection, third-party services, GitHub Pages hosting, Cloudflare CDN, and visitor rights.'
 date: 2023-03-01
-last_modified_at: 2026-03-22
+last_modified_at: 2026-05-21
 ---
 
 _This Privacy Policy is effective as of {{ page.last_modified_at | date: "%d %b %Y" }}_
@@ -40,13 +40,6 @@ This is a static website with no server-side processing, user accounts, comment 
 - **Purpose**: Content delivery optimization, DDoS protection, security filtering, and performance analytics
 - **Retention**: Varies by data type (typically 30 days for logs, longer for aggregated analytics)
 - **Privacy Policy**: [Cloudflare Privacy Policy](https://www.cloudflare.com/privacypolicy/)
-
-### jsDelivr
-
-- **When**: Only on posts that include Mermaid diagrams (`mermaid: true`)
-- **Data Collected**: IP addresses and standard request headers, as with any CDN request
-- **Purpose**: Delivering the Mermaid diagram library
-- **Privacy Policy**: [jsDelivr Privacy Policy](https://www.jsdelivr.com/privacy-policy-jsdelivr-net)
 
 ## Cookies and Local Storage
 

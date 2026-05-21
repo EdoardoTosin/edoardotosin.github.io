@@ -281,7 +281,7 @@ graph TD
 ```
 ````
 
-Diagrams adapt to the site's dark/light theme automatically. Mermaid is loaded from jsDelivr only on posts that enable it.
+Diagrams adapt to the site's dark/light theme automatically. Mermaid is loaded only on posts that enable it.
 
 ## Series Navigation
 

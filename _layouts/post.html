@@ -5,11 +5,12 @@ layout: default
   <div class="post-hero">
     <img
       src="{{ page.image | relative_url }}"
-      alt="{{ page.title | escape }}"
+      alt=""
       class="post-hero__img"
       width="1400"
       height="480"
       loading="eager"
+      onerror="this.style.display='none'"
     >
     <div class="post-hero__overlay" aria-hidden="true"></div>
     <div class="post-hero__content">

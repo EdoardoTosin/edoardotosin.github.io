@@ -3,7 +3,7 @@ layout: post
 title: 'Email Collision DoS: When Poor Validation Locks Users Out'
 description: How a missing email uniqueness check on the update endpoint enables account lockout via email collision in a cloud portal
 date: 2026-05-21 20:00:00 +0200
-last_modified_at: 2026-05-21 20:00:00 +0200
+last_modified_at: 2026-05-22 22:00:00 +0200
 short_url: vdp-email-2026
 image: https://raw.githubusercontent.com/EdoardoTosin/web-assets/refs/heads/main/blog/Cybersecurity/2026-05-21-email-collision-dos-when-poor-validation-locks-users-out.webp
 topic: cybersecurity
@@ -26,7 +26,7 @@ featured: true
 mermaid: true
 ---
 
-Account lockout does not always require brute force or stolen credentials. A missing uniqueness check on the email update endpoint is enough. This is what I found in a real cloud portal.
+Account lockout does not always require brute force or stolen credentials. A missing uniqueness check on the email update endpoint is enough. This is what I found in a cloud portal.
 
 ## Background
 
@@ -43,7 +43,7 @@ It responded with HTTP 200:
 }
 ```
 
-No error, no validation. The root cause: the update endpoint never checks whether the new email is already in use, unlike account registration.
+The vulnerability exists because the email update flow fails to check whether the new email address is already registered, despite the same validation being enforced during account creation.
 
 ## How It Works
 

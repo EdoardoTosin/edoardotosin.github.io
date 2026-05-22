@@ -182,7 +182,7 @@
     if (q) {
       if (posts === null) {
         html +=
-          '<div class="cmd-group"><p class="cmd-group__label" aria-hidden="true">Posts</p><p class="cmd-empty">Loading&hellip;</p></div>';
+          '<div class="cmd-group"><p class="cmd-group__label" aria-hidden="true">Posts</p><p class="cmd-empty">Loading…</p></div>';
       } else if (matchedPosts.length) {
         html +=
           '<div class="cmd-group" role="group" aria-label="Posts"><p class="cmd-group__label" aria-hidden="true">Posts</p>';
@@ -211,7 +211,7 @@
         });
         html += '</div>';
       } else if (!matchedPages.length && !matchedActions.length) {
-        html = '<p class="cmd-empty">No results for &ldquo;' + esc(q) + '&rdquo;</p>';
+        html = '<p class="cmd-empty">No results for “' + esc(q) + '”</p>';
       }
     }
 

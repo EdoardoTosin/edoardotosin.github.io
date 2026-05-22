@@ -43,10 +43,11 @@
       const block = btn.closest('.code-block');
       if (!block) return;
       const highlight = block.querySelector('.highlight') || block.querySelector('pre');
-      if (highlight)
+      if (highlight) {
         btn.addEventListener('click', function () {
           copyCode(highlight, btn);
         });
+      }
     });
   });
 })();

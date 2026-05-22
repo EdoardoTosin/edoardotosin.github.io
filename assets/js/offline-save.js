@@ -2,14 +2,14 @@
 (function () {
   'use strict';
 
-  var SAVED_KEY = 'jekyll-saved-posts'; // localStorage: array of {url,title,date,savedAt}
-  var SAVED_CACHE = 'jekyll-saved-articles'; // named cache (persistent across SW revisions)
+  const SAVED_KEY = 'jekyll-saved-posts'; // localStorage: array of {url,title,date,savedAt}
+  const SAVED_CACHE = 'jekyll-saved-articles'; // named cache (persistent across SW revisions)
 
   // Bail if no service worker or Cache API support
   if (!('serviceWorker' in navigator) || !('caches' in window)) return;
 
-  var btn = document.getElementById('save-offline-btn');
-  var pageUrl = window.location.pathname + window.location.search;
+  const btn = document.getElementById('save-offline-btn');
+  const pageUrl = window.location.pathname + window.location.search;
 
   function getSaved() {
     try {
@@ -33,8 +33,8 @@
 
   function updateBtn(saving) {
     if (!btn) return;
-    var saved = isSaved();
-    var labelEl = btn.querySelector('.save-offline-btn__label');
+    const saved = isSaved();
+    const labelEl = btn.querySelector('.save-offline-btn__label');
     if (labelEl) {
       labelEl.textContent = saving ? 'Saving\u2026' : saved ? 'Saved offline' : 'Save for offline';
     }
@@ -47,7 +47,7 @@
     updateBtn(true);
 
     // Collect post images (same-origin only)
-    var imgs = Array.from(document.querySelectorAll('.post-content img, .post-hero__img'))
+    const imgs = Array.from(document.querySelectorAll('.post-content img, .post-hero__img'))
       .map(function (img) {
         return img.src;
       })
@@ -55,7 +55,7 @@
         return src && src.startsWith(window.location.origin);
       });
 
-    var urls = [window.location.href].concat(imgs);
+    const urls = [window.location.href].concat(imgs);
 
     caches
       .open(SAVED_CACHE)
@@ -73,10 +73,10 @@
         );
       })
       .then(function () {
-        var title = document.title.replace(/\s*[\u2014\-]\s*[^\u2014\-]+$/, '').trim();
-        var dateEl = document.querySelector('[itemprop="datePublished"]');
-        var date = dateEl ? (dateEl.getAttribute('datetime') || dateEl.textContent).slice(0, 10) : '';
-        var saved = getSaved().filter(function (p) {
+        const title = document.title.replace(/\s*[\u2014\-]\s*[^\u2014\-]+$/, '').trim();
+        const dateEl = document.querySelector('[itemprop="datePublished"]');
+        const date = dateEl ? (dateEl.getAttribute('datetime') || dateEl.textContent).slice(0, 10) : '';
+        const saved = getSaved().filter(function (p) {
           return p.url !== pageUrl;
         });
         saved.unshift({ url: pageUrl, title: title, date: date, savedAt: Date.now() });

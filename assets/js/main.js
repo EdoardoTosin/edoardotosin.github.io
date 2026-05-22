@@ -453,11 +453,11 @@
       stopInertia();
       if (scale <= ZOOM_MIN) return;
       if (Math.abs(velX) < INERTIA_MIN && Math.abs(velY) < INERTIA_MIN) return;
-      var last = performance.now();
+      let last = performance.now();
       function tick(ts) {
-        var dt = Math.min(ts - last, 64);
+        const dt = Math.min(ts - last, 64);
         last = ts;
-        var k = Math.pow(INERTIA_DECAY, dt);
+        const k = Math.pow(INERTIA_DECAY, dt);
         velX *= k;
         velY *= k;
         panX += velX * dt;
@@ -496,7 +496,7 @@
     }
 
     function beginPinch() {
-      var vals = Array.from(ptrs.values());
+      const vals = Array.from(ptrs.values());
       pinchDist = Math.hypot(vals[1].x - vals[0].x, vals[1].y - vals[0].y);
       pinchMidX = (vals[0].x + vals[1].x) / 2;
       pinchMidY = (vals[0].y + vals[1].y) / 2;
@@ -506,7 +506,7 @@
     function endPinch() {
       pinchDist = 0;
       if (ptrs.size === 1) {
-        var entry = Array.from(ptrs.entries())[0];
+        const entry = Array.from(ptrs.entries())[0];
         tId = entry[0];
         tStartX = tLastX = entry[1].x;
         tStartY = tLastY = entry[1].y;
@@ -551,11 +551,11 @@
       if (mode === 'pinch') {
         if (!ptrs.has(e.pointerId)) return;
         ptrs.set(e.pointerId, { x: e.clientX, y: e.clientY });
-        var vals = Array.from(ptrs.values());
+        const vals = Array.from(ptrs.values());
         if (vals.length < 2 || pinchDist === 0) return;
-        var dist = Math.hypot(vals[1].x - vals[0].x, vals[1].y - vals[0].y);
-        var midX = (vals[0].x + vals[1].x) / 2;
-        var midY = (vals[0].y + vals[1].y) / 2;
+        const dist = Math.hypot(vals[1].x - vals[0].x, vals[1].y - vals[0].y);
+        const midX = (vals[0].x + vals[1].x) / 2;
+        const midY = (vals[0].y + vals[1].y) / 2;
         zoomAt(pinchMidX, pinchMidY, scale * (dist / pinchDist));
         panX += midX - pinchMidX;
         panY += midY - pinchMidY;
@@ -569,18 +569,18 @@
 
       if (e.pointerId !== tId) return;
 
-      var now = performance.now();
-      var elapsed = now - velTs;
+      const now = performance.now();
+      const elapsed = now - velTs;
       if (elapsed > 0 && elapsed < 100) {
         velX = (e.clientX - tLastX) / elapsed;
         velY = (e.clientY - tLastY) / elapsed;
       }
       velTs = now;
 
-      var dx = e.clientX - tStartX;
-      var dy = e.clientY - tStartY;
-      var adx = Math.abs(dx);
-      var ady = Math.abs(dy);
+      const dx = e.clientX - tStartX;
+      const dy = e.clientY - tStartY;
+      const adx = Math.abs(dx);
+      const ady = Math.abs(dy);
       if (!tMoved && (adx > TAP_THRESH || ady > TAP_THRESH)) tMoved = true;
 
       if (mode === 'idle' && tMoved) {
@@ -600,7 +600,7 @@
       } else if (mode === 'swipe-v') {
         dialog.classList.add('is-dragging');
         fig.style.transition = 'none';
-        var progress = Math.min(1, ady / 200);
+        const progress = Math.min(1, ady / 200);
         fig.style.transform = 'translateY(' + dy + 'px) scale(' + (1 - progress * 0.06) + ')';
         fig.style.opacity = String(1 - progress * 0.5);
       }
@@ -629,14 +629,14 @@
       ptrs.delete(e.pointerId);
       tId = -1;
 
-      var dx = e.clientX - tStartX;
-      var dy = e.clientY - tStartY;
-      var adx = Math.abs(dx);
+      const dx = e.clientX - tStartX;
+      const dy = e.clientY - tStartY;
+      const adx = Math.abs(dx);
 
       if (mode === 'swipe-h') {
         dialog.classList.remove('is-dragging');
         if (adx >= SWIPE_X) {
-          var dir = dx < 0 ? 1 : -1;
+          const dir = dx < 0 ? 1 : -1;
           fig.style.transition = 'transform .18s ease, opacity .18s ease';
           fig.style.transform = 'translateX(' + dir * 110 + '%)';
           fig.style.opacity = '0';
@@ -673,8 +673,8 @@
 
       // mode === 'idle': no movement - check for double-tap to toggle zoom
       if (!tMoved) {
-        var tapNow = performance.now();
-        var tapDdist = Math.hypot(e.clientX - lastTapX, e.clientY - lastTapY);
+        const tapNow = performance.now();
+        const tapDdist = Math.hypot(e.clientX - lastTapX, e.clientY - lastTapY);
         if (tapNow - lastTapTime < 300 && tapDdist < 40) {
           if (!naturalCx) cacheNaturalCentre();
           if (scale > ZOOM_MIN) {
@@ -926,14 +926,14 @@
 
   // Print image wrapping (break-inside: avoid is only reliable on block containers, not on img itself)
   function initPrintImageWrap() {
-    var wrapped = [];
+    let wrapped = [];
 
     function wrapAll() {
-      var content = qs('.post-content');
+      const content = qs('.post-content');
       if (!content) return;
       qsa('img', content).forEach(function (img) {
         if (img.closest('figure')) return;
-        var div = document.createElement('div');
+        const div = document.createElement('div');
         div.className = 'js-print-img';
         img.parentNode.insertBefore(div, img);
         div.appendChild(img);
@@ -943,7 +943,7 @@
 
     function unwrapAll() {
       wrapped.forEach(function (div) {
-        var img = div.querySelector('img');
+        const img = div.querySelector('img');
         if (img && div.parentNode) {
           div.parentNode.insertBefore(img, div);
           div.parentNode.removeChild(div);
@@ -958,7 +958,7 @@
 
   // Gallery print (lazy thumbnails may be unfetched if gallery was never scrolled; force eager on idle and beforeprint)
   function initGalleryPrintFix() {
-    var galleryImgs = qsa('.gallery-item__thumb img');
+    const galleryImgs = qsa('.gallery-item__thumb img');
     if (!galleryImgs.length) return;
 
     function forceEager() {

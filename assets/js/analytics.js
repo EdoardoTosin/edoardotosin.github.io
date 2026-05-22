@@ -1,8 +1,8 @@
 // analytics.js - GA4 init. Reads measurement ID from data-ga-id (set by Jekyll from site.google_analytics).
 (function () {
   'use strict';
-  var script = document.querySelector('[data-ga-id]');
-  var id = script && script.getAttribute('data-ga-id');
+  const script = document.querySelector('[data-ga-id]');
+  const id = script && script.getAttribute('data-ga-id');
   if (!id) {
     return;
   }

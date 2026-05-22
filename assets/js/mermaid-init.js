@@ -1,12 +1,12 @@
 document.addEventListener('DOMContentLoaded', function () {
-  var theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default';
+  const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default';
 
   mermaid.initialize({ startOnLoad: false, theme: theme });
 
   // Kramdown renders ```mermaid as <pre><code class="language-mermaid">
   document.querySelectorAll('pre code.language-mermaid').forEach(function (code) {
-    var pre = code.parentElement;
-    var div = document.createElement('div');
+    const pre = code.parentElement;
+    const div = document.createElement('div');
     div.className = 'mermaid';
     div.textContent = code.textContent;
     pre.replaceWith(div);

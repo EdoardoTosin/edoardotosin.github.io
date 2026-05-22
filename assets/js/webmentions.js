@@ -2,12 +2,12 @@
 (function () {
   'use strict';
 
-  var section = document.getElementById('webmentions');
+  const section = document.getElementById('webmentions');
   if (!section) return;
 
   // Canonical URL of this page (strip hash and query for matching)
-  var pageUrl = (window.location.origin + window.location.pathname).replace(/\/$/, '');
-  var apiUrl =
+  const pageUrl = (window.location.origin + window.location.pathname).replace(/\/$/, '');
+  const apiUrl =
     'https://webmention.io/api/mentions.jf2' +
     '?target=' +
     encodeURIComponent(pageUrl + '/') +
@@ -15,10 +15,10 @@
     encodeURIComponent(pageUrl) +
     '&sort-by=published&sort-dir=up&per-page=100';
 
-  var likesEl = document.getElementById('wm-likes');
-  var avatarsEl = document.getElementById('wm-avatars');
-  var labelEl = document.getElementById('wm-likes-label');
-  var repliesEl = document.getElementById('wm-replies');
+  const likesEl = document.getElementById('wm-likes');
+  const avatarsEl = document.getElementById('wm-avatars');
+  const labelEl = document.getElementById('wm-likes-label');
+  const repliesEl = document.getElementById('wm-replies');
 
   function escHtml(s) {
     return String(s).replace(/[&<>'"]/g, function (c) {
@@ -36,20 +36,20 @@
   }
 
   function renderLikes(mentions) {
-    var likes = mentions.filter(function (m) {
+    const likes = mentions.filter(function (m) {
       return m['wm-property'] === 'like-of' || m['wm-property'] === 'bookmark-of' || m['wm-property'] === 'repost-of';
     });
     if (!likes.length) return;
 
-    var count = likes.length;
+    const count = likes.length;
     labelEl.textContent = count + (count === 1 ? ' like / repost' : ' likes / reposts');
 
-    var avatarsHtml = likes
+    const avatarsHtml = likes
       .map(function (m) {
-        var author = m.author || {};
-        var name = escHtml(author.name || 'Anonymous');
-        var url = escHtml(author.url || m.url || '#');
-        var photo = author.photo;
+        const author = m.author || {};
+        const name = escHtml(author.name || 'Anonymous');
+        const url = escHtml(author.url || m.url || '#');
+        const photo = author.photo;
         if (photo) {
           return (
             '<a href="' +
@@ -65,7 +65,7 @@
             '</a>'
           );
         }
-        var initials = (author.name || 'A').charAt(0).toUpperCase();
+        const initials = (author.name || 'A').charAt(0).toUpperCase();
         return (
           '<a href="' +
           url +
@@ -85,8 +85,8 @@
   }
 
   function renderReplies(mentions) {
-    var replies = mentions.filter(function (m) {
-      var prop = m['wm-property'];
+    const replies = mentions.filter(function (m) {
+      const prop = m['wm-property'];
       return prop === 'in-reply-to' || prop === 'mention-of';
     });
 
@@ -95,15 +95,15 @@
       return;
     }
 
-    var html = replies
+    const html = replies
       .map(function (m) {
-        var author = m.author || {};
-        var name = escHtml(author.name || 'Anonymous');
-        var url = escHtml(m.url || '#');
-        var date = formatDate(m.published || m['wm-received']);
-        var content = m.content ? escHtml((m.content.text || m.content.html || '').slice(0, 500)) : '';
-        var photo = author.photo;
-        var avatarHtml = photo
+        const author = m.author || {};
+        const name = escHtml(author.name || 'Anonymous');
+        const url = escHtml(m.url || '#');
+        const date = formatDate(m.published || m['wm-received']);
+        const content = m.content ? escHtml((m.content.text || m.content.html || '').slice(0, 500)) : '';
+        const photo = author.photo;
+        const avatarHtml = photo
           ? '<img src="' +
             escHtml(photo) +
             '" alt="' +
@@ -149,7 +149,7 @@
   }
 
   function render(data) {
-    var mentions = data && data.children ? data.children : [];
+    const mentions = data && data.children ? data.children : [];
     renderLikes(mentions);
     renderReplies(mentions);
   }

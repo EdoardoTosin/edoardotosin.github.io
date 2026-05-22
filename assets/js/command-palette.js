@@ -2,14 +2,14 @@
 (function () {
   'use strict';
 
-  var palette = document.getElementById('cmd-palette');
-  var input = document.getElementById('cmd-input');
-  var results = document.getElementById('cmd-results');
+  const palette = document.getElementById('cmd-palette');
+  const input = document.getElementById('cmd-input');
+  const results = document.getElementById('cmd-results');
   if (!palette || !input || !results) return;
 
-  var BASE = (palette.getAttribute('data-base-url') || '').replace(/\/$/, '');
+  const BASE = (palette.getAttribute('data-base-url') || '').replace(/\/$/, '');
 
-  var PAGES = [
+  const PAGES = [
     { label: 'Home', url: BASE + '/', icon: 'home' },
     { label: 'Blog', url: BASE + '/blog/', icon: 'blog' },
     { label: 'Topics', url: BASE + '/topics/', icon: 'topic' },
@@ -21,12 +21,12 @@
     { label: 'Contact', url: BASE + '/contact/', icon: 'contact' },
   ];
 
-  var ACTIONS = [{ label: 'Toggle theme', id: 'toggle-theme', icon: 'theme' }];
+  const ACTIONS = [{ label: 'Toggle theme', id: 'toggle-theme', icon: 'theme' }];
 
-  var posts = null;
-  var isOpen = false;
-  var activeIdx = -1;
-  var lastFocused = null;
+  let posts = null;
+  let isOpen = false;
+  let activeIdx = -1;
+  let lastFocused = null;
 
   function getFocusable() {
     return Array.from(palette.querySelectorAll('input,button,[tabindex]:not([tabindex="-1"])')).filter(function (el) {
@@ -75,10 +75,10 @@
 
   function filterPosts(q) {
     if (!posts || !q) return [];
-    var lq = q.toLowerCase();
-    var scored = [];
+    const lq = q.toLowerCase();
+    const scored = [];
     posts.forEach(function (p) {
-      var s = 0;
+      let s = 0;
       if ((p.title || '').toLowerCase().includes(lq)) s += 10;
       if ((p.topic || '').toLowerCase().includes(lq)) s += 6;
       if ((p.description || '').toLowerCase().includes(lq)) s += 3;
@@ -98,7 +98,7 @@
     });
   }
 
-  var ICONS = {
+  const ICONS = {
     home: '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>',
     blog: '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>',
     topic:
@@ -127,19 +127,19 @@
 
   function render(q) {
     q = (q || '').trim();
-    var lq = q.toLowerCase();
-    var matchedActions = q
+    const lq = q.toLowerCase();
+    const matchedActions = q
       ? ACTIONS.filter(function (a) {
           return a.label.toLowerCase().includes(lq);
         })
       : ACTIONS;
-    var matchedPages = q
+    const matchedPages = q
       ? PAGES.filter(function (p) {
           return p.label.toLowerCase().includes(lq);
         })
       : PAGES;
-    var matchedPosts = filterPosts(q);
-    var html = '';
+    const matchedPosts = filterPosts(q);
+    let html = '';
 
     if (matchedActions.length) {
       html +=
@@ -187,10 +187,10 @@
         html +=
           '<div class="cmd-group" role="group" aria-label="Posts"><p class="cmd-group__label" aria-hidden="true">Posts</p>';
         matchedPosts.forEach(function (p) {
-          var topic = p.topic
+          const topic = p.topic
             ? '<span class="cmd-item__tag" data-topic="' + esc(p.topic) + '">' + esc(p.topic) + '</span>'
             : '';
-          var date = p.date ? '<span class="cmd-item__date">' + esc(p.date) + '</span>' : '';
+          const date = p.date ? '<span class="cmd-item__date">' + esc(p.date) + '</span>' : '';
           html +=
             '<button class="cmd-item cmd-item--post" type="button" data-url="' +
             esc(p.url || '') +
@@ -224,11 +224,11 @@
   }
 
   function setActive(i) {
-    var items = itemList();
+    const items = itemList();
     if (!items.length) return;
     activeIdx = Math.max(-1, Math.min(i, items.length - 1));
     items.forEach(function (el, j) {
-      var on = j === activeIdx;
+      const on = j === activeIdx;
       el.classList.toggle('is-active', on);
       el.setAttribute('aria-selected', on ? 'true' : 'false');
       if (on) el.scrollIntoView({ block: 'nearest' });
@@ -237,11 +237,11 @@
 
   function activate(el) {
     if (!el) return;
-    var action = el.dataset.action;
-    var url = el.dataset.url;
+    const action = el.dataset.action;
+    const url = el.dataset.url;
     if (action === 'toggle-theme') {
       close();
-      var btn = document.querySelector('.theme-toggle');
+      const btn = document.querySelector('.theme-toggle');
       if (btn) btn.click();
     } else if (url) {
       close();
@@ -250,7 +250,7 @@
   }
 
   document.addEventListener('keydown', function (e) {
-    var mod = e.metaKey || e.ctrlKey;
+    const mod = e.metaKey || e.ctrlKey;
     if (mod && e.key === 'k') {
       e.preventDefault();
       isOpen ? close() : open();
@@ -263,7 +263,7 @@
       return;
     }
     if (e.key === 'Tab') {
-      var f = getFocusable();
+      const f = getFocusable();
       if (!f.length) return;
       if (e.shiftKey) {
         if (document.activeElement === f[0]) {
@@ -300,12 +300,12 @@
   });
 
   results.addEventListener('click', function (e) {
-    var el = e.target.closest('.cmd-item');
+    const el = e.target.closest('.cmd-item');
     if (el) activate(el);
   });
 
   results.addEventListener('mousemove', function (e) {
-    var el = e.target.closest('.cmd-item');
+    const el = e.target.closest('.cmd-item');
     if (el) setActive(itemList().indexOf(el));
   });
 

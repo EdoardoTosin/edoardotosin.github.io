@@ -23,9 +23,11 @@ Jekyll::Hooks.register :site, :post_read do |site|
 
   yaml_out = "---\n"
   all_entries.each do |entry|
+    name_val = entry['name'].to_s
+    quoted_name = name_val.match?(/[#:\[\]{}|&*!,>]/) || name_val.empty? ? "'#{name_val}'" : name_val
     color = entry['color'].to_s
     quoted_color = color.match?(/[#:\[\]{}|&*!,>]/) || color.empty? ? "'#{color}'" : color
-    yaml_out += "- name: #{entry['name']}\n  color: #{quoted_color}\n"
+    yaml_out += "- name: #{quoted_name}\n  color: #{quoted_color}\n"
   end
   File.write(topics_path, yaml_out)
 end

@@ -43,7 +43,7 @@ module ExternalLinks
       link_host = extract_host(href)
       next tag if link_host.nil?
       next tag if host && link_host == host
-      next tag if attrs.include?('data-ext')
+      next tag if attrs.match?(/\bdata-ext\b/)
 
       extra  = ' data-ext'
       extra += ' target="_blank"'           unless attrs.match?(/\btarget=/i)

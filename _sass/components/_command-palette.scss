@@ -216,7 +216,7 @@
 .search-toggle__kbd {
   display: none;
 
-  @media (min-width: #{$bp-lg}) {
+  @media (min-width: #{$bp-xl}) {
     display: inline-flex;
     align-items: center;
     padding: 1px 6px;
@@ -226,7 +226,7 @@
     font-family: $font-mono;
     font-size: $fs-sm;
     color: var(--text-muted);
-    letter-spacing: 0;
+    letter-spacing: 0.04em;
     margin-left: $sp-2;
     opacity: 0.8;
     pointer-events: none;

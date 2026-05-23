@@ -9,6 +9,7 @@ module ReadingTimeFilter
     config = site_config
 
     wpm = (config["words_per_minute"] || DEFAULT_WPM).to_i
+    wpm = DEFAULT_WPM if wpm <= 0
     second_label   = config["second_label"]   || "sec"
     minute_label   = config["minute_label"]   || "min"
     read_text      = config["read_text"]      || "read"

@@ -11,6 +11,7 @@ Every post in `_posts/` supports these front matter fields:
 layout: post
 title: 'Post Title'
 description: '160-character description, used as SEO meta, post card preview, and social share.'
+tldr: 'One-sentence summary shown in a TL;DR box at the top of the post.'
 date: 2025-01-15 12:00:00 +0000
 image: /images/posts/my-post.jpg
 
@@ -37,6 +38,9 @@ short_url: 'my-post'
 
 comments: true
 share: true
+
+series: 'Series Name'
+series_order: 1
 
 cited_by:
   - '[Article Title - Site Name](https://example.com/article)'

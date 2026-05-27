@@ -8,6 +8,7 @@ All settings live in `_config.yml`.
 title: 'Your Name'
 short_name: 'You'
 description: 'What this site is about.'
+keywords: 'tag one, tag two, tag three'
 url: 'https://yourdomain.com'
 baseurl: ''
 lang: 'en'
@@ -18,6 +19,7 @@ logo: '/assets/icons/favicon.png'
 ```
 
 - `short_name`: used as the PWA app name on home screens and the iOS `apple-mobile-web-app-title`. Keep it under 12 characters for best display on Android launchers. Defaults to `title` if omitted.
+- `keywords`: comma-separated string, emitted as `<meta name="keywords">` on pages that have no post-level `keywords` set.
 - `logo`: path to the site icon (PNG). Used in the header, footer, SEO tags, and the web app manifest. Place icon files in `assets/icons/`.
 
 ## Author

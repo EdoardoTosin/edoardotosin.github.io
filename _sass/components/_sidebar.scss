@@ -245,8 +245,13 @@
 
 // ToC widget
 .widget-toc {
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - var(--header-h) - #{$sp-6} - #{$sp-6});
+
   nav {
-    max-height: calc(100vh - var(--header-h) - 100px);
+    flex: 1;
+    min-height: 0;
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: var(--border-strong) transparent;

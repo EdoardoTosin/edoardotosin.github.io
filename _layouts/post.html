@@ -47,8 +47,18 @@ layout: default
         {%- endif -%}
         <h1 class="post-header__title" itemprop="headline">{{ page.title }}</h1>
 
+        {%- include resolve-post-authors.html -%}
+        {%- if _post_author_names.size == 2 -%}
+          {%- assign _byline_text = _post_author_names | join: ' and ' -%}
+        {%- elsif _post_author_names.size > 2 -%}
+          {%- assign _byline_last = _post_author_names.last -%}
+          {%- assign _byline_rest = _post_author_names | pop -%}
+          {%- capture _byline_text -%}{{ _byline_rest | join: ', ' }}, and {{ _byline_last }}{%- endcapture -%}
+        {%- else -%}
+          {%- assign _byline_text = _post_author_names.first -%}
+        {%- endif -%}
         <div class="post-header__meta">
-          <span class="post-header__byline-author">{{ site.author.name }}</span>
+          <span class="post-header__byline-author">{{- _byline_text -}}</span>
           <div class="post-header__meta-details">
             <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
               {{- page.date | date: '%d %b %Y' -}}

@@ -1,0 +1,26 @@
+{%- comment %}
+  Sets _post_author_slugs, _post_author_names.
+  Priority: page.author (string or array) > site.author.slug > site.author
+{%- endcomment %}
+{%- if page.author -%}
+  {%- assign _post_author_slugs = page.author | join: '|' | split: '|' -%}
+{%- elsif site.author.slug and site.author.slug != '' -%}
+  {%- assign _post_author_slugs = '' | split: '' | push: site.author.slug -%}
+{%- else -%}
+  {%- assign _post_author_slugs = '' | split: '' -%}
+{%- endif -%}
+{%- assign _post_author_names = '' | split: '' -%}
+{%- for _slug in _post_author_slugs -%}
+  {%- assign _rpa_au = site.data.authors[_slug] -%}
+  {%- unless _rpa_au -%}
+    {%- if _slug == site.author.slug -%}{%- assign _rpa_au = site.author -%}{%- endif -%}
+  {%- endunless -%}
+  {%- if _rpa_au -%}
+    {%- assign _post_author_names = _post_author_names | push: _rpa_au.name -%}
+  {%- else -%}
+    {%- assign _post_author_names = _post_author_names | push: _slug -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- if _post_author_names.size == 0 -%}
+  {%- assign _post_author_names = _post_author_names | push: site.author.name -%}
+{%- endif -%}

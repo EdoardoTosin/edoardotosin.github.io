@@ -1,15 +1,69 @@
-<div class="author-box" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <img
-    src="{{ site.author.avatar | default: '/images/avatar.jpg' | relative_url }}"
-    alt="{{ site.author.name }}"
-    class="author-box__avatar"
-    width="80"
-    height="80"
-    loading="lazy"
-  >
-  <div>
-    <p class="author-box__name" itemprop="name">{{ site.author.name }}</p>
-    <p class="author-box__role">{{ site.author.tagline }}</p>
-    <p class="author-box__bio">{{ site.author.bio }}</p>
+{%- include resolve-post-authors.html -%}
+{%- assign _pa_slugs = _post_author_slugs -%}
+
+{%- if _pa_slugs.size > 1 -%}
+  <section class="author-box-group" aria-labelledby="post-authors-heading">
+    <p class="author-box-group__heading" id="post-authors-heading">About the Authors</p>
+    {%- for _slug in _pa_slugs -%}
+      {%- assign _pa_a = site.data.authors[_slug] -%}
+      {%- unless _pa_a -%}
+        {%- if _slug == site.author.slug -%}{%- assign _pa_a = site.author -%}{%- endif -%}
+      {%- endunless -%}
+      {%- if _pa_a -%}
+        {%- assign _pa_avatar = _pa_a.avatar | default: '/images/avatar.jpg' -%}
+        {%- unless _pa_avatar contains '://' -%}{%- assign _pa_avatar = _pa_avatar | relative_url -%}{%- endunless -%}
+        <div class="author-box author-box--compact" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img
+            src="{{ _pa_avatar }}"
+            alt="{{ _pa_a.name }}"
+            class="author-box__avatar"
+            width="56"
+            height="56"
+            loading="lazy"
+          >
+          <div>
+            <p class="author-box__name" itemprop="name">{{ _pa_a.name }}</p>
+            {%- if _pa_a.tagline and _pa_a.tagline != '' -%}
+              <p class="author-box__role">{{ _pa_a.tagline }}</p>
+            {%- endif -%}
+            {%- if _pa_a.bio and _pa_a.bio != '' -%}
+              <p class="author-box__bio">{{ _pa_a.bio }}</p>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </section>
+
+{%- else -%}
+  {%- assign _pa_slug = _pa_slugs.first -%}
+  {%- if _pa_slug and _pa_slug != '' -%}
+    {%- assign _pa_a = site.data.authors[_pa_slug] -%}
+  {%- else -%}
+    {%- assign _pa_a = null -%}
+  {%- endif -%}
+  {%- unless _pa_a -%}
+    {%- assign _pa_a = site.author -%}
+  {%- endunless -%}
+  {%- assign _pa_avatar = _pa_a.avatar | default: '/images/avatar.jpg' -%}
+  {%- unless _pa_avatar contains '://' -%}{%- assign _pa_avatar = _pa_avatar | relative_url -%}{%- endunless -%}
+  <div class="author-box" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img
+      src="{{ _pa_avatar }}"
+      alt="{{ _pa_a.name }}"
+      class="author-box__avatar"
+      width="80"
+      height="80"
+      loading="lazy"
+    >
+    <div>
+      <p class="author-box__name" itemprop="name">{{ _pa_a.name }}</p>
+      {%- if _pa_a.tagline and _pa_a.tagline != '' -%}
+        <p class="author-box__role">{{ _pa_a.tagline }}</p>
+      {%- endif -%}
+      {%- if _pa_a.bio and _pa_a.bio != '' -%}
+        <p class="author-box__bio">{{ _pa_a.bio }}</p>
+      {%- endif -%}
+    </div>
   </div>
-</div>
+{%- endif -%}

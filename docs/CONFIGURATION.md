@@ -24,6 +24,8 @@ logo: '/assets/icons/favicon.png'
 
 ```yaml
 author:
+  slug: 'your-slug'
+  url: '/about/'
   name: 'Your Name'
   bio: 'One-line bio.'
   tagline: 'Role / Interest'
@@ -35,7 +37,26 @@ author:
   twitter: 'yourhandle'
 ```
 
-All fields are optional. Blank fields are omitted from the rendered page.
+- `slug`: must match the key used in post front matter (`author:`). Required for multi-author support.
+- `url`: author profile URL, used in the Schema.org JSON-LD for posts.
+
+All other fields are optional. Blank fields are omitted from the rendered page.
+
+### Co-authors
+
+Additional authors are defined in `_data/authors.yml`, keyed by slug. The primary author does not need an entry there.
+
+```yaml
+john-doe:
+  name: 'John Doe'
+  tagline: 'Technical Writer'
+  bio: 'Short bio.'
+  avatar: '/images/avatar.jpg'
+  url: 'https://johndoe.com'
+  twitter: 'johndoe'
+```
+
+Required fields: `name`, `avatar`. `avatar` accepts a local path (`/images/avatar.jpg`) or an external URL (`https://avatars.githubusercontent.com/u/…`). All other fields are optional and omitted from output when blank.
 
 ## Navigation
 

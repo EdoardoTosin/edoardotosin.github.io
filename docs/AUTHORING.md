@@ -18,6 +18,9 @@ topic: programming
 tags: [javascript, tooling]
 keywords: [webpack, vite]
 
+author:
+  - john-doe
+
 featured: false
 video: false
 gallery: false
@@ -90,6 +93,22 @@ description: 'A practical guide to setting up Arch Linux from scratch.'
 
 - Used as: SEO meta description, Open Graph, Twitter Card, post card text, search snippet.
 - Aim for 120-160 characters.
+
+## Authors
+
+When `author` is not set, the post defaults to the primary author defined in `_config.yml`. No front matter is needed for single-author posts by the site owner.
+
+The `author` field is a list (Obsidian **List** property type). Use it even for a single author:
+
+```yaml
+author:
+  - edoardo-tosin
+  - john-doe
+```
+
+One entry renders a plain author card. Multiple entries render an "About the Authors" card group. The primary author slug (`site.author.slug`) resolves from `_config.yml`; all other slugs must have an entry in `_data/authors.yml`.
+
+The resolved names are also emitted in `<meta name="author">` and the Schema.org JSON-LD for the post.
 
 ## Gallery Posts
 

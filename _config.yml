@@ -13,6 +13,8 @@ logo:          "/assets/icons/favicon.png"
 
 # Author
 author:
+  slug:              "edoardo-tosin"
+  url:               "/about/"
   name:              "Edoardo Tosin"
   bio:               "Focused on software development, security exploration, and open-source projects, with hands-on experience in Linux environments."
   tagline:           "Software · Security · Open Source"

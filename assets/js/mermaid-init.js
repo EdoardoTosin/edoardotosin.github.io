@@ -8,19 +8,20 @@ document.addEventListener('DOMContentLoaded', function () {
     const pre = code.parentElement;
     const div = document.createElement('div');
     div.className = 'mermaid';
+    div.setAttribute('data-src', code.textContent);
     div.textContent = code.textContent;
     pre.replaceWith(div);
   });
 
   mermaid.run();
 
-  // Re-render on theme toggle
   document.addEventListener('theme-changed', function (e) {
+    const newTheme = e.detail === 'dark' ? 'dark' : 'default';
     document.querySelectorAll('.mermaid[data-processed]').forEach(function (el) {
       el.removeAttribute('data-processed');
-      el.innerHTML = el.getAttribute('data-src') || el.textContent;
+      el.textContent = el.getAttribute('data-src') || '';
     });
-    mermaid.initialize({ startOnLoad: false, theme: e.detail === 'dark' ? 'dark' : 'default' });
+    mermaid.initialize({ startOnLoad: false, theme: newTheme });
     mermaid.run();
   });
 });

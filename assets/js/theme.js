@@ -12,6 +12,7 @@
     document.documentElement.setAttribute(ATTR, theme);
     const metaColor = document.getElementById('meta-theme-color');
     if (metaColor) metaColor.setAttribute('content', theme === DARK ? '#0f1117' : '#f8fafc');
+    document.dispatchEvent(new CustomEvent('theme-changed', { detail: theme }));
   }
 
   function updateButtons(theme) {

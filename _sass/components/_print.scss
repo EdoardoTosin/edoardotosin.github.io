@@ -536,7 +536,9 @@
   p code,
   li code,
   td code,
-  th code {
+  th code,
+  blockquote code,
+  dd code {
     display: inline !important;
     font-size: 0.875em !important;
     vertical-align: baseline !important;
@@ -622,6 +624,7 @@
   pre.highlight,
   .highlight pre.highlight {
     background: #0d1117 !important;
+    color: #e6edf3 !important;
     border: none !important;
     margin: 0 !important;
     border-radius: 0 !important;
@@ -640,6 +643,7 @@
   }
 
   .highlight code {
+    color: inherit !important;
     background: transparent !important;
     border: none !important;
     padding: 0 !important;

@@ -3,7 +3,7 @@ layout: post
 title: 'Email Collision DoS: When Poor Validation Locks Users Out'
 description: How a missing email uniqueness check on the update endpoint enables account lockout via email collision in a cloud portal
 date: 2026-05-21 20:00:00 +0200
-last_modified_at: 2026-05-22 22:00:00 +0200
+last_modified_at: 2026-05-28 19:00:00 +0200
 short_url: vdp-email-2026
 image: https://raw.githubusercontent.com/EdoardoTosin/web-assets/refs/heads/main/blog/Cybersecurity/2026-05-21-email-collision-dos-when-poor-validation-locks-users-out.webp
 topic: cybersecurity
@@ -58,7 +58,7 @@ Password reset doesn't help by default. Requesting a reset for `victim@example.c
 **Recovery**: If the victim pieces together what happened, they can change Account A's email to something else while in that session, which frees `victim@example.com` and makes Account B reachable again.
 
 ```mermaid
-%%{init: {'theme':'neutral', 'themeVariables': {'fontSize':'13px','fontFamily':'ui-sans-serif, system-ui, sans-serif'}}}%%
+%%{init: {'themeVariables': {'fontSize':'13px','fontFamily':'ui-sans-serif, system-ui, sans-serif'}}}%%
 
 sequenceDiagram
     autonumber

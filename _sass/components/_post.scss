@@ -1328,6 +1328,17 @@ $ext-link-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg
   --_disc-color: #ffffff;
 }
 
+@media not print {
+  [data-theme='dark'] .mermaid svg rect.rect {
+    fill: #2a2f3e !important;
+  }
+
+  [data-theme='dark'] .mermaid svg .noteText,
+  [data-theme='dark'] .mermaid svg .noteText > tspan {
+    fill: lightgrey !important;
+  }
+}
+
 // Post navigation
 .post-nav {
   display: flex;

@@ -755,6 +755,16 @@
     fill: #111 !important;
   }
 
+  // Autonumber circle - pin dark fill and restore white text (overrides the general tspan rule)
+  .mermaid svg [id$='-sequencenumber'] {
+    fill: #333 !important;
+  }
+
+  .mermaid svg .sequenceNumber,
+  .mermaid svg .sequenceNumber > tspan {
+    fill: white !important;
+  }
+
   .mermaid svg rect.rect {
     fill: #f0f4f8 !important;
     stroke: #555 !important;

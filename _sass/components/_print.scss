@@ -712,6 +712,54 @@
     stroke: #333 !important;
   }
 
+  // Sequence diagram elements
+  .mermaid svg .actor {
+    fill: #f0f4f8 !important;
+    stroke: #555 !important;
+  }
+
+  .mermaid svg .actor-line {
+    stroke: #555 !important;
+  }
+
+  .mermaid svg .messageLine0,
+  .mermaid svg .messageLine1 {
+    stroke: #333 !important;
+  }
+
+  .mermaid svg .activation0,
+  .mermaid svg .activation1,
+  .mermaid svg .activation2 {
+    fill: #f0f4f8 !important;
+    stroke: #555 !important;
+  }
+
+  .mermaid svg .labelBox {
+    fill: #f0f4f8 !important;
+    stroke: #555 !important;
+  }
+
+  .mermaid svg .loopLine {
+    stroke: #555 !important;
+  }
+
+  // Note boxes - dark-theme renders have near-black note background; force to light
+  .mermaid svg .note,
+  .mermaid svg rect.note {
+    fill: #fffef0 !important;
+    stroke: #555 !important;
+  }
+
+  .mermaid svg .noteText,
+  .mermaid svg .noteText > tspan {
+    fill: #111 !important;
+  }
+
+  .mermaid svg rect.rect {
+    fill: #f0f4f8 !important;
+    stroke: #555 !important;
+  }
+
   pre:not(.highlight) {
     font-size: 0.875em !important;
     font-family: monospace;

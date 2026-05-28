@@ -13,7 +13,20 @@ document.addEventListener('DOMContentLoaded', function () {
     pre.replaceWith(div);
   });
 
-  mermaid.run();
+  // The print * rule overrides Mermaid's own inline max-width; only inline !important outranks a stylesheet !important.
+  function pinNaturalWidths() {
+    document.querySelectorAll('.mermaid[data-processed] svg').forEach(function (svg) {
+      const w = svg.style.maxWidth;
+      if (w) svg.style.setProperty('max-width', w, 'important');
+    });
+  }
+
+  const p = mermaid.run();
+  if (p && typeof p.then === 'function') {
+    p.then(pinNaturalWidths);
+  } else {
+    requestAnimationFrame(pinNaturalWidths);
+  }
 
   document.addEventListener('theme-changed', function (e) {
     const newTheme = e.detail === 'dark' ? 'dark' : 'default';
@@ -22,6 +35,11 @@ document.addEventListener('DOMContentLoaded', function () {
       el.textContent = el.getAttribute('data-src') || '';
     });
     mermaid.initialize({ startOnLoad: false, theme: newTheme });
-    mermaid.run();
+    const p2 = mermaid.run();
+    if (p2 && typeof p2.then === 'function') {
+      p2.then(pinNaturalWidths);
+    } else {
+      requestAnimationFrame(pinNaturalWidths);
+    }
   });
 });

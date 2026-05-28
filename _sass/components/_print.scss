@@ -672,6 +672,46 @@
     }
   }
 
+  .highlight:has(.mermaid),
+  .highlighter-rouge:has(.mermaid) {
+    background: transparent !important;
+    border: none !important;
+  }
+
+  .mermaid {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .mermaid svg {
+    max-width: 100% !important;
+    background: #fff !important;
+  }
+
+  .mermaid svg text,
+  .mermaid svg tspan {
+    fill: #111 !important;
+  }
+
+  .mermaid svg .node rect,
+  .mermaid svg .node circle,
+  .mermaid svg .node ellipse,
+  .mermaid svg .node polygon,
+  .mermaid svg .cluster rect {
+    fill: #f0f4f8 !important;
+    stroke: #555 !important;
+  }
+
+  .mermaid svg .edgePath .path,
+  .mermaid svg .flowchart-link {
+    stroke: #333 !important;
+  }
+
+  .mermaid svg marker path {
+    fill: #333 !important;
+    stroke: #333 !important;
+  }
+
   pre:not(.highlight) {
     font-size: 0.875em !important;
     font-family: monospace;

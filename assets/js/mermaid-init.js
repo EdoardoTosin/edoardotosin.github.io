@@ -1,3 +1,4 @@
+// mermaid-init.js - Initialize Mermaid diagrams and handle theme/print re-rendering.
 document.addEventListener('DOMContentLoaded', function () {
   const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default';
 

@@ -3,7 +3,7 @@ layout: post
 title: 'Email Collision DoS: When Poor Validation Locks Users Out'
 description: How a missing email uniqueness check on the update endpoint enables account lockout via email collision in a cloud portal
 date: 2026-05-21 20:00:00 +0200
-last_modified_at: 2026-05-28 19:00:00 +0200
+last_modified_at: 2026-05-29 15:00:00 +0200
 short_url: vdp-email-2026
 image: https://raw.githubusercontent.com/EdoardoTosin/web-assets/refs/heads/main/blog/Cybersecurity/2026-05-21-email-collision-dos-when-poor-validation-locks-users-out.webp
 topic: cybersecurity
@@ -101,6 +101,4 @@ sequenceDiagram
 - **Account lockout**: The victim can't log in until the collision is resolved.
 - **Silent misdirection**: Password reset completes without errors but lands the victim inside Account A. Their cloud data appears to have changed; nothing signals they're in the wrong account.
 
-Enforcing email uniqueness consistently across both account registration and the email change endpoint prevents this vulnerability.
-
-Registration checked for duplicate emails. The update endpoint never did. The finding was reported through a third-party intermediary and later confirmed patched.
+An endpoint that accepts email changes without checking for conflicts undoes whatever validation the registration flow enforces. I reported the finding through a third-party intermediary, who confirmed it was fixed.

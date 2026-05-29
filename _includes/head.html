@@ -15,6 +15,12 @@
       const html = document.documentElement;
       html.setAttribute('data-theme', theme);
 
+      try {
+        if (localStorage.getItem('jekyll-blog-view') === 'list') {
+          html.setAttribute('data-blog-view', 'list');
+        }
+      } catch (e) {}
+
       let meta = document.querySelector('meta#meta-theme-color');
       if (!meta) {
         meta = document.createElement('meta');

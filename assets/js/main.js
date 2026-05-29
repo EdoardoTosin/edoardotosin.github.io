@@ -846,6 +846,7 @@
 
     function applyView(view, persist) {
       grid.setAttribute('data-view', view);
+      document.documentElement.setAttribute('data-blog-view', view);
       btns.forEach(function (btn) {
         const isActive = btn.dataset.view === view;
         btn.classList.toggle('is-active', isActive);

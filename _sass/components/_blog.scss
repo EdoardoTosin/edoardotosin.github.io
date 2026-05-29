@@ -185,6 +185,7 @@
 }
 
 // List view
+html[data-blog-view='list'] .posts-grid,
 .posts-grid[data-view='list'] {
   grid-template-columns: 1fr !important;
 

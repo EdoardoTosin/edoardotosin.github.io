@@ -82,6 +82,21 @@
   }
 }
 
+// View toggle active-state override (list restore)
+html[data-blog-view='list'] .view-toggle__btn[data-view='grid'].is-active {
+  background: transparent;
+  color: var(--text-secondary);
+  box-shadow: none;
+  cursor: pointer;
+}
+
+html[data-blog-view='list'] .view-toggle__btn[data-view='list'] {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-card);
+  cursor: default;
+}
+
 // Atom feed link in blog header controls row
 .blog-feed-link {
   display: inline-flex;

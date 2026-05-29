@@ -98,6 +98,7 @@ $ext-link-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg
   }
 
   &__title {
+    display: block;
     font-size: clamp(1.5rem, 4vw, 3rem);
     font-weight: 800;
     color: #fff;

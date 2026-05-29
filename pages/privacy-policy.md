@@ -4,7 +4,7 @@ layout: page
 title: Privacy Policy
 description: 'Privacy policy covering data collection, third-party services, GitHub Pages hosting, Cloudflare CDN, and visitor rights.'
 date: 2023-03-01
-last_modified_at: 2026-05-21
+last_modified_at: 2026-05-29
 ---
 
 _This Privacy Policy is effective as of {{ page.last_modified_at | date: "%d %b %Y" }}_
@@ -43,11 +43,18 @@ This is a static website with no server-side processing, user accounts, comment 
 
 ## Cookies and Local Storage
 
-This website does not set any first-party cookies or use local storage. However:
+This website does not set any first-party cookies. However, `localStorage` is used by first-party JavaScript for functional purposes only:
 
-- **Cloudflare** may set essential cookies for security purposes, performance optimization, and bot detection (such as `__cflb`, `__cf_bm`, `cf_clearance`)
-- These cookies are necessary for the proper functioning and security of the website
-- You can manage cookie preferences through your browser settings, though disabling certain cookies may affect site functionality
+- **Theme preference** (`jekyll-theme`): stores your chosen dark or light mode setting
+- **Blog view preference** (`jekyll-blog-view`): stores your preferred grid or list layout
+- **Offline reading list** (`jekyll-saved-posts`): tracks articles you have saved for offline access
+- **Search history** (`jekyll-search-hist`): stores recent search queries to assist with future searches
+
+These values are stored entirely in your browser, never transmitted to any server, and can be cleared at any time by clearing your browser's site data.
+
+A **Service Worker** is also registered to cache static assets, pages, and images locally via the browser's Cache API, enabling faster loading and offline access. Saved articles are cached in a separate persistent cache (`jekyll-saved-articles`) that is only modified when you explicitly save or remove an article.
+
+**Cloudflare** may set essential cookies for security purposes, performance optimization, and bot detection (such as `__cflb`, `__cf_bm`, `cf_clearance`). These cookies are necessary for the proper functioning and security of the website. You can manage cookie preferences through your browser settings, though disabling certain cookies may affect site functionality.
 
 ## Analytics and Tracking
 

@@ -1,7 +1,7 @@
 ---
 layout: page
 title: 'Credits'
-description: 'Open-source tools, libraries, fonts, and resources used to build this website, including Jekyll, IBM Plex Sans, Outfit, Monaspace Neon NF, and more.'
+description: 'Open-source tools, libraries, fonts, and resources used to build this website, including Jekyll, IBM Plex Sans, Outfit, Monaspace Neon, and more.'
 permalink: /credits/
 ---
 

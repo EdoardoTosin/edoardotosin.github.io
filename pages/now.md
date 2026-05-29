@@ -4,7 +4,7 @@ layout: page
 title: Now
 description: "What's currently in progress: security research, open-source development, and other active work."
 date: 2024-08-12 21:00:00 +0200
-last_modified_at: 2026-03-20
+last_modified_at: 2026-05-29
 ---
 
 _Last updated {{ page.last_modified_at | date: "%d %b %Y" }}_
@@ -13,27 +13,25 @@ _Last updated {{ page.last_modified_at | date: "%d %b %Y" }}_
 
 ## Security Research
 
-Working on vulnerability discovery through bug bounty programs. I’ve been recognized in the [BSI Hall of Fame](https://www.bsi.bund.de/DE/IT-Sicherheitsvorfall/IT-Schwachstellen/Hall_of_Fame/Hall_of_Fame_node.html) for responsible disclosure.
+Ongoing work in vulnerability research, code analysis, and reverse engineering.
 
-Most of the work involves careful code review, understanding system behavior, and tracing execution paths until inconsistencies or security issues emerge.
+The day-to-day is mostly quiet and methodical: reading source, following execution paths, and spending time with system behavior until something unexpected surfaces. Not everything leads to a public writeup; some stays private by design.
 
-I regularly follow new CVEs, read technical write-ups, and experiment with tools and techniques to stay current.
+I keep up with new CVEs and technical research, and regularly experiment with tools to stay sharp.
 
 ---
 
 ## Projects
 
-Building and maintaining open-source tools and personal projects, primarily in C and Python. These include CLI utilities, automation workflows, and occasional computer vision experiments.
+Maintaining open-source tools and personal projects, mostly in C and Python: CLI utilities, automation scripts, and some computer vision work.
 
-I also run a small homelab with self-hosted services, focusing on understanding system behavior, network control, and operational reliability.
+I also run a small homelab focused on self-hosted services, network control, and understanding system behavior closer to the metal.
 
 ---
 
 ## Other Things
 
-Recently explored burn severity analysis using Sentinel-2 satellite imagery, combining geospatial data processing with scripting.
-
-Outside of software, I practice astrophotography, primarily solar imaging and deep-sky observations when conditions allow.
+I practice astrophotography when conditions allow: solar imaging and deep-sky observations with amateur equipment.
 
 ---
 

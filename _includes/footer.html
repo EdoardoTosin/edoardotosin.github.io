@@ -4,7 +4,7 @@
       <div class="site-footer__brand">
         <a href="{{ '/' | relative_url }}" class="site-logo site-footer__logo">
           {%- if site.logo -%}
-            <img src="{{ site.logo | relative_url }}" alt="" loading="eager">
+            <img src="{{ site.logo | relative_url }}" alt="" width="36" height="36" loading="lazy">
           {%- endif -%}
           {{ site.title }}
         </a>

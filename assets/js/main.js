@@ -1246,7 +1246,9 @@
         .then(function (reg) {
           if (reg.waiting) reg.waiting.postMessage({ type: 'SKIP_WAITING' });
         })
-        .catch(function () {});
+        .catch(function (e) {
+          console.warn('[SW]', e);
+        });
     });
   }
 

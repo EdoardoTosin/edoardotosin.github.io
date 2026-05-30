@@ -39,8 +39,10 @@
       object-fit: cover;
       transition: transform 0.15s ease;
 
-      &:hover {
-        transform: translateY(-2px);
+      @media (hover: hover) and (pointer: fine) {
+        &:hover {
+          transform: translateY(-2px);
+        }
       }
     }
   }
@@ -68,8 +70,10 @@
   border: 2px solid var(--bg-card);
   transition: transform 0.15s ease;
 
-  &:hover {
-    transform: translateY(-2px);
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      transform: translateY(-2px);
+    }
   }
 }
 

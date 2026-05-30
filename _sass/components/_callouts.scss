@@ -144,7 +144,7 @@
         font-weight: 600;
         font-size: $fs-base;
         list-style: none;
-        background: var(--surface-raised);
+        background: var(--bg-tag);
         user-select: none;
 
         &::-webkit-details-marker {

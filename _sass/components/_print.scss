@@ -682,6 +682,19 @@
     border: none !important;
   }
 
+  // Dark SVGs may not reproduce in PDF; swap to pre-rendered light copies in dark-mode print.
+  .js-mermaid-print {
+    display: none !important;
+  }
+
+  [data-theme='dark'] .mermaid:not(.js-mermaid-print) {
+    display: none !important;
+  }
+
+  [data-theme='dark'] .js-mermaid-print {
+    display: block !important;
+  }
+
   .mermaid {
     break-inside: avoid;
     page-break-inside: avoid;

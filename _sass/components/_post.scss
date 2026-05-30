@@ -1330,6 +1330,10 @@ $ext-link-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg
 }
 
 @media not print {
+  .js-mermaid-print {
+    display: none;
+  }
+
   [data-theme='dark'] .mermaid svg rect.rect {
     fill: #2a2f3e !important;
   }

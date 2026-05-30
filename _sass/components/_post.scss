@@ -1348,7 +1348,7 @@ $ext-link-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg
   border-top: 1px solid var(--border);
   padding-top: $sp-8;
 
-  @media (max-width: 640px) {
+  @media (max-width: #{$bp-md}) {
     flex-direction: column;
   }
 

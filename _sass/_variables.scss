@@ -257,6 +257,11 @@ $z-skip: 9999;
   border-bottom: 1px solid var(--border);
 }
 
+// Explicit light mode
+[data-theme='light'] {
+  color-scheme: light;
+}
+
 // Dark mode
 [data-theme='dark'] {
   color-scheme: dark;

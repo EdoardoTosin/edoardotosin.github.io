@@ -203,12 +203,25 @@
     {%- for link in site.header_nav -%}
       {%- if link.children and link.children.size > 0 -%}
         {%- for child in link.children -%}
+          {%- unless child.external -%}
+            {%- assign _mob_child = child.url
+              | replace: site.url, ''
+              | replace: site.baseurl, ''
+              | split: '?'
+              | first
+              | replace: 'index.html', ''
+              | replace: '//', '/'
+            -%}
+            {%- if _mob_child == '' -%}{%- assign _mob_child = '/' -%}{%- endif -%}
+          {%- endunless -%}
           <li>
             <a
               href="{% if child.external %}{{ child.url }}{% else %}{{ child.url | relative_url }}{% endif %}"
               class="mobile-nav__link"
               {% if child.external %}
                 target="_blank" rel="noopener noreferrer"
+              {% else %}
+                {%- if _hdr_page == _mob_child %}aria-current="page"{% endif -%}
               {% endif %}
             >
               {{ child.title | escape }}
@@ -216,12 +229,25 @@
           </li>
         {%- endfor -%}
       {%- else -%}
+        {%- unless link.external -%}
+          {%- assign _mob_link = link.url
+            | replace: site.url, ''
+            | replace: site.baseurl, ''
+            | split: '?'
+            | first
+            | replace: 'index.html', ''
+            | replace: '//', '/'
+          -%}
+          {%- if _mob_link == '' -%}{%- assign _mob_link = '/' -%}{%- endif -%}
+        {%- endunless -%}
         <li>
           <a
             href="{% if link.external %}{{ link.url }}{% else %}{{ link.url | relative_url }}{% endif %}"
             class="mobile-nav__link"
             {% if link.external %}
               target="_blank" rel="noopener noreferrer"
+            {% else %}
+              {%- if _hdr_page == _mob_link %}aria-current="page"{% endif -%}
             {% endif %}
           >
             {{ link.title | escape }}

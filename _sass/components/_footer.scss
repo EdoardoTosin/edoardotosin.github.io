@@ -228,6 +228,11 @@
   // Bottom bar
   &__bottom {
     padding: $sp-6 0;
+    border-top: 1px solid var(--border);
+
+    @include retina {
+      border-top-width: 0.5px;
+    }
 
     .container {
       display: flex;

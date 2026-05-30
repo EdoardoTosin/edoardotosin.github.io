@@ -1331,7 +1331,8 @@ $ext-link-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg
 
 @media not print {
   .js-mermaid-print {
-    display: none;
+    height: 0;
+    overflow: hidden;
   }
 
   [data-theme='dark'] .mermaid svg rect.rect {

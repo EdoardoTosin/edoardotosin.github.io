@@ -787,37 +787,12 @@
       });
     }
 
-    // Focus trap
-    function getFocusable() {
-      return Array.prototype.slice
-        .call(overlay.querySelectorAll('input,button,a,[tabindex]:not([tabindex="-1"])'))
-        .filter(function (el) {
-          return !el.disabled;
-        });
-    }
-    function trapFocus(e) {
-      if (e.key !== 'Tab' || !overlay.classList.contains('is-open')) return;
-      const f = getFocusable();
-      if (!f.length) return;
-      if (e.shiftKey) {
-        if (document.activeElement === f[0]) {
-          e.preventDefault();
-          f[f.length - 1].focus();
-        }
-      } else {
-        if (document.activeElement === f[f.length - 1]) {
-          e.preventDefault();
-          f[0].focus();
-        }
-      }
-    }
-
     // Arrow-key navigation
     function getLinks() {
       return Array.prototype.slice.call(results.querySelectorAll('a.search-overlay__result-item'));
     }
     function navResults(e) {
-      if (!overlay.classList.contains('is-open')) return;
+      if (!overlay.open) return;
       const links = getLinks();
       if (e.key === 'ArrowDown') {
         e.preventDefault();
@@ -862,8 +837,7 @@
     function openSearch() {
       lastFocused = document.activeElement;
       focusedIdx = -1;
-      overlay.classList.add('is-open');
-      overlay.setAttribute('aria-hidden', 'false');
+      overlay.showModal();
       document.body.style.overflow = 'hidden';
       setTimeout(function () {
         if (input) input.focus();
@@ -872,12 +846,10 @@
       toggleBtns.forEach(function (b) {
         b.setAttribute('aria-expanded', 'true');
       });
-      document.addEventListener('keydown', trapFocus);
       document.addEventListener('keydown', navResults);
     }
     function closeSearch() {
-      overlay.classList.remove('is-open');
-      overlay.setAttribute('aria-hidden', 'true');
+      overlay.close();
       document.body.style.overflow = '';
       if (input) input.value = '';
       if (results) results.innerHTML = '';
@@ -885,7 +857,6 @@
       toggleBtns.forEach(function (b) {
         b.setAttribute('aria-expanded', 'false');
       });
-      document.removeEventListener('keydown', trapFocus);
       document.removeEventListener('keydown', navResults);
       if (lastFocused && lastFocused.focus) lastFocused.focus();
       resetViewportZoom();
@@ -898,6 +869,11 @@
     overlay.addEventListener('click', function (e) {
       if (e.target === overlay) closeSearch();
     });
+    // Handle native Escape key on <dialog> before it auto-closes
+    overlay.addEventListener('cancel', function (e) {
+      e.preventDefault();
+      closeSearch();
+    });
 
     results.addEventListener('click', function (e) {
       const link = e.target.closest('a.search-overlay__result-item');
@@ -909,13 +885,9 @@
       if (link && input && input.value.trim()) pushHistory(input.value.trim());
     });
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && overlay.classList.contains('is-open')) {
-        closeSearch();
-        return;
-      }
       if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
         e.preventDefault();
-        overlay.classList.contains('is-open') ? closeSearch() : openSearch();
+        overlay.open ? closeSearch() : openSearch();
       }
     });
 
@@ -934,7 +906,7 @@
         .then(function (d) {
           cache = d;
           idx = buildIndex(d);
-          if (overlay.classList.contains('is-open') && input && !input.value.trim()) showHomepage();
+          if (overlay.open && input && !input.value.trim()) showHomepage();
         })
         .catch(function () {
           cache = [];

@@ -40,7 +40,8 @@ document.addEventListener('DOMContentLoaded', function () {
     if (screenTheme !== 'default') {
       mermaid.initialize({ startOnLoad: false, theme: screenTheme });
     }
-    const p2 = mermaid.run();
+    const screenNodes = Array.from(document.querySelectorAll('.mermaid:not(.js-mermaid-print)'));
+    const p2 = screenNodes.length ? mermaid.run({ nodes: screenNodes }) : null;
     if (p2 && typeof p2.then === 'function') {
       p2.then(pinNaturalWidths);
     } else {
@@ -56,7 +57,8 @@ document.addEventListener('DOMContentLoaded', function () {
       el.textContent = el.getAttribute('data-src') || '';
     });
     mermaid.initialize({ startOnLoad: false, theme: newTheme });
-    const p = mermaid.run();
+    const screenNodes = Array.from(document.querySelectorAll('.mermaid:not(.js-mermaid-print)'));
+    const p = screenNodes.length ? mermaid.run({ nodes: screenNodes }) : null;
     if (p && typeof p.then === 'function') {
       p.then(pinNaturalWidths);
     } else {

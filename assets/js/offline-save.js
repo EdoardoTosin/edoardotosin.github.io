@@ -73,7 +73,7 @@
         );
       })
       .then(function () {
-        const title = document.title.replace(/\s*[\u2014\-]\s*[^\u2014\-]+$/, '').trim();
+        const title = document.title.replace(/\s*-\s*[^-]+$/, '').trim();
         const dateEl = document.querySelector('[itemprop="datePublished"]');
         const date = dateEl ? (dateEl.getAttribute('datetime') || dateEl.textContent).slice(0, 10) : '';
         const saved = getSaved().filter(function (p) {

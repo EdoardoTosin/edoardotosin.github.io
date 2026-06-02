@@ -24,7 +24,9 @@ var PRECACHE_ASSETS = [
   '{{ "/assets/js/katex.min.js" | relative_url }}',
   '{{ "/assets/js/auto-render.min.js" | relative_url }}',
   '{{ "/assets/js/katex-init.js" | relative_url }}',
+  {%- if site.google_analytics and site.google_analytics != "" %}
   '{{ "/assets/js/analytics.js" | relative_url }}',
+  {%- endif %}
   '{{ "/manifest.json" | relative_url }}',
   '{{ site.logo | relative_url }}',
   '{{ "/offline.html" | relative_url }}'

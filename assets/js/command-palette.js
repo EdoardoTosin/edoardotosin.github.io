@@ -6,6 +6,7 @@
   const input = document.getElementById('cmd-input');
   const results = document.getElementById('cmd-results');
   if (!palette || !input || !results) return;
+  if (!palette.showModal) return;
 
   const BASE = (palette.getAttribute('data-base-url') || '').replace(/\/$/, '');
 
@@ -37,7 +38,7 @@
   function open() {
     isOpen = true;
     lastFocused = document.activeElement;
-    palette.removeAttribute('hidden');
+    palette.showModal();
     document.body.style.overflow = 'hidden';
     requestAnimationFrame(function () {
       palette.classList.add('is-open');
@@ -54,7 +55,7 @@
     document.body.style.overflow = '';
     activeIdx = -1;
     setTimeout(function () {
-      if (!isOpen) palette.setAttribute('hidden', '');
+      if (!isOpen) palette.close();
     }, 200);
     if (lastFocused && lastFocused.focus) lastFocused.focus();
   }
@@ -309,8 +310,13 @@
     if (el) setActive(itemList().indexOf(el));
   });
 
+  palette.addEventListener('cancel', function (e) {
+    e.preventDefault();
+    close();
+  });
+
   palette.addEventListener('click', function (e) {
-    if (e.target === palette || e.target.classList.contains('cmd-palette__backdrop')) close();
+    if (e.target === palette) close();
   });
 
   // Expose for external triggers

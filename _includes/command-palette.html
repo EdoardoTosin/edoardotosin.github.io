@@ -1,13 +1,9 @@
-<div
+<dialog
   id="cmd-palette"
   class="cmd-palette"
-  role="dialog"
-  aria-modal="true"
   aria-label="Command palette"
   data-base-url="{{ '/' | relative_url | remove_last: '/' }}"
-  hidden
 >
-  <div class="cmd-palette__backdrop" aria-hidden="true"></div>
   <div class="cmd-palette__box" role="presentation">
     <div class="cmd-palette__input-wrap">
       <svg
@@ -50,4 +46,4 @@
       <span><kbd>Esc</kbd> close</span>
     </div>
   </div>
-</div>
+</dialog>

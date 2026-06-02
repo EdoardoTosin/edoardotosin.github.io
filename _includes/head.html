@@ -3,7 +3,7 @@
 <head>
   <script>
     (function() {
-      document.documentElement.classList.add('no-transitions');
+      document.documentElement.classList.add('no-transitions', 'js');
 
       var storedTheme;
       try { storedTheme = localStorage.getItem('jekyll-theme'); } catch (e) {}
@@ -181,4 +181,29 @@
       document.documentElement.classList.remove('no-transitions');
     });
   </script>
+
+  <noscript>
+    <style>
+      /* Lazy images: visible immediately without JS fade */
+      img[loading="lazy"] { opacity: 1 !important; transition: none !important; }
+      /* Mobile nav: show links inline; hide non-functional toggle */
+      @media (max-width: 1023px) { /* $bp-lg - 1px */
+        .mobile-nav {
+          position: relative !important;
+          transform: none !important;
+          height: auto !important;
+          overflow: visible !important;
+          z-index: auto !important;
+        }
+        .nav-toggle { display: none !important; }
+        .mobile-nav__actions { display: none !important; }
+      }
+      /* Controls that require JS to function */
+      .search-toggle,
+      .theme-toggle,
+      .code-block__copy,
+      .view-toggle,
+      .load-more-wrap { display: none !important; }
+    </style>
+  </noscript>
 </head>

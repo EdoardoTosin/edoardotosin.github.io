@@ -5,8 +5,10 @@
     (function() {
       document.documentElement.classList.add('no-transitions');
 
-      const storedTheme = localStorage.getItem('jekyll-theme');
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var storedTheme;
+      try { storedTheme = localStorage.getItem('jekyll-theme'); } catch (e) {}
+      var mq = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+      var prefersDark = mq ? mq.matches : false;
 
       const theme = (storedTheme === 'dark' || (!storedTheme && prefersDark))
         ? 'dark'

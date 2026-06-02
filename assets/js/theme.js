@@ -27,7 +27,9 @@
     const current = document.documentElement.getAttribute(ATTR) || LIGHT;
     const next = current === DARK ? LIGHT : DARK;
     applyTheme(next);
-    localStorage.setItem(STORAGE_KEY, next);
+    try {
+      localStorage.setItem(STORAGE_KEY, next);
+    } catch (e) {}
     updateButtons(next);
   }
 
@@ -42,7 +44,11 @@
 
     if (window.matchMedia) {
       window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function (e) {
-        if (!localStorage.getItem(STORAGE_KEY)) {
+        var stored;
+        try {
+          stored = localStorage.getItem(STORAGE_KEY);
+        } catch (e2) {}
+        if (!stored) {
           const theme = e.matches ? DARK : LIGHT;
           applyTheme(theme);
           updateButtons(theme);

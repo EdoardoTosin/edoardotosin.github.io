@@ -200,10 +200,12 @@
       }
       /* Controls that require JS to function */
       .search-toggle,
-      .theme-toggle,
       .code-block__copy,
-      .view-toggle,
+      .share-btn--copy,
+      #save-offline-btn,
       .load-more-wrap { display: none !important; }
+      .theme-toggle,
+      .view-toggle { pointer-events: none !important; cursor: default !important; }
     </style>
   </noscript>
 </head>

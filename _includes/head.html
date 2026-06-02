@@ -206,6 +206,30 @@
       .load-more-wrap { display: none !important; }
       .theme-toggle,
       .view-toggle { pointer-events: none !important; cursor: default !important; }
+      .view-toggle .sr-only,
+      .theme-toggle .sr-only,
+      .site-footer__social .sr-only {
+        position: static !important;
+        width: auto !important;
+        height: auto !important;
+        overflow: visible !important;
+        clip: auto !important;
+        white-space: normal !important;
+        margin: 0 !important;
+      }
+      .site-footer__social a {
+        width: auto !important;
+        height: auto !important;
+        padding: 6px 10px !important;
+        border-radius: 6px !important;
+        font-size: .8125rem;
+      }
+      .view-toggle__btn {
+        width: auto !important;
+        height: auto !important;
+        padding: 4px 8px !important;
+        font-size: .8125rem;
+      }
     </style>
   </noscript>
 </head>

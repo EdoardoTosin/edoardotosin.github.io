@@ -55,7 +55,7 @@ header_nav:
 
 # Footer columns: each entry is a named group with its own `items` list.
 footer_nav:
-  - group: "Journal"
+  - group: "Blog"
     items:
       - title: "Blog"
         url:   "/blog/"

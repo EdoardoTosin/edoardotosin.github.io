@@ -31,14 +31,14 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // Render print copies in light theme first; each gets data-processed so the mermaid.run() call below skips them.
-  mermaid.initialize({ startOnLoad: false, theme: 'default' });
+  mermaid.initialize({ startOnLoad: false, theme: 'default', securityLevel: 'strict' });
   const p1 = printNodes.length ? mermaid.run({ nodes: printNodes }) : Promise.resolve();
   const p1done = p1 && typeof p1.then === 'function' ? p1 : Promise.resolve();
 
   p1done.then(function () {
     const screenTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default';
     if (screenTheme !== 'default') {
-      mermaid.initialize({ startOnLoad: false, theme: screenTheme });
+      mermaid.initialize({ startOnLoad: false, theme: screenTheme, securityLevel: 'strict' });
     }
     const screenNodes = Array.from(document.querySelectorAll('.mermaid:not(.js-mermaid-print)'));
     const p2 = screenNodes.length ? mermaid.run({ nodes: screenNodes }) : null;
@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
       el.removeAttribute('data-processed');
       el.textContent = el.getAttribute('data-src') || '';
     });
-    mermaid.initialize({ startOnLoad: false, theme: newTheme });
+    mermaid.initialize({ startOnLoad: false, theme: newTheme, securityLevel: 'strict' });
     const screenNodes = Array.from(document.querySelectorAll('.mermaid:not(.js-mermaid-print)'));
     const p = screenNodes.length ? mermaid.run({ nodes: screenNodes }) : null;
     if (p && typeof p.then === 'function') {

@@ -20,6 +20,10 @@ logo: '/assets/icons/favicon.png'
 
 - `short_name`: used as the PWA app name on home screens and the iOS `apple-mobile-web-app-title`. Keep it under 12 characters for best display on Android launchers. Defaults to `title` if omitted.
 - `keywords`: comma-separated string, emitted as `<meta name="keywords">` on pages that have no post-level `keywords` set.
+- `lang`: BCP 47 language code set as the `lang` attribute on `<html>` and used by jekyll-feed. Defaults to `en`.
+- `og_locale`: Open Graph locale (`og:locale`). Format: `language_TERRITORY` (e.g. `en_US`).
+- `timezone`: Ruby timezone name used by Jekyll for date parsing and display (e.g. `Europe/Rome`, `America/New_York`).
+- `repository`: full GitHub repository URL. Rendered as a "Source Code" link in the footer copyright bar. Omit to hide the link.
 - `logo`: path to the site icon (PNG). Used in the header, footer, SEO tags, and the web app manifest. Place icon files in `assets/icons/`.
 
 ## Author
@@ -94,6 +98,17 @@ footer_nav:
 
 Add `external: true` to any item that links outside the site.
 
+## Copyright
+
+```yaml
+copyright:
+  year: 2022
+  msg: Contents under CC BY 4.0
+  url: 'https://creativecommons.org/licenses/by/4.0/'
+```
+
+Shown in the site footer. `year` is the founding year (a range like `2022-26` is displayed automatically when the current year differs, using a 2-digit end year). `msg` and `url` must both be set to render the license link - omitting either hides it entirely.
+
 ## Social
 
 ```yaml
@@ -140,9 +155,14 @@ homepage:
 - `enable_blog_toggle`: show the grid/list view switch on the blog feed
 - `sticky_sidebar`: keep the sidebar fixed while scrolling
 - `posts_per_page`: number of posts shown initially on the homepage (mobile always shows at most 3)
+- `featured_source`: how featured posts are selected. `front_matter` uses posts with `featured: true` in their front matter.
 - `featured_limit`: max posts shown in the Featured Posts sidebar widget
 - `topics_limit`: max topics shown in the Topics sidebar widget
 - `show_topic_clusters`: set to `false` to hide the Featured Topics section
+- `video_source`: how video posts are selected. `front_matter` uses posts with `video: true` in their front matter.
+- `videos_limit`: max video posts shown in the homepage Videos section
+- `gallery_source`: how gallery posts are selected. `front_matter` uses posts with `gallery: true` in their front matter.
+- `gallery_limit`: max gallery posts shown in the homepage Gallery section
 
 The Featured Topics section selects topics automatically, ordered by the number of featured posts then total posts per topic. Up to four topics are shown, one per grid column.
 
@@ -241,6 +261,10 @@ disqus:
 
 google_analytics: ''
 
+site_verification:
+  google: '' # Google Search Console verification token
+  bing: '' # Bing Webmaster Tools verification token
+
 newsletter:
   enabled: false
   action_url: 'https://your-mailchimp-url'
@@ -254,6 +278,9 @@ webmentions:
 ```
 
 All integrations are off by default. Set `enabled: true` and fill in the required fields to activate.
+
+- `google_analytics`: Google Analytics measurement ID (e.g. `G-XXXXXXXXXX`). Leave blank to disable.
+- `site_verification`: paste only the `content=` token value from the meta tag provided by the respective webmaster tool, not the full tag.
 
 ### Webmentions
 
@@ -273,6 +300,19 @@ webmentions:
 When enabled, the `<link rel="webmention">` and `<link rel="pingback">` discovery tags are added to every page, and a Webmentions section (likes, reposts, and replies) appears at the bottom of each post.
 
 No build-time API calls are made. Webmentions are fetched client-side when a visitor loads a post page.
+
+## RSS Feed
+
+```yaml
+feed:
+  path: feed.xml
+  posts_limit: 50
+  icon: /images/avatar.webp
+  logo: /images/social-preview.png
+```
+
+- `path`: URL path of the feed file. Defaults to `feed.xml`. Referenced in templates to build the feed link.
+- `posts_limit`, `icon`, `logo`: consumed directly by the `jekyll-feed` gem. `posts_limit` caps the number of entries; `icon` is a small square image shown by feed readers; `logo` is a wide banner image.
 
 ## Reading Time
 

@@ -172,7 +172,6 @@ html[data-blog-view='list'] .view-toggle__btn[data-view='list'] {
 
   &.is-sticky {
     position: sticky;
-    top: calc(var(--header-h) + #{$sp-3});
     max-height: calc(100vh - var(--header-h) - #{$sp-3} - #{$sp-6});
     overflow-y: auto;
     overflow-x: hidden;

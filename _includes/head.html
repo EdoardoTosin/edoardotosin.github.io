@@ -114,7 +114,8 @@
 
   {% include seo.html %}
 
-  <link rel="stylesheet" href="{{ '/assets/css/fonts.css' | relative_url }}">
+  <link rel="preload" href="{{ '/assets/css/fonts.css' | relative_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="{{ '/assets/css/fonts.css' | relative_url }}"></noscript>
   <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
 
   <link rel="manifest" href="{{ '/manifest.json' | relative_url }}">
@@ -149,6 +150,8 @@
 
   {%- if page.layout == 'post' and page.image -%}
     <link rel="preload" as="image" href="{{ page.image | relative_url }}" fetchpriority="high">
+  {%- elsif page.url == '/' or page.url == '/index.html' -%}
+    <link rel="preload" as="image" href="{{ site.author.avatar | default: '/images/avatar.webp' | relative_url }}" fetchpriority="high">
   {%- endif -%}
 
   <script defer src="{{ '/assets/js/theme.js' | relative_url }}"></script>

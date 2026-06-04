@@ -1,7 +1,7 @@
 ---
 layout: page
 title: 'Credits'
-description: 'Open-source tools, libraries, fonts, and resources used to build this website, including Jekyll, IBM Plex Sans, Outfit, Monaspace Neon, and more.'
+description: 'Open-source tools, libraries, fonts, and resources used to build this website, including Jekyll, IBM Plex Sans, Outfit, JetBrains Mono, and more.'
 permalink: /credits/
 ---
 
@@ -46,7 +46,7 @@ This site is built with Jekyll and the following open-source tools and resources
 
 - **[IBM Plex Sans](https://fonts.google.com/specimen/IBM+Plex+Sans)** - Body font
 - **[Outfit](https://fonts.google.com/specimen/Outfit)** - Heading font
-- **[Monaspace Neon](https://github.com/githubnext/monaspace)** - Monospace font for code
+- **[JetBrains Mono](https://fonts.google.com/specimen/JetBrains+Mono)** - Monospace font for code, with ligatures
 
 All fonts are self-hosted as WOFF2 files - no external requests.
 

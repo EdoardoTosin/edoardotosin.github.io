@@ -34,7 +34,7 @@ author:
   hero_title: "Hi, I'm You"
   hero_subtitle: ''
   hero_description: 'Longer homepage intro paragraph.'
-  avatar: '/images/avatar.jpg'
+  avatar: '/images/avatar.webp'
   email: 'you@yourdomain.com'
   twitter: 'yourhandle'
 ```
@@ -54,12 +54,12 @@ john-doe:
   name: 'John Doe'
   tagline: 'Technical Writer'
   bio: 'Short bio.'
-  avatar: '/images/avatar.jpg'
+  avatar: '/images/avatar.webp'
   url: 'https://johndoe.com'
   twitter: 'johndoe'
 ```
 
-Required fields: `name`, `avatar`. `avatar` accepts a local path (`/images/avatar.jpg`) or an external URL (`https://avatars.githubusercontent.com/u/…`). All other fields are optional and omitted from output when blank.
+Required fields: `name`, `avatar`. `avatar` accepts a local path (`/images/avatar.webp`) or an external URL (`https://avatars.githubusercontent.com/u/…`). All other fields are optional and omitted from output when blank.
 
 ## Navigation
 

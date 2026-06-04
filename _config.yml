@@ -21,7 +21,7 @@ author:
   hero_title:        "Hi, I'm Edoardo"
   hero_subtitle:     ""
   hero_description:  "I build and explore software, documenting practical work in programming, security, Linux, and open-source projects, with the occasional telescope pointed at something far away."
-  avatar:            "/images/avatar.jpg"
+  avatar:            "/images/avatar.webp"
   email:             "edoardotosindev@proton.me"
   twitter:           "edoardotosin" # Used for jekyll-feed author information
 
@@ -200,7 +200,7 @@ pagination:
 feed:
   path: feed.xml
   posts_limit: 50
-  icon: /images/avatar.jpg
+  icon: /images/avatar.webp
   logo: /images/social-preview.png
 
 sass:

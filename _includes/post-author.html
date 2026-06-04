@@ -10,7 +10,7 @@
         {%- if _slug == site.author.slug -%}{%- assign _pa_a = site.author -%}{%- endif -%}
       {%- endunless -%}
       {%- if _pa_a -%}
-        {%- assign _pa_avatar = _pa_a.avatar | default: '/images/avatar.jpg' -%}
+        {%- assign _pa_avatar = _pa_a.avatar | default: '/images/avatar.webp' -%}
         {%- unless _pa_avatar contains '://' -%}{%- assign _pa_avatar = _pa_avatar | relative_url -%}{%- endunless -%}
         <div class="author-box author-box--compact" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img
@@ -45,7 +45,7 @@
   {%- unless _pa_a -%}
     {%- assign _pa_a = site.author -%}
   {%- endunless -%}
-  {%- assign _pa_avatar = _pa_a.avatar | default: '/images/avatar.jpg' -%}
+  {%- assign _pa_avatar = _pa_a.avatar | default: '/images/avatar.webp' -%}
   {%- unless _pa_avatar contains '://' -%}{%- assign _pa_avatar = _pa_avatar | relative_url -%}{%- endunless -%}
   <div class="author-box" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <img

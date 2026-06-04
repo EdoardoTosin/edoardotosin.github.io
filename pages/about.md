@@ -7,7 +7,7 @@ permalink: /about/
 
 <div class="about-avatar">
   <div class="about-avatar__img">
-    <img src="{{ site.author.avatar | default: '/images/avatar.jpg' | relative_url }}"
+    <img src="{{ site.author.avatar | default: '/images/avatar.webp' | relative_url }}"
          alt="{{ site.author.name }}"
          loading="eager"
          data-no-zoom>

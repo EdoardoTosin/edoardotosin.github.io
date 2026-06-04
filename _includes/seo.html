@@ -195,7 +195,7 @@
       "@id": {{ site.url | append: site.baseurl | append: "/about/#person" | jsonify }},
       "name": {{ site.author.name | jsonify }},
       "url": {{ site.url | append: site.baseurl | append: "/about/" | jsonify }},
-      "image": {{ site.author.avatar | default: '/images/avatar.jpg' | absolute_url | jsonify }},
+      "image": {{ site.author.avatar | default: '/images/avatar.webp' | absolute_url | jsonify }},
       "description": {{ site.author.bio | jsonify }}{% if site.author.twitter and site.author.twitter != '' %},
       "sameAs": [
         {{ site.author.twitter | prepend: 'https://twitter.com/' | jsonify }}
@@ -229,7 +229,7 @@
       "name": {{ site.author.name | jsonify }},
       "description": {{ site.author.bio | jsonify }},
       "url": {{ seo_url | jsonify }},
-      "image": {{ site.author.avatar | default: '/images/avatar.jpg' | absolute_url | jsonify }}{% if site.author.twitter and site.author.twitter != '' %},
+      "image": {{ site.author.avatar | default: '/images/avatar.webp' | absolute_url | jsonify }}{% if site.author.twitter and site.author.twitter != '' %},
       "sameAs": [
         {{ site.author.twitter | prepend: 'https://twitter.com/' | jsonify }}
         {%- if site.social.mastodon and site.social.mastodon != '' %},

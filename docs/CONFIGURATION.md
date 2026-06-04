@@ -32,7 +32,7 @@ author:
   bio: 'One-line bio.'
   tagline: 'Role / Interest'
   hero_title: "Hi, I'm You"
-  hero_subtitle: 'What you do'
+  hero_subtitle: ''
   hero_description: 'Longer homepage intro paragraph.'
   avatar: '/images/avatar.jpg'
   email: 'you@yourdomain.com'
@@ -41,6 +41,7 @@ author:
 
 - `slug`: must match the key used in post front matter (`author:`). Required for multi-author support.
 - `url`: author profile URL, used in the Schema.org JSON-LD for posts.
+- `hero_subtitle`: short label shown below the hero title. Leave blank if `tagline` already covers the same content - the element is hidden when empty.
 
 All other fields are optional. Blank fields are omitted from the rendered page.
 

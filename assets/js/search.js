@@ -323,14 +323,18 @@
       HIST_MAX = 6;
     function getHistory() {
       try {
-        return JSON.parse(localStorage.getItem(HIST_KEY) || '[]');
+        const raw = JSON.parse(localStorage.getItem(HIST_KEY) || '[]');
+        if (!Array.isArray(raw)) return [];
+        return raw
+          .filter(function (q) { return typeof q === 'string' && q.length > 0 && q.length <= 200; })
+          .slice(0, HIST_MAX);
       } catch (e) {
         return [];
       }
     }
     function pushHistory(q) {
-      q = q.trim();
-      if (q.length < 3) return;
+      q = String(q).trim();
+      if (q.length < 3 || q.length > 200) return;
       const s = stem(q.toLowerCase());
       const h = getHistory().filter(function (x) {
         return stem(x.toLowerCase()) !== s;

@@ -901,7 +901,7 @@
     qsa('[data-newsletter-open]').forEach(function (btn) {
       btn.addEventListener('click', function () {
         const url = btn.getAttribute('data-newsletter-open');
-        if (url) {
+        if (url && /^https?:\/\//i.test(url)) {
           window.open(url, '_blank', 'noopener,noreferrer');
         }
       });

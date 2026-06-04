@@ -8,7 +8,8 @@
   if (!palette || !input || !results) return;
   if (!palette.showModal) return;
 
-  const BASE = (palette.getAttribute('data-base-url') || '').replace(/\/$/, '');
+  const rawBase = (palette.getAttribute('data-base-url') || '').replace(/\/$/, '');
+  const BASE = rawBase === '' || /^https?:\/\//i.test(rawBase) ? rawBase : '';
 
   const PAGES = [
     { label: 'Home', url: BASE + '/', icon: 'home' },
@@ -244,7 +245,7 @@
       close();
       const btn = document.querySelector('.theme-toggle');
       if (btn) btn.click();
-    } else if (url) {
+    } else if (url && /^(https?:\/\/|\/|#)/i.test(url)) {
       close();
       window.location.href = url;
     }

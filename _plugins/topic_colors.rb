@@ -78,10 +78,15 @@ module TopicColors
     to_hex(rr, gg, bb)
   end
 
-  # Luminance of the dark-mode card background (#1c2132)
-  BG_DARK_LUM = begin
-    r, g, b = parse_hex('#1c2132')
-    luminance(r, g, b)
+  # Card backgrounds the subtle overlay is rendered on top of
+  BG_LIGHT_RGB = [255, 255, 255].freeze          # --bg-card light: #ffffff
+  BG_DARK_RGB  = parse_hex('#1c2132').freeze     # --bg-card dark:  #1c2132
+
+  # Blends rgba(r,g,b, alpha) over a background and returns the result luminance.
+  # Matches how browsers composite the badge's subtle background.
+  def self.subtle_lum(r, g, b, bg_rgb, alpha: 0.12)
+    blended = bg_rgb.zip([r, g, b]).map { |bg, fg| (fg * alpha + bg * (1 - alpha)).round }
+    luminance(*blended)
   end
 
   # Returns {subtle, text_light, text_dark} derived from a single hex color
@@ -90,8 +95,8 @@ module TopicColors
 
     {
       'subtle'     => "rgba(#{r},#{g},#{b},.12)",
-      'text_light' => adjust_for_contrast(r, g, b, 1.0,          target: 4.5, dir: :darken),
-      'text_dark'  => adjust_for_contrast(r, g, b, BG_DARK_LUM,  target: 4.5, dir: :lighten)
+      'text_light' => adjust_for_contrast(r, g, b, subtle_lum(r, g, b, BG_LIGHT_RGB), target: 4.5, dir: :darken),
+      'text_dark'  => adjust_for_contrast(r, g, b, subtle_lum(r, g, b, BG_DARK_RGB),  target: 4.5, dir: :lighten)
     }
   end
 

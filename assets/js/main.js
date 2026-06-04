@@ -94,6 +94,7 @@
       toggle.classList.add('is-open');
       nav.classList.add('is-open');
       nav.setAttribute('aria-hidden', 'false');
+      nav.removeAttribute('inert');
       toggle.setAttribute('aria-expanded', 'true');
       toggle.setAttribute('aria-label', 'Close menu');
       document.body.style.overflow = 'hidden';
@@ -110,6 +111,7 @@
       toggle.classList.remove('is-open');
       nav.classList.remove('is-open');
       nav.setAttribute('aria-hidden', 'true');
+      nav.setAttribute('inert', '');
       toggle.setAttribute('aria-expanded', 'false');
       toggle.setAttribute('aria-label', 'Open menu');
       document.body.style.overflow = '';

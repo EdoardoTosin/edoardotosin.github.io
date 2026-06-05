@@ -136,7 +136,7 @@
         {
           "@type": "ListItem",
           "position": 3,
-          "name": {{ page.topic | downcase | jsonify }},
+          "name": "Topics",
           "item": {{ site.url | append: site.baseurl | append: "/topics/" | jsonify }}
         },
         {
@@ -148,7 +148,7 @@
         {
           "@type": "ListItem",
           "position": 3,
-          "name": {{ page.tags.first | downcase | jsonify }},
+          "name": "Tags",
           "item": {{ site.url | append: site.baseurl | append: "/tags/" | jsonify }}
         },
         {

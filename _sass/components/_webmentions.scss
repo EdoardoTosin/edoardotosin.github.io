@@ -1,17 +1,17 @@
 @use 'variables' as *;
 
 .webmentions {
-  margin-top: $sp-12;
+  margin-top: $sp-8;
   padding-top: $sp-8;
   border-top: 1px solid var(--border);
 
   &__title {
-    font-size: clamp(1.1rem, 2vw, 1.35rem);
-    font-family: $font-heading;
+    font-size: $fs-md;
     font-weight: 700;
-    color: var(--text-primary);
-    letter-spacing: -0.02em;
-    margin: 0 0 $sp-6;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    margin-bottom: $sp-4;
   }
 
   // Likes / reposts section
@@ -37,7 +37,7 @@
       border-radius: 50%;
       border: 2px solid var(--bg-card);
       object-fit: cover;
-      transition: transform 0.15s ease;
+      transition: transform $t-fast-p;
 
       @media (hover: hover) and (pointer: fine) {
         &:hover {
@@ -68,12 +68,17 @@
   font-weight: 700;
   text-decoration: none;
   border: 2px solid var(--bg-card);
-  transition: transform 0.15s ease;
+  transition: transform $t-fast-p;
+  @include touch-reset;
 
   @media (hover: hover) and (pointer: fine) {
     &:hover {
       transform: translateY(-2px);
     }
+  }
+
+  &:focus-visible {
+    @include focus-ring;
   }
 }
 
@@ -84,10 +89,12 @@
   border-radius: $r-md;
   padding: $sp-4 $sp-5;
   margin-bottom: $sp-4;
-  transition: border-color 0.2s ease;
+  transition: border-color $t-base-p;
 
-  &:hover {
-    border-color: var(--border-strong);
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      border-color: var(--border-strong);
+    }
   }
 
   &__header {
@@ -101,6 +108,7 @@
     flex-shrink: 0;
     display: block;
     text-decoration: none;
+    @include touch-reset;
 
     img {
       width: 40px;
@@ -108,6 +116,11 @@
       border-radius: 50%;
       object-fit: cover;
       display: block;
+    }
+
+    &:focus-visible {
+      @include focus-ring;
+      border-radius: 50%;
     }
   }
 
@@ -120,7 +133,7 @@
     border-radius: 50%;
     background: var(--accent-subtle);
     color: var(--accent-text);
-    font-size: 1rem;
+    font-size: $fs-xl;
     font-weight: 700;
   }
 
@@ -140,9 +153,18 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    transition: color $t-fast-p;
+    @include touch-reset;
 
-    &:hover {
-      color: var(--accent-text);
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        color: var(--accent-text);
+      }
+    }
+
+    &:focus-visible {
+      @include focus-ring;
+      border-radius: $r-xs;
     }
   }
 
@@ -157,10 +179,17 @@
     text-decoration: none;
     padding: $sp-1;
     border-radius: $r-sm;
-    transition: color 0.15s ease;
+    transition: color $t-fast-p;
+    @include touch-reset;
 
-    &:hover {
-      color: var(--accent-text);
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        color: var(--accent-text);
+      }
+    }
+
+    &:focus-visible {
+      @include focus-ring;
     }
   }
 

@@ -150,11 +150,6 @@ layout: default
 
       {%- include post-footer.html -%}
       {%- include post-discussions.html -%}
-      {%- include post-nav.html -%}
-      {%- include post-author.html -%}
-      {%- include post-related.html -%}
-      {%- include post-backlinks.html -%}
-      {%- include post-cited-by.html -%}
 
       {%- if site.webmentions.enabled -%}
         {% include post-webmentions.html %}
@@ -163,6 +158,12 @@ layout: default
       {%- if page.comments != false -%}
         {% include post-disqus.html %}
       {%- endif -%}
+
+      {%- include post-nav.html -%}
+      {%- include post-author.html -%}
+      {%- include post-related.html -%}
+      {%- include post-backlinks.html -%}
+      {%- include post-cited-by.html -%}
     </article>
 
     {% include sidebar.html %}

@@ -767,7 +767,7 @@
 
 // Comments section
 .comments {
-  margin-top: $sp-12;
+  margin-top: $sp-8;
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: $r-lg;
@@ -784,7 +784,7 @@
     font-size: $fs-md;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.06em;
     color: var(--text-muted);
     margin-bottom: $sp-5;
     padding-bottom: $sp-3;

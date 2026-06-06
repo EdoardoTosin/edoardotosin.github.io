@@ -228,7 +228,6 @@
   border-radius: $r-xl;
   padding: $sp-12 $sp-10;
   text-align: center;
-  margin: $sp-16 0;
   position: relative;
   overflow: hidden;
 
@@ -257,7 +256,7 @@
   }
 
   &__desc {
-    font-size: 1rem;
+    font-size: $fs-xl;
     color: var(--text-secondary);
     max-width: 520px;
     margin: 0 auto $sp-8;
@@ -278,17 +277,20 @@
   &__input {
     flex: 1;
     padding: $sp-3 $sp-5;
-    background: var(--bg-body);
+    background: var(--bg-input);
     border: 1px solid var(--border-ui);
     border-radius: $r-full;
     font-family: $font-sans;
     font-size: $fs-lg;
     color: var(--text-primary);
     outline: none;
-    transition: $t-fast;
+    transition:
+      border-color $t-fast-p,
+      box-shadow $t-fast-p;
 
     &:focus {
       border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-subtle);
     }
 
     &:focus-visible {

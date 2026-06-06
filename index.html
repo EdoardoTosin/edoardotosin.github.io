@@ -215,27 +215,29 @@ pagination:
 </section>
 
 {%- if site.newsletter.enabled -%}
-  <div class="container">
-    <div class="newsletter-banner">
-      <h2 class="newsletter-banner__title">{{ site.newsletter.title }}</h2>
-      <p class="newsletter-banner__desc">{{ site.newsletter.description }}</p>
-      <div class="newsletter-banner__form">
-        <input
-          type="email"
-          class="newsletter-banner__input"
-          placeholder="Email address"
-          aria-label="Your email address"
-        >
-        <button
-          type="button"
-          class="btn btn--primary"
-          data-newsletter-open="{{ site.newsletter.action_url | escape }}"
-        >
-          {{ site.newsletter.button_text | default: 'Join Now' }}
-        </button>
+  <section class="section" aria-label="Newsletter">
+    <div class="container">
+      <div class="newsletter-banner">
+        <h2 class="newsletter-banner__title">{{ site.newsletter.title }}</h2>
+        <p class="newsletter-banner__desc">{{ site.newsletter.description }}</p>
+        <div class="newsletter-banner__form">
+          <input
+            type="email"
+            class="newsletter-banner__input"
+            placeholder="Email address"
+            aria-label="Your email address"
+          >
+          <button
+            type="button"
+            class="btn btn--primary"
+            data-newsletter-open="{{ site.newsletter.action_url | escape }}"
+          >
+            {{ site.newsletter.button_text | default: 'Join Now' }}
+          </button>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 {%- endif -%}
 
 {%- if site.homepage.show_topic_clusters != false -%}

@@ -8,6 +8,38 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  function addMermaidZoom() {
+    document.querySelectorAll('.mermaid[data-processed]:not(.js-mermaid-print)').forEach(function (el) {
+      if (el.dataset.zoomBound) return;
+      el.dataset.zoomBound = '1';
+      el.addEventListener('click', function () {
+        // Print copy is always light-theme; legible on the dark dialog backdrop.
+        const printEl = el.nextElementSibling;
+        const printSvg =
+          printEl && printEl.classList.contains('js-mermaid-print') ? printEl.querySelector('svg') : null;
+        const svg = printSvg || el.querySelector('svg');
+        if (!svg) return;
+        const clone = svg.cloneNode(true);
+        clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+        // Oversized so CSS max-width/max-height fills the dialog.
+        const vb = clone.getAttribute('viewBox');
+        if (vb) {
+          const p = vb.trim().split(/[\s,]+/);
+          const vbW = parseFloat(p[2]);
+          const vbH = parseFloat(p[3]);
+          if (vbW > 0 && vbH > 0) {
+            clone.setAttribute('width', 4000);
+            clone.setAttribute('height', Math.round((4000 * vbH) / vbW));
+          }
+        }
+        clone.style.removeProperty('max-width');
+        const serialized = new XMLSerializer().serializeToString(clone);
+        const dataUrl = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(serialized)));
+        document.dispatchEvent(new CustomEvent('zoom:open', { detail: { src: dataUrl, alt: '' } }));
+      });
+    });
+  }
+
   const printNodes = [];
 
   // Kramdown renders ```mermaid as <pre><code class="language-mermaid">
@@ -43,9 +75,15 @@ document.addEventListener('DOMContentLoaded', function () {
     const screenNodes = Array.from(document.querySelectorAll('.mermaid:not(.js-mermaid-print)'));
     const p2 = screenNodes.length ? mermaid.run({ nodes: screenNodes }) : null;
     if (p2 && typeof p2.then === 'function') {
-      p2.then(pinNaturalWidths);
+      p2.then(function () {
+        pinNaturalWidths();
+        addMermaidZoom();
+      });
     } else {
-      requestAnimationFrame(pinNaturalWidths);
+      requestAnimationFrame(function () {
+        pinNaturalWidths();
+        addMermaidZoom();
+      });
     }
   });
 
@@ -60,9 +98,15 @@ document.addEventListener('DOMContentLoaded', function () {
     const screenNodes = Array.from(document.querySelectorAll('.mermaid:not(.js-mermaid-print)'));
     const p = screenNodes.length ? mermaid.run({ nodes: screenNodes }) : null;
     if (p && typeof p.then === 'function') {
-      p.then(pinNaturalWidths);
+      p.then(function () {
+        pinNaturalWidths();
+        addMermaidZoom();
+      });
     } else {
-      requestAnimationFrame(pinNaturalWidths);
+      requestAnimationFrame(function () {
+        pinNaturalWidths();
+        addMermaidZoom();
+      });
     }
   });
 });

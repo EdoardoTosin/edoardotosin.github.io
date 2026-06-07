@@ -166,10 +166,9 @@
     qsa('.gallery-item__thumb img:not([data-no-zoom])').forEach(function (srcImg) {
       zoomImgs.push(srcImg);
     });
-    if (!zoomImgs.length) return;
-
     let currentIdx = 0;
     let lastPointerEvent = null;
+    let standaloneSrc = null;
 
     let scale = 1;
     let panX = 0;
@@ -258,6 +257,7 @@
     }
 
     function close() {
+      standaloneSrc = null;
       stopInertia();
       resetZoom(false);
       dialog.close();
@@ -272,12 +272,14 @@
     }
 
     function showPrev() {
+      if (standaloneSrc !== null) return;
       if (currentIdx > 0) {
         currentIdx--;
         loadImage(zoomImgs[currentIdx]);
       }
     }
     function showNext() {
+      if (standaloneSrc !== null) return;
       if (currentIdx < zoomImgs.length - 1) {
         currentIdx++;
         loadImage(zoomImgs[currentIdx]);
@@ -724,21 +726,48 @@
       }
     });
 
-    zoomImgs.forEach(function (srcImg, idx) {
-      srcImg.style.cursor = 'zoom-in';
-      srcImg.setAttribute('tabindex', '0');
-      srcImg.setAttribute('role', 'button');
-      if (!srcImg.getAttribute('alt')) srcImg.setAttribute('aria-label', 'Open full size');
-      srcImg.addEventListener('click', function () {
-        open(idx);
-      });
-      srcImg.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          open(idx);
-        }
-      });
+    function openRaw(src, alt) {
+      standaloneSrc = src;
+      stopInertia();
+      lastTapTime = 0;
+      img.src = src;
+      img.srcset = '';
+      img.sizes = '';
+      img.alt = alt || '';
+      caption.textContent = alt || '';
+      fig.style.transition = '';
+      fig.style.transform = '';
+      fig.style.opacity = '';
+      naturalCx = 0;
+      naturalCy = 0;
+      resetZoom(false);
+      dialog.showModal();
+      document.body.style.overflow = 'hidden';
+      closeBtn.focus({ preventScroll: true });
+      requestAnimationFrame(cacheNaturalCentre);
+    }
+
+    document.addEventListener('zoom:open', function (e) {
+      if (e.detail && e.detail.src) openRaw(e.detail.src, e.detail.alt || '');
     });
+
+    if (zoomImgs.length) {
+      zoomImgs.forEach(function (srcImg, idx) {
+        srcImg.style.cursor = 'zoom-in';
+        srcImg.setAttribute('tabindex', '0');
+        srcImg.setAttribute('role', 'button');
+        if (!srcImg.getAttribute('alt')) srcImg.setAttribute('aria-label', 'Open full size');
+        srcImg.addEventListener('click', function () {
+          open(idx);
+        });
+        srcImg.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            open(idx);
+          }
+        });
+      });
+    }
   }
 
   // Load more posts

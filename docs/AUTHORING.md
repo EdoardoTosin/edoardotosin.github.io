@@ -197,6 +197,8 @@ visually separating them from regular links and text.
 | Defanged HTTP/HTTPS scheme | `hXXp://evil.com`, `hxxps[://]c2.example.net` |
 | Defanged domain (`[.]`)    | `evil[.]com`, `cdn[.]malware[.]io`            |
 | Defanged domain (`[dot]`)  | `evil[dot]com`, `cdn[dot]badactor[dot]ru`     |
+| Defanged domain (`(.)`)    | `evil(.)com`, `cdn(.)malware(.)io`            |
+| Defanged domain (`(dot)`)  | `evil(dot)com`, `cdn(dot)badactor(dot)ru`     |
 | Defanged IPv4              | `192.168[.]1.1`, `10[.]0[.]0[.]254`           |
 | Mixed scheme and IP        | `hXXp://192.168[.]1.1/shell.elf`              |
 

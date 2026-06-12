@@ -119,8 +119,8 @@
 }
 
 // Group label
-.cmd-group {
-  &__label {
+.cmd-palette__group {
+  &-label {
     font-size: $fs-xs;
     font-weight: 700;
     letter-spacing: 0.08em;
@@ -132,7 +132,7 @@
 }
 
 // Individual result item
-.cmd-item {
+.cmd-palette__item {
   display: flex;
   align-items: center;
   gap: $sp-3;
@@ -149,7 +149,7 @@
   @include touch-reset;
   min-height: 44px;
 
-  &__icon {
+  &-icon {
     color: var(--icon-color);
     flex-shrink: 0;
     display: flex;
@@ -157,7 +157,7 @@
     width: 16px;
   }
 
-  &__label {
+  &-label {
     flex: 1;
     min-width: 0;
     overflow: hidden;
@@ -166,7 +166,7 @@
   }
 
   // Post-specific layout
-  &__body {
+  &-body {
     flex: 1;
     min-width: 0;
     display: flex;
@@ -174,7 +174,7 @@
     gap: 2px;
   }
 
-  &__meta {
+  &-meta {
     display: flex;
     align-items: center;
     gap: $sp-2;
@@ -182,7 +182,7 @@
     color: var(--text-muted);
   }
 
-  &__tag {
+  &-tag {
     display: inline-flex;
     align-items: center;
     font-size: $fs-xs;
@@ -194,7 +194,7 @@
     text-transform: lowercase;
   }
 
-  &__date {
+  &-date {
     color: var(--text-muted);
   }
 
@@ -203,7 +203,7 @@
   &:hover {
     background: var(--accent-subtle);
 
-    .cmd-item__icon {
+    .cmd-palette__item-icon {
       color: var(--accent-text);
     }
   }
@@ -214,7 +214,7 @@
 }
 
 // Empty state
-.cmd-empty {
+.cmd-palette__empty {
   padding: $sp-6 $sp-5;
   font-size: $fs-lg;
   color: var(--text-muted);

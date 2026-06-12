@@ -44,7 +44,7 @@ permalink: /tags/
     <div class="filter-page__cloud" id="tag-cloud-wrap">
       <div class="filter-page__cloud-inner" id="tag-cloud" aria-label="Tag filter" role="group">
         <button class="filter-page__btn is-active" aria-pressed="true" data-tag="all">
-          All <span class="count">{{ site.posts | size }}</span>
+          All <span class="filter-page__btn-count">{{ site.posts | size }}</span>
         </button>
 
         {%- for tag in all_tags -%}
@@ -58,7 +58,7 @@ permalink: /tags/
               data-label="{{ tag_trimmed | downcase | escape }}"
             >
               {{ tag_trimmed }}
-              <span class="count">{{ tag_count }}</span>
+              <span class="filter-page__btn-count">{{ tag_count }}</span>
             </button>
           {%- endif -%}
         {%- endfor -%}

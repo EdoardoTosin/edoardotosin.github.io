@@ -236,7 +236,7 @@
 
   <div class="site-footer__bottom">
     <div class="container">
-      <ul class="footer-legal">
+      <ul class="site-footer__legal">
         {%- assign _cy = site.time | date: '%Y' -%}
         {%- assign _sy = site.copyright.year | default: _cy -%}
         {%- if _sy != _cy -%}
@@ -247,7 +247,7 @@
         <li>
           <a
             href="{% if site.social.github %}{{ site.social.github }}{% else %}{{ '/' | relative_url }}{% endif %}"
-            class="copyright-item"
+            class="site-footer__legal-link"
             {% if site.social.github %}
               target="_blank" rel="noopener noreferrer"
             {% endif %}
@@ -257,7 +257,11 @@
         </li>
         {%- if site.repository -%}
           <li>
-            <a href="{{ site.repository | escape }}" class="copyright-item" target="_blank" rel="noopener noreferrer"
+            <a
+              href="{{ site.repository | escape }}"
+              class="site-footer__legal-link"
+              target="_blank"
+              rel="noopener noreferrer"
               >Source Code</a
             >
           </li>
@@ -266,7 +270,7 @@
           <li>
             <a
               href="{{ site.copyright.url | escape }}"
-              class="copyright-item"
+              class="site-footer__legal-link"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -274,9 +278,9 @@
             </a>
           </li>
         {%- endif -%}
-        <li><a href="{{ '/privacy-policy' | relative_url }}" class="copyright-item">Privacy Policy</a></li>
-        <li><a href="{{ '/security-policy' | relative_url }}" class="copyright-item">Security Policy</a></li>
-        <li><a href="{{ '/credits' | relative_url }}" class="copyright-item">Credits</a></li>
+        <li><a href="{{ '/privacy-policy' | relative_url }}" class="site-footer__legal-link">Privacy Policy</a></li>
+        <li><a href="{{ '/security-policy' | relative_url }}" class="site-footer__legal-link">Security Policy</a></li>
+        <li><a href="{{ '/credits' | relative_url }}" class="site-footer__legal-link">Credits</a></li>
       </ul>
     </div>
   </div>

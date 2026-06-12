@@ -45,7 +45,7 @@ permalink: /topics/
           aria-pressed="true"
           data-topic="all"
         >
-          All <span class="count">{{ site.posts | size }}</span>
+          All <span class="filter-page__btn-count">{{ site.posts | size }}</span>
         </button>
 
         {%- for topic in all_topics -%}
@@ -57,7 +57,7 @@ permalink: /topics/
             data-label="{{ topic | downcase | escape }}"
           >
             {{ topic | downcase }}
-            <span class="count">{{ topic_count }}</span>
+            <span class="filter-page__btn-count">{{ topic_count }}</span>
           </button>
         {%- endfor -%}
       </div>

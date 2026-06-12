@@ -145,16 +145,16 @@
 
     if (matchedActions.length) {
       html +=
-        '<div class="cmd-group" role="group" aria-label="Actions"><p class="cmd-group__label" aria-hidden="true">Actions</p>';
+        '<div class="cmd-palette__group" role="group" aria-label="Actions"><p class="cmd-palette__group-label" aria-hidden="true">Actions</p>';
       matchedActions.forEach(function (a) {
         html +=
-          '<button class="cmd-item" type="button" data-action="' +
+          '<button class="cmd-palette__item" type="button" data-action="' +
           esc(a.id) +
           '" role="option" aria-selected="false">' +
-          '<span class="cmd-item__icon" aria-hidden="true">' +
+          '<span class="cmd-palette__item-icon" aria-hidden="true">' +
           (ICONS[a.icon] || '') +
           '</span>' +
-          '<span class="cmd-item__label">' +
+          '<span class="cmd-palette__item-label">' +
           esc(a.label) +
           '</span>' +
           '</button>';
@@ -164,16 +164,16 @@
 
     if (matchedPages.length) {
       html +=
-        '<div class="cmd-group" role="group" aria-label="Navigate"><p class="cmd-group__label" aria-hidden="true">Navigate</p>';
+        '<div class="cmd-palette__group" role="group" aria-label="Navigate"><p class="cmd-palette__group-label" aria-hidden="true">Navigate</p>';
       matchedPages.forEach(function (p) {
         html +=
-          '<button class="cmd-item" type="button" data-url="' +
+          '<button class="cmd-palette__item" type="button" data-url="' +
           esc(p.url) +
           '" role="option" aria-selected="false">' +
-          '<span class="cmd-item__icon" aria-hidden="true">' +
+          '<span class="cmd-palette__item-icon" aria-hidden="true">' +
           (ICONS[p.icon] || '') +
           '</span>' +
-          '<span class="cmd-item__label">' +
+          '<span class="cmd-palette__item-label">' +
           esc(p.label) +
           '</span>' +
           '</button>';
@@ -184,27 +184,27 @@
     if (q) {
       if (posts === null) {
         html +=
-          '<div class="cmd-group"><p class="cmd-group__label" aria-hidden="true">Posts</p><p class="cmd-empty">Loading…</p></div>';
+          '<div class="cmd-palette__group"><p class="cmd-palette__group-label" aria-hidden="true">Posts</p><p class="cmd-palette__empty">Loading…</p></div>';
       } else if (matchedPosts.length) {
         html +=
-          '<div class="cmd-group" role="group" aria-label="Posts"><p class="cmd-group__label" aria-hidden="true">Posts</p>';
+          '<div class="cmd-palette__group" role="group" aria-label="Posts"><p class="cmd-palette__group-label" aria-hidden="true">Posts</p>';
         matchedPosts.forEach(function (p) {
           const topic = p.topic
-            ? '<span class="cmd-item__tag" data-topic="' + esc(p.topic) + '">' + esc(p.topic) + '</span>'
+            ? '<span class="cmd-palette__item-tag" data-topic="' + esc(p.topic) + '">' + esc(p.topic) + '</span>'
             : '';
-          const date = p.date ? '<span class="cmd-item__date">' + esc(p.date) + '</span>' : '';
+          const date = p.date ? '<span class="cmd-palette__item-date">' + esc(p.date) + '</span>' : '';
           html +=
-            '<button class="cmd-item cmd-item--post" type="button" data-url="' +
+            '<button class="cmd-palette__item cmd-palette__item--post" type="button" data-url="' +
             esc(p.url || '') +
             '" role="option" aria-selected="false">' +
-            '<span class="cmd-item__icon" aria-hidden="true">' +
+            '<span class="cmd-palette__item-icon" aria-hidden="true">' +
             ICONS.post +
             '</span>' +
-            '<span class="cmd-item__body">' +
-            '<span class="cmd-item__label">' +
+            '<span class="cmd-palette__item-body">' +
+            '<span class="cmd-palette__item-label">' +
             esc(p.title || '') +
             '</span>' +
-            '<span class="cmd-item__meta">' +
+            '<span class="cmd-palette__item-meta">' +
             topic +
             date +
             '</span>' +
@@ -213,7 +213,7 @@
         });
         html += '</div>';
       } else if (!matchedPages.length && !matchedActions.length) {
-        html = '<p class="cmd-empty">No results for “' + esc(q) + '”</p>';
+        html = '<p class="cmd-palette__empty">No results for “' + esc(q) + '”</p>';
       }
     }
 
@@ -222,7 +222,7 @@
   }
 
   function itemList() {
-    return Array.from(results.querySelectorAll('.cmd-item'));
+    return Array.from(results.querySelectorAll('.cmd-palette__item'));
   }
 
   function setActive(i) {
@@ -302,12 +302,12 @@
   });
 
   results.addEventListener('click', function (e) {
-    const el = e.target.closest('.cmd-item');
+    const el = e.target.closest('.cmd-palette__item');
     if (el) activate(el);
   });
 
   results.addEventListener('mousemove', function (e) {
-    const el = e.target.closest('.cmd-item');
+    const el = e.target.closest('.cmd-palette__item');
     if (el) setActive(itemList().indexOf(el));
   });
 

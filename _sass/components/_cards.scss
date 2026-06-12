@@ -130,7 +130,7 @@
   }
 }
 
-.meta-item {
+.post-card__meta-item {
   display: flex;
   align-items: center;
   gap: $sp-1;
@@ -454,7 +454,7 @@
       }
     }
 
-    .video-date {
+    .video-card__date {
       font-size: $fs-md;
       color: var(--text-muted);
       margin-top: $sp-1;

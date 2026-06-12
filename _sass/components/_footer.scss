@@ -235,7 +235,7 @@
       justify-content: center;
     }
 
-    .footer-legal {
+    .site-footer__legal {
       list-style: none;
       padding: 0;
       margin: 0;
@@ -259,7 +259,7 @@
       }
     }
 
-    .copyright-item {
+    .site-footer__legal-link {
       color: var(--text-secondary);
       font-weight: 500;
       text-decoration: none;

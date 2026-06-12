@@ -98,7 +98,7 @@ html[data-blog-view='list'] .view-toggle__btn[data-view='list'] {
 }
 
 // Atom feed link in blog header controls row
-.blog-feed-link {
+.blog__feed-link {
   display: inline-flex;
   align-items: center;
   gap: $sp-2;

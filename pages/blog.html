@@ -19,12 +19,12 @@ permalink: /blog/
     <div class="blog-year-filter__pills" role="group" aria-label="Filter posts by year">
       <button class="filter-page__btn is-active" data-year="all" aria-pressed="true">
         All
-        <span class="count">{{ site.posts | size }}</span>
+        <span class="filter-page__btn-count">{{ site.posts | size }}</span>
       </button>
       {%- for year_group in by_year -%}
         <button class="filter-page__btn" data-year="{{ year_group.name }}" aria-pressed="false">
           {{ year_group.name }}
-          <span class="count">{{ year_group.items | size }}</span>
+          <span class="filter-page__btn-count">{{ year_group.items | size }}</span>
         </button>
       {%- endfor -%}
     </div>
@@ -87,7 +87,7 @@ permalink: /blog/
       {%- if site.feed.path -%}
         <a
           href="{{ site.feed.path | prepend: '/' | relative_url }}"
-          class="blog-feed-link"
+          class="blog__feed-link"
           aria-label="Subscribe via Atom feed"
         >
           <svg

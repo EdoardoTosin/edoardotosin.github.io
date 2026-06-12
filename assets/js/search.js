@@ -677,13 +677,15 @@
           let typeBadge = '';
           if (p.type && p.type !== 'post') {
             typeBadge =
-              '<span class="search-result__badge search-result__badge--' +
+              '<span class="search-overlay__result-badge search-overlay__result-badge--' +
               escHtml(p.type) +
               '">' +
               escHtml(p.type) +
               '</span>';
           }
-          const star = p.featured ? '<span class="search-result__featured" aria-label="Featured">⭐</span>' : '';
+          const star = p.featured
+            ? '<span class="search-overlay__result-featured" aria-label="Featured">⭐</span>'
+            : '';
           const sub = q
             ? makeSnippet(p, rawTerms)
             : p.description
@@ -714,7 +716,7 @@
 
     // History / homepage
     const SVG_CLOCK =
-      '<svg class="search-history__icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>';
+      '<svg class="search-overlay__history-icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>';
     const SVG_X =
       '<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
 
@@ -733,16 +735,16 @@
           '</div><div class="search-overlay__history">';
         hist.forEach(function (q) {
           html +=
-            '<button class="search-history__item" data-hist="' +
+            '<button class="search-overlay__history-item" data-hist="' +
             escHtml(q) +
             '" type="button" aria-label="Search ' +
             escHtml(q) +
             '">' +
             SVG_CLOCK +
-            '<span class="search-history__text">' +
+            '<span class="search-overlay__history-text">' +
             escHtml(q) +
             '</span>' +
-            '<span class="search-history__rm" data-rm="' +
+            '<span class="search-overlay__history-remove" data-rm="' +
             escHtml(q) +
             '" role="button" tabindex="0" aria-label="Remove ' +
             escHtml(q) +
@@ -765,7 +767,7 @@
           } catch (e) {}
           showHomepage();
         });
-      results.querySelectorAll('.search-history__item').forEach(function (btn) {
+      results.querySelectorAll('.search-overlay__history-item').forEach(function (btn) {
         btn.addEventListener('click', function (e) {
           const rmEl = e.target.closest('[data-rm]');
           if (rmEl) {

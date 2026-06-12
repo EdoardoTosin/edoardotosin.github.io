@@ -351,7 +351,7 @@ pagination:
               <h3>
                 <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
               </h3>
-              <p class="video-date">{{ post.date | date: '%d %b %Y' }}</p>
+              <p class="video-card__date">{{ post.date | date: '%d %b %Y' }}</p>
             </div>
           </article>
         {%- endfor -%}

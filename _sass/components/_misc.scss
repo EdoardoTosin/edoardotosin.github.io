@@ -344,7 +344,7 @@
       min-height: 32px;
     }
 
-    .count {
+    .filter-page__btn-count {
       font-size: $fs-xs;
       background: var(--bg-tag);
       color: var(--text-secondary);
@@ -364,7 +364,7 @@
         border-color: var(--accent);
         transform: translateY(-1px);
 
-        .count {
+        .filter-page__btn-count {
           background: var(--accent);
           color: var(--text-on-accent);
         }
@@ -377,7 +377,7 @@
       border-color: var(--accent);
       @include focus-ring;
 
-      .count {
+      .filter-page__btn-count {
         background: var(--accent);
         color: var(--text-on-accent);
       }
@@ -395,7 +395,7 @@
       color: var(--accent-text);
       border-color: var(--accent);
 
-      .count {
+      .filter-page__btn-count {
         background: var(--accent);
         color: var(--text-on-accent);
       }

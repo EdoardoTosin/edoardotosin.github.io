@@ -610,7 +610,7 @@
 }
 
 // Search result badges
-.search-result__badge {
+.search-overlay__result-badge {
   display: inline-block;
   margin-left: $sp-2;
   padding: 1px 7px;
@@ -637,14 +637,14 @@
   }
 }
 
-.search-result__featured {
+.search-overlay__result-featured {
   color: var(--accent);
   margin-right: $sp-1;
   font-size: $fs-sm;
 }
 
 // Search history chips
-.search-history__item {
+.search-overlay__history-item {
   display: inline-flex;
   align-items: center;
   gap: $sp-2;
@@ -666,7 +666,7 @@
     background: var(--bg-tag);
     color: var(--text-primary);
 
-    .search-history__rm {
+    .search-overlay__history-remove {
       color: var(--text-secondary);
     }
   }
@@ -676,13 +676,13 @@
   }
 }
 
-.search-history__icon {
+.search-overlay__history-icon {
   flex-shrink: 0;
   color: var(--text-muted);
   opacity: 0.65;
 }
 
-.search-history__text {
+.search-overlay__history-text {
   flex: 1;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -690,7 +690,7 @@
   min-width: 0;
 }
 
-.search-history__rm {
+.search-overlay__history-remove {
   display: inline-flex;
   align-items: center;
   justify-content: center;

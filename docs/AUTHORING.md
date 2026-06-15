@@ -308,6 +308,32 @@ graph TD
 
 Diagrams adapt to the site's dark/light theme automatically. Mermaid is loaded only on posts that enable it.
 
+### Hand-drawn style
+
+Flowchart and graph diagrams support a hand-drawn style via the `%%{init}%%` directive. Add it as the first line inside the code block:
+
+````markdown
+```mermaid
+%%{init: {'look': 'handDrawn'}}%%
+flowchart TD
+  A[Start] --> B{Decision}
+  B -->|Yes| C[Done]
+  B -->|No| D[Skip]
+```
+````
+
+If the block already has an `%%{init}%%` directive, add `'look': 'handDrawn'` inside the existing object rather than adding a second directive:
+
+````markdown
+```mermaid
+%%{init: {'look': 'handDrawn', 'themeVariables': {'fontSize': '13px', 'fontFamily': 'ui-sans-serif, system-ui, sans-serif'}}}%%
+flowchart TD
+  A[Start] --> B[End]
+```
+````
+
+This style is only implemented for `flowchart` and `graph` diagram types. Sequence diagrams and other types ignore the `look` setting.
+
 ## Series Navigation
 
 Link related posts into an ordered series:

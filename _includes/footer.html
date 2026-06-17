@@ -137,7 +137,7 @@
             </a>
           {%- endif -%}
           {%- if site.feed.path -%}
-            <a href="{{ site.feed.path | prepend: '/' | relative_url }}" aria-label="RSS Feed">
+            <a href="{{ site.feed.path | prepend: '/' | relative_url }}" aria-label="Atom Feed">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="15"
@@ -152,7 +152,25 @@
               >
                 <path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/>
               </svg>
-              <span class="sr-only">RSS Feed</span>
+              <span class="sr-only">Atom Feed</span>
+            </a>
+            <a href="{{ '/feed.json' | relative_url }}" aria-label="JSON Feed">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M8 3H7a2 2 0 0 0-2 2v5a2 2 0 0 1-2 2 2 2 0 0 1 2 2v5c0 1.1.9 2 2 2h1"/>
+                <path d="M16 21h1a2 2 0 0 0 2-2v-5c0-1.1.9-2 2-2a2 2 0 0 1-2-2V5a2 2 0 0 0-2-2h-1"/>
+              </svg>
+              <span class="sr-only">JSON Feed</span>
             </a>
           {%- endif -%}
         </div>

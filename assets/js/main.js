@@ -1013,6 +1013,48 @@
     window.addEventListener('beforeprint', forceEager);
   }
 
+  // Print details expand (spoilers and collapsibles must be open before the dialog fires)
+  function initPrintDetailsExpand() {
+    var saved = [];
+
+    function openAll() {
+      saved = [];
+      qsa('details').forEach(function (el) {
+        saved.push({ el: el, open: el.open });
+        el.open = true;
+      });
+    }
+
+    function restoreAll() {
+      saved.forEach(function (s) {
+        s.el.open = s.open;
+      });
+      saved = [];
+    }
+
+    window.addEventListener('beforeprint', openAll);
+    window.addEventListener('afterprint', restoreAll);
+  }
+
+  // Print lazy images (flip to eager so unloaded images load and opacity:0 lifts)
+  function initPrintLazyImages() {
+    var restored = [];
+
+    window.addEventListener('beforeprint', function () {
+      qsa('img[loading="lazy"]').forEach(function (img) {
+        restored.push(img);
+        img.loading = 'eager';
+      });
+    });
+
+    window.addEventListener('afterprint', function () {
+      restored.forEach(function (img) {
+        img.loading = 'lazy';
+      });
+      restored = [];
+    });
+  }
+
   // Reading progress
   function initReadingProgress() {
     const bar = qs('#reading-progress');
@@ -1301,6 +1343,8 @@
     initImageZoom();
     initPrintImageWrap();
     initGalleryPrintFix();
+    initPrintDetailsExpand();
+    initPrintLazyImages();
     initReadingProgress();
     initLoadMore();
     initBlogToggle();

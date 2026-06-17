@@ -62,6 +62,16 @@ document.addEventListener('DOMContentLoaded', function () {
     printNodes.push(copy);
   });
 
+  // Opens any <details> containing Mermaid nodes before rendering so the layout engine can size diagrams; closed after all passes complete.
+  const openedForRender = [];
+  document.querySelectorAll('.mermaid').forEach(function (m) {
+    const d = m.closest ? m.closest('details') : null;
+    if (d && !d.open && openedForRender.indexOf(d) < 0) {
+      d.open = true;
+      openedForRender.push(d);
+    }
+  });
+
   // Render print copies in light theme first; each gets data-processed so the mermaid.run() call below skips them.
   mermaid.initialize({ startOnLoad: false, theme: 'default', securityLevel: 'strict' });
   const p1 = printNodes.length ? mermaid.run({ nodes: printNodes }) : Promise.resolve();
@@ -78,14 +88,68 @@ document.addEventListener('DOMContentLoaded', function () {
       p2.then(function () {
         pinNaturalWidths();
         addMermaidZoom();
+        openedForRender.forEach(function (d) {
+          d.open = false;
+        });
       });
     } else {
       requestAnimationFrame(function () {
         pinNaturalWidths();
         addMermaidZoom();
+        openedForRender.forEach(function (d) {
+          d.open = false;
+        });
       });
     }
   });
+
+  // Firefox print fix: pre-rendered print SVGs serialized to <img> data URLs so Firefox prints them reliably.
+  var _mermaidPrintImgs = [];
+
+  function buildMermaidPrintImgs() {
+    document.querySelectorAll('.mermaid.js-mermaid-print[data-processed]').forEach(function (el) {
+      var svg = el.querySelector('svg');
+      if (!svg) return;
+      try {
+        var clone = svg.cloneNode(true);
+        clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+        // Element is display:none on screen so getBoundingClientRect() gives 0; use viewBox instead.
+        var vb = clone.getAttribute('viewBox');
+        if (vb) {
+          var p = vb.trim().split(/[\s,]+/);
+          var w = parseFloat(p[2]);
+          var h = parseFloat(p[3]);
+          if (w > 0) {
+            clone.setAttribute('width', w);
+            clone.setAttribute('height', h > 0 ? h : w);
+          }
+        }
+        var serialized = new XMLSerializer().serializeToString(clone);
+        var dataUrl = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(serialized);
+        var img = document.createElement('img');
+        img.src = dataUrl;
+        img.style.cssText = 'max-width:100%;display:block;';
+        // Screen copy is always the element immediately before the print copy.
+        var screen = el.previousElementSibling;
+        var isScreen = screen && screen.classList.contains('mermaid') && !screen.classList.contains('js-mermaid-print');
+        var anchor = isScreen ? screen : el;
+        anchor.after(img);
+        if (isScreen) screen.style.setProperty('display', 'none', 'important');
+        _mermaidPrintImgs.push({ screen: isScreen ? screen : null, img: img });
+      } catch (e) {}
+    });
+  }
+
+  function removeMermaidPrintImgs() {
+    _mermaidPrintImgs.forEach(function (r) {
+      if (r.img.parentNode) r.img.parentNode.removeChild(r.img);
+      if (r.screen) r.screen.style.removeProperty('display');
+    });
+    _mermaidPrintImgs = [];
+  }
+
+  window.addEventListener('beforeprint', buildMermaidPrintImgs);
+  window.addEventListener('afterprint', removeMermaidPrintImgs);
 
   // Theme toggle: re-render only screen diagrams, leave print copies intact.
   document.addEventListener('theme-changed', function (e) {

@@ -23,7 +23,11 @@
     { label: 'Contact', url: BASE + '/contact/', icon: 'contact' },
   ];
 
-  const ACTIONS = [{ label: 'Toggle theme', id: 'toggle-theme', icon: 'theme' }];
+  const ACTIONS = [
+    { label: 'Toggle theme', id: 'toggle-theme', icon: 'theme' },
+    { label: 'Toggle high contrast', id: 'toggle-contrast', icon: 'contrast' },
+    { label: 'Toggle reduced motion', id: 'toggle-motion', icon: 'motion' },
+  ];
 
   let posts = null;
   let isOpen = false;
@@ -119,6 +123,10 @@
     theme:
       '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>',
     post: '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>',
+    contrast:
+      '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 0 20z" fill="currentColor"/></svg>',
+    motion:
+      '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>',
   };
 
   function esc(s) {
@@ -245,6 +253,12 @@
       close();
       const btn = document.querySelector('.theme-toggle');
       if (btn) btn.click();
+    } else if (action === 'toggle-contrast') {
+      close();
+      if (window.a11y) window.a11y.toggleContrast();
+    } else if (action === 'toggle-motion') {
+      close();
+      if (window.a11y) window.a11y.toggleMotion();
     } else if (url && /^(https?:\/\/|\/|#)/i.test(url)) {
       close();
       window.location.href = url;

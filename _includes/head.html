@@ -23,6 +23,15 @@
         }
       } catch (e) {}
 
+      try {
+        if (localStorage.getItem('jekyll-contrast') === 'on') {
+          html.setAttribute('data-contrast', 'on');
+        }
+        if (localStorage.getItem('jekyll-motion') === 'reduce') {
+          html.setAttribute('data-motion', 'reduce');
+        }
+      } catch (e) {}
+
       let meta = document.querySelector('meta#meta-theme-color');
       if (!meta) {
         meta = document.createElement('meta');

@@ -258,6 +258,87 @@ $z-skip: 9999;
   border-bottom: 1px solid var(--border);
 }
 
+// High contrast overlay (explicit toggle or OS prefers-contrast: more)
+@media (prefers-contrast: more) {
+  :root {
+    --bg-body: #ffffff;
+    --bg-card: #ffffff;
+    --bg-header: rgba(255, 255, 255, 0.98);
+    --bg-code: #f0f0f0;
+    --bg-tag: #e0e0e0;
+    --bg-input: #ffffff;
+    --text-primary: #000000;
+    --text-secondary: #111111;
+    --text-muted: #333333;
+    --border: #000000;
+    --border-strong: #000000;
+    --border-ui: #000000;
+    --accent-text: #005a1e;
+    --accent-subtle: rgba(0, 90, 30, 0.12);
+    --shadow-card: 0 0 0 1px #000000;
+    --shadow-hover: 0 0 0 2px #000000;
+  }
+
+  [data-theme='dark'] {
+    --bg-body: #000000;
+    --bg-card: #0a0a0a;
+    --bg-header: rgba(0, 0, 0, 0.98);
+    --bg-code: #111111;
+    --bg-tag: #1a1a1a;
+    --bg-input: #0a0a0a;
+    --text-primary: #ffffff;
+    --text-secondary: #eeeeee;
+    --text-muted: #cccccc;
+    --border: #ffffff;
+    --border-strong: #ffffff;
+    --border-ui: #ffffff;
+    --accent: #6aff96;
+    --accent-text: #6aff96;
+    --accent-subtle: rgba(106, 255, 150, 0.15);
+    --shadow-card: 0 0 0 1px #ffffff;
+    --shadow-hover: 0 0 0 2px #ffffff;
+  }
+}
+
+[data-contrast='on'] {
+  --bg-body: #ffffff;
+  --bg-card: #ffffff;
+  --bg-header: rgba(255, 255, 255, 0.98);
+  --bg-code: #f0f0f0;
+  --bg-tag: #e0e0e0;
+  --bg-input: #ffffff;
+  --text-primary: #000000;
+  --text-secondary: #111111;
+  --text-muted: #333333;
+  --border: #000000;
+  --border-strong: #000000;
+  --border-ui: #000000;
+  --accent-text: #005a1e;
+  --accent-subtle: rgba(0, 90, 30, 0.12);
+  --shadow-card: 0 0 0 1px #000000;
+  --shadow-hover: 0 0 0 2px #000000;
+}
+
+[data-theme='dark'][data-contrast='on'] {
+  --bg-body: #000000;
+  --bg-card: #0a0a0a;
+  --bg-header: rgba(0, 0, 0, 0.98);
+  --bg-code: #111111;
+  --bg-tag: #1a1a1a;
+  --bg-input: #0a0a0a;
+  --text-primary: #ffffff;
+  --text-secondary: #eeeeee;
+  --text-muted: #cccccc;
+  --border: #ffffff;
+  --border-strong: #ffffff;
+  --border-ui: #ffffff;
+  --accent: #6aff96;
+  --accent-text: #6aff96;
+  --accent-subtle: rgba(106, 255, 150, 0.15);
+  --shadow-card: 0 0 0 1px #ffffff;
+  --shadow-hover: 0 0 0 2px #ffffff;
+}
+
 // Explicit light mode
 [data-theme='light'] {
   color-scheme: light;

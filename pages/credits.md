@@ -88,7 +88,6 @@ All fonts are self-hosted as WOFF2 files - no external requests.
 
 - **[Schema.org](https://schema.org/)** - Structured data vocabulary, used via JSON-LD on every page (`BlogPosting`, `Person`, `BreadcrumbList`, etc.)
 - **[Open Graph Protocol](https://ogp.me/)** - Metadata standard for social sharing previews (`og:title`, `og:image`, etc.)
-- **[Webmention](https://www.w3.org/TR/webmention/)** - W3C Recommendation for cross-site interactions, used for reactions and replies
 - **[JSON Feed](https://jsonfeed.org/)** - Feed format specification, used for `/feed.json`
 - **[Microformats2](https://microformats.org/wiki/microformats2)** - Semantic HTML vocabulary (`h-card`, `h-entry`) for structured data
 - **[OpenSearch](https://github.com/dewitt/opensearch)** - Browser search integration specification, used for address bar search

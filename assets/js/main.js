@@ -260,6 +260,7 @@
       standaloneSrc = null;
       stopInertia();
       resetZoom(false);
+      dialog.classList.remove('is-mermaid');
       dialog.close();
       document.body.style.overflow = '';
       setTimeout(function () {
@@ -748,7 +749,10 @@
     }
 
     document.addEventListener('zoom:open', function (e) {
-      if (e.detail && e.detail.src) openRaw(e.detail.src, e.detail.alt || '');
+      if (e.detail && e.detail.src) {
+        if (e.detail.mermaid) dialog.classList.add('is-mermaid');
+        openRaw(e.detail.src, e.detail.alt || '');
+      }
     });
 
     if (zoomImgs.length) {

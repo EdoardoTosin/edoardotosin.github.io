@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
         clone.style.removeProperty('max-width');
         const serialized = new XMLSerializer().serializeToString(clone);
         const dataUrl = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(serialized)));
-        document.dispatchEvent(new CustomEvent('zoom:open', { detail: { src: dataUrl, alt: '' } }));
+        document.dispatchEvent(new CustomEvent('zoom:open', { detail: { src: dataUrl, alt: '', mermaid: true } }));
       });
     });
   }

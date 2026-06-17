@@ -26,6 +26,19 @@
     background: rgba(0, 0, 0, 0.9);
     animation: iz-backdrop-in 0.22s ease both;
   }
+
+  // Mermaid SVGs have transparent backgrounds; solid black prevents page content showing through
+  &.is-mermaid {
+    background: #0f1117;
+
+    &::backdrop {
+      background: #0f1117;
+    }
+
+    img {
+      box-shadow: none;
+    }
+  }
 }
 
 // Close button

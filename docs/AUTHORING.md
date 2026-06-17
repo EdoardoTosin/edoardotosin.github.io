@@ -234,24 +234,24 @@ and in the RSS feed, each matched token is wrapped in an amber span.
 
 ## Supported Markdown
 
-| Element         | Syntax                   | Notes                                   |
-| --------------- | ------------------------ | --------------------------------------- |
-| Headings        | `## H2`, `### H3`        | H1 is the post title - do not repeat it |
-| Bold / Italic   | `**bold**`, `*italic*`   |                                         |
-| Inline code     | `` `code` ``             | Highlighted with accent color           |
-| Code block      | ` ```javascript `        | Always include language tag             |
-| Blockquote      | `> text`                 | Standard blockquotes are untouched      |
-| Link            | `[text](url)`            |                                         |
-| Image           | `![alt](url)`            | Auto-zoom on click, lazy-loaded         |
-| Table           | `\| col \| col \|`       | Scrollable on small screens             |
-| Task list       | `- [ ] item`             | GFM checklist                           |
-| Footnote        | `text[^1]` `[^1]: note`  | Rendered at bottom of post              |
-| `<kbd>`         | `<kbd>Ctrl</kbd>`        | Keyboard shortcut styling               |
-| `<mark>`        | `<mark>text</mark>`      | Accent highlight                        |
-| Math (inline)   | `$E = mc^2$`             | Requires `math: true`                   |
-| Math (block)    | `$$\nabla \cdot E = 0$$` | Requires `math: true`                   |
-| Diagram         | ` ```mermaid `           | Requires `mermaid: true`                |
-| Details/summary | `<details><summary>`     | Native HTML collapsible                 |
+| Element         | Syntax                   | Notes                                                                          |
+| --------------- | ------------------------ | ------------------------------------------------------------------------------ |
+| Headings        | `## H2`, `### H3`        | H1 is the post title - do not repeat it                                        |
+| Bold / Italic   | `**bold**`, `*italic*`   |                                                                                |
+| Inline code     | `` `code` ``             | Highlighted with accent color                                                  |
+| Code block      | ` ```javascript `        | Always include language tag                                                    |
+| Blockquote      | `> text`                 | Standard blockquotes are untouched                                             |
+| Link            | `[text](url)`            |                                                                                |
+| Image           | `![alt](url)`            | Auto-zoom on click, lazy-loaded                                                |
+| Table           | `\| col \| col \|`       | Scrollable on small screens                                                    |
+| Task list       | `- [ ] item`             | GFM checklist                                                                  |
+| Footnote        | `text[^1]` `[^1]: note`  | Rendered at bottom; hover or focus the reference for an inline preview tooltip |
+| `<kbd>`         | `<kbd>Ctrl</kbd>`        | Keyboard shortcut styling                                                      |
+| `<mark>`        | `<mark>text</mark>`      | Accent highlight                                                               |
+| Math (inline)   | `$E = mc^2$`             | Requires `math: true`                                                          |
+| Math (block)    | `$$\nabla \cdot E = 0$$` | Requires `math: true`                                                          |
+| Diagram         | ` ```mermaid `           | Requires `mermaid: true`                                                       |
+| Details/summary | `<details><summary>`     | Native HTML collapsible                                                        |
 
 ## Code Blocks
 

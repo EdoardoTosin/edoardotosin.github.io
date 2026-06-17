@@ -10,8 +10,8 @@
   {%- assign _related = site.posts | where_exp: 'p', 'p.url != page.url' | limit: 2 -%}
 {%- endif -%}
 {%- if _related.size > 0 -%}
-  <section class="related-posts" aria-label="Related posts">
-    <h2 class="related-posts__title">You Might Also Like</h2>
+  <section class="related-posts" aria-labelledby="related-posts-heading">
+    <h2 class="related-posts__title" id="related-posts-heading">You Might Also Like</h2>
     <div class="related-posts__grid">
       {%- for post in _related limit: 2 -%}
         {% include post-card.html post=post %}

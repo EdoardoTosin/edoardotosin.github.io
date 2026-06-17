@@ -47,23 +47,26 @@
   {%- endunless -%}
   {%- assign _pa_avatar = _pa_a.avatar | default: '/images/avatar.webp' -%}
   {%- unless _pa_avatar contains '://' -%}{%- assign _pa_avatar = _pa_avatar | relative_url -%}{%- endunless -%}
-  <div class="author-box" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img
-      src="{{ _pa_avatar }}"
-      alt="{{ _pa_a.name }}"
-      class="author-box__avatar"
-      width="80"
-      height="80"
-      loading="lazy"
-    >
-    <div>
-      <p class="author-box__name" itemprop="name">{{ _pa_a.name }}</p>
-      {%- if _pa_a.tagline and _pa_a.tagline != '' -%}
-        <p class="author-box__role">{{ _pa_a.tagline }}</p>
-      {%- endif -%}
-      {%- if _pa_a.bio and _pa_a.bio != '' -%}
-        <p class="author-box__bio">{{ _pa_a.bio }}</p>
-      {%- endif -%}
+  <section class="author-box-group" aria-labelledby="post-author-heading">
+    <h2 class="author-box-group__heading" id="post-author-heading">About the Author</h2>
+    <div class="author-box" itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <img
+        src="{{ _pa_avatar }}"
+        alt="{{ _pa_a.name }}"
+        class="author-box__avatar"
+        width="80"
+        height="80"
+        loading="lazy"
+      >
+      <div>
+        <p class="author-box__name" itemprop="name">{{ _pa_a.name }}</p>
+        {%- if _pa_a.tagline and _pa_a.tagline != '' -%}
+          <p class="author-box__role">{{ _pa_a.tagline }}</p>
+        {%- endif -%}
+        {%- if _pa_a.bio and _pa_a.bio != '' -%}
+          <p class="author-box__bio">{{ _pa_a.bio }}</p>
+        {%- endif -%}
+      </div>
     </div>
-  </div>
+  </section>
 {%- endif -%}

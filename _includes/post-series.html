@@ -1,0 +1,35 @@
+{%- if page.series and page.series != '' -%}
+  {%- assign _series_posts = site.posts | where: 'series', page.series | sort: 'series_order' -%}
+  {%- if _series_posts.size > 1 -%}
+    {%- assign _series_total = _series_posts.size -%}
+    {%- assign _series_current = page.series_order | default: 1 -%}
+    <div class="series-box" aria-label="Series: {{ page.series | escape }}">
+      <div class="series-box__header">
+        <span class="series-box__eyebrow">Series</span>
+        <span class="series-box__name">{{ page.series }}</span>
+        <span class="series-box__progress">
+          {{- 'Part' }}
+          {{ _series_current }}
+          {{ 'of' }}
+          {{ _series_total -}}
+        </span>
+      </div>
+      <ol class="series-box__list" aria-label="Posts in this series">
+        {%- for _sp in _series_posts -%}
+          {%- assign _sp_num = _sp.series_order | default: forloop.index -%}
+          {%- assign _is_current = false -%}
+          {%- if _sp.url == page.url -%}{%- assign _is_current = true -%}{%- endif -%}
+          <li class="series-box__item{% if _is_current %} is-current{% endif %}">
+            {%- if _is_current -%}
+              <span class="series-box__item-num" aria-hidden="true">{{ _sp_num }}</span>
+              <span class="series-box__item-title" aria-current="page">{{ _sp.title }}</span>
+            {%- else -%}
+              <span class="series-box__item-num" aria-hidden="true">{{ _sp_num }}</span>
+              <a class="series-box__item-title" href="{{ _sp.url | relative_url }}">{{ _sp.title }}</a>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ol>
+    </div>
+  {%- endif -%}
+{%- endif -%}

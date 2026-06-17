@@ -5,6 +5,10 @@ short_url: pihole-guide-5
 date: 2024-01-02 14:00:00 +0100
 last_modified_at: 2026-02-03 19:00:00 +0100
 lang: en
+series: 'Pi-Hole & Unbound Setup'
+series_order: 5
+translations:
+  - '[[2022-12-31-ubuntu-server-pihole-unbound-parte-5]]'
 image: https://raw.githubusercontent.com/EdoardoTosin/Ubuntu-Server-Pi-Hole-Unbound/main/assets/5_Pi-Hole_Web_Interface/Pi-Hole_Web_Interface_2.webp
 topic: selfhosting
 tags:

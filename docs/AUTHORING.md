@@ -166,6 +166,9 @@ Callouts render from pure Markdown using GitHub-style blockquote syntax.
 
 > [!CAUTION]
 > A dangerous or destructive action.
+
+> [!SPOILER]
+> Content revealed on click - hidden by default.
 ```
 
 Both inline and multi-paragraph variants work:
@@ -183,13 +186,16 @@ Both inline and multi-paragraph variants work:
 
 **Visual hierarchy:**
 
-| Type        | Color           | Intent                           |
-| ----------- | --------------- | -------------------------------- |
-| `NOTE`      | Neutral / slate | Informational                    |
-| `TIP`       | Green           | Helpful suggestion               |
-| `IMPORTANT` | Purple          | Must-read information            |
-| `WARNING`   | Orange          | Potential issue                  |
-| `CAUTION`   | Red             | Dangerous or irreversible action |
+| Type        | Color           | Intent                                                       |
+| ----------- | --------------- | ------------------------------------------------------------ |
+| `NOTE`      | Neutral / slate | Informational                                                |
+| `TIP`       | Green           | Helpful suggestion                                           |
+| `IMPORTANT` | Purple          | Must-read information                                        |
+| `WARNING`   | Orange          | Potential issue                                              |
+| `CAUTION`   | Red             | Dangerous or irreversible action                             |
+| `SPOILER`   | Muted / neutral | Click-to-reveal collapsible; content always visible in print |
+
+`SPOILER` renders as a native `<details>` element with an eye icon and a rotating chevron. No JavaScript is required. On GitHub, `[!SPOILER]` degrades to a plain blockquote. In Obsidian it renders as a collapsible callout.
 
 ## Defanged Indicators
 

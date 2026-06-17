@@ -1,7 +1,5 @@
 @use 'variables' as *;
 
-// Callouts - NOTE, TIP, IMPORTANT, WARNING, CAUTION (GitHub-style)
-
 // Base
 .callout {
   --callout-color: var(--accent-text);
@@ -300,6 +298,75 @@
   }
 }
 
+.callout--spoiler {
+  --callout-color: var(--text-muted);
+  border: 1px solid var(--border);
+  border-radius: $r-lg;
+  background: var(--bg-card);
+  overflow: hidden;
+  padding: 0;
+  gap: 0;
+
+  .callout__title {
+    display: flex;
+    align-items: center;
+    gap: $sp-2;
+    padding: $sp-3 $sp-5;
+    color: var(--text-muted);
+    list-style: none;
+    user-select: none;
+    cursor: pointer;
+    font-family: $font-heading;
+    font-size: $fs-md;
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color $t-fast-p;
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        color: var(--text-secondary);
+      }
+    }
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &::before {
+      content: none;
+      display: none;
+    }
+
+    &:focus-visible {
+      @include focus-ring;
+      border-radius: $r-sm;
+      outline-offset: 0;
+    }
+  }
+
+  .callout__icon {
+    flex-shrink: 0;
+  }
+
+  .callout__chevron {
+    flex-shrink: 0;
+    margin-left: auto;
+    color: var(--text-muted);
+    transition: transform $t-fast-p;
+  }
+
+  &[open] .callout__chevron {
+    transform: rotate(180deg);
+  }
+
+  .callout__content {
+    padding: $sp-3 $sp-5;
+    border-top: 1px solid var(--border);
+  }
+}
+
 // Print
 @media print {
   .callout {
@@ -312,6 +379,20 @@
 
   .callout--important {
     border-left-width: 4px;
+  }
+
+  .callout--spoiler {
+    border: 1px solid var(--border) !important;
+    border-radius: $r-lg !important;
+    padding: 0 !important;
+
+    .callout__chevron {
+      display: none !important;
+    }
+
+    .callout__content {
+      display: block !important;
+    }
   }
 
   .callout__content a {

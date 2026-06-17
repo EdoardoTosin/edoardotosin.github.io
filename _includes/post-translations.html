@@ -1,0 +1,58 @@
+{%- if page.translations and page.translations.size > 0 -%}
+  {%- assign _trans_links = '' | split: '' -%}
+  {%- assign _label_lang = null -%}
+  {%- for _wl in page.translations -%}
+    {%- assign _inner = _wl | remove: '[[' | remove: ']]' | strip -%}
+    {%- if _inner and _inner != '' -%}
+      {%- assign _parts = _inner | split: '|' -%}
+      {%- assign _slug = _parts[0] | strip -%}
+      {%- assign _display = _parts[1] | strip -%}
+
+      {%- comment %}Try Jekyll slug (date-stripped filename) first, then full filename match{%- endcomment %}
+      {%- assign _linked = site.posts | where: 'slug', _slug | first -%}
+      {%- unless _linked -%}
+        {%- for _p in site.posts -%}
+          {%- assign _p_fn = _p.path | split: '/' | last | split: '.' | first -%}
+          {%- if _p_fn == _slug -%}
+            {%- assign _linked = _p -%}
+            {%- break -%}
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endunless -%}
+
+      {%- if _linked and _linked.lang -%}
+        {%- unless _label_lang -%}{%- assign _label_lang = _linked.lang -%}{%- endunless -%}
+        {%- if _display and _display != '' -%}
+          {%- assign _title = _display -%}
+        {%- else -%}
+          {%- assign _title = site.data.i18n[_linked.lang].lang_name | default: _linked.lang -%}
+        {%- endif -%}
+        {%- capture _tr_link -%}<a href="{{ _linked.url | relative_url }}" class="translation-notice__link" hreflang="{{ _linked.lang | escape }}" lang="{{ _linked.lang | escape }}" aria-label="Read this post in {{ _title | escape }}">{{ _title | escape }}</a>{%- endcapture -%}
+        {%- assign _trans_links = _trans_links | push: _tr_link -%}
+      {%- endif -%}
+    {%- endif -%}
+  {%- endfor -%}
+
+  {%- if _trans_links.size > 0 -%}
+    {%- assign _also_available = site.data.i18n[_label_lang].also_available | default: 'Also available in' -%}
+    <div class="translation-notice" role="note" aria-label="{{ _also_available | escape }}">
+      <svg
+        class="translation-notice__icon"
+        xmlns="http://www.w3.org/2000/svg"
+        width="15"
+        height="15"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/>
+      </svg>
+      <span class="translation-notice__label">{{ _also_available }}</span>
+      {{ _trans_links | join: ' · ' }}
+    </div>
+  {%- endif -%}
+{%- endif -%}

@@ -42,12 +42,17 @@ share: true
 series: 'Series Name'
 series_order: 1
 
+lang: 'en'
+
+translations:
+  - '[[2025-01-15-it-slug]]'
+
 cited_by:
   - '[Article Title - Site Name](https://example.com/article)'
 
 discussions:
-  - '[Hacker News](https://news.ycombinator.com/item?id=XXXXXXXX)'
-  - '[r/topic](https://reddit.com/r/topic/comments/xxxxx/post_title)'
+  - 'https://news.ycombinator.com/item?id=XXXXXXXX'
+  - 'https://reddit.com/r/topic/comments/xxxxx/post_title'
 ---
 ```
 
@@ -343,7 +348,36 @@ series: 'Linux Mastery'
 series_order: 2
 ```
 
-Posts with matching `series` values are linked with Prev/Next navigation in reading order.
+Posts with a matching `series` value are sorted by `series_order` and collected into a widget that appears at the top of each post. The widget shows the series name, a numbered list of all parts (current post marked, others linked), and a progress indicator ("Part 2 of 4"). The widget is hidden when fewer than two posts share the same series name, and it is preserved in print/PDF with simplified styling.
+
+## Multilingual Posts
+
+Set `lang` to the BCP 47 language code of the post. If omitted, the post inherits the site default from `_config.yml`.
+
+```yaml
+lang: 'it'
+```
+
+To link a post to its translations, use the `translations` list. Each entry is an Obsidian wikilink `[[filename]]` pointing to the companion post file (without the `.md` extension). The date prefix must be included because that is how Obsidian generates filenames.
+
+```yaml
+translations:
+  - '[[2025-01-15-my-post-de]]'
+  - '[[2025-01-15-my-post-it]]'
+```
+
+You can also supply an optional display title after a pipe, which overrides the post's own title in the translation notice:
+
+```yaml
+translations:
+  - '[[2025-01-15-my-post-it|Versione italiana]]'
+```
+
+At build time Jekyll resolves each wikilink to the actual post: it first tries to match the date-stripped slug (`my-post-it`), then falls back to a full filename match (`2025-01-15-my-post-it`). The post's own `lang` field is used for the `hreflang` and `lang` attributes - no need to repeat the language code.
+
+When `translations` is set, a notice appears at the top of the post listing the available languages as links. The notice label (e.g. "Also available in") is rendered in the target language from `_data/i18n.yml`. All other page UI remains in English.
+
+The companion post should include a matching `translations` entry pointing back to this post.
 
 ## Cross-references
 

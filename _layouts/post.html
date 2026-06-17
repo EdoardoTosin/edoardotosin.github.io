@@ -131,11 +131,14 @@ layout: default
               <path d="m6 9 6 6 6-6"/>
             </svg>
           </summary>
-          <nav aria-label="Table of contents">
+          <nav aria-label="On This Page">
             <ol class="toc-list" id="toc-list-inline"></ol>
           </nav>
         </details>
       </div>
+
+      {%- include post-translations.html -%}
+      {%- include post-series.html -%}
 
       {%- if page.tldr and page.tldr != '' -%}
         <div class="post-tldr" role="note" aria-label="Summary">

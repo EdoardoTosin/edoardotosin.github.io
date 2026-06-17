@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ site.lang | default: 'en' }}">
+<html lang="{{ page.lang | default: site.lang | default: 'en' }}">
 <head>
   <script>
     (function() {
@@ -124,6 +124,36 @@
   <link rel="icon" type="image/png" sizes="256x256" href="{{ site.logo | relative_url }}">
   <link rel="apple-touch-icon" sizes="256x256" href="{{ site.logo | relative_url }}">
   <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ '/feed.xml' | absolute_url }}">
+  <link rel="alternate" type="application/feed+json" title="{{ site.title }}" href="{{ '/feed.json' | absolute_url }}">
+  <link rel="search" type="application/opensearchdescription+xml" title="{{ site.title }}" href="{{ '/opensearch.xml' | relative_url }}">
+
+  {%- if page.lang and page.lang != '' -%}
+    <link rel="alternate" hreflang="{{ page.lang | escape }}" href="{{ page.url | absolute_url }}">
+    {%- assign _hreflang_count = 0 -%}
+    {%- for _wl in page.translations -%}
+      {%- assign _inner = _wl | remove: '[[' | remove: ']]' | strip -%}
+      {%- if _inner and _inner != '' -%}
+        {%- assign _slug = _inner | split: '|' | first | strip -%}
+        {%- assign _linked = site.posts | where: 'slug', _slug | first -%}
+        {%- unless _linked -%}
+          {%- for _p in site.posts -%}
+            {%- assign _p_fn = _p.path | split: '/' | last | split: '.' | first -%}
+            {%- if _p_fn == _slug -%}
+              {%- assign _linked = _p -%}
+              {%- break -%}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endunless -%}
+        {%- if _linked and _linked.lang -%}
+          <link rel="alternate" hreflang="{{ _linked.lang | escape }}" href="{{ _linked.url | absolute_url }}">
+          {%- assign _hreflang_count = _hreflang_count | plus: 1 -%}
+        {%- endif -%}
+      {%- endif -%}
+    {%- endfor -%}
+    {%- if _hreflang_count > 0 -%}
+      <link rel="alternate" hreflang="x-default" href="{{ page.url | absolute_url }}">
+    {%- endif -%}
+  {%- endif -%}
 
   {%- if site.webmentions.enabled and site.webmentions.domain and site.webmentions.domain != '' -%}
     <link rel="webmention" href="https://webmention.io/{{ site.webmentions.domain | escape }}/webmention">

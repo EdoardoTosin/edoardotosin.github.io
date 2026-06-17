@@ -33,7 +33,7 @@ layout: default
 
 <div class="container">
   <div class="content-with-sidebar">
-    <article itemscope itemtype="http://schema.org/BlogPosting">
+    <article class="h-entry" itemscope itemtype="http://schema.org/BlogPosting">
       <header class="post-header{% if page.image %} post-header__has-hero{% endif %}">
         {%- if page.topic and page.topic != '' -%}
           <a
@@ -45,7 +45,8 @@ layout: default
             {{- page.topic | downcase -}}
           </a>
         {%- endif -%}
-        <h1 class="post-header__title" itemprop="headline">{{ page.title }}</h1>
+        <h1 class="post-header__title p-name" itemprop="headline">{{ page.title }}</h1>
+        <a class="u-url" href="{{ page.url | absolute_url }}" hidden>{{ page.url | absolute_url }}</a>
 
         {%- include resolve-post-authors.html -%}
         {%- if _post_author_names.size == 2 -%}
@@ -58,17 +59,17 @@ layout: default
           {%- assign _byline_text = _post_author_names.first -%}
         {%- endif -%}
         <div class="post-header__meta">
-          <span class="post-header__byline-author">{{- _byline_text -}}</span>
+          <span class="post-header__byline-author p-author">{{- _byline_text -}}</span>
           <div class="post-header__meta-details">
-            <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
+            <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
               {{- page.date | date: '%d %b %Y' -}}
             </time>
             {%- assign _pub_str = page.date | date: '%Y-%m-%d' -%}
             {%- assign _mod_str = page.last_modified_at | date: '%Y-%m-%d' -%}
             {%- if page.last_modified_at and _mod_str != _pub_str -%}
               <time datetime="{{ page.last_modified_at | date_to_xmlschema }}" itemprop="dateModified">
-                {{- 'Updated ' -}}
-                {{ page.last_modified_at | date: '%d %b %Y' }}
+                {{- 'Updated' }}
+                {{ page.last_modified_at | date: '%d %b %Y' -}}
               </time>
             {%- else -%}
               <meta itemprop="dateModified" content="{{ page.date | date_to_xmlschema }}">
@@ -147,7 +148,7 @@ layout: default
         </div>
       {%- endif -%}
 
-      <div class="post-content" itemprop="articleBody">
+      <div class="post-content e-content" itemprop="articleBody">
         {{ content }}
       </div>
 

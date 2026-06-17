@@ -5,13 +5,22 @@ description: 'Background in software development and security research, with int
 permalink: /about/
 ---
 
-<div class="about-avatar">
+<div class="about-avatar h-card">
   <div class="about-avatar__img">
     <img src="{{ site.author.avatar | default: '/images/avatar.webp' | relative_url }}"
          alt="{{ site.author.name }}"
+         class="u-photo"
          loading="eager"
          data-no-zoom>
   </div>
+  <a class="p-name u-url" href="{{ site.url }}{{ site.author.url | default: '/about/' }}" hidden>{{ site.author.name }}</a>
+  <span class="p-note" hidden>{{ site.author.bio }}</span>
+  {%- if site.author.email and site.author.email != '' -%}
+  <a class="u-email" href="mailto:{{ site.author.email }}" hidden>{{ site.author.email }}</a>
+  {%- endif -%}
+  {%- if site.social.mastodon and site.social.mastodon != '' -%}
+  <a class="u-url" href="{{ site.social.mastodon }}" rel="me" hidden>{{ site.social.mastodon }}</a>
+  {%- endif -%}
 </div>
 
 ## {{ site.author.name }}

@@ -843,6 +843,7 @@
 
     // Open / close
     function openSearch() {
+      if (overlay.open) return;
       lastFocused = document.activeElement;
       focusedIdx = -1;
       overlay.showModal();
@@ -914,7 +915,11 @@
         .then(function (d) {
           cache = d;
           idx = buildIndex(d);
-          if (overlay.open && input && !input.value.trim()) showHomepage();
+          if (overlay.open && input) {
+            var cur = input.value.trim();
+            if (cur) runSearch(cur);
+            else showHomepage();
+          }
         })
         .catch(function () {
           cache = [];
@@ -1029,8 +1034,32 @@
     }
   }
 
+  function initFromUrl() {
+    try {
+      var q = new URLSearchParams(window.location.search).get('q');
+      if (!q || !q.trim()) return;
+      var input = qs('#search-input');
+      if (!input) return;
+      input.value = q.trim();
+      var toggle = document.querySelector('[data-search-toggle]');
+      if (toggle) {
+        toggle.click();
+      } else {
+        var overlay = qs('#search-overlay');
+        if (overlay) {
+          overlay.showModal();
+          document.body.style.overflow = 'hidden';
+        }
+      }
+      input.dispatchEvent(new Event('input'));
+    } catch (e) {}
+  }
+
   if (typeof document !== 'undefined') {
-    document.addEventListener('DOMContentLoaded', initSearch);
+    document.addEventListener('DOMContentLoaded', function () {
+      initSearch();
+      initFromUrl();
+    });
   }
   if (typeof module !== 'undefined') {
     module.exports = { stem, tokenize, parseQuery, parseFilterDate, parseNumericFilter };

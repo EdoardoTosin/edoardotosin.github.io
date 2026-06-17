@@ -1,0 +1,11 @@
+---
+layout: null
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+  <ShortName>{{ site.short_name | default: site.title | truncate: 16, '' }}</ShortName>
+  <Description>Search posts on {{ site.title }}</Description>
+  <InputEncoding>UTF-8</InputEncoding>
+  <Url type="text/html" template="{{ site.url }}{{ site.baseurl }}/blog/?q={searchTerms}"/>
+  <Image height="256" width="256" type="image/png">{{ site.logo | absolute_url }}</Image>
+</OpenSearchDescription>

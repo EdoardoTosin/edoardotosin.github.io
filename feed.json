@@ -1,0 +1,49 @@
+---
+layout: null
+---
+{%- assign _feed_posts = site.posts | limit: 50 -%}
+{
+  "version": "https://jsonfeed.org/version/1.1",
+  "title": {{ site.title | jsonify }},
+  "home_page_url": {{ site.url | append: site.baseurl | append: "/" | jsonify }},
+  "feed_url": {{ "/feed.json" | absolute_url | jsonify }},
+  "description": {{ site.description | jsonify }},
+  "icon": {{ site.author.avatar | default: "/images/avatar.webp" | absolute_url | jsonify }},
+  "favicon": {{ "/favicon.ico" | absolute_url | jsonify }},
+  "authors": [
+    {
+      "name": {{ site.author.name | jsonify }},
+      "url": {{ site.author.url | default: "/about/" | absolute_url | jsonify }}
+    }
+  ],
+  "items": [
+    {%- for post in _feed_posts -%}
+    {%- assign _post_url = post.url | absolute_url -%}
+    {%- assign _post_desc = post.description | default: post.excerpt | strip_html | strip_newlines | strip | truncate: 280 -%}
+    {%- assign _post_modified = post.last_modified_at | default: post.date -%}
+    {
+      "id": {{ _post_url | jsonify }},
+      "url": {{ _post_url | jsonify }},
+      "title": {{ post.title | jsonify }},
+      "summary": {{ _post_desc | jsonify }},
+      "content_html": {{ post.content | jsonify }},
+      "date_published": {{ post.date | date_to_xmlschema | jsonify }},
+      "date_modified": {{ _post_modified | date_to_xmlschema | jsonify }},
+      "authors": [
+        {
+          "name": {{ site.author.name | jsonify }},
+          "url": {{ site.author.url | default: "/about/" | absolute_url | jsonify }}
+        }
+      ]
+      {%- if post.image and post.image != "" -%}
+      ,
+      "image": {{ post.image | absolute_url | jsonify }}
+      {%- endif -%}
+      {%- if post.tags.size > 0 -%}
+      ,
+      "tags": {{ post.tags | jsonify }}
+      {%- endif -%}
+    }{% unless forloop.last %},{% endunless %}
+    {%- endfor -%}
+  ]
+}

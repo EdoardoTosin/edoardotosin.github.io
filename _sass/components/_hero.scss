@@ -136,7 +136,7 @@
   }
 
   // Very small phones (≤ 375px)
-  @media (max-width: 375px) {
+  @media (max-width: #{$bp-xs}) {
     padding: $sp-10 0 $sp-8;
 
     &__avatar-frame {

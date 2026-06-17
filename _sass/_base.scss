@@ -182,7 +182,7 @@ i {
   margin: 0 auto;
   padding: 0 $container-pad;
 
-  @media (max-width: 375px) {
+  @media (max-width: #{$bp-xs}) {
     padding: 0 $sp-3;
   }
 }

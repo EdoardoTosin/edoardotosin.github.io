@@ -6,11 +6,34 @@ permalink: /blog/
 ---
 {%- assign hp = site.homepage -%}
 {%- assign by_year = site.posts | group_by_exp: 'post', 'post.date | date: "%Y"' -%}
+{%- assign _tp_scored = '' -%}
+{%- for _topic in site.data.topics -%}
+  {%- assign _tp = _topic.name -%}
+  {%- assign _tc = site.posts | where: 'topic', _tp | size -%}
+  {%- assign _tf = site.posts | where: 'topic', _tp | where: 'featured', true | size -%}
+  {%- assign _sc = _tf | times: 1000 | plus: _tc | plus: 1000000 -%}
+  {%- assign _tp_scored = _tp_scored | append: _sc | append: '~' | append: _tp | append: '|' -%}
+{%- endfor -%}
+{%- assign _tp_sorted = _tp_scored | split: '|' | sort | reverse -%}
+{%- assign _hero_topics = '' | split: '' -%}
+{%- for _s in _tp_sorted limit: 3 -%}
+  {%- unless _s == '' -%}
+    {%- assign _hn = _s | split: '~' | last | downcase -%}
+    {%- assign _hero_topics = _hero_topics | push: _hn -%}
+  {%- endunless -%}
+{%- endfor -%}
 
 <div class="page-hero">
   <div class="container">
     <h1 class="page-hero__title">Blog</h1>
-    <p class="page-hero__desc">{{ site.posts | size }} posts on software, security, open source, and more.</p>
+    <p class="page-hero__desc">
+      {{- site.posts | size }} posts
+      {%- if _hero_topics.size > 0 %}
+        on {{ _hero_topics | join: ', ' }}
+        {%- if site.data.topics.size > 3 %}, and more{%- endif -%}
+      {%- endif -%}
+      .
+    </p>
   </div>
 </div>
 

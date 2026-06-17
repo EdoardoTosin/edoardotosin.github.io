@@ -91,7 +91,7 @@ All fonts are self-hosted as WOFF2 files - no external requests.
 - **[JSON Feed](https://jsonfeed.org/)** - Feed format specification, used for `/feed.json`
 - **[Microformats2](https://microformats.org/wiki/microformats2)** - Semantic HTML vocabulary (`h-card`, `h-entry`) for structured data
 - **[OpenSearch](https://github.com/dewitt/opensearch)** - Browser search integration specification, used for address bar search
-- **[security.txt (RFC 9116)](https://www.rfc-editor.org/rfc/rfc9116)** - Standard for responsible vulnerability disclosure, served at `/.well-known/security.txt`
+- **[security.txt (RFC 9116)](https://securitytxt.org/)** - Standard for responsible vulnerability disclosure, served at `/.well-known/security.txt`
 
 ---
 

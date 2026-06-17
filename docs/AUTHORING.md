@@ -401,39 +401,46 @@ Post B will then show post A in its "Referenced in" section.
 
 ### discussions
 
-Link to external threads where the post has been shared and discussed. Renders as a "Discussion" section directly below the post footer, visible in both web and print views. Omit the field entirely when there are no external threads.
+Link to external threads where the post has been shared and discussed. Renders as an inline "Join the discussion on" line below the post body. Omit the field when there are no external threads.
 
-Each entry is a Markdown link: `'[Label](url)'`. The label you write is shown as-is and also determines the platform icon and brand colour.
+Each entry is a plain URL string. The platform icon and label are detected automatically from the URL domain and path.
 
 ```yaml
 discussions:
-  - '[Hacker News](https://news.ycombinator.com/item?id=XXXXXXXX)'
-  - '[r/linux](https://reddit.com/r/linux/comments/xxxxx/post_title)'
-  - '[Lobsters](https://lobste.rs/s/xxxxx/post_title)'
-  - '[Mastodon](https://fosstodon.org/@user/109876543210)'
-  - '[Bluesky](https://bsky.app/profile/user.bsky.social/post/xxxxx)'
-  - '[DEV Community](https://dev.to/user/post-title)'
+  - 'https://news.ycombinator.com/item?id=XXXXXXXX'
+  - 'https://reddit.com/r/linux/comments/xxxxx/post_title'
+  - 'https://lobste.rs/s/xxxxx/post_title'
+  - 'https://fosstodon.org/@user/109876543210'
+  - 'https://bsky.app/profile/user.bsky.social/post/xxxxx'
+  - 'https://dev.to/user/post-title'
 ```
 
-**Platform detection** (matched from the label, case-insensitive):
+**Platform detection** (matched from the URL):
 
-| Label                             | Icon          | Brand color |
-| --------------------------------- | ------------- | ----------- |
-| `Hacker News`, `HN`, `HackerNews` | Hacker News   | #ff6600     |
-| starts with `r/`                  | Reddit        | #ff4500     |
-| `Lobsters`, `Lobste.rs`           | Lobsters      | #ac130d     |
-| `Mastodon`                        | Mastodon      | #6364ff     |
-| `Bluesky`                         | Bluesky       | #0085ff     |
-| `DEV Community`, `DEV`, `DEV.to`  | DEV Community | #3d3d3d     |
-| contains `Twitter`, or `X`        | X / Twitter   | #1da1f2     |
-| `LinkedIn`                        | LinkedIn      | #0077b5     |
-| _(anything else)_                 | label text    | neutral     |
+| URL pattern                       | Icon          | Brand color | Label                     |
+| --------------------------------- | ------------- | ----------- | ------------------------- |
+| domain contains `ycombinator.com` | Hacker News   | #ff6600     | "Hacker News"             |
+| domain contains `reddit.com`      | Reddit        | #ff4500     | "r/subreddit" or "Reddit" |
+| domain contains `lobste.rs`       | Lobsters      | #ac130d     | "Lobsters"                |
+| URL path contains `/@`            | Mastodon      | #6364ff     | "Mastodon"                |
+| domain contains `bsky.app`        | Bluesky       | #0085ff     | "Bluesky"                 |
+| domain contains `dev.to`          | DEV Community | #0a0a0a     | "DEV Community"           |
+| domain contains `twitter.com`     | Twitter       | #1da1f2     | "Twitter"                 |
+| domain is `x.com`                 | X             | #000000     | "X"                       |
+| domain contains `linkedin.com`    | LinkedIn      | #0a66c2     | "LinkedIn"                |
+| domain contains `github.com`      | GitHub        | #181717     | "GitHub"                  |
+| domain contains `matrix.to`       | Matrix        | #000000     | "Matrix"                  |
+| _(anything else)_                 | speech bubble | neutral     | domain name               |
+
+For Reddit, if the URL path contains `/r/subreddit`, the label is automatically extracted as `r/subreddit`.
+
+For Mastodon, any instance domain is supported as long as the post URL contains `/@` (e.g. `/@user/postid`).
 
 **Rules:**
 
-- Each entry must be a Markdown link string `'[Label](https://…)'`. Entries without a valid `https://` or `http://` URL are silently skipped.
-- The section is not rendered at all when `discussions` is absent or every entry is invalid.
-- In print/PDF, discussions render as a bulleted list with the label and full URL shown, so readers can look up the thread.
+- Entries without a valid `https://` or `http://` URL are silently skipped.
+- The section is not rendered when `discussions` is absent or every entry is invalid.
+- The section is hidden in print/PDF.
 
 ### cited_by
 

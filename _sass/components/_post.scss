@@ -1233,45 +1233,45 @@ $ext-link-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg
   padding-top: $sp-8;
   border-top: 1px solid var(--border);
 
-  &__title {
-    font-size: $fs-md;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--text-muted);
-    margin-bottom: $sp-4;
+  @include retina {
+    border-top-width: 0.5px;
   }
 
-  &__list {
+  &__prose {
     display: flex;
     flex-wrap: wrap;
-    gap: $sp-3;
-    list-style: none;
-    padding: 0;
+    align-items: center;
+    gap: $sp-1 $sp-2;
     margin: 0;
+    font-size: $fs-lg;
+  }
+
+  &__lead {
+    color: var(--text-muted);
+    white-space: nowrap;
   }
 }
 
 .discussion-link {
   display: inline-flex;
   align-items: center;
-  gap: $sp-2;
-  padding: $sp-2 $sp-4;
-  border-radius: $r-full;
-  font-size: $fs-md;
+  gap: $sp-1;
+  font-size: $fs-lg;
   font-weight: 600;
-  min-height: 36px;
-  text-decoration: none;
-  border: 1.5px solid var(--border-strong);
-  background: var(--bg-tag);
-  color: var(--text-secondary);
-  transition: $t-fast;
   font-family: $font-sans;
+  color: var(--text-secondary);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1.5px;
+  transition:
+    color $t-fast-p,
+    text-decoration-color $t-fast-p;
   @include touch-reset;
 
   svg {
-    width: 16px;
-    height: 16px;
+    width: 14px;
+    height: 14px;
     flex-shrink: 0;
     color: var(--_disc-color, var(--text-muted));
     transition: color $t-fast-p;
@@ -1304,29 +1304,55 @@ $ext-link-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg
   &--linkedin {
     --_disc-color: #0a66c2;
   }
+  &--github {
+    --_disc-color: #181717;
+  }
+  &--matrix {
+    --_disc-color: #000000;
+  }
 
-  &:hover {
-    border-color: var(--_disc-color, var(--text-muted));
-    color: var(--_disc-color, var(--text-primary));
-    background: var(--bg-card);
-    transform: translateY(-1px);
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      color: var(--_disc-color, var(--accent-text));
+      text-decoration-color: var(--_disc-color, var(--accent-text));
+    }
   }
 
   &:active {
-    transform: scale(0.97);
+    opacity: 0.75;
   }
 
   &:focus-visible {
-    @include focus-ring(3px);
+    outline: 2px solid var(--_disc-color, var(--accent));
+    outline-offset: 2px;
+    border-radius: 2px;
+    text-decoration-color: transparent;
   }
+}
+
+.discussion-link__sep {
+  color: var(--text-muted);
+  user-select: none;
+  line-height: 1;
 }
 
 [data-theme='dark'] .discussion-link--devto {
   --_disc-color: #c9d1d9;
 }
-
 [data-theme='dark'] .discussion-link--x {
   --_disc-color: #ffffff;
+}
+[data-theme='dark'] .discussion-link--github {
+  --_disc-color: #f0f6fc;
+}
+[data-theme='dark'] .discussion-link--matrix {
+  --_disc-color: #ffffff;
+}
+[data-theme='dark'] .discussion-link--lobsters {
+  --_disc-color: #e05252;
+}
+[data-theme='dark'] .discussion-link--linkedin {
+  --_disc-color: #4a9eff;
 }
 
 @media not print {

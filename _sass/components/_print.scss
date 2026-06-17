@@ -63,6 +63,7 @@
   .comments,
   .webmentions,
   .post-backlinks,
+  .post-cited-by,
   .post-footer,
   .cmd-palette,
   .hero__tagline,
@@ -71,6 +72,9 @@
   .video-card__play,
   .section-header__link,
   .post-download,
+  .post-discussions,
+  .translation-notice,
+  #fn-tooltip,
   button[aria-label],
   [data-search-toggle] {
     display: none !important;
@@ -256,94 +260,31 @@
     }
   }
 
-  .post-discussions {
-    margin-top: 18pt;
-    padding-top: 12pt;
+  .series-box {
     page-break-inside: avoid;
+    margin: 0 0 18pt;
 
-    &__title {
-      font-size: 9pt;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
+    &__name {
+      font-size: 11pt;
+      color: #000 !important;
+    }
+
+    &__item-title {
+      color: #000 !important;
+    }
+
+    a.series-box__item-title {
+      text-decoration: none !important;
+
+      &[href]::after {
+        content: none !important;
+      }
+    }
+
+    &__item-num {
+      background: transparent !important;
+      border-color: #aaa !important;
       color: #555 !important;
-      margin-bottom: 4pt;
-    }
-
-    &__list {
-      list-style: none !important;
-      padding: 0 !important;
-      margin: 0 !important;
-      display: block !important;
-
-      li {
-        margin: 0 0 2pt !important;
-      }
-    }
-  }
-
-  .discussion-link {
-    display: inline !important;
-    padding: 0 !important;
-    border: none !important;
-    border-radius: 0 !important;
-    background: transparent !important;
-    color: #000 !important;
-    font-size: 9pt;
-    line-height: 1.4;
-    font-weight: 400;
-    min-height: 0 !important;
-    text-decoration: none !important;
-    transform: none !important;
-
-    svg {
-      display: none !important;
-    }
-
-    &__label {
-      text-decoration: underline;
-    }
-
-    &::after,
-    &[href]::after {
-      content: none !important;
-      display: none !important;
-    }
-  }
-
-  .post-cited-by {
-    margin-top: 18pt;
-    padding-top: 12pt;
-    page-break-inside: avoid;
-
-    &__title {
-      font-size: 9pt;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: #555 !important;
-      margin-bottom: 4pt;
-    }
-
-    &__list {
-      list-style: none !important;
-      padding: 0 !important;
-      margin: 0 !important;
-
-      li {
-        margin: 0 0 2pt !important;
-      }
-
-      a {
-        display: inline !important;
-        font-size: 9pt;
-        line-height: 1.4;
-        font-weight: 400;
-        min-height: 0 !important;
-        color: #000 !important;
-        text-decoration: underline !important;
-        word-break: break-word;
-      }
     }
   }
 

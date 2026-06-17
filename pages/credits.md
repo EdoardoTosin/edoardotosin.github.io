@@ -35,10 +35,10 @@ This site is built with Jekyll and the following open-source tools and resources
 
 ## Jekyll Plugins
 
+- **[Rouge](https://github.com/rouge-ruby/rouge)** - Syntax highlighting for code blocks
 - **[jekyll-feed](https://github.com/jekyll/jekyll-feed)** - RSS feed at `/feed.xml`
 - **[jekyll-sitemap](https://github.com/jekyll/jekyll-sitemap)** - `sitemap.xml` for search engines
 - **[jekyll-paginate-v2](https://github.com/sverrirs/jekyll-paginate-v2)** - Blog pagination
-- **[Rouge](https://github.com/rouge-ruby/rouge)** - Syntax highlighting for code blocks
 
 ---
 
@@ -59,18 +59,6 @@ All fonts are self-hosted as WOFF2 files - no external requests.
 
 ---
 
-## Math
-
-- **[KaTeX](https://katex.org/)** - LaTeX math rendering, loaded only on posts that need it
-
----
-
-## Diagrams
-
-- **[Mermaid](https://mermaid.js.org/)** - Diagrams from fenced code blocks, loaded only on posts that need it. Respects the site's dark/light theme.
-
----
-
 ## Search
 
 - **Custom engine** - Client-side full-text search with no external library. Runs entirely in the browser against a static index.
@@ -81,6 +69,30 @@ All fonts are self-hosted as WOFF2 files - no external requests.
 
 - **[Service Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)** - Offline support
 - **[Web App Manifest](https://developer.mozilla.org/en-US/docs/Web/Manifest)** - Installable on mobile
+
+---
+
+## Diagrams
+
+- **[Mermaid](https://mermaid.js.org/)** - Diagrams from fenced code blocks, loaded only on posts that need it. Respects the site's dark/light theme.
+
+---
+
+## Math
+
+- **[KaTeX](https://katex.org/)** - LaTeX math rendering, loaded only on posts that need it
+
+---
+
+## Specifications & Standards
+
+- **[Schema.org](https://schema.org/)** - Structured data vocabulary, used via JSON-LD on every page (`BlogPosting`, `Person`, `BreadcrumbList`, etc.)
+- **[Open Graph Protocol](https://ogp.me/)** - Metadata standard for social sharing previews (`og:title`, `og:image`, etc.)
+- **[Webmention](https://www.w3.org/TR/webmention/)** - W3C Recommendation for cross-site interactions, used for reactions and replies
+- **[JSON Feed](https://jsonfeed.org/)** - Feed format specification, used for `/feed.json`
+- **[Microformats2](https://microformats.org/wiki/microformats2)** - Semantic HTML vocabulary (`h-card`, `h-entry`) for structured data
+- **[OpenSearch](https://github.com/dewitt/opensearch)** - Browser search integration specification, used for address bar search
+- **[security.txt (RFC 9116)](https://www.rfc-editor.org/rfc/rfc9116)** - Standard for responsible vulnerability disclosure, served at `/.well-known/security.txt`
 
 ---
 

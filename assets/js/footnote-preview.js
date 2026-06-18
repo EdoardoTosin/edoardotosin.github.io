@@ -44,7 +44,7 @@
     if (backLink) {
       var parent = backLink.parentNode;
       parent.removeChild(backLink);
-      if (parent.textContent.trim() === '') parent.parentNode.removeChild(parent);
+      if (parent.textContent.trim() === '' && parent.parentNode) parent.parentNode.removeChild(parent);
     }
     return clone.innerHTML.trim();
   }

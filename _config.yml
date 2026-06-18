@@ -213,36 +213,55 @@ include:
   - ".well-known"
 
 exclude:
-  - Gemfile
-  - Gemfile.lock
-  - node_modules
-  - package.json
-  - package-lock.json
-  - tests
-  - jest.config.js
-  - .npmrc
-  - .prettierrc
-  - .prettierignore
-  - vendor
+  # Git
   - .git
-  - .github
   - .gitattributes
   - .gitignore
   - .gitmodules
-  - CNAME
-  - Dockerfile
+  - .github
+
+  # Ruby / Bundler
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+
+  # Node / npm
+  - node_modules
+  - package.json
+  - package-lock.json
+  - .npmrc
+
+  # Tooling config
+  - jest.config.js
+  - .prettierrc
+  - .prettierignore
+
+  # Project meta
   - README.md
   - LICENSE
   - LICENSE-CONTENT
-  - debug.yml
+  - CNAME
+
+  # Docker / infra
+  - Dockerfile
   - docker-compose.yml
-  - _templates
-  - utilities
+  - debug.yml
+
+  # Directories
+  - tests
   - scripts
+  - utilities
+  - tools
   - docs
+  - _templates
+
+  # IDE / workspace
+  - blog.code-workspace
+
+  # Specific files
   - .well-known/unsigned-security.txt
   - .well-known/unsigned-security.txt.asc
-  - blog.code-workspace
-  - tools
+
+  # Glob patterns
   - "**/*.ps1"
   - "**/*.sh"

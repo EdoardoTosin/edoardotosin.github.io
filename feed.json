@@ -26,7 +26,9 @@ layout: null
       "url": {{ _post_url | jsonify }},
       "title": {{ post.title | jsonify }},
       "summary": {{ _post_desc | jsonify }},
-      "content_html": {{ post.content | jsonify }},
+      {%- assign _base = site.url | append: site.baseurl -%}
+      {%- assign _post_content = post.content | replace: 'src="/', 'src="~JBASE~/' | replace: 'href="/', 'href="~JBASE~/' | replace: '~JBASE~', _base -%}
+      "content_html": {{ _post_content | jsonify }},
       "date_published": {{ post.date | date_to_xmlschema | jsonify }},
       "date_modified": {{ _post_modified | date_to_xmlschema | jsonify }},
       "authors": [

@@ -2,22 +2,22 @@
 permalink: /now/
 layout: page
 title: Now
-description: "What's currently in progress: security research, open-source development, and other active work."
+description: "What's currently in progress: cybersecurity, open-source development, and other active work."
 date: 2024-08-12 21:00:00 +0200
-last_modified_at: 2026-05-29
+last_modified_at: 2026-06-18
 ---
 
 _Last updated {{ page.last_modified_at | date: "%d %b %Y" }}_
 
 ---
 
-## Security Research
+## Cybersecurity
 
-Ongoing work in vulnerability research, code analysis, and reverse engineering.
+Learning through hands-on work: code analysis, reverse engineering, and understanding how systems behave and break.
 
-The day-to-day is mostly quiet and methodical: reading source, following execution paths, and spending time with system behavior until something unexpected surfaces. Not everything leads to a public writeup; some stays private by design.
+I keep up with news and discussions from the security community.
 
-I keep up with new CVEs and technical research, and regularly experiment with tools to stay sharp.
+Recently competed in the inaugural SANS CTF European Championship 2026 - national top 10 in qualifiers and top 100 in the New Player's group at the final.
 
 ---
 
@@ -29,9 +29,9 @@ I also run a small homelab focused on self-hosted services, network control, and
 
 ---
 
-## Other Things
+## Astrophotography
 
-I practice astrophotography when conditions allow: solar imaging and deep-sky observations with amateur equipment.
+Solar imaging and deep-sky observations with amateur equipment, when conditions allow.
 
 ---
 

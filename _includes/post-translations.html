@@ -1,6 +1,5 @@
 {%- if page.translations and page.translations.size > 0 -%}
-  {%- assign _trans_links = '' | split: '' -%}
-  {%- assign _label_lang = null -%}
+  {%- assign _trans_items = '' | split: '' -%}
   {%- for _wl in page.translations -%}
     {%- assign _inner = _wl | remove: '[[' | remove: ']]' | strip -%}
     {%- if _inner and _inner != '' -%}
@@ -21,21 +20,20 @@
       {%- endunless -%}
 
       {%- if _linked and _linked.lang -%}
-        {%- unless _label_lang -%}{%- assign _label_lang = _linked.lang -%}{%- endunless -%}
         {%- if _display and _display != '' -%}
           {%- assign _title = _display -%}
         {%- else -%}
           {%- assign _title = site.data.i18n[_linked.lang].lang_name | default: _linked.lang -%}
         {%- endif -%}
-        {%- capture _tr_link -%}<a href="{{ _linked.url | relative_url }}" class="translation-notice__link" hreflang="{{ _linked.lang | escape }}" lang="{{ _linked.lang | escape }}" aria-label="Read this post in {{ _title | escape }}">{{ _title | escape }}</a>{%- endcapture -%}
-        {%- assign _trans_links = _trans_links | push: _tr_link -%}
+        {%- assign _also = site.data.i18n[_linked.lang].also_available | default: 'Also available in' -%}
+        {%- capture _item -%}<li class="translation-notice__item"><span class="translation-notice__label">{{ _also }}</span><a href="{{ _linked.url | relative_url }}" class="translation-notice__link" hreflang="{{ _linked.lang | escape }}" lang="{{ _linked.lang | escape }}" aria-label="Read this post in {{ _title | escape }}">{{ _title | escape }}</a></li>{%- endcapture -%}
+        {%- assign _trans_items = _trans_items | push: _item -%}
       {%- endif -%}
     {%- endif -%}
   {%- endfor -%}
 
-  {%- if _trans_links.size > 0 -%}
-    {%- assign _also_available = site.data.i18n[_label_lang].also_available | default: 'Also available in' -%}
-    <div class="translation-notice" role="note" aria-label="{{ _also_available | escape }}">
+  {%- if _trans_items.size > 0 -%}
+    <div class="translation-notice" role="note">
       <svg
         class="translation-notice__icon"
         xmlns="http://www.w3.org/2000/svg"
@@ -51,8 +49,9 @@
       >
         <path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/>
       </svg>
-      <span class="translation-notice__label">{{ _also_available }}</span>
-      {{ _trans_links | join: ' · ' }}
+      <ul class="translation-notice__list" role="list">
+        {{ _trans_items | join: '' }}
+      </ul>
     </div>
   {%- endif -%}
 {%- endif -%}

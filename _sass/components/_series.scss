@@ -135,24 +135,46 @@
 
 .translation-notice {
   display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: $sp-1 $sp-2;
+  align-items: center;
+  gap: $sp-3;
   margin: $sp-5 0;
+  padding: $sp-3 $sp-4;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 $r-sm $r-sm 0;
   font-size: $fs-md;
-  color: var(--text-muted);
+
+  @include retina {
+    border-width: 0.5px;
+    border-left-width: 3px;
+  }
 
   &__icon {
     flex-shrink: 0;
-    position: relative;
-    top: 2px;
     color: var(--accent-text);
   }
 
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: $sp-2;
+  }
+
+  &__item {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 $sp-2;
+  }
+
   &__label {
-    flex-shrink: 0;
     font-weight: 600;
     color: var(--text-secondary);
+    white-space: nowrap;
   }
 
   &__link {

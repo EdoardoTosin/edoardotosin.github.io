@@ -12,7 +12,10 @@
   },
   "scripts": {
     "test": "jest",
+    "serve:dev": "bundle exec jekyll serve --config _config.yml,_config.dev.yml --livereload",
+    "ci": "npm run format:check && npm run test",
     "audit": "node scripts/audit.js",
+    "audit:deps": "npm audit",
     "format": "prettier --write \"**/*.{html,js,scss,md,yml}\"",
     "format:check": "prettier --check \"**/*.{html,js,scss,md,yml}\""
   },

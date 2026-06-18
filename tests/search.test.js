@@ -20,6 +20,8 @@ describe('stem', () => {
   test('strips -ier suffix', () => expect(stem('carrier')).toBe('carry'));
   test('leaves short word intact', () => expect(stem('go')).toBe('go'));
   test('leaves 3-char word intact', () => expect(stem('cat')).toBe('cat'));
+  test('skips rule whose result is too short, falls through to next matching rule', () =>
+    expect(stem('sings')).toBe('sing'));
 });
 
 describe('tokenize', () => {
@@ -32,6 +34,7 @@ describe('tokenize', () => {
   test('returns [] for null', () => expect(tokenize(null, false)).toEqual([]));
   test('returns [] for undefined', () => expect(tokenize(undefined, false)).toEqual([]));
   test('returns [] when all tokens are stop words', () => expect(tokenize('the is a', false)).toEqual([]));
+  test('keeps 2-char non-stop-word token', () => expect(tokenize('ok', false)).toEqual(['ok']));
 });
 
 describe('parseFilterDate', () => {
@@ -97,6 +100,7 @@ describe('parseNumericFilter', () => {
   test('<=500 sets maxW=500', () => expect(run('<=500')).toEqual({ maxW: 500 }));
   test('200-800 sets both', () => expect(run('200-800')).toEqual({ minW: 200, maxW: 800 }));
   test('exact 500 sets both equal', () => expect(run('500')).toEqual({ minW: 500, maxW: 500 }));
+  test('exact 0 sets both to 0', () => expect(run('0')).toEqual({ minW: 0, maxW: 0 }));
   test('no match leaves object empty', () => expect(run('abc')).toEqual({}));
 });
 
@@ -121,6 +125,13 @@ describe('parseQuery - phrase search', () => {
     const p = parseQuery("-'machine learning'");
     expect(p.excludePhrases).toContain('machine learning');
     expect(p.excludes).toHaveLength(0);
+  });
+
+  test('multiple phrases all pushed to phrases array', () => {
+    const p = parseQuery('"hello world" "foo bar"');
+    expect(p.phrases).toContain('hello world');
+    expect(p.phrases).toContain('foo bar');
+    expect(p.phrases).toHaveLength(2);
   });
 });
 
@@ -169,6 +180,18 @@ describe('parseQuery - field filters', () => {
     const p = parseQuery('inurl:about');
     expect(p.filters.inUrl).toContain('about');
   });
+
+  test('author:value sets fields.author', () => {
+    expect(parseQuery('author:jane').fields).toMatchObject({ author: 'jane' });
+  });
+
+  test('type:value sets fields.type', () => {
+    expect(parseQuery('type:tutorial').fields).toMatchObject({ type: 'tutorial' });
+  });
+
+  test('field value is lowercased (topic:JavaScript → javascript)', () => {
+    expect(parseQuery('topic:JavaScript').fields).toMatchObject({ topic: 'javascript' });
+  });
 });
 
 describe('parseQuery - date filters', () => {
@@ -203,6 +226,14 @@ describe('parseQuery - date filters', () => {
   test('after:2024-06-15 → filters.after = Jun 15 2024 start', () => {
     const p = parseQuery('after:2024-06-15');
     expect(p.filters.after).toEqual(new Date(2024, 5, 15, 0, 0, 0, 0));
+  });
+
+  test('before: with invalid date leaves filter null', () => {
+    expect(parseQuery('before:notadate').filters.before).toBeNull();
+  });
+
+  test('after: with invalid date leaves filter null', () => {
+    expect(parseQuery('after:notadate').filters.after).toBeNull();
   });
 });
 
@@ -266,6 +297,15 @@ describe('parseQuery - OR groups', () => {
     expect(p.terms).toContain(stem('react'));
     expect(p.terms).toContain(stem('redux'));
     expect(p.orGroups).toBeNull();
+  });
+
+  test('parenthesized OR group combined with regular terms populates both orGroups and terms', () => {
+    const p = parseQuery('(python OR ruby) security');
+    expect(p.orGroups).not.toBeNull();
+    const flat = p.orGroups.flat();
+    expect(flat).toContain(stem('python'));
+    expect(flat).toContain(stem('ruby'));
+    expect(p.terms).toContain(stem('security'));
   });
 });
 

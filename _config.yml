@@ -220,6 +220,7 @@ exclude:
   - package-lock.json
   - tests
   - jest.config.js
+  - .npmrc
   - .prettierrc
   - .prettierignore
   - vendor
@@ -235,6 +236,7 @@ exclude:
   - LICENSE-CONTENT
   - debug.yml
   - docker-compose.yml
+  - _templates
   - utilities
   - scripts
   - docs

@@ -1,36 +1,36 @@
 {
   "name": "edoardotosin.github.io",
   "version": "1.0.0",
-  "description": "Custom Jekyll theme for a personal blog and portfolio. Dark-mode-first, responsive, accessible (WCAG AA), no CSS framework.",
-  "main": "sw.js",
-  "directories": {
-    "doc": "docs"
-  },
-  "devDependencies": {
-    "@shopify/prettier-plugin-liquid": "^1.10.3",
-    "jest": "^30.4.2"
-  },
-  "scripts": {
-    "test": "jest",
-    "serve:dev": "bundle exec jekyll serve --config _config.yml,_config.dev.yml --livereload",
-    "ci": "npm run format:check && npm run test",
-    "audit": "node scripts/audit.js",
-    "audit:deps": "npm audit",
-    "format": "prettier --write \"**/*.{html,js,scss,md,yml}\"",
-    "format:check": "prettier --check \"**/*.{html,js,scss,md,yml}\""
+  "description": "Jekyll theme for a personal blog and portfolio.",
+  "private": true,
+  "license": "ISC",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=22"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/EdoardoTosin/edoardotosin.github.io.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
+  "homepage": "https://github.com/EdoardoTosin/edoardotosin.github.io#readme",
   "bugs": {
     "url": "https://github.com/EdoardoTosin/edoardotosin.github.io/issues"
   },
-  "homepage": "https://github.com/EdoardoTosin/edoardotosin.github.io#readme",
+  "scripts": {
+    "serve:dev": "bundle exec jekyll serve --config _config.yml,_config.dev.yml --livereload",
+    "format": "prettier --write \"**/*.{html,js,scss,md,yml}\"",
+    "format:check": "prettier --check \"**/*.{html,js,scss,md,yml}\"",
+    "test": "jest",
+    "ci": "npm run format:check && npm run test",
+    "audit": "node scripts/audit.js",
+    "audit:deps": "npm audit"
+  },
+  "devDependencies": {
+    "@shopify/prettier-plugin-liquid": "^1.10.3",
+    "axe-core": "^4.12.1",
+    "jest": "^30.4.2",
+    "jsdom": "^29.1.1"
+  },
   "jest": {
     "testMatch": [
       "**/tests/**/*.test.js"
@@ -39,9 +39,5 @@
       "/node_modules/",
       "/_site/"
     ]
-  },
-  "dependencies": {
-    "axe-core": "^4.12.1",
-    "jsdom": "^29.1.1"
   }
 }

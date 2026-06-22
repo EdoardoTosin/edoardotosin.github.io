@@ -153,18 +153,30 @@
     }
   }
 
-  &__dropdown:hover &__dropdown-btn svg,
   &__dropdown:focus-within &__dropdown-btn svg {
     transform: rotate(180deg);
   }
 
-  &__dropdown:hover &__dropdown-menu,
   &__dropdown:focus-within &__dropdown-menu {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
     pointer-events: auto;
     transition-delay: 0s;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &__dropdown:hover &__dropdown-btn svg {
+      transform: rotate(180deg);
+    }
+
+    &__dropdown:hover &__dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+      pointer-events: auto;
+      transition-delay: 0s;
+    }
   }
 
   &__dropdown-menu {

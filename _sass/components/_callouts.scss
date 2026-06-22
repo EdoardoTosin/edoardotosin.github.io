@@ -185,8 +185,10 @@
       text-decoration-thickness: 1px;
       transition: opacity $t-fast-p;
 
-      &:hover {
-        opacity: 0.75;
+      @media (hover: hover) and (pointer: fine) {
+        &:hover {
+          opacity: 0.75;
+        }
       }
 
       &:focus-visible {

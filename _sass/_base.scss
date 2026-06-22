@@ -210,7 +210,7 @@ i {
   font-size: $fs-base;
   border-radius: $r-md;
   text-decoration: none;
-  transition: top 0.15s ease;
+  transition: top $t-fast-p;
 
   &:focus {
     top: $sp-4;
@@ -248,58 +248,5 @@ i {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
-  }
-}
-
-// Touch: reset stuck :hover states
-@media (hover: none) {
-  .btn--primary:hover {
-    transform: none;
-    box-shadow: var(--glow-accent-sm);
-  }
-  .btn--outline:hover {
-    transform: none;
-  }
-  .btn--ghost:hover {
-    transform: none;
-  }
-
-  .post-card:hover,
-  .featured-item:hover,
-  .video-card:hover {
-    transform: none;
-    box-shadow: var(--shadow-card);
-  }
-
-  .tag-pill:hover,
-  .filter-page__btn:hover {
-    transform: none;
-  }
-
-  .social-btn:hover {
-    transform: none;
-  }
-
-  .scroll-top:hover {
-    transform: translateY(0);
-  }
-
-  .share-btn:hover {
-    transform: none;
-  }
-
-  .post-nav__link:hover {
-    color: var(--text-primary);
-  }
-
-  .toc-link:hover {
-    color: var(--text-secondary);
-    background: transparent;
-    border-left-color: transparent;
-  }
-  .toc-link.is-active:hover {
-    color: var(--accent-text);
-    background: var(--accent-subtle);
-    border-left-color: var(--accent);
   }
 }

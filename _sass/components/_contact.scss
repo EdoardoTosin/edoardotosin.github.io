@@ -271,11 +271,13 @@
       flex-shrink: 0;
     }
 
-    &:hover {
-      color: var(--text-primary);
-      border-color: var(--border-strong);
-      background: var(--bg-tag);
-      transform: translateY(-1px);
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        color: var(--text-primary);
+        border-color: var(--border-strong);
+        background: var(--bg-tag);
+        transform: translateY(-1px);
+      }
     }
 
     &:active {

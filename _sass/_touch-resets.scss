@@ -1,0 +1,237 @@
+@use 'variables' as *;
+
+@media (hover: none) {
+  // Buttons
+
+  // Already guarded in _buttons.scss; belt-and-suspenders.
+  .btn--primary:hover {
+    transform: none;
+    box-shadow: var(--glow-accent-sm);
+  }
+  .btn--outline:hover {
+    transform: none;
+  }
+  .btn--ghost:hover {
+    transform: none;
+  }
+
+  .theme-toggle:hover {
+    border-color: transparent;
+    background: none;
+    color: var(--text-muted);
+  }
+
+  .scroll-top:hover {
+    transform: translateY(0);
+    box-shadow: var(--glow-accent-lg);
+  }
+
+  // Header
+
+  .site-logo:hover {
+    color: var(--text-primary);
+  }
+
+  .search-toggle:hover {
+    border-color: transparent;
+    background: none;
+    color: var(--text-muted);
+  }
+
+  .nav-toggle:hover {
+    border-color: transparent;
+    background: none;
+    color: var(--text-muted);
+  }
+
+  .mobile-nav__link:hover {
+    color: var(--text-primary);
+    padding-left: $sp-2;
+  }
+
+  // Cards
+
+  .post-card:hover {
+    transform: none;
+    box-shadow: var(--shadow-card);
+    border-color: var(--border);
+  }
+
+  .post-card:hover .post-card__img img {
+    transform: none;
+  }
+
+  .post-card:hover .post-card__title a {
+    color: var(--text-primary);
+  }
+
+  .featured-item:hover {
+    background: transparent;
+  }
+
+  .featured-item:hover .featured-item__img img {
+    transform: none;
+  }
+
+  .featured-item:hover .featured-item__title {
+    color: var(--text-primary);
+  }
+
+  .video-card:hover {
+    transform: none;
+    box-shadow: var(--shadow-card);
+    border-color: var(--border);
+  }
+
+  .video-card:hover .video-card__thumb img {
+    transform: none;
+  }
+
+  // Play button uses translate(-50%, -50%) for centering; only scale is removed.
+  .video-card:hover .video-card__play {
+    transform: translate(-50%, -50%);
+  }
+
+  .video-card:hover .video-card__title a {
+    color: inherit;
+  }
+
+  .topic-group:hover {
+    box-shadow: var(--shadow-card);
+  }
+
+  .topic-group__header:hover img {
+    transform: none;
+  }
+
+  .view-toggle__btn:hover {
+    color: var(--text-secondary);
+    background: transparent;
+  }
+
+  // Sidebar
+
+  .widget-post:hover {
+    background: transparent;
+  }
+
+  .widget-post:hover .widget-post__img img {
+    transform: none;
+  }
+
+  .widget-post:hover .widget-post__title {
+    color: var(--text-primary);
+  }
+
+  .social-btn:hover {
+    transform: none;
+    background: var(--bg-tag);
+    color: var(--text-secondary);
+    border-color: var(--border-strong);
+  }
+
+  // Post
+
+  // Brand-colored hover variants are guarded in _post.scss; no reset needed.
+  .share-btn:hover {
+    transform: none;
+    background: transparent;
+    color: var(--text-secondary);
+    border-color: var(--border-strong);
+  }
+
+  .post-nav__link:hover {
+    transform: none;
+    border-color: var(--border);
+    box-shadow: var(--shadow-card);
+  }
+
+  .post-nav__link:hover .post-nav__title {
+    color: var(--text-primary);
+  }
+
+  .post-content details summary:hover {
+    color: var(--text-primary);
+  }
+
+  // .share-btn.save-offline-btn:hover (0,3,0) exceeds the 0,2,0 rule above.
+  .share-btn.save-offline-btn:hover {
+    background: transparent;
+    color: var(--text-secondary);
+    border-color: var(--border-strong);
+    transform: none;
+  }
+
+  // _misc.scss defines 0,3,0; _post.scss defines 0,4,0 - both need entries.
+  .save-offline-btn.is-saved:hover {
+    background: var(--accent-subtle);
+    color: var(--accent-text);
+  }
+
+  .share-btn.save-offline-btn.is-saved:hover {
+    filter: none;
+    transform: none;
+  }
+
+  // Footer
+
+  .site-footer__recent-post:hover {
+    background: transparent;
+  }
+
+  .site-footer__recent-post:hover .site-footer__recent-img img {
+    transform: none;
+  }
+
+  .site-footer__recent-post:hover .site-footer__recent-title {
+    color: var(--text-primary);
+  }
+
+  // Nav & misc
+
+  .site-nav__link:hover,
+  .site-nav__dropdown-btn:hover {
+    color: var(--text-secondary);
+    background: transparent;
+  }
+
+  .site-nav__dropdown-menu a:hover {
+    color: var(--text-secondary);
+    background: transparent;
+  }
+
+  .tag-pill:hover,
+  .filter-page__btn:hover {
+    transform: none;
+  }
+
+  .pagination__item:hover {
+    transform: none;
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    border-color: var(--border);
+  }
+
+  .contact-item:hover {
+    background: transparent;
+  }
+
+  .error-search__result:hover {
+    background: var(--bg-card);
+    border-color: var(--border);
+  }
+
+  // Table of contents
+
+  .toc-link:hover {
+    color: var(--text-secondary);
+    background: transparent;
+    border-left-color: transparent;
+  }
+
+  .toc-link.is-active:hover {
+    color: var(--accent-text);
+    background: var(--accent-subtle);
+    border-left-color: var(--accent);
+  }
+}

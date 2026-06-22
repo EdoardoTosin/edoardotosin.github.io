@@ -8,9 +8,9 @@
   overflow: hidden;
   box-shadow: var(--shadow-card);
   transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease,
-    border-color 0.25s ease;
+    transform $t-base-p,
+    box-shadow $t-base-p,
+    border-color $t-base-p;
   display: flex;
   flex-direction: column;
   text-decoration: none;
@@ -47,7 +47,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.4s ease;
+      transition: transform $t-img-p;
     }
   }
 
@@ -265,7 +265,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.4s ease;
+      transition: transform $t-img-p;
     }
 
     &:hover img {
@@ -376,9 +376,9 @@
   border: 1px solid var(--border);
   box-shadow: var(--shadow-card);
   transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease,
-    border-color 0.25s ease;
+    transform $t-base-p,
+    box-shadow $t-base-p,
+    border-color $t-base-p;
   text-decoration: none;
   cursor: pointer;
 
@@ -413,7 +413,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.4s ease;
+      transition: transform $t-img-p;
     }
   }
 
@@ -429,7 +429,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.25s ease;
+    transition: transform $t-base-p;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 
     svg {
@@ -486,8 +486,8 @@
   border: 1px solid var(--border);
   box-shadow: var(--shadow-card);
   transition:
-    box-shadow 0.25s ease,
-    transform 0.25s ease;
+    box-shadow $t-base-p,
+    transform $t-base-p;
 
   // First item spans 2 columns as a hero tile.
   &:nth-child(1) {
@@ -532,7 +532,7 @@
       object-position: center;
       display: block;
       cursor: zoom-in;
-      transition: transform 0.4s ease;
+      transition: transform $t-img-p;
     }
 
     @media (hover: hover) and (pointer: fine) {

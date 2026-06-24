@@ -4,7 +4,7 @@ layout: page
 title: Now
 description: "What's currently in progress: cybersecurity, open-source development, and other active work."
 date: 2024-08-12 21:00:00 +0200
-last_modified_at: 2026-06-18
+last_modified_at: 2026-06-24
 ---
 
 _Last updated {{ page.last_modified_at | date: "%d %b %Y" }}_
@@ -17,7 +17,7 @@ Learning through hands-on work: code analysis, reverse engineering, and understa
 
 I keep up with news and discussions from the security community.
 
-Recently competed in the inaugural SANS CTF European Championship 2026 - national top 10 in qualifiers and top 100 in the New Player's group at the final.
+Competed in the inaugural SANS CTF European Championship 2026: top 10 nationally in the qualifiers, top 100 in the New Player category at the final (297 competitors across two categories).
 
 ---
 

@@ -5,7 +5,7 @@ layout: post
 gallery: true
 short_url: sn2023ixf
 date: 2023-05-26 03:00:00 +0200
-last_modified_at: 2026-05-17 11:00:00 +0200
+last_modified_at: 2026-06-26 18:00:00 +0200
 lang: en
 image: https://raw.githubusercontent.com/EdoardoTosin/web-assets/refs/heads/main/blog/Astrophotography/Supernova%20in%20the%20Pinwheel%20galaxy.webp
 carousels:
@@ -60,9 +60,9 @@ Ideally, astronomers could monitor supernova progenitors years or even decades b
 
 ### A Milestone in Stellar Evolution Research
 
-SN 2023ixf stands as a significant milestone in our journey to understand stellar evolution. Observing this supernova over time will help scientists piece together the sequence of events leading up to the explosion, and by extension, reveal more about how massive stars evolve and ultimately meet their violent end.
+SN 2023ixf stands as a significant milestone in understanding stellar evolution. Observing this supernova over time will help scientists piece together the sequence of events leading up to the explosion, and by extension, reveal more about how massive stars evolve and ultimately meet their violent end.
 
-This ongoing research on SN 2023ixf is expected to continue for years, providing ample data and opportunities for new discoveries. Each observation adds to the wealth of knowledge about the life cycles of stars and the dramatic transformations that galaxies undergo as a result of these powerful events.
+This ongoing research on SN 2023ixf is expected to continue for years, providing ample data and opportunities for new discoveries. Each observation deepens our understanding of the life cycles of stars and the dramatic transformations that galaxies undergo as a result of these powerful events.
 
 [^1]: [Discovery certificate for object 2023ixf](https://www.wis-tns.org/object/2023ixf/discovery-cert). Transient Name Server.
 

@@ -170,6 +170,7 @@ i {
 
 .js img[loading='lazy'] {
   opacity: 0;
+  transition: opacity $t-base-p;
 }
 .js img[loading='lazy'].loaded {
   opacity: 1;

@@ -825,6 +825,11 @@
               card.style.transition = 'opacity .4s ease, transform .4s ease';
               card.style.opacity = '1';
               card.style.transform = 'translateY(0)';
+              setTimeout(function () {
+                card.style.transition = '';
+                card.style.transform = '';
+                card.style.opacity = '';
+              }, 400);
             }, idx * 60);
           });
         });

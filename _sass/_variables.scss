@@ -182,20 +182,20 @@ $z-skip: 9999;
 @mixin tag-pill-states {
   @media (hover: hover) and (pointer: fine) {
     &:hover {
-      background: var(--tc, var(--accent));
-      color: var(--text-on-accent);
+      color: var(--topic-color-text, var(--accent-text));
+      transform: translateY(-1px);
+      outline-color: var(--topic-color-text, var(--accent-text));
     }
   }
   &:focus-visible {
-    background: var(--tc, var(--accent));
-    color: var(--text-on-accent);
-    outline: 2px solid var(--tc, var(--accent));
-    outline-offset: 2px;
+    color: var(--topic-color-text, var(--accent-text));
+    outline-color: var(--topic-color-text, var(--accent-text));
   }
   &:active {
-    background: var(--tc, var(--accent));
-    color: var(--text-on-accent);
+    color: var(--topic-color-text, var(--accent-text));
+    transform: scale(0.96);
     filter: brightness(0.92);
+    outline-color: transparent;
   }
 }
 

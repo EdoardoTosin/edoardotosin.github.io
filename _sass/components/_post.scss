@@ -58,8 +58,8 @@ $ext-link-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg
 
   &__tag {
     display: inline-block;
-    background: var(--accent);
-    color: var(--text-on-accent);
+    background: var(--topic-color, var(--accent));
+    color: var(--topic-color-on, var(--text-on-accent));
     font-size: $fs-sm;
     font-weight: 700;
     text-transform: uppercase;
@@ -70,7 +70,12 @@ $ext-link-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg
     text-decoration: none;
     position: relative;
     z-index: 2;
-    transition: filter $t-fast-p;
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    transition:
+      transform $t-fast-p,
+      outline-color $t-fast-p,
+      box-shadow $t-fast-p;
 
     @media (max-width: #{$bp-sm}) {
       font-size: $fs-xs;
@@ -78,22 +83,27 @@ $ext-link-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg
       margin-bottom: $sp-2;
     }
 
-    &:hover,
-    &:focus-visible {
-      color: var(--text-on-accent);
-      background: var(--accent);
-      text-decoration: none;
-      filter: brightness(1.08);
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        color: var(--topic-color-on, var(--text-on-accent));
+        transform: translateY(-2px);
+        outline-color: #fff;
+        box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.4);
+      }
     }
 
     &:focus-visible {
-      outline: 2px solid #fff;
-      outline-offset: 2px;
+      color: var(--topic-color-on, var(--text-on-accent));
+      outline-color: #fff;
+      box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.4);
     }
 
     &:active {
-      color: var(--text-on-accent);
-      filter: brightness(0.92);
+      color: var(--topic-color-on, var(--text-on-accent));
+      filter: brightness(0.9);
+      transform: translateY(0);
+      outline-color: transparent;
+      box-shadow: none;
     }
   }
 
@@ -158,9 +168,11 @@ $ext-link-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg
     border-radius: $r-sm;
     margin-bottom: $sp-4;
     text-decoration: none;
+    outline: 2px solid transparent;
+    outline-offset: 2px;
     transition:
-      background $t-fast-p,
-      color $t-fast-p;
+      transform $t-fast-p,
+      outline-color $t-fast-p;
 
     @include tag-pill-states;
   }
@@ -1617,12 +1629,20 @@ $ext-link-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg
         flex-direction: row;
         align-items: flex-start;
 
-        &__img {
-          aspect-ratio: auto;
+        &__img-wrap {
           width: 90px;
           min-width: 90px;
           align-self: stretch;
           flex-shrink: 0;
+        }
+
+        &__img {
+          aspect-ratio: auto;
+          height: 100%;
+        }
+
+        &__tag {
+          display: none;
         }
 
         &__body {

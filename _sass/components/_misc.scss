@@ -340,11 +340,14 @@
     font-size: $fs-base;
     font-weight: 600;
     color: var(--text-secondary);
+    outline: 2px solid transparent;
+    outline-offset: 2px;
     transition:
       background $t-fast-p,
       color $t-fast-p,
       border-color $t-fast-p,
-      transform $t-fast-p;
+      transform $t-fast-p,
+      outline-color $t-fast-p;
     text-decoration: none;
     cursor: pointer;
     white-space: nowrap;
@@ -372,45 +375,42 @@
 
     @media (hover: hover) and (pointer: fine) {
       &:hover:not(.is-active) {
-        background: var(--accent-subtle);
-        color: var(--accent-text);
-        border-color: var(--accent);
+        color: var(--topic-color-text, var(--accent-text));
         transform: translateY(-1px);
+        outline-color: var(--topic-color-text, var(--accent-text));
 
         .filter-page__btn-count {
-          background: var(--accent);
-          color: var(--text-on-accent);
+          background: var(--topic-color, var(--accent));
+          color: var(--topic-color-on, var(--text-on-accent));
         }
       }
     }
 
     &:focus-visible {
-      background: var(--accent-subtle);
-      color: var(--accent-text);
-      border-color: var(--accent);
-      @include focus-ring;
+      color: var(--topic-color-text, var(--accent-text));
+      outline-color: var(--topic-color-text, var(--accent-text));
 
       .filter-page__btn-count {
-        background: var(--accent);
-        color: var(--text-on-accent);
+        background: var(--topic-color, var(--accent));
+        color: var(--topic-color-on, var(--text-on-accent));
       }
     }
 
     &:active {
-      background: var(--accent-subtle);
-      color: var(--accent-text);
-      border-color: var(--accent);
+      color: var(--topic-color-text, var(--accent-text));
       transform: translateY(0) scale(0.96);
+      filter: brightness(0.92);
+      outline-color: transparent;
     }
 
     &.is-active {
-      background: var(--accent-subtle);
-      color: var(--accent-text);
-      border-color: var(--accent);
+      background: var(--topic-color-subtle, var(--accent-subtle));
+      color: var(--topic-color-text, var(--accent-text));
+      border-color: var(--topic-color, var(--accent));
 
       .filter-page__btn-count {
-        background: var(--accent);
-        color: var(--text-on-accent);
+        background: var(--topic-color, var(--accent));
+        color: var(--topic-color-on, var(--text-on-accent));
       }
     }
 
@@ -723,9 +723,11 @@
     border-radius: $r-sm;
     text-decoration: none;
     white-space: nowrap;
+    outline: 2px solid transparent;
+    outline-offset: 2px;
     transition:
-      background $t-fast-p,
-      color $t-fast-p;
+      transform $t-fast-p,
+      outline-color $t-fast-p;
     line-height: 1.5;
     align-self: center;
     justify-self: start;

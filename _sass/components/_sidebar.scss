@@ -89,10 +89,11 @@
   font-size: $fs-sm;
   font-weight: 600;
   border-radius: $r-full;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
   transition:
-    background $t-fast-p,
-    color $t-fast-p,
-    border-color $t-fast-p;
+    transform $t-fast-p,
+    outline-color $t-fast-p;
   border: 1px solid transparent;
   text-decoration: none;
   max-width: 200px;
@@ -104,36 +105,28 @@
 
   @media (hover: hover) and (pointer: fine) {
     &:hover {
-      background: var(--topic-color, var(--accent));
-      color: var(--text-on-accent);
-      border-color: var(--topic-color, var(--accent));
+      color: var(--topic-color-text, var(--text-secondary));
+      transform: translateY(-1px);
+      outline-color: var(--topic-color-text, var(--text-secondary));
     }
   }
 
   &:active {
-    transform: scale(0.94);
-    background: var(--topic-color, var(--accent));
-    color: var(--text-on-accent);
-    border-color: var(--topic-color, var(--accent));
+    color: var(--topic-color-text, var(--text-secondary));
+    transform: scale(0.96);
     filter: brightness(0.92);
+    outline-color: transparent;
   }
 
   &:focus-visible {
-    outline: 2px solid var(--topic-color, var(--accent));
-    outline-offset: 2px;
+    color: var(--topic-color-text, var(--text-secondary));
+    outline-color: var(--topic-color-text, var(--text-secondary));
   }
 
   &--muted {
     cursor: default;
     opacity: 0.75;
     pointer-events: none;
-
-    &:hover {
-      background: var(--bg-tag);
-      color: var(--text-secondary);
-      border-color: transparent;
-      transform: none;
-    }
   }
 }
 

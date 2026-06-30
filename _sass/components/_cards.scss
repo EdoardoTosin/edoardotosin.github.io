@@ -23,25 +23,30 @@
     border-color: var(--border-strong);
   }
 
-  &:hover:not(:has(.post-card__tag:hover)) .post-card__img img {
-    transform: scale(1.04);
-  }
+  @media (hover: hover) and (pointer: fine) {
+    &:hover:not(:has(.post-card__tag:hover)) .post-card__img img {
+      transform: scale(1.04);
+    }
 
-  &:hover:not(:has(.post-card__tag:hover)) .post-card__title a {
-    color: var(--accent-text);
+    &:hover:not(:has(.post-card__tag:hover)) .post-card__title a {
+      color: var(--accent-text);
+    }
   }
 
   &:focus-within {
     @include focus-ring;
   }
 
-  &__img {
-    display: block;
-    aspect-ratio: 16 / 9;
-    overflow: hidden;
-    background: var(--bg-tag);
+  &__img-wrap {
     position: relative;
     z-index: 1;
+  }
+
+  &__img {
+    display: block;
+    aspect-ratio: 2 / 1;
+    overflow: hidden;
+    background: var(--bg-tag);
 
     img {
       width: 100%;
@@ -52,7 +57,7 @@
   }
 
   &__body {
-    padding: $sp-5 $sp-6 $sp-6;
+    padding: $sp-4 $sp-5 $sp-5;
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -60,32 +65,56 @@
   }
 
   &__tag {
-    display: inline-flex;
-    align-self: flex-start;
-    width: fit-content;
+    position: absolute;
+    bottom: $sp-3;
+    left: $sp-3;
+    z-index: 2;
     font-size: $fs-sm;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.06em;
-    color: var(--topic-color-text, var(--accent-text));
-    background: var(--topic-color-subtle, var(--accent-subtle));
+    color: var(--topic-color-on, #fff);
+    background: var(--topic-color, var(--accent));
     padding: $sp-1 $sp-3;
     border-radius: $r-sm;
     text-decoration: none;
-    position: relative;
-    z-index: 1;
+    outline: 2px solid transparent;
+    outline-offset: 2px;
     transition:
-      background $t-fast-p,
-      color $t-fast-p;
+      transform $t-fast-p,
+      outline-color $t-fast-p,
+      box-shadow $t-fast-p;
 
-    @include tag-pill-states;
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        color: var(--topic-color-on, #fff);
+        transform: translateY(-2px);
+        outline-color: #fff;
+        box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.4);
+      }
+    }
+
+    &:focus-visible {
+      color: var(--topic-color-on, #fff);
+      outline-color: #fff;
+      box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.4);
+    }
+
+    &:active {
+      color: var(--topic-color-on, #fff);
+      filter: brightness(0.9);
+      transform: translateY(0);
+      outline-color: transparent;
+      box-shadow: none;
+    }
   }
 
   &__title {
-    font-size: 1.125rem;
+    font-size: 1.25rem;
     font-weight: 700;
-    line-height: 1.3;
+    line-height: 1.25;
     margin: 0;
+    text-wrap: balance;
 
     a {
       color: var(--text-primary);
@@ -115,7 +144,12 @@
     color: var(--text-secondary);
     line-height: 1.65;
     flex: 1;
-    @include line-clamp(3);
+    @include line-clamp(2);
+
+    @media (max-width: #{$bp-sm}) {
+      -webkit-line-clamp: 3;
+      line-clamp: 3;
+    }
   }
 
   &__meta {
@@ -285,34 +319,44 @@
     bottom: $sp-3;
     left: $sp-4;
     z-index: 1;
-    color: var(--topic-color-text, var(--accent-text));
-    background: var(--topic-color-subtle, var(--accent-subtle));
+    color: var(--topic-color-on, #fff);
+    background: var(--topic-color, var(--accent));
     font-size: $fs-sm;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.06em;
     padding: $sp-1 $sp-3;
     border-radius: $r-sm;
+    outline: 2px solid transparent;
+    outline-offset: 2px;
     transition:
-      background $t-fast-p,
-      color $t-fast-p;
-  }
+      transform $t-fast-p,
+      outline-color $t-fast-p,
+      box-shadow $t-fast-p;
 
-  // Promote tag-pill states through parent hover/focus
-  @media (hover: hover) and (pointer: fine) {
-    &__header:hover &__header-tag {
-      background: var(--topic-color, var(--accent));
-      color: var(--text-on-accent);
+    @media (hover: hover) and (pointer: fine) {
+      &:hover,
+      .topic-group__header:hover & {
+        color: var(--topic-color-on, #fff);
+        transform: translateY(-2px);
+        outline-color: #fff;
+        box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.4);
+      }
     }
-  }
-  &__header:focus-visible &__header-tag {
-    background: var(--topic-color, var(--accent));
-    color: var(--text-on-accent);
-  }
-  &__header:active &__header-tag {
-    background: var(--topic-color, var(--accent));
-    color: var(--text-on-accent);
-    filter: brightness(0.92);
+
+    .topic-group__header:focus-visible & {
+      color: var(--topic-color-on, #fff);
+      outline-color: #fff;
+      box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.4);
+    }
+
+    .topic-group__header:active & {
+      color: var(--topic-color-on, #fff);
+      filter: brightness(0.9);
+      transform: translateY(0);
+      outline-color: transparent;
+      box-shadow: none;
+    }
   }
 
   &__posts {

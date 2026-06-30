@@ -496,12 +496,19 @@
     padding: 6pt 0 !important;
     break-inside: avoid;
 
-    &__img {
+    &__img-wrap {
       display: none !important;
     }
 
     &__body {
       padding: 0 !important;
+    }
+
+    &__description {
+      -webkit-line-clamp: unset !important;
+      line-clamp: unset !important;
+      overflow: visible !important;
+      display: block !important;
     }
   }
 

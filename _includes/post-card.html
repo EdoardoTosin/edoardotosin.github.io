@@ -1,18 +1,17 @@
 {%- assign _post = include.post -%}
 
 <article class="post-card" itemscope itemtype="http://schema.org/BlogPosting">
-  <a href="{{ _post.url | relative_url }}" class="post-card__img" aria-hidden="true" tabindex="-1">
-    <img
-      src="{{ _post.image | default: '/images/social-preview.jpg' | relative_url }}"
-      alt=""
-      loading="lazy"
-      width="720"
-      height="405"
-      itemprop="image"
-    >
-  </a>
-
-  <div class="post-card__body">
+  <div class="post-card__img-wrap">
+    <a href="{{ _post.url | relative_url }}" class="post-card__img" aria-hidden="true" tabindex="-1">
+      <img
+        src="{{ _post.image | default: '/images/social-preview.jpg' | relative_url }}"
+        alt=""
+        loading="lazy"
+        width="1280"
+        height="640"
+        itemprop="image"
+      >
+    </a>
     {%- if _post.topic and _post.topic != '' -%}
       <a
         href="{{ '/topics/?topic=' | append: _post.topic | relative_url }}"
@@ -23,7 +22,9 @@
         {{- _post.topic | downcase | escape -}}
       </a>
     {%- endif -%}
+  </div>
 
+  <div class="post-card__body">
     <h2 class="post-card__title" itemprop="headline">
       <a href="{{ _post.url | relative_url }}" itemprop="url" title="{{ _post.title | escape }}">
         {{- _post.title | escape -}}

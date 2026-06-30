@@ -212,12 +212,16 @@ html[data-blog-view='list'] .posts-grid,
     }
   }
 
-  .post-card__img {
+  .post-card__img-wrap {
     width: 180px;
     flex-shrink: 0;
-    aspect-ratio: unset;
     height: 100%;
     max-height: 200px;
+  }
+
+  .post-card__img {
+    aspect-ratio: unset;
+    height: 100%;
   }
 
   .post-card__body {
@@ -245,11 +249,14 @@ html[data-blog-view='list'] .posts-grid,
       flex-direction: column;
       max-height: none;
     }
-    .post-card__img {
+    .post-card__img-wrap {
       width: 100%;
-      height: auto;
       max-height: none;
-      aspect-ratio: 16 / 9;
+    }
+
+    .post-card__img {
+      aspect-ratio: 2 / 1;
+      height: auto;
     }
   }
 }

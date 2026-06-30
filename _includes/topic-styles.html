@@ -1,6 +1,6 @@
 <style>
   {%- for t in site.data.topics -%}{%- if t.name and t.color -%}
-  [data-topic="{{ t.name | downcase | escape }}"] { --topic-color:{{ t.color }};--topic-color-subtle:{{ t.subtle | default: t.color }};--topic-color-text:{{ t.text_light | default: t.color }}; }
+  [data-topic="{{ t.name | downcase | escape }}"] { --topic-color:{{ t.color }};--topic-color-subtle:{{ t.subtle | default: t.color }};--topic-color-text:{{ t.text_light | default: t.color }};--topic-color-on:{{ t.text_on_solid | default: '#ffffff' }}; }
   [data-theme="dark"] [data-topic="{{ t.name | downcase | escape }}"],[data-topic="{{ t.name | downcase | escape }}"][data-theme="dark"] { --topic-color-text:{{ t.text_dark | default: t.color }};--topic-color-subtle:{{ t.subtle | default: t.color }}; }
   {%- endif -%}{%- endfor -%}
 </style>

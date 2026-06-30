@@ -89,14 +89,16 @@ module TopicColors
     luminance(*blended)
   end
 
-  # Returns {subtle, text_light, text_dark} derived from a single hex color
+  # Returns {subtle, text_light, text_dark, text_on_solid} derived from a single hex color
   def self.derive(color_hex)
     r, g, b = parse_hex(color_hex)
+    lum = luminance(r, g, b)
 
     {
-      'subtle'     => "rgba(#{r},#{g},#{b},.12)",
-      'text_light' => adjust_for_contrast(r, g, b, subtle_lum(r, g, b, BG_LIGHT_RGB), target: 4.5, dir: :darken),
-      'text_dark'  => adjust_for_contrast(r, g, b, subtle_lum(r, g, b, BG_DARK_RGB),  target: 4.5, dir: :lighten)
+      'subtle'        => "rgba(#{r},#{g},#{b},.12)",
+      'text_light'    => adjust_for_contrast(r, g, b, subtle_lum(r, g, b, BG_LIGHT_RGB), target: 4.5, dir: :darken),
+      'text_dark'     => adjust_for_contrast(r, g, b, subtle_lum(r, g, b, BG_DARK_RGB),  target: 4.5, dir: :lighten),
+      'text_on_solid' => contrast(lum, luminance(255, 255, 255)) >= contrast(lum, luminance(15, 23, 42)) ? '#ffffff' : '#0f172a'
     }
   end
 

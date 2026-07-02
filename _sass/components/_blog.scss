@@ -267,9 +267,9 @@ html[data-blog-view='list'] .posts-grid,
 
   .post-card {
     transition:
-      transform 0.25s ease,
-      box-shadow 0.25s ease,
-      border-color 0.25s ease,
+      transform $t-base-p,
+      box-shadow $t-base-p,
+      border-color $t-base-p,
       flex-direction 0s,
       max-height 0s;
   }

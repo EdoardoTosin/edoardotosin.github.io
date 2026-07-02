@@ -1420,9 +1420,9 @@ $ext-link-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg
     box-shadow: var(--shadow-card);
     text-decoration: none;
     transition:
-      transform 0.25s ease,
-      box-shadow 0.25s ease,
-      border-color 0.25s ease;
+      transform $t-base-p,
+      box-shadow $t-base-p,
+      border-color $t-base-p;
     min-height: 72px;
 
     &:hover {

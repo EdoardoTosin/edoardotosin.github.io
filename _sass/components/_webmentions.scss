@@ -46,12 +46,6 @@
       }
     }
   }
-
-  &__loading {
-    font-size: $fs-lg;
-    color: var(--text-muted);
-    margin: 0;
-  }
 }
 
 // Avatar fallback (no photo)

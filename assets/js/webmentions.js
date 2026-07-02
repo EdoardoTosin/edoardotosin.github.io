@@ -40,7 +40,7 @@
     const likes = mentions.filter(function (m) {
       return m['wm-property'] === 'like-of' || m['wm-property'] === 'bookmark-of' || m['wm-property'] === 'repost-of';
     });
-    if (!likes.length) return;
+    if (!likes.length) return false;
 
     const count = likes.length;
     labelEl.textContent = count + (count === 1 ? ' like / repost' : ' likes / reposts');
@@ -83,6 +83,7 @@
 
     avatarsEl.innerHTML = avatarsHtml;
     likesEl.removeAttribute('hidden');
+    return true;
   }
 
   function renderReplies(mentions) {
@@ -93,7 +94,7 @@
 
     if (!replies.length) {
       repliesEl.innerHTML = '';
-      return;
+      return false;
     }
 
     const html = replies
@@ -151,12 +152,14 @@
       .join('');
 
     repliesEl.innerHTML = html;
+    return true;
   }
 
   function render(data) {
     const mentions = data && data.children ? data.children : [];
-    renderLikes(mentions);
-    renderReplies(mentions);
+    const hasLikes = renderLikes(mentions);
+    const hasReplies = renderReplies(mentions);
+    if (hasLikes || hasReplies) section.removeAttribute('hidden');
   }
 
   fetch(apiUrl)

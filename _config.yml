@@ -159,8 +159,8 @@ disqus:
 # Webmentions - optional IndieWeb reactions below posts.
 # Register your domain at https://webmention.io then set enabled: true.
 webmentions:
-  enabled: false
-  domain:  ""  # e.g. "example.com"
+  enabled: true
+  domain:  "edoardotosin.com"
 
 google_analytics: ""
 

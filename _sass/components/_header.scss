@@ -822,10 +822,6 @@
   &.is-open {
     transform: translateX(0);
   }
-  &.is-open::before {
-    opacity: 1;
-    pointer-events: auto;
-  }
 
   &__list {
     list-style: none;
@@ -872,10 +868,6 @@
     gap: $sp-3;
     padding: $sp-6 0 $sp-4;
     margin-top: $sp-4;
-
-    @include retina {
-      border-top-width: 0.5px;
-    }
 
     .search-toggle {
       flex: 1;

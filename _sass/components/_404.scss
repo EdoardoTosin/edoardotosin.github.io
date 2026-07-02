@@ -66,57 +66,6 @@
     overflow-wrap: break-word;
   }
 
-  &__search {
-    margin-bottom: $sp-8;
-  }
-
-  &__search-wrap {
-    display: flex;
-    align-items: center;
-    background: var(--bg-input);
-    border: 1.5px solid var(--border-ui);
-    border-radius: $r-lg;
-    padding: $sp-3 $sp-4;
-    min-height: 52px;
-    gap: $sp-3;
-    width: min(440px, 100%);
-    margin: 0 auto $sp-4;
-    transition:
-      border-color $t-fast-p,
-      box-shadow $t-fast-p;
-
-    &:focus-within {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px var(--accent-subtle);
-    }
-  }
-
-  &__search-icon {
-    flex-shrink: 0;
-    color: var(--text-muted);
-  }
-
-  &__search-input {
-    flex: 1;
-    min-width: 0; // flex child shrink below content size
-    background: transparent;
-    border: none;
-    outline: none;
-    font-size: 1rem; // 16px - prevents iOS zoom on focus
-    font-family: $font-sans;
-    color: var(--text-primary);
-    line-height: 1.5;
-
-    &::placeholder {
-      color: var(--text-muted);
-    }
-  }
-
-  &__results {
-    width: min(440px, 100%);
-    margin: 0 auto;
-  }
-
   &__links {
     display: flex;
     flex-wrap: wrap;
@@ -143,64 +92,6 @@
   }
 }
 
-// 404 inline search result cards
-.error-search {
-  &__result {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: $sp-3;
-    padding: $sp-3 $sp-4;
-    border-radius: $r-md;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    text-decoration: none;
-    color: var(--text-primary);
-    transition:
-      background $t-fast-p,
-      border-color $t-fast-p,
-      transform $t-fast-p;
-    margin-bottom: $sp-2;
-
-    &:hover {
-      background: var(--accent-subtle);
-      border-color: var(--accent);
-    }
-
-    &:active {
-      background: var(--accent-subtle);
-      border-color: var(--accent);
-      transform: scale(0.98);
-    }
-
-    &:focus-visible {
-      @include focus-ring;
-    }
-  }
-
-  &__result-title {
-    font-size: $fs-lg;
-    font-weight: 600;
-    color: inherit;
-    overflow-wrap: break-word;
-    min-width: 0;
-  }
-
-  &__result-meta {
-    font-size: $fs-md;
-    color: var(--text-muted);
-    flex-shrink: 0;
-    white-space: nowrap;
-  }
-
-  &__empty {
-    font-size: $fs-lg;
-    color: var(--text-muted);
-    text-align: center;
-    padding: $sp-4 0;
-  }
-}
-
 // breakpoints - clamp() covers scaling; these handle structural layout changes
 @media (max-width: 480px) {
   .error-page__links {
@@ -213,11 +104,5 @@
       text-align: center;
       justify-content: center;
     }
-  }
-
-  .error-search__result {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: $sp-1;
   }
 }

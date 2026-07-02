@@ -181,6 +181,10 @@
     {%- endif -%}
   {%- endfor -%}
 
+  {%- if site.social.github and site.social.github != '' -%}
+    <link rel="me" href="{{ site.social.github | escape }}">
+  {%- endif -%}
+
   {%- if site.site_verification.google and site.site_verification.google != '' -%}
     <meta name="google-site-verification" content="{{ site.site_verification.google | escape }}">
   {%- endif -%}

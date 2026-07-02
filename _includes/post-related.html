@@ -1,13 +1,13 @@
 {%- assign _related = '' | split: '' -%}
 {%- if page.topic and page.topic != '' -%}
-  {%- assign _related = site.posts | where_exp: 'p', 'p.topic == page.topic and p.url != page.url' | limit: 2 -%}
+  {%- assign _related = site.posts | where_exp: 'p', 'p.topic == page.topic and p.url != page.url' -%}
 {%- endif -%}
 {%- if _related.size == 0 and page.tags.size > 0 -%}
   {%- assign _tag1 = page.tags.first -%}
-  {%- assign _related = site.posts | where_exp: 'p', 'p.tags contains _tag1 and p.url != page.url' | limit: 2 -%}
+  {%- assign _related = site.posts | where_exp: 'p', 'p.tags contains _tag1 and p.url != page.url' -%}
 {%- endif -%}
 {%- if _related.size == 0 -%}
-  {%- assign _related = site.posts | where_exp: 'p', 'p.url != page.url' | limit: 2 -%}
+  {%- assign _related = site.posts | where_exp: 'p', 'p.url != page.url' -%}
 {%- endif -%}
 {%- if _related.size > 0 -%}
   <section class="related-posts" aria-labelledby="related-posts-heading">

@@ -3,7 +3,7 @@
 
 {%- if _pa_slugs.size > 1 -%}
   <section class="author-box-group" aria-labelledby="post-authors-heading">
-    <p class="author-box-group__heading" id="post-authors-heading">About the Authors</p>
+    <h2 class="author-box-group__heading" id="post-authors-heading">About the Authors</h2>
     {%- for _slug in _pa_slugs -%}
       {%- assign _pa_a = site.data.authors[_slug] -%}
       {%- unless _pa_a -%}

@@ -97,14 +97,14 @@
     }
   }
 
-  &__header {
+  &-header {
     display: flex;
     align-items: flex-start;
     gap: $sp-3;
     margin-bottom: $sp-3;
   }
 
-  &__avatar {
+  &-avatar {
     flex-shrink: 0;
     display: block;
     text-decoration: none;
@@ -124,7 +124,7 @@
     }
   }
 
-  &__avatar-fallback {
+  &-avatar-fallback {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -137,7 +137,7 @@
     font-weight: 700;
   }
 
-  &__meta {
+  &-meta {
     flex: 1;
     min-width: 0;
     display: flex;
@@ -145,7 +145,7 @@
     gap: 2px;
   }
 
-  &__name {
+  &-name {
     font-size: $fs-lg;
     font-weight: 600;
     color: var(--text-primary);
@@ -168,12 +168,12 @@
     }
   }
 
-  &__date {
+  &-date {
     font-size: $fs-sm;
     color: var(--text-muted);
   }
 
-  &__source {
+  &-source {
     flex-shrink: 0;
     color: var(--text-muted);
     text-decoration: none;
@@ -193,7 +193,7 @@
     }
   }
 
-  &__content {
+  &-content {
     font-size: $fs-lg;
     color: var(--text-secondary);
     line-height: 1.6;

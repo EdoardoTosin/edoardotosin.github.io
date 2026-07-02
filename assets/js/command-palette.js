@@ -41,6 +41,13 @@
   }
 
   function open() {
+    // One modal at a time; clicking the close button runs search.js cleanup that a bare close() would skip
+    const searchOverlay = document.getElementById('search-overlay');
+    if (searchOverlay && searchOverlay.open) {
+      const searchClose = document.getElementById('search-close');
+      if (searchClose) searchClose.click();
+      else searchOverlay.close();
+    }
     isOpen = true;
     lastFocused = document.activeElement;
     palette.showModal();

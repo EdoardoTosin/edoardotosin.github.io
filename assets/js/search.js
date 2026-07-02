@@ -893,13 +893,6 @@
       const link = e.target.closest('a.search-overlay__result-item');
       if (link && input && input.value.trim()) pushHistory(input.value.trim());
     });
-    document.addEventListener('keydown', function (e) {
-      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-        e.preventDefault();
-        overlay.open ? closeSearch() : openSearch();
-      }
-    });
-
     // Data loading
     function loadData() {
       if (cache !== null) {

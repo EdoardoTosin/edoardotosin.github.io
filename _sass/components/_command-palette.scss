@@ -145,7 +145,7 @@
   font-family: $font-sans;
   font-size: $fs-lg;
   color: var(--text-primary);
-  transition: background 0.1s ease;
+  transition: background $t-fast-p;
   @include touch-reset;
   min-height: 44px;
 

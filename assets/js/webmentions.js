@@ -115,7 +115,7 @@
             '</span>';
 
         return (
-          '<article class="webmentions__reply" role="comment">' +
+          '<article class="webmentions__reply">' +
           '<header class="webmentions__reply-header">' +
           '<a href="' +
           escHtml(author.url || url) +

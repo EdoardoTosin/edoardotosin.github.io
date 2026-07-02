@@ -500,10 +500,7 @@
     span {
       font-size: $fs-sm;
       color: var(--text-muted);
-      -webkit-line-clamp: 1;
-      line-clamp: 1;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
+      @include line-clamp(1);
     }
   }
 

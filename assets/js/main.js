@@ -1302,7 +1302,11 @@
 
     const param = new URLSearchParams(window.location.search).get(cfg.param);
     if (param) {
-      const slug = param.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+      // Must mirror Jekyll's slugify, which produced the data-tag/data-topic values
+      const slug = param
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '');
       const target = qs('[' + cfg.attr + '="' + slug + '"]');
       if (target) {
         current = slug;

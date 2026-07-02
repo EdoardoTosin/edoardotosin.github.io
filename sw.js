@@ -35,6 +35,11 @@ var PRECACHE_ASSETS = [
 var MAX_PAGES  = 60;
 var MAX_IMAGES = 80;
 
+// Message: page clients ask a waiting worker to activate
+self.addEventListener('message', function (event) {
+  if (event.data && event.data.type === 'SKIP_WAITING') self.skipWaiting();
+});
+
 // Install: precache shell assets
 self.addEventListener('install', function (event) {
   self.skipWaiting();

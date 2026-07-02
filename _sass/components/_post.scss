@@ -747,8 +747,8 @@ $ext-link-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg
     background: var(--bg-input);
 
     transition:
-      background-color 0.15s ease,
-      border-color 0.15s ease;
+      background-color $t-fast-p,
+      border-color $t-fast-p;
 
     cursor: default;
     pointer-events: none;

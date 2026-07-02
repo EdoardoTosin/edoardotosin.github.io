@@ -60,8 +60,8 @@
   color: #fff;
   cursor: pointer;
   transition:
-    background 0.15s ease,
-    transform 0.15s ease;
+    background $t-fast-p,
+    transform $t-fast-p;
   @include touch-reset;
 
   &:hover {

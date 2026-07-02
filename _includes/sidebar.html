@@ -33,7 +33,7 @@
     </div>
   </div>
 
-  {%- assign all_topics = site.posts | map: 'topic' | join: ',' | split: ',' | uniq | sort -%}
+  {%- assign all_topics = site.posts | map: 'topic' | compact | uniq | sort -%}
   {%- if all_topics.size > 0 and page.layout != 'post' -%}
     <div class="sidebar-widget">
       <h2 class="sidebar-widget__title">Topics</h2>

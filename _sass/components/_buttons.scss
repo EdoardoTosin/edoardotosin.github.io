@@ -196,9 +196,9 @@
   justify-content: center;
   box-shadow: var(--glow-accent-lg);
   transition:
-    opacity 0.3s ease,
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+    opacity $t-base-p,
+    transform $t-base-p,
+    box-shadow $t-base-p;
   opacity: 0;
   visibility: hidden;
   transform: translateY(8px);

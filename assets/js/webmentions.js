@@ -7,11 +7,12 @@
 
   // Canonical URL of this page (strip hash and query for matching)
   const pageUrl = (window.location.origin + window.location.pathname).replace(/\/$/, '');
+  // webmention.io only aggregates multiple targets with the target[] array syntax
   const apiUrl =
     'https://webmention.io/api/mentions.jf2' +
-    '?target=' +
+    '?target[]=' +
     encodeURIComponent(pageUrl + '/') +
-    '&target=' +
+    '&target[]=' +
     encodeURIComponent(pageUrl) +
     '&sort-by=published&sort-dir=up&per-page=100';
 

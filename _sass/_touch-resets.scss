@@ -57,20 +57,13 @@
     border-color: var(--border);
   }
 
-  .post-card:hover .post-card__img img {
-    transform: none;
-  }
-
   .post-card:hover .post-card__title a {
     color: var(--text-primary);
   }
 
   .featured-item:hover {
     background: transparent;
-  }
-
-  .featured-item:hover .featured-item__img img {
-    transform: none;
+    box-shadow: none;
   }
 
   .featured-item:hover .featured-item__title {
@@ -81,10 +74,6 @@
     transform: none;
     box-shadow: var(--shadow-card);
     border-color: var(--border);
-  }
-
-  .video-card:hover .video-card__thumb img {
-    transform: none;
   }
 
   // Play button uses translate(-50%, -50%) for centering; only scale is removed.
@@ -113,10 +102,7 @@
 
   .widget-post:hover {
     background: transparent;
-  }
-
-  .widget-post:hover .widget-post__img img {
-    transform: none;
+    box-shadow: none;
   }
 
   .widget-post:hover .widget-post__title {
@@ -177,10 +163,7 @@
 
   .site-footer__recent-post:hover {
     background: transparent;
-  }
-
-  .site-footer__recent-post:hover .site-footer__recent-img img {
-    transform: none;
+    box-shadow: none;
   }
 
   .site-footer__recent-post:hover .site-footer__recent-title {
@@ -228,5 +211,26 @@
     color: var(--accent-text);
     background: var(--accent-subtle);
     border-left-color: var(--accent);
+  }
+
+  // Preserve press feedback on touch: active must come after hover resets so it wins.
+  .post-card:active {
+    transform: translateY(-1px) scale(0.99);
+    box-shadow: var(--shadow-card);
+  }
+
+  .video-card:active {
+    transform: translateY(-1px) scale(0.99);
+    box-shadow: var(--shadow-card);
+  }
+
+  .gallery-item:active {
+    transform: scale(0.98);
+    box-shadow: var(--shadow-card);
+  }
+
+  .site-logo:active {
+    transform: scale(0.98);
+    opacity: 0.75;
   }
 }

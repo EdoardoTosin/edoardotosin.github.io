@@ -70,6 +70,11 @@
     color: var(--accent-text);
   }
 
+  &:active {
+    opacity: 0.75;
+    transform: scale(0.98);
+  }
+
   &:focus-visible {
     @include focus-ring(4px);
     border-radius: $r-sm;
@@ -715,6 +720,18 @@
     background: var(--color-error-subtle);
     color: var(--color-error) !important;
   }
+
+  &:focus-visible {
+    @include focus-ring;
+    background: var(--color-error-subtle);
+    color: var(--color-error) !important;
+  }
+
+  &:active {
+    transform: scale(0.88);
+    background: var(--color-error-subtle);
+    color: var(--color-error) !important;
+  }
 }
 
 // Keyboard shortcut badge
@@ -854,6 +871,11 @@
     &:hover {
       color: var(--accent-text);
       padding-left: $sp-4;
+    }
+
+    &:active {
+      color: var(--accent-text);
+      opacity: 0.75;
     }
 
     &:focus-visible {

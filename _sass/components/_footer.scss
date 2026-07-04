@@ -210,9 +210,6 @@
       flex: 1;
       min-width: 0;
     }
-    &-post:hover &-img img {
-      transform: scale(1.04);
-    }
     &-post:hover &-title {
       color: var(--accent-text);
     }

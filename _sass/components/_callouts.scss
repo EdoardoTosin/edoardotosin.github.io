@@ -144,6 +144,22 @@
         list-style: none;
         background: var(--bg-tag);
         user-select: none;
+        transition: background $t-fast-p;
+
+        @media (hover: hover) and (pointer: fine) {
+          &:hover {
+            background: var(--border);
+          }
+        }
+
+        &:active {
+          opacity: 0.75;
+        }
+
+        &:focus-visible {
+          @include focus-ring;
+          outline-offset: 0;
+        }
 
         &::-webkit-details-marker {
           display: none;
@@ -189,6 +205,10 @@
         &:hover {
           opacity: 0.75;
         }
+      }
+
+      &:active {
+        opacity: 0.6;
       }
 
       &:focus-visible {
@@ -330,6 +350,10 @@
       &:hover {
         color: var(--text-secondary);
       }
+    }
+
+    &:active {
+      opacity: 0.75;
     }
 
     &::-webkit-details-marker {

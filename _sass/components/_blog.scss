@@ -329,7 +329,8 @@ html[data-blog-view='list'] .posts-grid,
   text-decoration: none;
   transition:
     background $t-fast-p,
-    color $t-fast-p;
+    color $t-fast-p,
+    transform $t-fast-p;
   @include touch-reset;
 
   @media (hover: hover) and (pointer: fine) {
@@ -341,6 +342,12 @@ html[data-blog-view='list'] .posts-grid,
 
   &:focus-visible {
     @include focus-ring(1px);
+  }
+
+  &:active {
+    background: var(--accent-subtle);
+    color: var(--accent-text);
+    transform: scale(0.97);
   }
 
   &.is-active {

@@ -112,6 +112,10 @@
         }
       }
 
+      &:active {
+        opacity: 0.75;
+      }
+
       &:focus-visible {
         @include focus-ring;
         border-radius: 2px;
@@ -179,19 +183,27 @@
 
   &__link {
     color: var(--accent-text);
-    text-decoration: underline;
-    text-underline-offset: 2px;
-    text-decoration-color: transparent;
-    transition: text-decoration-color $t-fast-p;
+    text-decoration: none;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: 0 1.5px;
+    transition: background-size $t-fast-p;
 
     @media (hover: hover) and (pointer: fine) {
       &:hover {
-        text-decoration-color: var(--accent-text);
+        background-size: 100% 1.5px;
       }
     }
 
+    &:active {
+      opacity: 0.75;
+    }
+
     &:focus-visible {
-      @include focus-ring;
+      background-size: 100% 1.5px;
+      outline: 2px solid var(--accent-text);
+      outline-offset: 2px;
       border-radius: 2px;
     }
   }

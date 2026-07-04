@@ -584,12 +584,20 @@
     cursor: pointer;
     list-style: none;
     user-select: none;
+    border-radius: $r-sm;
+    transition:
+      background $t-fast-p,
+      transform $t-fast-p;
 
     &::-webkit-details-marker {
       display: none;
     }
     &::marker {
       display: none;
+    }
+
+    &:active {
+      transform: scale(0.99);
     }
 
     &:focus-visible {
@@ -604,6 +612,13 @@
     font-weight: 700;
     letter-spacing: -0.02em;
     color: var(--text-primary);
+    transition: color $t-fast-p;
+
+    @media (hover: hover) and (pointer: fine) {
+      .archive-year__summary:hover & {
+        color: var(--accent-text);
+      }
+    }
   }
 
   &__count {
@@ -762,6 +777,16 @@
       &:hover {
         color: var(--accent-text);
       }
+    }
+
+    &:focus-visible {
+      @include focus-ring(3px);
+      border-radius: $r-sm;
+    }
+
+    &:active {
+      color: var(--accent-text);
+      opacity: 0.75;
     }
   }
 }

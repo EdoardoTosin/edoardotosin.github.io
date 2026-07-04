@@ -54,9 +54,6 @@
   &__img {
     @include mini-post-thumb;
   }
-  &:hover &__img img {
-    transform: scale(1.04);
-  }
   &:hover &__title {
     color: var(--accent-text);
   }
@@ -302,6 +299,10 @@
     color: var(--accent-text);
     background: var(--accent-subtle);
     border-left-color: var(--accent);
+  }
+
+  &:active {
+    opacity: 0.75;
   }
 
   &:focus-visible {

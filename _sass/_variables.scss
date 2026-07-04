@@ -55,6 +55,8 @@ $t-base: all 0.25s ease;
 // Per-property variants: no 'all' prefix, safe in multi-value transition lists
 $t-fast-p: 0.15s ease;
 $t-base-p: 0.25s ease;
+$t-zoom-p: 0.6s ease;
+$t-img-p: 0.4s ease-in-out;
 
 // Font-size scale
 $fs-2xs: 0.625rem;
@@ -206,9 +208,17 @@ $z-skip: 9999;
   border-radius: $r-sm;
   position: relative;
   cursor: pointer;
-  transition: background $t-fast-p;
+  transition:
+    background $t-fast-p,
+    box-shadow $t-fast-p,
+    transform $t-fast-p;
   &:hover {
     background: var(--bg-tag);
+    box-shadow: inset 3px 0 0 var(--accent);
+  }
+  &:has(:focus-visible) {
+    @include focus-ring;
+    border-radius: $r-sm;
   }
 }
 
@@ -223,7 +233,6 @@ $z-skip: 9999;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform $t-base-p;
   }
 }
 

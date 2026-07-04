@@ -289,12 +289,28 @@ $ext-link-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg
     cursor: pointer;
     list-style: none;
     user-select: none;
+    transition:
+      background $t-fast-p,
+      color $t-fast-p,
+      transform $t-fast-p;
 
     &::-webkit-details-marker {
       display: none;
     }
     &::marker {
       display: none;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        background: var(--bg-tag);
+        color: var(--text-secondary);
+      }
+    }
+
+    &:active {
+      transform: scale(0.99);
+      background: var(--bg-tag);
     }
 
     &:focus-visible {
@@ -376,7 +392,8 @@ $ext-link-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg
     vertical-align: middle;
     transition:
       color $t-fast-p,
-      opacity $t-fast-p;
+      opacity $t-fast-p,
+      transform $t-fast-p;
     border-radius: $r-sm;
 
     &:hover {
@@ -409,15 +426,33 @@ $ext-link-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg
 
   a {
     color: var(--accent-text);
-    text-decoration: underline;
-    text-decoration-color: transparent;
-    transition: $t-fast;
+    text-decoration: none;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: 0 1.5px;
+    transition:
+      background-size $t-fast-p,
+      color $t-fast-p,
+      opacity $t-fast-p;
     word-break: break-word;
     overflow-wrap: anywhere;
+
     @media (hover: hover) and (pointer: fine) {
       &:hover {
-        text-decoration-color: var(--accent-text);
+        background-size: 100% 1.5px;
       }
+    }
+
+    &:focus-visible {
+      background-size: 100% 1.5px;
+      outline: 2px solid var(--accent-text);
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+
+    &:active {
+      opacity: 0.75;
     }
   }
 
@@ -968,9 +1003,23 @@ $ext-link-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg
         border-color: #6e7681;
       }
     }
+
+    &:active {
+      transform: scale(0.94);
+      background: #21262d;
+      color: #e6edf3;
+      border-color: #6e7681;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
     &.copied {
       color: var(--accent);
       border-color: var(--accent);
+      background: rgba(74, 222, 128, 0.08);
     }
   }
 

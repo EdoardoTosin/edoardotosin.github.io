@@ -21,7 +21,6 @@ keywords:
   - nasa artemis ii
   - orbital analysis
 featured: true
-math: true
 cited_by:
   - '[Hello, World! Ma la foto è vera o falsa? | Butac - Bufale Un Tanto Al Chilo](https://www.butac.it/hello-world-ai/)'
   - '[Artemis II: Hello, World! Foto è vera o falsa?](https://www.chiccheinformatiche.com/artemis-ii-hello-world-la-foto-e-vera-o-falsa/)'

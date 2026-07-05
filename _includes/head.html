@@ -202,12 +202,18 @@
 
   <script defer src="{{ '/assets/js/theme.js' | relative_url }}"></script>
 
-  {%- if page.math -%}
+  {%- if page.layout == "post" and page.math != false -%}
+    <script src="{{ '/assets/js/mathjax-config.js' | relative_url }}"></script>
+    <script defer src="{{ '/assets/js/mathjax-tex-chtml.js' | relative_url }}"></script>
+  {%- elsif page.math -%}
     <script src="{{ '/assets/js/mathjax-config.js' | relative_url }}"></script>
     <script defer src="{{ '/assets/js/mathjax-tex-chtml.js' | relative_url }}"></script>
   {%- endif -%}
 
-  {%- if page.mermaid -%}
+  {%- if page.layout == "post" and page.mermaid != false -%}
+    <script defer src="{{ '/assets/js/mermaid.min.js' | relative_url }}"></script>
+    <script defer src="{{ '/assets/js/mermaid-init.js' | relative_url }}"></script>
+  {%- elsif page.mermaid -%}
     <script defer src="{{ '/assets/js/mermaid.min.js' | relative_url }}"></script>
     <script defer src="{{ '/assets/js/mermaid-init.js' | relative_url }}"></script>
   {%- endif -%}

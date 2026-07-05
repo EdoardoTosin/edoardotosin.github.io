@@ -28,8 +28,8 @@ gallery: false
 download_url: 'https://example.com/gallery/my-album'
 image_zoom: ''
 
-math: false
-mermaid: false
+math: false # posts load MathJax by default; set false to opt out
+mermaid: false # posts load Mermaid by default; set false to opt out
 
 robots: 'noindex'
 last_modified_at: 2025-02-01
@@ -248,9 +248,9 @@ and in the RSS feed, each matched token is wrapped in an amber span.
 | Footnote        | `text[^1]` `[^1]: note`  | Rendered at bottom; hover or focus the reference for an inline preview tooltip |
 | `<kbd>`         | `<kbd>Ctrl</kbd>`        | Keyboard shortcut styling                                                      |
 | `<mark>`        | `<mark>text</mark>`      | Accent highlight                                                               |
-| Math (inline)   | `$E = mc^2$`             | Requires `math: true`                                                          |
-| Math (block)    | `$$\nabla \cdot E = 0$$` | Requires `math: true`                                                          |
-| Diagram         | ` ```mermaid `           | Requires `mermaid: true`                                                       |
+| Math (inline)   | `$E = mc^2$`             | Auto-loaded on posts; `math: false` to opt out, `math: true` on other pages    |
+| Math (block)    | `$$\nabla \cdot E = 0$$` | Auto-loaded on posts; `math: false` to opt out, `math: true` on other pages    |
+| Diagram         | ` ```mermaid `           | Auto-loaded on posts; `mermaid: false` to opt out, `mermaid: true` elsewhere   |
 | Details/summary | `<details><summary>`     | Native HTML collapsible                                                        |
 
 ## Code Blocks
@@ -280,13 +280,14 @@ The post hero image is set in front matter (`image:`), not inline Markdown.
 
 ## Math (MathJax)
 
-Enable MathJax on a per-post basis:
+MathJax is loaded automatically on all posts. To disable it on a specific post, or to enable it on a non-post page:
 
 ```yaml
-math: true
+math: false  # disable on a post
+math: true   # enable on a non-post page
 ```
 
-Then use standard LaTeX delimiters:
+Use standard LaTeX delimiters:
 
 ```markdown
 Inline: $E = mc^2$
@@ -300,13 +301,14 @@ $$
 
 ## Diagrams (Mermaid)
 
-Enable Mermaid on a per-post basis:
+Mermaid is loaded automatically on all posts. To disable it on a specific post, or to enable it on a non-post page:
 
 ```yaml
-mermaid: true
+mermaid: false  # disable on a post
+mermaid: true   # enable on a non-post page
 ```
 
-Then use a fenced code block with the `mermaid` language tag:
+Use a fenced code block with the `mermaid` language tag:
 
 ````markdown
 ```mermaid

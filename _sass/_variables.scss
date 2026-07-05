@@ -424,3 +424,24 @@ $z-skip: 9999;
   --toggle-bg: #2d3748;
   --toggle-knob: #f1f5f9;
 }
+
+// Windows High Contrast Mode (forced-colors: active)
+@media (forced-colors: active) {
+  :focus-visible {
+    outline: 3px solid Highlight !important;
+    outline-offset: 2px !important;
+  }
+
+  // Forced-colors overrides the backdrop to Canvas, washing out the image; preserve the dark bg.
+  #img-zoom,
+  #img-zoom::backdrop {
+    forced-color-adjust: none;
+  }
+
+  .post-card,
+  .sidebar-widget,
+  .code-block {
+    box-shadow: none !important;
+    border: 1px solid ButtonText !important;
+  }
+}

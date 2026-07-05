@@ -170,6 +170,19 @@
     transition-delay: 0s;
   }
 
+  // Higher specificity (4 vs 3 class/pseudo selectors) beats :focus-within when Escape dismisses the menu.
+  &__dropdown.is-keyboard-dismissed:focus-within &__dropdown-btn svg {
+    transform: none;
+  }
+
+  &__dropdown.is-keyboard-dismissed:focus-within &__dropdown-menu {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px);
+    pointer-events: none;
+    transition-delay: 0.18s;
+  }
+
   @media (hover: hover) and (pointer: fine) {
     &__dropdown:hover &__dropdown-btn svg {
       transform: rotate(180deg);

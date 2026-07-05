@@ -85,7 +85,9 @@
 
   <link rel="preload" as="font" type="font/woff2" crossorigin href="{{ '/assets/fonts/ibm-plex-sans/ibm-plex-sans-v23-latin-regular.woff2' | relative_url }}">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="{{ '/assets/fonts/outfit/outfit-v15-latin-700.woff2' | relative_url }}">
+  {%- if page.layout == 'post' -%}
   <link rel="preload" as="font" type="font/woff2" crossorigin href="{{ '/assets/fonts/jetbrains-mono/jetbrains-mono-v24-latin-regular.woff2' | relative_url }}">
+  {%- endif -%}
 
   <style>
     @font-face {

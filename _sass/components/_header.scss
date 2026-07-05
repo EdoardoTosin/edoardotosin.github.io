@@ -494,6 +494,10 @@
 
     &:hover {
       background: var(--bg-tag);
+
+      h4 {
+        color: var(--accent-text);
+      }
     }
 
     &:focus-visible {

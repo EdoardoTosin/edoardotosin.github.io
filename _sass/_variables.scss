@@ -210,11 +210,9 @@ $z-skip: 9999;
   cursor: pointer;
   transition:
     background $t-fast-p,
-    box-shadow $t-fast-p,
     transform $t-fast-p;
   &:hover {
     background: var(--bg-tag);
-    box-shadow: inset 3px 0 0 var(--accent);
   }
   &:has(:focus-visible) {
     @include focus-ring;

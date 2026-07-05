@@ -1170,22 +1170,14 @@
 
   function initFromUrl() {
     try {
-      var q = new URLSearchParams(window.location.search).get('q');
-      if (!q || !q.trim()) return;
+      var params = new URLSearchParams(window.location.search);
+      if (!params.has('q')) return;
+      var q = (params.get('q') || '').trim();
       var input = qs('#search-input');
       if (!input) return;
-      input.value = q.trim();
-      var toggle = document.querySelector('[data-search-toggle]');
-      if (toggle) {
-        toggle.click();
-      } else {
-        var overlay = qs('#search-overlay');
-        if (overlay) {
-          overlay.showModal();
-          document.body.style.overflow = 'hidden';
-        }
-      }
-      input.dispatchEvent(new Event('input'));
+      if (q) input.value = q;
+      if (typeof window.openSearch === 'function') window.openSearch();
+      if (q) input.dispatchEvent(new Event('input'));
     } catch (e) {}
   }
 

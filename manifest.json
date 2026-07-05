@@ -52,7 +52,7 @@ permalink: /manifest.json
       "name": "Search",
       "short_name": "Search",
       "description": "Search posts",
-      "url": "{{ '/?search=1' | relative_url }}",
+      "url": "{{ '/?q=' | relative_url }}",
       "icons": [
         {
           "src": "{{ site.logo | relative_url }}",

@@ -720,12 +720,80 @@
     const SVG_X =
       '<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
 
+    const rawBase = (overlay.dataset.baseUrl || '').replace(/\/$/, '');
+    const NAV_BASE = rawBase === '' || /^https?:\/\//i.test(rawBase) ? rawBase : '';
+    const NAV_PAGES = [
+      {
+        label: 'Home',
+        url: NAV_BASE + '/',
+        svg: '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>',
+      },
+      {
+        label: 'Blog',
+        url: NAV_BASE + '/blog/',
+        svg: '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>',
+      },
+      {
+        label: 'Topics',
+        url: NAV_BASE + '/topics/',
+        svg: '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="10" r="3"/><path d="M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662"/></svg>',
+      },
+      {
+        label: 'Projects',
+        url: NAV_BASE + '/projects/',
+        svg: '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></svg>',
+      },
+      {
+        label: 'About',
+        url: NAV_BASE + '/about/',
+        svg: '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
+      },
+      {
+        label: 'Archive',
+        url: NAV_BASE + '/archive/',
+        svg: '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="5" x="2" y="3" rx="1"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/><path d="M10 12h4"/></svg>',
+      },
+      {
+        label: 'Now',
+        url: NAV_BASE + '/now/',
+        svg: '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>',
+      },
+      {
+        label: 'Gallery',
+        url: NAV_BASE + '/gallery/',
+        svg: '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>',
+      },
+      {
+        label: 'Contact',
+        url: NAV_BASE + '/contact/',
+        svg: '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>',
+      },
+    ];
+    const NAV_ACTIONS = [
+      {
+        label: 'Toggle theme',
+        id: 'toggle-theme',
+        svg: '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>',
+      },
+      {
+        label: 'Toggle high contrast',
+        id: 'toggle-contrast',
+        svg: '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 18a6 6 0 0 0 0-12v12z"/></svg>',
+      },
+      {
+        label: 'Toggle reduced motion',
+        id: 'toggle-motion',
+        svg: '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>',
+      },
+    ];
+
     function showHomepage() {
       if (!cache) {
         results.innerHTML = '';
         return;
       }
       let html = '';
+
       const hist = getHistory();
       if (hist.length) {
         html +=
@@ -759,6 +827,7 @@
         html += '<div class="search-overlay__section-label">Recent posts</div>' + renderHits(cache.slice(0, 5), '', []);
       }
       results.innerHTML = html;
+
       const clearBtn = results.querySelector('[data-clear-hist]');
       if (clearBtn)
         clearBtn.addEventListener('click', function () {
@@ -797,7 +866,11 @@
 
     // Arrow-key navigation
     function getLinks() {
-      return Array.prototype.slice.call(results.querySelectorAll('a.search-overlay__result-item'));
+      return Array.prototype.slice.call(
+        results.querySelectorAll(
+          'a.search-overlay__result-item, a.search-overlay__nav-item, button.search-overlay__action-item',
+        ),
+      );
     }
     function navResults(e) {
       if (!overlay.open) return;
@@ -884,7 +957,30 @@
       closeSearch();
     });
 
+    document.addEventListener('keydown', function (e) {
+      var mod = e.metaKey || e.ctrlKey;
+      if (mod && e.key === 'k') {
+        e.preventDefault();
+        if (overlay.open) closeSearch();
+        else openSearch();
+      }
+    });
+
     results.addEventListener('click', function (e) {
+      const actionBtn = e.target.closest('.search-overlay__action-item');
+      if (actionBtn) {
+        const action = actionBtn.dataset.action;
+        closeSearch();
+        if (action === 'toggle-theme') {
+          const t = document.querySelector('.theme-toggle');
+          if (t) t.click();
+        } else if (action === 'toggle-contrast') {
+          if (window.a11y) window.a11y.toggleContrast();
+        } else if (action === 'toggle-motion') {
+          if (window.a11y) window.a11y.toggleMotion();
+        }
+        return;
+      }
       const link = e.target.closest('a.search-overlay__result-item');
       if (link && input && input.value.trim()) pushHistory(input.value.trim());
     });
@@ -1007,7 +1103,50 @@
         }
       }
 
+      const lq = rawQ.toLowerCase().trim();
+      const matchedPages = NAV_PAGES.filter(function (p) {
+        return p.label.toLowerCase().includes(lq);
+      });
+      const matchedActions = NAV_ACTIONS.filter(function (a) {
+        return a.label.toLowerCase().includes(lq) || a.id.replace(/-/g, ' ').includes(lq);
+      });
+      let quickHtml = '';
+      if (matchedPages.length) {
+        quickHtml += '<div class="search-overlay__section-label">Navigate</div><div class="search-overlay__nav-grid">';
+        matchedPages.forEach(function (p) {
+          quickHtml +=
+            '<a href="' +
+            escHtml(p.url) +
+            '" class="search-overlay__nav-item">' +
+            '<span aria-hidden="true">' +
+            p.svg +
+            '</span>' +
+            escHtml(p.label) +
+            '</a>';
+        });
+        quickHtml += '</div>';
+      }
+      if (matchedActions.length) {
+        quickHtml += '<div class="search-overlay__section-label">Actions</div><div class="search-overlay__action-row">';
+        matchedActions.forEach(function (a) {
+          quickHtml +=
+            '<button class="search-overlay__action-item" type="button" data-action="' +
+            escHtml(a.id) +
+            '">' +
+            '<span aria-hidden="true">' +
+            a.svg +
+            '</span>' +
+            escHtml(a.label) +
+            '</button>';
+        });
+        quickHtml += '</div>';
+      }
+
       if (!hits.length) {
+        if (quickHtml) {
+          results.innerHTML = quickHtml;
+          return;
+        }
         const isFilterOnly = !parsed.terms.length && !parsed.phrases.length && !parsed.orGroups;
         results.innerHTML =
           '<div class="search-overlay__empty">' +
@@ -1023,8 +1162,10 @@
 
       const label = escHtml(String(scored.length)) + ' result' + (scored.length === 1 ? '' : 's');
       results.innerHTML =
-        '<div class="search-overlay__section-label">' + label + '</div>' + renderHits(hits, rawQ, rawTerms);
+        quickHtml + '<div class="search-overlay__section-label">' + label + '</div>' + renderHits(hits, rawQ, rawTerms);
     }
+
+    window.openSearch = openSearch;
   }
 
   function initFromUrl() {

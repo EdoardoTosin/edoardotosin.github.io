@@ -2,7 +2,8 @@
   class="search-overlay"
   id="search-overlay"
   aria-modal="true"
-  aria-label="Search posts"
+  aria-label="Search"
+  data-base-url="{{ '/' | relative_url | remove_last: '/' }}"
 >
   <div class="search-overlay__box">
     <div class="search-overlay__input-wrap">
@@ -24,10 +25,10 @@
         type="search"
         id="search-input"
         class="search-overlay__input"
-        placeholder="Search posts&#x2026; try topic:linux after:2024 or is:featured"
+        placeholder="Search or navigate&#x2026; try topic:linux after:2024 or is:featured"
         autocomplete="off"
         spellcheck="false"
-        aria-label="Search posts"
+        aria-label="Search"
         aria-autocomplete="list"
         aria-controls="search-results"
       >
@@ -59,22 +60,41 @@
       aria-label="Search results"
       aria-live="polite"
     ></div>
-    <div class="search-overlay__shortcuts" aria-hidden="true">
-      <span><kbd class="search-kbd">"phrase"</kbd> exact</span>
-      <span><kbd class="search-kbd">-word</kbd> exclude</span>
-      <span><kbd class="search-kbd">topic:</kbd></span>
-      <span><kbd class="search-kbd">tag:</kbd></span>
-      <span><kbd class="search-kbd">after:2024</kbd></span>
-      <span><kbd class="search-kbd">before:2024</kbd></span>
-      <span><kbd class="search-kbd">is:featured</kbd></span>
-      <span><kbd class="search-kbd">intitle:</kbd></span>
-      <span><kbd class="search-kbd">inurl:</kbd></span>
-      <span><kbd class="search-kbd">words:&gt;500</kbd></span>
-      <span><kbd class="search-kbd">time:&gt;5</kbd></span>
-      <span><kbd class="search-kbd">A OR B</kbd></span>
-      <span><kbd class="search-kbd">↓↑</kbd> select</span>
-      <span><kbd class="search-kbd">↵</kbd> open</span>
-      <span><kbd class="search-kbd">Esc</kbd> close</span>
+    <div class="search-overlay__footer" aria-hidden="true">
+      <button class="search-overlay__hints-btn" type="button" tabindex="-1">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="13"
+          height="13"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <rect x="2" y="4" width="20" height="16" rx="2"/><path d="M6 8h.001M10 8h.001M14 8h.001M18 8h.001M6 12h.001M10 12h.001M14 12h.001M18 12h.001M8 16h8"/>
+        </svg>
+        shortcuts
+      </button>
+      <div class="search-overlay__shortcuts">
+        <span><kbd class="search-kbd">"phrase"</kbd> exact</span>
+        <span><kbd class="search-kbd">-word</kbd> exclude</span>
+        <span><kbd class="search-kbd">topic:</kbd></span>
+        <span><kbd class="search-kbd">tag:</kbd></span>
+        <span><kbd class="search-kbd">after:2024</kbd></span>
+        <span><kbd class="search-kbd">before:2024</kbd></span>
+        <span><kbd class="search-kbd">is:featured</kbd></span>
+        <span><kbd class="search-kbd">intitle:</kbd></span>
+        <span><kbd class="search-kbd">inurl:</kbd></span>
+        <span><kbd class="search-kbd">words:&gt;500</kbd></span>
+        <span><kbd class="search-kbd">time:&gt;5</kbd></span>
+        <span><kbd class="search-kbd">A OR B</kbd></span>
+        <span><kbd class="search-kbd">&#x2193;&#x2191;</kbd> select</span>
+        <span><kbd class="search-kbd">&#x23CE;</kbd> open</span>
+        <span><kbd class="search-kbd">Esc</kbd> close</span>
+        <span><kbd class="search-kbd">Ctrl K</kbd> toggle</span>
+      </div>
     </div>
   </div>
 </dialog>

@@ -616,20 +616,70 @@
     opacity: 0.7;
   }
 
-  // Keyboard-shortcut bar at the bottom of the box
-  &__shortcuts {
+  // Footer row: keyboard-icon trigger reveals the shortcuts popover on hover
+  &__footer {
     display: flex;
     align-items: center;
-    flex-wrap: wrap;
-    gap: $sp-1 $sp-4;
-    padding: $sp-2 $sp-4 $sp-3;
+    justify-content: flex-end;
+    padding: $sp-2 $sp-3;
     border-top: 1px solid var(--border);
-    font-size: $fs-xs;
-    color: var(--text-muted);
-    user-select: none;
+    position: relative;
+    flex-shrink: 0;
 
     @include retina {
       border-top-width: 0.5px;
+    }
+  }
+
+  &__hints-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: $sp-1;
+    background: none;
+    border: none;
+    padding: 2px $sp-1;
+    color: var(--text-muted);
+    font-family: $font-sans;
+    font-size: $fs-xs;
+    cursor: default;
+    border-radius: $r-xs;
+    opacity: 0.45;
+    transition: opacity $t-fast;
+    @include touch-reset;
+
+    svg {
+      flex-shrink: 0;
+    }
+  }
+
+  // Popover: hidden by default, revealed on footer hover
+  &__shortcuts {
+    position: absolute;
+    bottom: calc(100% + 6px);
+    right: $sp-3;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: $sp-1 $sp-3;
+    padding: $sp-2 $sp-3 $sp-3;
+    background: var(--bg-body);
+    border: 1px solid var(--border);
+    border-radius: $r-sm;
+    box-shadow: var(--shadow-card);
+    font-size: $fs-xs;
+    color: var(--text-muted);
+    user-select: none;
+    white-space: nowrap;
+    z-index: 1;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(4px);
+    transition:
+      opacity $t-fast,
+      transform $t-fast;
+
+    @include retina {
+      border-width: 0.5px;
     }
 
     span {
@@ -637,6 +687,125 @@
       align-items: center;
       gap: $sp-1;
     }
+  }
+
+  &__footer:hover &__hints-btn,
+  &__footer:focus-within &__hints-btn {
+    opacity: 1;
+  }
+
+  &__footer:hover &__shortcuts,
+  &__footer:focus-within &__shortcuts {
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+  }
+}
+
+// Navigate grid (search homepage empty state)
+.search-overlay__nav-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(68px, 1fr));
+  gap: $sp-1;
+  padding: 0 $sp-3 $sp-3;
+}
+
+.search-overlay__nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: $sp-2 $sp-1;
+  border-radius: $r-sm;
+  text-decoration: none;
+  color: var(--text-secondary);
+  font-size: $fs-xs;
+  font-weight: 500;
+  text-align: center;
+  line-height: 1.2;
+  transition:
+    background $t-fast,
+    color $t-fast;
+
+  > span {
+    display: inline-flex;
+    align-items: center;
+    line-height: 0;
+  }
+
+  svg {
+    display: block;
+    color: var(--text-muted);
+    transition: color $t-fast;
+  }
+
+  &:hover,
+  &:focus-visible {
+    background: var(--bg-tag);
+    color: var(--text-primary);
+
+    svg {
+      color: var(--accent);
+    }
+  }
+
+  &:focus-visible {
+    @include focus-ring(1px);
+  }
+}
+
+// Action buttons row (search homepage empty state)
+.search-overlay__action-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $sp-2;
+  padding: 0 $sp-3 $sp-3;
+}
+
+.search-overlay__action-item {
+  display: inline-flex;
+  align-items: center;
+  gap: $sp-2;
+  padding: 6px $sp-3;
+  border-radius: $r-sm;
+  border: 1px solid var(--border-ui);
+  background: none;
+  color: var(--text-secondary);
+  font-family: $font-sans;
+  font-size: $fs-sm;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background $t-fast,
+    color $t-fast,
+    border-color $t-fast;
+  @include touch-reset;
+
+  > span {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    line-height: 0;
+  }
+
+  svg {
+    display: block;
+    color: var(--text-muted);
+    transition: color $t-fast;
+  }
+
+  &:hover {
+    background: var(--bg-tag);
+    color: var(--text-primary);
+    border-color: var(--border-strong);
+
+    svg {
+      color: var(--accent);
+    }
+  }
+
+  &:focus-visible {
+    @include focus-ring(1px);
   }
 }
 

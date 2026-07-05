@@ -802,6 +802,7 @@
     }
 
     function appendCards(cards) {
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       cards.forEach(function (card, idx) {
         const imgs = card.querySelectorAll('img');
         const srcs = [];
@@ -811,28 +812,32 @@
           img.removeAttribute('src');
         });
 
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(16px)';
+        if (!reduced) {
+          card.style.opacity = '0';
+          card.style.transform = 'translateY(16px)';
+        }
         grid.appendChild(card);
 
         imgs.forEach(function (img, i) {
           if (srcs[i]) img.setAttribute('src', srcs[i]);
         });
 
-        requestAnimationFrame(function () {
+        if (!reduced) {
           requestAnimationFrame(function () {
-            setTimeout(function () {
-              card.style.transition = 'opacity .4s ease, transform .4s ease';
-              card.style.opacity = '1';
-              card.style.transform = 'translateY(0)';
+            requestAnimationFrame(function () {
               setTimeout(function () {
-                card.style.transition = '';
-                card.style.transform = '';
-                card.style.opacity = '';
-              }, 400);
-            }, idx * 60);
+                card.style.transition = 'opacity .4s ease, transform .4s ease';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+                setTimeout(function () {
+                  card.style.transition = '';
+                  card.style.transform = '';
+                  card.style.opacity = '';
+                }, 400);
+              }, idx * 60);
+            });
           });
-        });
+        }
       });
     }
 

@@ -135,7 +135,8 @@ document.addEventListener('DOMContentLoaded', function () {
         var anchor = isScreen ? screen : el;
         anchor.after(img);
         if (isScreen) screen.style.setProperty('display', 'none', 'important');
-        _mermaidPrintImgs.push({ screen: isScreen ? screen : null, img: img });
+        el.style.setProperty('display', 'none', 'important');
+        _mermaidPrintImgs.push({ screen: isScreen ? screen : null, printEl: el, img: img });
       } catch (e) {}
     });
   }
@@ -144,6 +145,7 @@ document.addEventListener('DOMContentLoaded', function () {
     _mermaidPrintImgs.forEach(function (r) {
       if (r.img.parentNode) r.img.parentNode.removeChild(r.img);
       if (r.screen) r.screen.style.removeProperty('display');
+      if (r.printEl) r.printEl.style.removeProperty('display');
     });
     _mermaidPrintImgs = [];
   }

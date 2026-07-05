@@ -38,7 +38,7 @@
   }
 
   &.fn-tooltip--animated {
-    animation: fn-tooltip-in 0.15s ease both;
+    animation: fn-tooltip-in $t-fast-p both;
   }
 
   // Caret pointing down
@@ -68,7 +68,7 @@
     }
 
     &.fn-tooltip--animated {
-      animation: fn-tooltip-in-below 0.15s ease both;
+      animation: fn-tooltip-in-below $t-fast-p both;
     }
   }
 

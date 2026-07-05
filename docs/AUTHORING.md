@@ -278,9 +278,9 @@ Images are lazy-loaded and zoom on click. Always provide alt text.
 
 The post hero image is set in front matter (`image:`), not inline Markdown.
 
-## Math (KaTeX)
+## Math (MathJax)
 
-Enable KaTeX on a per-post basis:
+Enable MathJax on a per-post basis:
 
 ```yaml
 math: true

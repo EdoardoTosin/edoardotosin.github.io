@@ -17,13 +17,11 @@ var PRECACHE_ASSETS = [
   '{{ "/" | relative_url }}',
   '{{ "/assets/css/main.css" | relative_url }}',
   '{{ "/assets/css/fonts.css" | relative_url }}',
-  '{{ "/assets/css/katex.min.css" | relative_url }}',
   '{{ "/assets/js/main.js" | relative_url }}',
   '{{ "/assets/js/theme.js" | relative_url }}',
   '{{ "/assets/js/copy-code.js" | relative_url }}',
-  '{{ "/assets/js/katex.min.js" | relative_url }}',
-  '{{ "/assets/js/auto-render.min.js" | relative_url }}',
-  '{{ "/assets/js/katex-init.js" | relative_url }}',
+  '{{ "/assets/js/mathjax-config.js" | relative_url }}',
+  '{{ "/assets/js/mathjax-tex-chtml.js" | relative_url }}',
   {%- if site.google_analytics and site.google_analytics != "" %}
   '{{ "/assets/js/analytics.js" | relative_url }}',
   {%- endif %}

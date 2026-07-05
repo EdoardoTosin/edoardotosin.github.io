@@ -613,43 +613,26 @@ $ext-link-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg
     }
   }
 
-  // Math / KaTeX
-  .katex-display {
+  // Math / MathJax
+  mjx-container[display='true'] {
     overflow-x: auto;
     overflow-y: hidden;
     max-width: 100%;
     padding: $sp-3 0;
     margin: $sp-6 0;
     text-align: center;
-
-    > .katex {
-      max-width: none;
-      white-space: normal;
-      display: inline-block;
-      line-height: 1.2;
-    }
+    display: block;
   }
 
-  .katex {
+  mjx-container {
     font-size: 1.05em;
     line-height: 1.2;
-    max-width: none;
     overflow: visible;
-    display: inline-block;
   }
 
-  .katex .mord,
-  .katex .mbin,
-  .katex .mrel,
-  .katex .mpunct,
-  .katex .mopen,
-  .katex .mclose {
-    color: inherit;
-  }
-
-  .katex-error {
-    color: var(--color-error);
-    background: var(--color-error-subtle);
+  mjx-merror {
+    color: var(--color-error) !important;
+    background: var(--color-error-subtle) !important;
     border-radius: $r-sm;
     padding: 0 $sp-1;
     font-family: $font-mono;

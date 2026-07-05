@@ -1,15 +1,14 @@
 _site/
 node_modules/
-_config.yml
-assets/css/katex.min.css
-assets/css/fonts.css
-assets/js/katex.min.js
-assets/js/auto-render.min.js
-assets/js/mermaid.min.js
 
-# Jekyll partials with split HTML structure (no full document root)
+# Minified and bundled vendor files
+**/*.min.js
+**/*.min.css
+assets/css/fonts.css
+assets/js/mathjax-tex-chtml.js
+
+# Non-standard file structure: Jekyll partials and YAML-front-matter JS
+_config.yml
 _includes/head.html
 _layouts/default.html
-
-# Jekyll-processed JS with YAML front matter
 sw.js

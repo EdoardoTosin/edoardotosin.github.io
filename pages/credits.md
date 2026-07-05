@@ -80,7 +80,7 @@ All fonts are self-hosted as WOFF2 files - no external requests.
 
 ## Math
 
-- **[KaTeX](https://katex.org/)** - LaTeX math rendering, loaded only on posts that need it
+- **[MathJax](https://www.mathjax.org/)** - LaTeX math rendering, loaded only on posts that need it
 
 ---
 

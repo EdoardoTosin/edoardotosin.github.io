@@ -1,3 +1,6 @@
+{%- if site.repository and page.path -%}
+  {%- capture _raw_source_url -%}{{ site.repository }}/raw/main/{{ page.path | uri_escape }}{%- endcapture -%}
+{%- endif -%}
 <footer class="post-footer">
   {%- if page.tags.size > 0 -%}
     <div class="post-footer__tags">
@@ -123,6 +126,31 @@
           </svg>
           <span class="share-btn__label">Copy link</span>
         </button>
+        {%- if _raw_source_url -%}
+          <a
+            href="{{ _raw_source_url }}"
+            class="share-btn share-btn--source"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="View source on GitHub (opens in new tab)"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/>
+            </svg>
+            <span class="share-btn__label">View source</span>
+          </a>
+        {%- endif -%}
         <button
           id="save-offline-btn"
           class="share-btn save-offline-btn"
@@ -174,6 +202,31 @@
     </div>
   {%- else -%}
     <div class="post-footer__offline">
+      {%- if _raw_source_url -%}
+        <a
+          href="{{ _raw_source_url }}"
+          class="btn btn--ghost btn--sm"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="View source on GitHub (opens in new tab)"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/>
+          </svg>
+          View source
+        </a>
+      {%- endif -%}
       <button
         id="save-offline-btn"
         class="btn btn--ghost btn--sm save-offline-btn"

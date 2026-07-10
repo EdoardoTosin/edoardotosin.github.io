@@ -44,8 +44,8 @@
     {%- endif -%}
 
     <div class="post-footer__share">
-      <p class="post-footer__share-title">Share this post</p>
-      <div class="post-footer__share-buttons">
+      <p class="post-footer__section-title">Share this post</p>
+      <div class="post-footer__buttons">
         <a
           href="https://twitter.com/intent/tweet?text={{ page.title | uri_escape }}&url={{ _share_url | uri_escape }}"
           class="share-btn share-btn--twitter"
@@ -126,37 +126,67 @@
           </svg>
           <span class="share-btn__label">Copy link</span>
         </button>
-        {%- if _raw_source_url -%}
-          <a
-            href="{{ _raw_source_url }}"
-            class="share-btn share-btn--source"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="View source on GitHub (opens in new tab)"
+      </div>
+    </div>
+  {%- endif -%}
+
+  <div class="post-footer__tools">
+    <p class="post-footer__section-title">Post tools</p>
+    <div class="post-footer__buttons">
+      {%- if _raw_source_url -%}
+        <a
+          href="{{ _raw_source_url }}"
+          class="share-btn share-btn--source"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="View source on GitHub (opens in new tab)"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/>
-            </svg>
-            <span class="share-btn__label">View source</span>
-          </a>
-        {%- endif -%}
+            <path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/>
+          </svg>
+          <span class="share-btn__label">View source</span>
+        </a>
+      {%- endif -%}
+      <button
+        id="save-offline-btn"
+        class="share-btn save-offline-btn"
+        type="button"
+        aria-pressed="false"
+        hidden
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/>
+        </svg>
+        <span class="save-offline-btn__label">Save for offline</span>
+      </button>
+      <noscript>
         <button
-          id="save-offline-btn"
           class="share-btn save-offline-btn"
           type="button"
-          aria-pressed="false"
-          hidden
+          disabled
+          title="Save for offline requires JavaScript"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -174,106 +204,7 @@
           </svg>
           <span class="save-offline-btn__label">Save for offline</span>
         </button>
-        <noscript>
-          <button
-            class="share-btn save-offline-btn"
-            type="button"
-            disabled
-            title="Save for offline requires JavaScript"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/>
-            </svg>
-            <span class="save-offline-btn__label">Save for offline</span>
-          </button>
-        </noscript>
-      </div>
-    </div>
-  {%- else -%}
-    <div class="post-footer__offline">
-      {%- if _raw_source_url -%}
-        <a
-          href="{{ _raw_source_url }}"
-          class="btn btn--ghost btn--sm"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="View source on GitHub (opens in new tab)"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="15"
-            height="15"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-          >
-            <path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/>
-          </svg>
-          View source
-        </a>
-      {%- endif -%}
-      <button
-        id="save-offline-btn"
-        class="btn btn--ghost btn--sm save-offline-btn"
-        type="button"
-        aria-pressed="false"
-        hidden
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="15"
-          height="15"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          aria-hidden="true"
-        >
-          <path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/>
-        </svg>
-        <span class="save-offline-btn__label">Save for offline</span>
-      </button>
-      <noscript>
-        <button
-          class="btn btn--ghost btn--sm save-offline-btn"
-          type="button"
-          disabled
-          title="Save for offline requires JavaScript"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="15"
-            height="15"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-          >
-            <path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/>
-          </svg>
-          <span class="save-offline-btn__label">Save for offline</span>
-        </button>
       </noscript>
     </div>
-  {%- endif -%}
+  </div>
 </footer>

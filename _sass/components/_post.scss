@@ -1106,17 +1106,6 @@ $ext-link-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg
   padding-top: $sp-8;
   border-top: 1px solid var(--border);
 
-  &__offline {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: $sp-3;
-
-    &:has(a, button:not([hidden])) {
-      margin-top: $sp-6;
-    }
-  }
-
   &__label {
     font-size: $fs-base;
     color: var(--text-muted);
@@ -1132,7 +1121,7 @@ $ext-link-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg
     margin-bottom: $sp-8;
   }
 
-  &__share-title {
+  &__section-title {
     font-size: $fs-md;
     font-weight: 700;
     text-transform: uppercase;
@@ -1141,10 +1130,14 @@ $ext-link-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg
     margin-bottom: $sp-4;
   }
 
-  &__share-buttons {
+  &__buttons {
     display: flex;
     gap: $sp-3;
     flex-wrap: wrap;
+  }
+
+  &__share + &__tools {
+    margin-top: $sp-8;
   }
 }
 

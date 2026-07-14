@@ -81,20 +81,32 @@
 
   a {
     color: var(--accent-text);
-    text-underline-offset: 0.2em;
-    text-decoration: underline;
-    text-decoration-color: transparent;
-    transition: text-decoration-color $t-fast-p;
+    text-decoration: none;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: 0 1.5px;
+    transition:
+      background-size $t-fast-p,
+      color $t-fast-p,
+      opacity $t-fast-p;
+    word-break: break-word;
+    overflow-wrap: anywhere;
 
     @media (hover: hover) and (pointer: fine) {
       &:hover {
-        text-decoration-color: var(--accent-text);
+        background-size: 100% 1.5px;
       }
     }
 
     &:focus-visible {
+      background-size: 100% 1.5px;
       @include focus-ring;
       border-radius: 2px;
+    }
+
+    &:active {
+      opacity: 0.75;
     }
   }
 

@@ -7,11 +7,17 @@
   const LIGHT = 'light';
   const ATTR = 'data-theme';
 
+  function syncThemeColor() {
+    const meta = document.getElementById('meta-theme-color');
+    if (!meta) return;
+    const bg = getComputedStyle(document.documentElement).getPropertyValue('--bg-body').trim();
+    if (bg) meta.setAttribute('content', bg);
+  }
+
   function applyTheme(theme) {
     if (theme !== DARK && theme !== LIGHT) return;
     document.documentElement.setAttribute(ATTR, theme);
-    const metaColor = document.getElementById('meta-theme-color');
-    if (metaColor) metaColor.setAttribute('content', theme === DARK ? '#0f1117' : '#f8fafc');
+    syncThemeColor();
     document.dispatchEvent(new CustomEvent('theme-changed', { detail: theme }));
   }
 
@@ -42,6 +48,9 @@
       btn.addEventListener('click', toggleTheme);
     });
 
+    syncThemeColor();
+    document.addEventListener('contrast-changed', syncThemeColor);
+
     if (window.matchMedia) {
       window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function (e) {
         var stored;
@@ -54,6 +63,7 @@
           updateButtons(theme);
         }
       });
+      window.matchMedia('(prefers-contrast: more)').addEventListener('change', syncThemeColor);
     }
   });
 })();

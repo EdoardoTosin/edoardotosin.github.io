@@ -1,6 +1,14 @@
 'use strict';
 
-const { stem, tokenize, parseQuery, parseFilterDate, parseNumericFilter } = require('../assets/js/search.js');
+const {
+  stem,
+  tokenize,
+  parseQuery,
+  parseFilterDate,
+  parseNumericFilter,
+  fieldMatch,
+  evaluate,
+} = require('../assets/js/search.js');
 
 describe('stem', () => {
   test('strips -ations suffix', () => expect(stem('regulations')).toBe('regulate'));
@@ -104,249 +112,395 @@ describe('parseNumericFilter', () => {
   test('no match leaves object empty', () => expect(run('abc')).toEqual({}));
 });
 
-describe('parseQuery - phrase search', () => {
-  test('"double-quote phrase" → phrases', () => {
-    const p = parseQuery('"machine learning"');
-    expect(p.phrases).toContain('machine learning');
-  });
+describe('fieldMatch', () => {
+  const doc = { topic: 'linux', tags: ['javascript', 'css'], author: 'jane doe', type: 'tutorial' };
 
-  test("'single-quote phrase' → phrases", () => {
-    const p = parseQuery("'machine learning'");
-    expect(p.phrases).toContain('machine learning');
-  });
+  test('topic matches exact value', () => expect(fieldMatch('topic', 'linux', doc)).toBe(true));
+  test('topic matches by prefix', () => expect(fieldMatch('topic', 'lin', doc)).toBe(true));
+  test('topic does not match a non-prefix substring', () => expect(fieldMatch('topic', 'nux', doc)).toBe(false));
+  test('topic does not match value longer than topic', () => expect(fieldMatch('topic', 'linuxes', doc)).toBe(false));
+  test('site aliases to topic (prefix)', () => expect(fieldMatch('site', 'lin', doc)).toBe(true));
 
-  test('-"double-quote" → excludePhrases', () => {
-    const p = parseQuery('-"machine learning"');
-    expect(p.excludePhrases).toContain('machine learning');
-    expect(p.excludes).toHaveLength(0);
-  });
+  test('tag matches exact value', () => expect(fieldMatch('tag', 'css', doc)).toBe(true));
+  test('tag matches by prefix of any tag', () => expect(fieldMatch('tag', 'java', doc)).toBe(true));
+  test('tag does not match a non-prefix substring', () => expect(fieldMatch('tag', 'script', doc)).toBe(false));
+  test('tags aliases to tag', () => expect(fieldMatch('tags', 'css', doc)).toBe(true));
+  test('tag filter never matches when doc has no tags', () =>
+    expect(fieldMatch('tag', 'css', { topic: '', tags: [], author: '', type: '' })).toBe(false));
 
-  test("-'single-quote' → excludePhrases", () => {
-    const p = parseQuery("-'machine learning'");
-    expect(p.excludePhrases).toContain('machine learning');
-    expect(p.excludes).toHaveLength(0);
-  });
+  test('author matches by substring', () => expect(fieldMatch('author', 'doe', doc)).toBe(true));
+  test('author does not match absent substring', () => expect(fieldMatch('author', 'smith', doc)).toBe(false));
 
-  test('multiple phrases all pushed to phrases array', () => {
-    const p = parseQuery('"hello world" "foo bar"');
-    expect(p.phrases).toContain('hello world');
-    expect(p.phrases).toContain('foo bar');
-    expect(p.phrases).toHaveLength(2);
-  });
+  test('type matches by substring', () => expect(fieldMatch('type', 'tut', doc)).toBe(true));
+  test('type does not match absent substring', () => expect(fieldMatch('type', 'guide', doc)).toBe(false));
+
+  test('unknown field does not filter (returns true)', () => expect(fieldMatch('color', 'red', doc)).toBe(true));
 });
 
-describe('parseQuery - minus / exclude', () => {
-  test('-word at start excludes', () => {
-    const p = parseQuery('-python');
-    expect(p.excludes.length).toBeGreaterThan(0);
+describe('parseQuery - AST structure', () => {
+  test('single term → term node', () =>
+    expect(parseQuery('linux')).toEqual({ op: 'term', term: stem('linux'), raw: 'linux' }));
+
+  test('adjacent terms → implicit AND', () => {
+    const p = parseQuery('linux docker');
+    expect(p.op).toBe('and');
+    expect(p.nodes.map((n) => n.term)).toEqual([stem('linux'), stem('docker')]);
   });
 
-  test('-word after space excludes', () => {
-    const p = parseQuery('javascript -python');
-    expect(p.excludes).toContain(stem('python'));
+  test('&& is an explicit AND, equivalent to the word AND', () => {
+    expect(parseQuery('linux && docker')).toEqual(parseQuery('linux AND docker'));
+    expect(parseQuery('linux && docker').op).toBe('and');
   });
 
-  test('hyphenated word does NOT add to excludes', () => {
-    const p = parseQuery('machine-learning');
-    expect(p.excludes).toHaveLength(0);
+  test('|| is an OR, equivalent to the word OR', () => {
+    expect(parseQuery('linux || docker')).toEqual(parseQuery('linux OR docker'));
+    expect(parseQuery('linux OR docker').op).toBe('or');
   });
 
-  test('hyphenated word keeps terms', () => {
-    const p = parseQuery('machine-learning');
-    // "machine-learning" is a single token after split on non-word; terms should include it
-    expect(p.terms.length).toBeGreaterThan(0);
-  });
-});
-
-describe('parseQuery - field filters', () => {
-  test('topic:value sets fields.topic', () => {
-    expect(parseQuery('topic:javascript').fields).toMatchObject({ topic: 'javascript' });
+  test('- and NOT both produce a not node', () => {
+    expect(parseQuery('-linux')).toEqual({ op: 'not', node: { op: 'term', term: stem('linux'), raw: 'linux' } });
+    expect(parseQuery('NOT linux')).toEqual(parseQuery('-linux'));
   });
 
-  test('tag:value sets fields.tag', () => {
-    expect(parseQuery('tag:css').fields).toMatchObject({ tag: 'css' });
+  test('double/single quotes → phrase node', () => {
+    expect(parseQuery('"machine learning"')).toEqual({ op: 'phrase', value: 'machine learning' });
+    expect(parseQuery("'machine learning'")).toEqual({ op: 'phrase', value: 'machine learning' });
   });
 
-  test('site:value aliases to fields.topic', () => {
-    expect(parseQuery('site:mysite').fields).toMatchObject({ topic: 'mysite' });
-  });
+  test('topic:value → field node (value lowercased)', () =>
+    expect(parseQuery('topic:JavaScript')).toEqual({ op: 'field', kind: 'topic', value: 'javascript' }));
 
-  test('intitle:word stemmed into filters.inTitle', () => {
-    const p = parseQuery('intitle:running');
-    expect(p.filters.inTitle).toContain(stem('running'));
-  });
+  test('site: aliases to a topic field', () =>
+    expect(parseQuery('site:linux')).toEqual({ op: 'field', kind: 'topic', value: 'linux' }));
 
-  test('inurl:path unstemmed into filters.inUrl', () => {
-    const p = parseQuery('inurl:about');
-    expect(p.filters.inUrl).toContain('about');
-  });
-
-  test('author:value sets fields.author', () => {
-    expect(parseQuery('author:jane').fields).toMatchObject({ author: 'jane' });
-  });
-
-  test('type:value sets fields.type', () => {
-    expect(parseQuery('type:tutorial').fields).toMatchObject({ type: 'tutorial' });
-  });
-
-  test('field value is lowercased (topic:JavaScript → javascript)', () => {
-    expect(parseQuery('topic:JavaScript').fields).toMatchObject({ topic: 'javascript' });
-  });
-});
-
-describe('parseQuery - date filters', () => {
-  test('after:2024 → filters.after = Jan 1 2024 00:00:00.000', () => {
-    const p = parseQuery('after:2024');
-    expect(p.filters.after).toEqual(new Date(2024, 0, 1, 0, 0, 0, 0));
-  });
-
-  test('before:2024 → filters.before = Dec 31 2024 23:59:59.999', () => {
-    const p = parseQuery('before:2024');
-    expect(p.filters.before).toEqual(new Date(2024, 11, 31, 23, 59, 59, 999));
-  });
-
-  test('after:2024 before:2024 targets only year 2024', () => {
-    const p = parseQuery('after:2024 before:2024');
-    expect(p.filters.after.getFullYear()).toBe(2024);
-    expect(p.filters.before.getFullYear()).toBe(2024);
-    expect(p.filters.after).toEqual(new Date(2024, 0, 1, 0, 0, 0, 0));
-    expect(p.filters.before).toEqual(new Date(2024, 11, 31, 23, 59, 59, 999));
-  });
-
-  test('after:2024-06 → filters.after = Jun 1 2024', () => {
-    const p = parseQuery('after:2024-06');
-    expect(p.filters.after).toEqual(new Date(2024, 5, 1, 0, 0, 0, 0));
-  });
-
-  test('before:2024-06 → filters.before = Jun 30 2024 end of day', () => {
-    const p = parseQuery('before:2024-06');
-    expect(p.filters.before).toEqual(new Date(2024, 5, 30, 23, 59, 59, 999));
-  });
-
-  test('after:2024-06-15 → filters.after = Jun 15 2024 start', () => {
-    const p = parseQuery('after:2024-06-15');
-    expect(p.filters.after).toEqual(new Date(2024, 5, 15, 0, 0, 0, 0));
-  });
-
-  test('before: with invalid date leaves filter null', () => {
-    expect(parseQuery('before:notadate').filters.before).toBeNull();
-  });
-
-  test('after: with invalid date leaves filter null', () => {
-    expect(parseQuery('after:notadate').filters.after).toBeNull();
-  });
-});
-
-describe('parseQuery - type/feature filters', () => {
-  test('is:featured → filters.isFeatured=true', () => {
-    expect(parseQuery('is:featured').filters.isFeatured).toBe(true);
-  });
-
-  test('is:post → filters.isType="post"', () => {
-    expect(parseQuery('is:post').filters.isType).toBe('post');
-  });
-
-  test('has:image → filters.hasImage=true', () => {
-    expect(parseQuery('has:image').filters.hasImage).toBe(true);
-  });
-});
-
-describe('parseQuery - numeric filters', () => {
-  test('words:>500 sets wordsMin=501', () => {
-    expect(parseQuery('words:>500').filters.wordsMin).toBe(501);
-  });
-
-  test('words:<=500 sets wordsMax=500', () => {
-    expect(parseQuery('words:<=500').filters.wordsMax).toBe(500);
-  });
-
-  test('words:200-800 sets both bounds', () => {
-    const f = parseQuery('words:200-800').filters;
-    expect(f.wordsMin).toBe(200);
-    expect(f.wordsMax).toBe(800);
-  });
-
-  test('time:<=5 sets timeMax=5', () => {
-    expect(parseQuery('time:<=5').filters.timeMax).toBe(5);
-  });
-
-  test('time:>10 sets timeMin=11', () => {
-    expect(parseQuery('time:>10').filters.timeMin).toBe(11);
-  });
-});
-
-describe('parseQuery - OR groups', () => {
-  test('a OR b → orGroups with two single-term groups', () => {
-    const p = parseQuery('react OR vue');
-    expect(p.orGroups).not.toBeNull();
-    const flat = p.orGroups.flat();
-    expect(flat).toContain(stem('react'));
-    expect(flat).toContain(stem('vue'));
-  });
-
-  test('(a OR b) inline group → orGroups', () => {
-    const p = parseQuery('(python OR javascript)');
-    expect(p.orGroups).not.toBeNull();
-    const flat = p.orGroups.flat();
-    expect(flat).toContain(stem('python'));
-    expect(flat).toContain(stem('javascript'));
-  });
-
-  test('AND keyword is stripped', () => {
-    const p = parseQuery('react AND redux');
-    expect(p.terms).toContain(stem('react'));
-    expect(p.terms).toContain(stem('redux'));
-    expect(p.orGroups).toBeNull();
-  });
-
-  test('parenthesized OR group combined with regular terms populates both orGroups and terms', () => {
+  test('nested grouping: (a || b) && c', () => {
     const p = parseQuery('(python OR ruby) security');
-    expect(p.orGroups).not.toBeNull();
-    const flat = p.orGroups.flat();
-    expect(flat).toContain(stem('python'));
-    expect(flat).toContain(stem('ruby'));
-    expect(p.terms).toContain(stem('security'));
+    expect(p.op).toBe('and');
+    expect(p.nodes[0].op).toBe('or');
+    expect(p.nodes[1]).toEqual({ op: 'term', term: stem('security'), raw: 'security' });
+  });
+
+  test('paren does not leak into a field value', () =>
+    expect(parseQuery('(topic:alpha OR topic:beta)')).toEqual({
+      op: 'or',
+      nodes: [
+        { op: 'field', kind: 'topic', value: 'alpha' },
+        { op: 'field', kind: 'topic', value: 'beta' },
+      ],
+    }));
+
+  test('hyphenated term → implicit AND of its word tokens', () => {
+    const p = parseQuery('machine-learning');
+    expect(p.op).toBe('and');
+    expect(p.nodes.map((n) => n.term)).toEqual([stem('machine'), stem('learning')]);
+  });
+
+  test('unknown field falls back to a text term', () =>
+    expect(parseQuery('color:red')).toEqual({ op: 'term', term: stem('red'), raw: 'red' }));
+
+  test('empty and whitespace-only → null', () => {
+    expect(parseQuery('')).toBeNull();
+    expect(parseQuery('   ')).toBeNull();
   });
 });
 
-describe('parseQuery - edge cases', () => {
-  test('empty string → empty result', () => {
-    const p = parseQuery('');
-    expect(p.terms).toEqual([]);
-    expect(p.orGroups).toBeNull();
-    expect(p.phrases).toEqual([]);
-    expect(p.excludes).toEqual([]);
+describe('parseQuery - filter atoms', () => {
+  test('after:2024 → after date field', () =>
+    expect(parseQuery('after:2024')).toEqual({ op: 'field', kind: 'after', date: new Date(2024, 0, 1, 0, 0, 0, 0) }));
+  test('before:2024 → before date field', () =>
+    expect(parseQuery('before:2024')).toEqual({
+      op: 'field',
+      kind: 'before',
+      date: new Date(2024, 11, 31, 23, 59, 59, 999),
+    }));
+  test('is:featured → featured field', () =>
+    expect(parseQuery('is:featured')).toEqual({ op: 'field', kind: 'featured' }));
+  test('is:post → istype field', () =>
+    expect(parseQuery('is:post')).toEqual({ op: 'field', kind: 'istype', value: 'post' }));
+  test('has:image → hasimage field', () => expect(parseQuery('has:image')).toEqual({ op: 'field', kind: 'hasimage' }));
+  test('words:>500 → num field wordsMin', () =>
+    expect(parseQuery('words:>500')).toEqual({ op: 'field', kind: 'num', metric: 'words', min: 501, max: undefined }));
+  test('time:<=5 → num field timeMax', () =>
+    expect(parseQuery('time:<=5')).toEqual({ op: 'field', kind: 'num', metric: 'time', min: undefined, max: 5 }));
+  test('invalid after date falls back to a term', () =>
+    expect(parseQuery('after:notadate')).toEqual({ op: 'term', term: stem('notadate'), raw: 'notadate' }));
+});
+
+// Doc view mirroring what scoreDoc builds.
+function makeDoc(f) {
+  f = f || {};
+  const text = (f.text || '').toLowerCase();
+  const set = {};
+  tokenize(text, true).forEach((t) => (set[t] = 1));
+  return {
+    topic: (f.topic || '').toLowerCase(),
+    tags: (f.tags || []).map((x) => x.toLowerCase()),
+    author: (f.author || '').toLowerCase(),
+    type: (f.type || 'post').toLowerCase(),
+    title: (f.title || '').toLowerCase(),
+    titleTokens: tokenize(f.title || '', false),
+    url: (f.url || '').toLowerCase(),
+    text: text,
+    date: f.date_iso ? new Date(f.date_iso) : null,
+    featured: !!f.featured,
+    image: f.image || '',
+    wordCount: f.word_count || 0,
+    readingTime: f.reading_time || 0,
+    tm(t) {
+      if (set[t]) return true;
+      for (const k in set) if (k.indexOf(t) === 0) return true;
+      return text.indexOf(t) !== -1;
+    },
+  };
+}
+function match(query, fields) {
+  const d = makeDoc(fields);
+  return evaluate(parseQuery(query), d, d.tm);
+}
+
+describe('evaluate - boolean matching', () => {
+  test('AND requires all terms', () => {
+    expect(match('linux docker', { text: 'linux docker guide' })).toBe(true);
+    expect(match('linux && docker', { text: 'linux guide' })).toBe(false);
   });
 
-  test('whitespace-only → empty result', () => {
-    const p = parseQuery('   ');
-    expect(p.terms).toEqual([]);
-    expect(p.orGroups).toBeNull();
+  test('OR requires any term', () => {
+    expect(match('linux || windows', { text: 'windows tips' })).toBe(true);
+    expect(match('linux OR windows', { text: 'macos notes' })).toBe(false);
   });
 
-  test('single-word parens without OR → terms, no orGroups', () => {
-    const p = parseQuery('(python)');
-    expect(p.orGroups).toBeNull();
-    expect(p.terms).toContain(stem('python'));
+  test('NOT excludes matches', () => {
+    expect(match('linux -docker', { text: 'linux guide' })).toBe(true);
+    expect(match('linux -docker', { text: 'linux docker' })).toBe(false);
   });
 
-  test('has: with unknown value → hasImage stays null', () => {
-    expect(parseQuery('has:video').filters.hasImage).toBeNull();
+  test('grouping controls precedence', () => {
+    expect(match('(linux || windows) && guide', { text: 'windows guide' })).toBe(true);
+    expect(match('(linux || windows) && guide', { text: 'windows tips' })).toBe(false);
   });
 
-  test('uppercase field name is normalised (AFTER: → after:)', () => {
-    const p = parseQuery('AFTER:2024');
-    expect(p.filters.after).toEqual(new Date(2024, 0, 1, 0, 0, 0, 0));
+  test('nested boolean with field operands: (a && topic:b) || topic:c', () => {
+    const q = '(linux && topic:alp) || topic:beta';
+    expect(match(q, { topic: 'alpha', text: 'linux setup guide' })).toBe(true); // left branch (term + topic prefix)
+    expect(match(q, { topic: 'beta', text: 'unrelated' })).toBe(true); // right branch
+    expect(match(q, { topic: 'alpha', text: 'no keyword here' })).toBe(false); // neither
+  });
+
+  test('phrase matches contiguous text only', () => {
+    expect(match('"machine learning"', { text: 'deep machine learning models' })).toBe(true);
+    expect(match('"machine learning"', { text: 'learning a machine' })).toBe(false);
+  });
+
+  test('excluded phrase', () => {
+    expect(match('-"machine learning"', { text: 'deep learning' })).toBe(true);
+    expect(match('-"machine learning"', { text: 'a machine learning course' })).toBe(false);
+  });
+
+  test('matching is case-insensitive for terms and fields', () => {
+    expect(match('LINUX', { text: 'linux guide' })).toBe(true);
+    expect(match('Topic:Alp', { topic: 'alpha' })).toBe(true);
+  });
+
+  test('topic/tag filters match by prefix', () => {
+    expect(match('topic:alp', { topic: 'alpha' })).toBe(true);
+    expect(match('topic:xyz', { topic: 'alpha' })).toBe(false);
+    expect(match('tag:java', { tags: ['javascript', 'css'] })).toBe(true);
+    expect(match('tag:py', { tags: ['javascript'] })).toBe(false);
+  });
+
+  test('author/type filters match by substring', () => {
+    expect(match('author:doe', { author: 'Jane Doe' })).toBe(true);
+    expect(match('type:tut', { type: 'tutorial' })).toBe(true);
+    expect(match('type:guide', { type: 'tutorial' })).toBe(false);
+  });
+
+  test('date range filters', () => {
+    expect(match('after:2024', { date_iso: '2025-03-01' })).toBe(true);
+    expect(match('after:2024', { date_iso: '2023-03-01' })).toBe(false);
+    expect(match('after:2024 before:2024', { date_iso: '2024-06-01' })).toBe(true);
+    expect(match('after:2024 before:2024', { date_iso: '2025-06-01' })).toBe(false);
+  });
+
+  test('is/has filters', () => {
+    expect(match('is:featured', { featured: true })).toBe(true);
+    expect(match('is:featured', { featured: false })).toBe(false);
+    expect(match('is:post', { type: 'post' })).toBe(true);
+    expect(match('is:video', { type: 'post' })).toBe(false);
+    expect(match('has:image', { image: '/x.png' })).toBe(true);
+    expect(match('has:image', { image: '' })).toBe(false);
+    expect(match('has:image', { image: '/assets/social-preview.png' })).toBe(false);
+  });
+
+  test('numeric filters', () => {
+    expect(match('words:>500', { word_count: 600 })).toBe(true);
+    expect(match('words:>500', { word_count: 100 })).toBe(false);
+    expect(match('words:200-800', { word_count: 500 })).toBe(true);
+    expect(match('time:<=5', { reading_time: 3 })).toBe(true);
+    expect(match('time:<=5', { reading_time: 9 })).toBe(false);
+  });
+
+  test('intitle/inurl filters', () => {
+    expect(match('intitle:linux', { title: 'Linux Guide' })).toBe(true);
+    expect(match('intitle:run', { title: 'Running Fast' })).toBe(true);
+    expect(match('intitle:linux', { title: 'Windows Guide' })).toBe(false);
+    expect(match('inurl:blog', { url: '/blog/post' })).toBe(true);
+    expect(match('inurl:blog', { url: '/about' })).toBe(false);
+  });
+
+  test('null AST matches everything', () => {
+    const d = makeDoc({ text: 'anything' });
+    expect(evaluate(parseQuery(''), d, d.tm)).toBe(true);
   });
 });
 
-describe('parseQuery - combined operators', () => {
-  test('complex query parses all parts correctly', () => {
-    const p = parseQuery("topic:javascript 'async await' -callback after:2023 words:>500");
-    expect(p.fields).toMatchObject({ topic: 'javascript' });
-    expect(p.phrases).toContain('async await');
-    expect(p.excludes).toContain(stem('callback'));
-    expect(p.filters.after).toEqual(new Date(2023, 0, 1, 0, 0, 0, 0));
-    expect(p.filters.wordsMin).toBe(501);
+describe('evaluate - operator precedence', () => {
+  // AND binds tighter than OR: "a OR b c" === "a OR (b AND c)"
+  test('a OR b c → a OR (b AND c)', () => {
+    expect(match('linux OR windows macos', { text: 'linux only' })).toBe(true);
+    expect(match('linux OR windows macos', { text: 'windows macos' })).toBe(true);
+    expect(match('linux OR windows macos', { text: 'windows only' })).toBe(false);
+  });
+
+  // "a b OR c" === "(a AND b) OR c"
+  test('a b OR c → (a AND b) OR c', () => {
+    expect(match('linux docker OR windows', { text: 'windows' })).toBe(true);
+    expect(match('linux docker OR windows', { text: 'linux docker' })).toBe(true);
+    expect(match('linux docker OR windows', { text: 'linux' })).toBe(false);
+  });
+
+  test('&& / || / word forms are interchangeable', () => {
+    expect(match('linux && docker', { text: 'linux docker' })).toBe(
+      match('linux AND docker', { text: 'linux docker' }),
+    );
+    expect(match('linux || docker', { text: 'docker' })).toBe(match('linux OR docker', { text: 'docker' }));
+  });
+
+  test('deep nesting resolves correctly', () => {
+    const q = '((linux || windows) && (docker || podman))';
+    expect(match(q, { text: 'windows podman' })).toBe(true);
+    expect(match(q, { text: 'windows only' })).toBe(false);
+    expect(match(q, { text: 'linux docker' })).toBe(true);
+  });
+
+  test('redundant parentheses are transparent', () => {
+    expect(match('((linux))', { text: 'linux' })).toBe(true);
+    expect(match('(((linux)))', { text: 'macos' })).toBe(false);
+  });
+});
+
+describe('evaluate - negation edge cases', () => {
+  test('pure negation matches docs lacking the term', () => {
+    expect(match('-docker', { text: 'linux guide' })).toBe(true);
+    expect(match('-docker', { text: 'docker guide' })).toBe(false);
+  });
+
+  test('double negation cancels', () => {
+    expect(match('--linux', { text: 'linux' })).toBe(true);
+    expect(match('--linux', { text: 'macos' })).toBe(false);
+    expect(match('NOT NOT linux', { text: 'linux' })).toBe(true);
+  });
+
+  test('De Morgan: -(a || b) === -a AND -b', () => {
+    expect(match('-(linux || windows)', { text: 'linux' })).toBe(false);
+    expect(match('-(linux || windows)', { text: 'macos notes' })).toBe(true);
+  });
+
+  test('negated field filter', () => {
+    expect(match('-topic:alp', { topic: 'alpha' })).toBe(false);
+    expect(match('-topic:alp', { topic: 'beta' })).toBe(true);
+  });
+
+  test('negated boolean filter', () => {
+    expect(match('-is:featured', { featured: true })).toBe(false);
+    expect(match('-is:featured', { featured: false })).toBe(true);
+  });
+});
+
+describe('evaluate - combined operators', () => {
+  test('term + phrase + field + exclusion', () => {
+    const q = 'linux "best practices" topic:alpha -windows';
+    expect(match(q, { text: 'linux best practices tips', topic: 'alpha' })).toBe(true);
+    expect(match(q, { text: 'linux best practices windows', topic: 'alpha' })).toBe(false);
+    expect(match(q, { text: 'linux tips', topic: 'alpha' })).toBe(false);
+    expect(match(q, { text: 'linux best practices', topic: 'beta' })).toBe(false);
+  });
+
+  test('multiple phrases are ANDed', () => {
+    expect(match('"deep learning" "neural nets"', { text: 'deep learning and neural nets' })).toBe(true);
+    expect(match('"deep learning" "neural nets"', { text: 'deep learning only' })).toBe(false);
+  });
+
+  test('field-only query (no free-text terms)', () => {
+    expect(match('topic:alpha is:featured', { topic: 'alpha', featured: true })).toBe(true);
+    expect(match('topic:alpha is:featured', { topic: 'alpha', featured: false })).toBe(false);
+  });
+});
+
+describe('evaluate - stemming and case', () => {
+  test('plural query matches singular doc via stemming', () => {
+    expect(match('containers', { text: 'container runtime' })).toBe(true);
+  });
+
+  test('uppercase operators and mixed-case terms', () => {
+    expect(match('LINUX AND DOCKER', { text: 'linux docker' })).toBe(true);
+    expect(match('Linux Or Windows', { text: 'windows' })).toBe(true);
+  });
+
+  test('a word merely containing OR/AND is not an operator', () => {
+    // "ANDROID" must be a term, not the AND operator
+    expect(match('android', { text: 'android phone' })).toBe(true);
+    expect(parseQuery('ANDROID phone').op).toBe('and');
+    expect(parseQuery('ANDROID phone').nodes.map((n) => n.term)).toEqual([stem('android'), stem('phone')]);
+  });
+});
+
+describe('parseQuery - malformed input never throws', () => {
+  const weird = [
+    '(((',
+    'a)b',
+    ')(',
+    '()',
+    '( )',
+    'AND',
+    'OR',
+    'NOT',
+    '-',
+    '&&',
+    '||',
+    'linux AND',
+    'AND linux',
+    'a OR OR b',
+    'linux && && docker',
+    '- linux',
+    '"unclosed phrase',
+    '""',
+    "''",
+    '"   "',
+    '(linux OR)',
+    '(OR linux)',
+    'topic:',
+  ];
+  test.each(weird)('parses %j without throwing', (q) => {
+    expect(() => parseQuery(q)).not.toThrow();
+  });
+
+  test('empty group does not drop following terms: "linux () docker"', () => {
+    expect(match('linux () docker', { text: 'linux docker guide' })).toBe(true);
+    expect(match('linux () docker', { text: 'linux only' })).toBe(false);
+  });
+
+  test('stray operators are ignored', () => {
+    expect(match('a OR OR b', { text: 'b here' })).toBe(true);
+    expect(match('linux && && docker', { text: 'linux docker' })).toBe(true);
+  });
+
+  test('unbalanced parens are lenient', () => {
+    expect(match('(linux && docker', { text: 'linux docker' })).toBe(true);
+    expect(match('linux && docker)', { text: 'linux docker' })).toBe(true);
+  });
+
+  test('all-stopword or sub-token query yields a null AST (matches all)', () => {
+    expect(parseQuery('the is a')).toBeNull();
+    expect(parseQuery('x')).toBeNull();
   });
 });

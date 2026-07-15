@@ -164,141 +164,275 @@
     }
   }
 
-  // Query parser
-  function parseQuery(raw) {
-    let q = raw.trim();
-    const p = {
-      phrases: [],
-      excludePhrases: [],
-      excludes: [],
-      fields: {},
-      orGroups: null,
-      terms: [],
-      filters: {
-        after: null,
-        before: null,
-        isType: null,
-        isFeatured: null,
-        hasImage: null,
-        wordsMin: null,
-        wordsMax: null,
-        timeMin: null,
-        timeMax: null,
-        inTitle: [],
-        inUrl: [],
-      },
-      raw: raw,
-    };
-
-    q = q.replace(/\bAND\b/g, ' ');
-
-    q = q.replace(/-('[^']+')/g, function (_, ph) {
-      const t = ph.slice(1, -1).trim().toLowerCase();
-      if (t) p.excludePhrases.push(t);
-      return ' ';
-    });
-    q = q.replace(/-(\"[^\"]+\")/g, function (_, ph) {
-      const t = ph.slice(1, -1).trim().toLowerCase();
-      if (t) p.excludePhrases.push(t);
-      return ' ';
-    });
-    q = q.replace(/'([^']+)'/g, function (_, ph) {
-      const t = ph.trim().toLowerCase();
-      if (t) p.phrases.push(t);
-      return ' ';
-    });
-    q = q.replace(/\"([^\"]+)\"/g, function (_, ph) {
-      const t = ph.trim().toLowerCase();
-      if (t) p.phrases.push(t);
-      return ' ';
-    });
-
-    q = q.replace(/(\w+):(\S+)/g, function (_, field, val) {
-      field = field.toLowerCase();
-      val = val.toLowerCase();
-      switch (field) {
-        case 'before':
-          p.filters.before = parseFilterDate(val, false);
-          break;
-        case 'after':
-          p.filters.after = parseFilterDate(val, true);
-          break;
-        case 'is':
-          if (val === 'featured') p.filters.isFeatured = true;
-          else p.filters.isType = val;
-          break;
-        case 'has':
-          if (val === 'image') p.filters.hasImage = true;
-          break;
-        case 'words':
-          parseNumericFilter(val, 'wordsMin', 'wordsMax', p.filters);
-          break;
-        case 'time':
-          parseNumericFilter(val, 'timeMin', 'timeMax', p.filters);
-          break;
-        case 'intitle':
-          tokenize(val, true).forEach(function (t) {
-            p.filters.inTitle.push(t);
-          });
-          break;
-        case 'inurl':
-          tokenize(val, false).forEach(function (t) {
-            p.filters.inUrl.push(t);
-          });
-          break;
-        case 'site':
-          p.fields['topic'] = val;
-          break;
-        default:
-          p.fields[field] = val;
-          break;
-      }
-      return ' ';
-    });
-
-    q = q.replace(/(^|\s)-(\S+)/g, function (_, ws, word) {
-      const t = stem(word.toLowerCase());
-      if (t) p.excludes.push(t);
-      return ws + ' ';
-    });
-
-    q = q.replace(/\(([^)]+)\)/g, function (_, inner) {
-      const parts = inner.split(/\bOR\b/i);
-      if (parts.length > 1) {
-        const group = [];
-        parts.forEach(function (pt) {
-          tokenize(pt, true).forEach(function (t) {
-            group.push(t);
-          });
-        });
-        if (group.length) {
-          if (!p.orGroups) p.orGroups = [];
-          p.orGroups.push(group);
-        }
-        return ' __ORGROUP__ ';
-      }
-      return inner;
-    });
-
-    const parts = q.split(/\bOR\b/i);
-    if (parts.length > 1) {
-      const topOr = parts
-        .map(function (pt) {
-          return tokenize(pt.replace('__ORGROUP__', ''), true);
-        })
-        .filter(function (g) {
-          return g.length;
-        });
-      if (topOr.length > 1) {
-        p.orGroups = (p.orGroups || []).concat(topOr);
-      } else {
-        p.terms = tokenize(q.replace('__ORGROUP__', ''), true);
-      }
-    } else {
-      p.terms = tokenize(q.replace('__ORGROUP__', ''), true);
+  // Query tokenizer
+  function tokenizeQuery(str) {
+    const s = String(str || '');
+    const n = s.length;
+    const tokens = [];
+    let i = 0;
+    function isSpace(c) {
+      return c === ' ' || c === '\t' || c === '\n' || c === '\r' || c === '\f' || c === '\v';
     }
+    while (i < n) {
+      const c = s[i];
+      if (isSpace(c)) {
+        i++;
+      } else if (c === '(') {
+        tokens.push({ t: '(' });
+        i++;
+      } else if (c === ')') {
+        tokens.push({ t: ')' });
+        i++;
+      } else if (c === '|' && s[i + 1] === '|') {
+        tokens.push({ t: 'or' });
+        i += 2;
+      } else if (c === '&' && s[i + 1] === '&') {
+        tokens.push({ t: 'and' });
+        i += 2;
+      } else if (c === '-' && i + 1 < n && !isSpace(s[i + 1]) && s[i + 1] !== ')') {
+        tokens.push({ t: 'not' });
+        i++;
+      } else if (c === '"' || c === "'") {
+        const end = s.indexOf(c, i + 1);
+        const val = end === -1 ? s.slice(i + 1) : s.slice(i + 1, end);
+        tokens.push({ t: 'phrase', value: val.trim().toLowerCase() });
+        i = end === -1 ? n : end + 1;
+      } else {
+        let j = i;
+        while (j < n && !isSpace(s[j]) && s[j] !== '(' && s[j] !== ')') j++;
+        const word = s.slice(i, j);
+        i = j;
+        const upper = word.toUpperCase();
+        const colon = word.indexOf(':');
+        if (upper === 'OR') tokens.push({ t: 'or' });
+        else if (upper === 'AND') tokens.push({ t: 'and' });
+        else if (upper === 'NOT') tokens.push({ t: 'not' });
+        else if (colon > 0 && colon < word.length - 1)
+          tokens.push({ t: 'field', field: word.slice(0, colon).toLowerCase(), value: word.slice(colon + 1) });
+        else tokens.push({ t: 'term', value: word });
+      }
+    }
+    return tokens;
+  }
 
-    return p;
+  function termAtom(value) {
+    const stems = tokenize(value, true);
+    const raws = tokenize(value, false);
+    if (!stems.length) return null;
+    if (stems.length === 1) return { op: 'term', term: stems[0], raw: raws[0] };
+    return {
+      op: 'and',
+      nodes: stems.map(function (t, k) {
+        return { op: 'term', term: t, raw: raws[k] };
+      }),
+    };
+  }
+
+  function fieldAtom(field, rawValue) {
+    const value = String(rawValue || '').toLowerCase();
+    switch (field) {
+      case 'topic':
+      case 'site':
+        return { op: 'field', kind: 'topic', value: value };
+      case 'tag':
+      case 'tags':
+        return { op: 'field', kind: 'tag', value: value };
+      case 'author':
+        return { op: 'field', kind: 'author', value: value };
+      case 'type':
+        return { op: 'field', kind: 'type', value: value };
+      case 'intitle':
+        return { op: 'field', kind: 'intitle', value: value };
+      case 'inurl':
+        return { op: 'field', kind: 'inurl', value: value };
+      case 'after': {
+        const d = parseFilterDate(value, true);
+        return d ? { op: 'field', kind: 'after', date: d } : termAtom(value);
+      }
+      case 'before': {
+        const d = parseFilterDate(value, false);
+        return d ? { op: 'field', kind: 'before', date: d } : termAtom(value);
+      }
+      case 'is':
+        return value === 'featured' ? { op: 'field', kind: 'featured' } : { op: 'field', kind: 'istype', value: value };
+      case 'has':
+        return value === 'image' ? { op: 'field', kind: 'hasimage' } : termAtom(value);
+      case 'words':
+      case 'time': {
+        const f = {};
+        parseNumericFilter(value, 'min', 'max', f);
+        if (f.min == null && f.max == null) return termAtom(value);
+        return { op: 'field', kind: 'num', metric: field, min: f.min, max: f.max };
+      }
+      default:
+        return termAtom(value);
+    }
+  }
+
+  // Boolean query parser (precedence: OR < AND < NOT)
+  function parseQuery(str) {
+    const tokens = tokenizeQuery(str);
+    let pos = 0;
+    function peek() {
+      return tokens[pos];
+    }
+    function chain(op, a, b) {
+      const nodes = a.op === op ? a.nodes.slice() : [a];
+      nodes.push(b);
+      return { op: op, nodes: nodes };
+    }
+    function parseOr() {
+      let left = parseAnd();
+      while (left && peek() && peek().t === 'or') {
+        pos++;
+        const right = parseAnd();
+        if (right) left = chain('or', left, right);
+      }
+      return left;
+    }
+    function parseAnd() {
+      let left = parseNot();
+      while (left && peek() && peek().t !== 'or' && peek().t !== ')') {
+        if (peek().t === 'and') pos++;
+        const before = pos;
+        const right = parseNot();
+        if (right) left = chain('and', left, right);
+        else if (pos === before) break;
+      }
+      return left;
+    }
+    function parseNot() {
+      if (peek() && peek().t === 'not') {
+        pos++;
+        const node = parseNot();
+        return node ? { op: 'not', node: node } : null;
+      }
+      return parseAtom();
+    }
+    function parseAtom() {
+      const tk = peek();
+      if (!tk || tk.t === ')') return null;
+      if (tk.t === '(') {
+        pos++;
+        const inner = parseOr();
+        if (peek() && peek().t === ')') pos++;
+        return inner;
+      }
+      if (tk.t === 'and' || tk.t === 'or' || tk.t === 'not') {
+        pos++;
+        return parseAtom();
+      }
+      pos++;
+      if (tk.t === 'phrase') return tk.value ? { op: 'phrase', value: tk.value } : null;
+      if (tk.t === 'field') return fieldAtom(tk.field, tk.value);
+      return termAtom(tk.value);
+    }
+    return parseOr() || null;
+  }
+
+  function collectPositives(node, neg, acc) {
+    if (!node) return;
+    if (node.op === 'and' || node.op === 'or') {
+      node.nodes.forEach(function (nd) {
+        collectPositives(nd, neg, acc);
+      });
+    } else if (node.op === 'not') {
+      collectPositives(node.node, !neg, acc);
+    } else if (node.op === 'term' && !neg) {
+      acc.terms.push(node.term);
+      if (node.raw) acc.rawTerms.push(node.raw);
+    } else if (node.op === 'phrase' && !neg) {
+      acc.phrases.push(node.value);
+      tokenize(node.value, false).forEach(function (w) {
+        acc.rawTerms.push(w);
+      });
+    }
+  }
+
+  function numInRange(v, min, max) {
+    v = v || 0;
+    if (min != null && v < min) return false;
+    if (max != null && v > max) return false;
+    return true;
+  }
+
+  function evaluate(node, doc, termMatch) {
+    if (!node) return true;
+    switch (node.op) {
+      case 'and':
+        return node.nodes.every(function (nd) {
+          return evaluate(nd, doc, termMatch);
+        });
+      case 'or':
+        return node.nodes.some(function (nd) {
+          return evaluate(nd, doc, termMatch);
+        });
+      case 'not':
+        return !evaluate(node.node, doc, termMatch);
+      case 'term':
+        return termMatch(node.term);
+      case 'phrase':
+        return doc.text.indexOf(node.value) !== -1;
+      case 'field':
+        return evalField(node, doc);
+      default:
+        return true;
+    }
+  }
+
+  function evalField(node, doc) {
+    switch (node.kind) {
+      case 'topic':
+        return fieldMatch('topic', node.value, doc);
+      case 'tag':
+        return fieldMatch('tag', node.value, doc);
+      case 'author':
+        return fieldMatch('author', node.value, doc);
+      case 'type':
+        return fieldMatch('type', node.value, doc);
+      case 'intitle':
+        return (
+          doc.title.indexOf(node.value) !== -1 ||
+          doc.titleTokens.some(function (t) {
+            return t.indexOf(node.value) === 0;
+          })
+        );
+      case 'inurl':
+        return doc.url.indexOf(node.value) !== -1;
+      case 'after':
+        return !!doc.date && doc.date >= node.date;
+      case 'before':
+        return !!doc.date && doc.date <= node.date;
+      case 'featured':
+        return !!doc.featured;
+      case 'istype':
+        return doc.type === node.value;
+      case 'hasimage':
+        return !!doc.image && doc.image.indexOf('social-preview') === -1;
+      case 'num':
+        return numInRange(node.metric === 'words' ? doc.wordCount : doc.readingTime, node.min, node.max);
+      default:
+        return true;
+    }
+  }
+
+  function fieldMatch(field, value, doc) {
+    switch (field) {
+      case 'topic':
+      case 'site':
+        return doc.topic.indexOf(value) === 0;
+      case 'tag':
+      case 'tags':
+        return doc.tags.some(function (t) {
+          return t.indexOf(value) === 0;
+        });
+      case 'author':
+        return doc.author.indexOf(value) !== -1;
+      case 'type':
+        return doc.type.indexOf(value) !== -1;
+      default:
+        return true;
+    }
   }
 
   function initSearch() {
@@ -450,167 +584,66 @@
       return best;
     }
 
-    function unstemmedTokens(raw) {
-      const extra = [];
-      const q = raw
-        .replace(/-('[^']+')/g, ' ')
-        .replace(/-(\"[^\"]+\")/g, ' ')
-        .replace(/'([^']*)'/g, function (_, p) {
-          tokenize(p, false).forEach(function (t) {
-            extra.push(t);
-          });
-          return ' ';
-        })
-        .replace(/\"([^\"]*)\"/g, function (_, p) {
-          tokenize(p, false).forEach(function (t) {
-            extra.push(t);
-          });
-          return ' ';
-        })
-        .replace(/\w+:\S+/g, '')
-        .replace(/(^|\s)-\S+/g, '$1 ');
-      return tokenize(q, false).concat(extra);
-    }
-
     // Score one document
-    function scoreDoc(parsed, doc, docIdx) {
+    function scoreDoc(ast, positives, rawLower, doc, docIdx) {
       const title = (doc.title || '').toLowerCase();
       const topic = (doc.topic || '').toLowerCase();
       const url = (doc.url || doc.slug || '').toLowerCase();
       const desc = (doc.description || '').toLowerCase();
-      const tags = (Array.isArray(doc.tags) ? doc.tags.join(' ') : doc.tags || '').toLowerCase();
-      const author = (doc.author || '').toLowerCase();
-      const type = (doc.type || 'post').toLowerCase();
-      const allText = [title, topic, tags, desc, doc.content || ''].join(' ').toLowerCase();
-
-      const filters = parsed.filters;
-
-      // Hard filters
-      for (let e = 0; e < parsed.excludes.length; e++) {
-        if (idx.inv[parsed.excludes[e]] && idx.inv[parsed.excludes[e]][docIdx]) return null;
-      }
-
-      for (let ep = 0; ep < parsed.excludePhrases.length; ep++) {
-        if (allText.indexOf(parsed.excludePhrases[ep]) !== -1) return null;
-      }
-
-      for (let ph = 0; ph < parsed.phrases.length; ph++) {
-        if (allText.indexOf(parsed.phrases[ph]) === -1) return null;
-      }
-
-      const rawTagsArr = (Array.isArray(doc.tags) ? doc.tags : String(doc.tags || '').split(/\s+/))
+      const tagsArr = (Array.isArray(doc.tags) ? doc.tags : String(doc.tags || '').split(/\s+/))
         .map(function (t) {
           return String(t).toLowerCase();
         })
         .filter(Boolean);
+      const type = (doc.type || 'post').toLowerCase();
+      const allText = [title, topic, tagsArr.join(' '), desc, doc.content || ''].join(' ').toLowerCase();
 
-      for (const f in parsed.fields) {
-        if (!Object.prototype.hasOwnProperty.call(parsed.fields, f)) continue;
-        const fval = parsed.fields[f];
-        if (f === 'topic' || f === 'site') {
-          if (topic !== fval) return null;
-        } else if (f === 'tag' || f === 'tags') {
-          if (
-            !rawTagsArr.some(function (t) {
-              return t === fval;
-            })
-          )
-            return null;
-        } else if (f === 'author') {
-          if (author.indexOf(fval) === -1) return null;
-        } else if (f === 'type') {
-          if (type.indexOf(fval) === -1) return null;
-        }
+      const docView = {
+        topic: topic,
+        tags: tagsArr,
+        author: (doc.author || '').toLowerCase(),
+        type: type,
+        title: title,
+        titleTokens: tokenize(doc.title || '', false),
+        url: url,
+        text: allText,
+        date: doc.date_iso ? new Date(doc.date_iso) : null,
+        featured: !!doc.featured,
+        image: doc.image || '',
+        wordCount: doc.word_count || 0,
+        readingTime: doc.reading_time || 0,
+      };
+
+      function termMatch(t) {
+        return (idx.inv[t] && idx.inv[t][docIdx]) || prefixDocMatch(t, docIdx) || allText.indexOf(t) !== -1;
       }
 
-      for (let it = 0; it < filters.inTitle.length; it++) {
-        const tt = filters.inTitle[it];
-        if (title.indexOf(tt) === -1 && !prefixDocMatch(tt, docIdx)) return null;
-      }
+      if (!evaluate(ast, docView, termMatch)) return null;
 
-      for (let iu = 0; iu < filters.inUrl.length; iu++) {
-        if (url.indexOf(filters.inUrl[iu]) === -1) return null;
-      }
-
-      if (doc.date_iso) {
-        const postDate = new Date(doc.date_iso);
-        if (filters.after && postDate < filters.after) return null;
-        if (filters.before && postDate > filters.before) return null;
-      }
-
-      if (filters.isFeatured !== null && filters.isFeatured !== undefined) {
-        if (!!doc.featured !== filters.isFeatured) return null;
-      }
-      if (filters.isType !== null && filters.isType !== undefined) {
-        if (type !== filters.isType) return null;
-      }
-      if (filters.hasImage) {
-        const img = doc.image || '';
-        if (!img || img.indexOf('social-preview') !== -1) return null;
-      }
-
-      if (filters.wordsMin !== null && filters.wordsMin !== undefined && (doc.word_count || 0) < filters.wordsMin)
-        return null;
-      if (filters.wordsMax !== null && filters.wordsMax !== undefined && (doc.word_count || 0) > filters.wordsMax)
-        return null;
-      if (filters.timeMin !== null && filters.timeMin !== undefined && (doc.reading_time || 0) < filters.timeMin)
-        return null;
-      if (filters.timeMax !== null && filters.timeMax !== undefined && (doc.reading_time || 0) > filters.timeMax)
-        return null;
-
-      // Scoring
       let score = 0;
+      const terms = positives.terms;
+      terms.forEach(function (t) {
+        if (idx.inv[t] && idx.inv[t][docIdx]) score += bm25(t, docIdx);
+        else if (prefixDocMatch(t, docIdx)) score += prefixBm25(t, docIdx) * 0.8;
+        else if (allText.indexOf(t) !== -1) score += 0.1;
+      });
 
-      if (parsed.orGroups && parsed.orGroups.length) {
-        let matched = false;
-        parsed.orGroups.forEach(function (group) {
-          const groupHit = group.some(function (t) {
-            return (idx.inv[t] && idx.inv[t][docIdx]) || prefixDocMatch(t, docIdx);
-          });
-          if (groupHit) {
-            matched = true;
-            group.forEach(function (t) {
-              score += bm25(t, docIdx) || prefixBm25(t, docIdx) * 0.8;
-            });
-          }
-        });
-        parsed.terms.forEach(function (t) {
-          score += bm25(t, docIdx) || prefixBm25(t, docIdx) * 0.8;
-        });
-        if (!matched && !parsed.terms.length) return null;
-      } else {
-        for (let ti = 0; ti < parsed.terms.length; ti++) {
-          const t = parsed.terms[ti];
-          const inI = !!(idx.inv[t] && idx.inv[t][docIdx]);
-          const inP = !inI && prefixDocMatch(t, docIdx);
-          const inTx = !inI && !inP && allText.indexOf(t) !== -1;
-          if (!inI && !inP && !inTx) return null;
-          score += inI ? bm25(t, docIdx) : inP ? prefixBm25(t, docIdx) * 0.8 : 0.1;
-        }
-      }
-
-      // Bonus signals
-      parsed.phrases.forEach(function (ph) {
+      positives.phrases.forEach(function (ph) {
         if (title.indexOf(ph) !== -1) score += 12;
         else if (desc.indexOf(ph) !== -1) score += 4;
         else score += 1;
       });
 
       const allInTitle =
-        parsed.terms.length > 0 &&
-        parsed.terms.every(function (t) {
+        terms.length > 0 &&
+        terms.every(function (t) {
           return title.indexOf(t) !== -1 || prefixDocMatch(t, docIdx);
         });
       if (allInTitle) score += 8;
 
-      if (title === parsed.terms.join(' ') || title === parsed.raw.trim().toLowerCase()) score += 20;
+      if (title === terms.join(' ') || title === rawLower) score += 20;
 
-      if (parsed.terms.length > 1) {
-        const joined = parsed.terms.join(' ');
-        if (allText.indexOf(joined) !== -1) score += 2;
-      }
-
-      if (filters.inTitle.length) score += 5;
+      if (terms.length > 1 && allText.indexOf(terms.join(' ')) !== -1) score += 2;
 
       if (doc.featured) score += 0.5;
 
@@ -787,7 +820,62 @@
       },
     ];
 
+    function actionState(id) {
+      const html = document.documentElement;
+      const mm = window.matchMedia;
+      if (id === 'toggle-theme') {
+        const dark = html.getAttribute('data-theme') === 'dark';
+        return { on: dark, label: dark ? 'Dark' : 'Light' };
+      }
+      if (id === 'toggle-contrast') {
+        const on = html.getAttribute('data-contrast') === 'on' || !!(mm && mm('(prefers-contrast: more)').matches);
+        return { on: on, label: on ? 'On' : 'Off' };
+      }
+      if (id === 'toggle-motion') {
+        const on =
+          html.getAttribute('data-motion') === 'reduce' || !!(mm && mm('(prefers-reduced-motion: reduce)').matches);
+        return { on: on, label: on ? 'On' : 'Off' };
+      }
+      return { on: false, label: '' };
+    }
+    function updateActionState(btn) {
+      const st = actionState(btn.dataset.action);
+      btn.setAttribute('aria-pressed', String(st.on));
+      const badge = btn.querySelector('[data-action-state]');
+      if (badge) {
+        badge.textContent = st.label;
+        badge.classList.toggle('is-on', st.on);
+      }
+    }
+    function renderActions(list) {
+      return (
+        '<div class="search-overlay__section-label">Settings</div><div class="search-overlay__action-row">' +
+        list
+          .map(function (a) {
+            const st = actionState(a.id);
+            return (
+              '<button class="search-overlay__action-item" type="button" data-action="' +
+              escHtml(a.id) +
+              '" aria-pressed="' +
+              String(st.on) +
+              '"><span aria-hidden="true">' +
+              a.svg +
+              '</span>' +
+              escHtml(a.label) +
+              '<span class="search-overlay__action-state' +
+              (st.on ? ' is-on' : '') +
+              '" data-action-state aria-hidden="true">' +
+              escHtml(st.label) +
+              '</span></button>'
+            );
+          })
+          .join('') +
+        '</div>'
+      );
+    }
+
     function showHomepage() {
+      overlay.classList.remove('search-overlay--query');
       if (!cache) {
         results.innerHTML = '';
         return;
@@ -823,6 +911,7 @@
         });
         html += '</div>';
       }
+      html += renderActions(NAV_ACTIONS);
       if (cache.length) {
         html += '<div class="search-overlay__section-label">Recent posts</div>' + renderHits(cache.slice(0, 5), '', []);
       }
@@ -935,6 +1024,7 @@
       document.body.style.overflow = '';
       if (input) input.value = '';
       if (results) results.innerHTML = '';
+      overlay.classList.remove('search-overlay--query');
       focusedIdx = -1;
       toggleBtns.forEach(function (b) {
         b.setAttribute('aria-expanded', 'false');
@@ -970,7 +1060,6 @@
       const actionBtn = e.target.closest('.search-overlay__action-item');
       if (actionBtn) {
         const action = actionBtn.dataset.action;
-        closeSearch();
         if (action === 'toggle-theme') {
           const t = document.querySelector('.theme-toggle');
           if (t) t.click();
@@ -979,6 +1068,7 @@
         } else if (action === 'toggle-motion') {
           if (window.a11y) window.a11y.toggleMotion();
         }
+        updateActionState(actionBtn);
         return;
       }
       const link = e.target.closest('a.search-overlay__result-item');
@@ -1034,36 +1124,21 @@
         return;
       }
 
-      const parsed = parseQuery(rawQ);
-      const rawTerms = unstemmedTokens(rawQ);
-      const filters = parsed.filters;
-
-      const hasQuery =
-        parsed.terms.length ||
-        parsed.phrases.length ||
-        parsed.orGroups ||
-        Object.keys(parsed.fields).length ||
-        parsed.excludes.length ||
-        parsed.excludePhrases.length ||
-        filters.after ||
-        filters.before ||
-        filters.isFeatured !== null ||
-        filters.isType ||
-        filters.hasImage ||
-        filters.inTitle.length ||
-        filters.inUrl.length ||
-        filters.wordsMin !== null ||
-        filters.wordsMax !== null ||
-        filters.timeMin !== null ||
-        filters.timeMax !== null;
-      if (!hasQuery) {
+      const ast = parseQuery(rawQ);
+      if (!ast) {
         showHomepage();
         return;
       }
+      const positives = { terms: [], rawTerms: [], phrases: [] };
+      collectPositives(ast, false, positives);
+      const rawTerms = positives.rawTerms;
+      const rawLower = rawQ.trim().toLowerCase();
+
+      overlay.classList.add('search-overlay--query');
 
       const scored = [];
       cache.forEach(function (doc, i) {
-        const score = scoreDoc(parsed, doc, i);
+        const score = scoreDoc(ast, positives, rawLower, doc, i);
         if (score !== null) scored.push({ item: doc, score: score });
       });
       scored.sort(function (a, b) {
@@ -1073,20 +1148,19 @@
         return s.item;
       });
 
-      if (!hits.length && parsed.terms.length > 1 && !parsed.phrases.length && !parsed.orGroups) {
-        const relaxed = {
-          phrases: [],
-          excludePhrases: parsed.excludePhrases,
-          excludes: parsed.excludes,
-          fields: parsed.fields,
-          orGroups: [parsed.terms],
-          terms: [],
-          filters: parsed.filters,
-          raw: parsed.raw,
-        };
+      // Relaxed retry: multi-term AND with no hits → OR of the terms
+      const simpleTerms =
+        ast.op === 'and' &&
+        ast.nodes.every(function (nd) {
+          return nd.op === 'term';
+        })
+          ? ast.nodes
+          : null;
+      if (!hits.length && simpleTerms && simpleTerms.length > 1) {
+        const relaxedAst = { op: 'or', nodes: simpleTerms };
         const relScored = [];
         cache.forEach(function (doc, i) {
-          const s = scoreDoc(relaxed, doc, i);
+          const s = scoreDoc(relaxedAst, positives, rawLower, doc, i);
           if (s !== null) relScored.push({ item: doc, score: s });
         });
         relScored.sort(function (a, b) {
@@ -1127,19 +1201,7 @@
         quickHtml += '</div>';
       }
       if (matchedActions.length) {
-        quickHtml += '<div class="search-overlay__section-label">Actions</div><div class="search-overlay__action-row">';
-        matchedActions.forEach(function (a) {
-          quickHtml +=
-            '<button class="search-overlay__action-item" type="button" data-action="' +
-            escHtml(a.id) +
-            '">' +
-            '<span aria-hidden="true">' +
-            a.svg +
-            '</span>' +
-            escHtml(a.label) +
-            '</button>';
-        });
-        quickHtml += '</div>';
+        quickHtml += renderActions(matchedActions);
       }
 
       if (!hits.length) {
@@ -1147,7 +1209,7 @@
           results.innerHTML = quickHtml;
           return;
         }
-        const isFilterOnly = !parsed.terms.length && !parsed.phrases.length && !parsed.orGroups;
+        const isFilterOnly = !positives.terms.length && !positives.phrases.length;
         results.innerHTML =
           '<div class="search-overlay__empty">' +
           '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M8 11h6"/></svg>' +
@@ -1188,6 +1250,6 @@
     });
   }
   if (typeof module !== 'undefined') {
-    module.exports = { stem, tokenize, parseQuery, parseFilterDate, parseNumericFilter };
+    module.exports = { stem, tokenize, parseQuery, parseFilterDate, parseNumericFilter, fieldMatch, evaluate };
   }
 })();

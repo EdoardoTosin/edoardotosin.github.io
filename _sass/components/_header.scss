@@ -407,8 +407,8 @@
     box-shadow: var(--shadow-card);
     transition:
       margin-top $t-base-p,
-      box-shadow $t-fast,
-      border-color $t-fast;
+      box-shadow $t-fast-p,
+      border-color $t-fast-p;
 
     &:focus-within {
       border-color: var(--accent);
@@ -660,7 +660,7 @@
     cursor: default;
     border-radius: $r-xs;
     opacity: 0.45;
-    transition: opacity $t-fast;
+    transition: opacity $t-fast-p;
     @include touch-reset;
 
     svg {
@@ -691,8 +691,8 @@
     pointer-events: none;
     transform: translateY(4px);
     transition:
-      opacity $t-fast,
-      transform $t-fast;
+      opacity $t-fast-p,
+      transform $t-fast-p;
 
     @include retina {
       border-width: 0.5px;
@@ -749,8 +749,8 @@
   text-align: center;
   line-height: 1.2;
   transition:
-    background $t-fast,
-    color $t-fast;
+    background $t-fast-p,
+    color $t-fast-p;
 
   > span {
     display: inline-flex;
@@ -761,7 +761,7 @@
   svg {
     display: block;
     color: var(--text-muted);
-    transition: color $t-fast;
+    transition: color $t-fast-p;
   }
 
   &:hover,
@@ -801,9 +801,9 @@
   font-weight: 500;
   cursor: pointer;
   transition:
-    background $t-fast,
-    color $t-fast,
-    border-color $t-fast;
+    background $t-fast-p,
+    color $t-fast-p,
+    border-color $t-fast-p;
   @include touch-reset;
 
   > span:not(.search-overlay__action-state) {
@@ -816,7 +816,7 @@
   svg {
     display: block;
     color: var(--text-muted);
-    transition: color $t-fast;
+    transition: color $t-fast-p;
   }
 
   &:hover {

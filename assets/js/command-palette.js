@@ -52,23 +52,17 @@
     lastFocused = document.activeElement;
     palette.showModal();
     document.body.style.overflow = 'hidden';
-    requestAnimationFrame(function () {
-      palette.classList.add('is-open');
-      input.value = '';
-      input.focus();
-      render('');
-    });
+    input.value = '';
+    input.focus();
+    render('');
     if (posts === null) loadPosts();
   }
 
   function close() {
     isOpen = false;
-    palette.classList.remove('is-open');
+    palette.close();
     document.body.style.overflow = '';
     activeIdx = -1;
-    setTimeout(function () {
-      if (!isOpen) palette.close();
-    }, 200);
     if (lastFocused && lastFocused.focus) lastFocused.focus();
   }
 

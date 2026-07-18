@@ -899,11 +899,9 @@
   color: var(--text-secondary);
   font-family: $font-sans;
   font-size: $fs-sm;
-  cursor: pointer;
   transition: $t-fast;
   white-space: nowrap;
   max-width: 220px;
-  @include touch-reset;
 
   &:hover {
     border-color: var(--border-strong);
@@ -914,6 +912,22 @@
       color: var(--text-secondary);
     }
   }
+}
+
+.search-overlay__history-main {
+  display: inline-flex;
+  align-items: center;
+  gap: $sp-2;
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  @include touch-reset;
 
   &:focus-visible {
     @include focus-ring;
@@ -941,10 +955,16 @@
   width: 20px;
   height: 20px;
   margin-left: $sp-1;
+  padding: 0;
+  border: none;
   border-radius: 50%;
+  background: none;
   color: transparent;
+  font: inherit;
   flex-shrink: 0;
+  cursor: pointer;
   transition: $t-fast;
+  @include touch-reset;
 
   &:hover {
     background: var(--color-error-subtle);

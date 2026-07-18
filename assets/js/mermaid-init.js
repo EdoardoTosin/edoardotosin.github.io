@@ -12,7 +12,10 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.mermaid[data-processed]:not(.js-mermaid-print)').forEach(function (el) {
       if (el.dataset.zoomBound) return;
       el.dataset.zoomBound = '1';
-      el.addEventListener('click', function () {
+      el.setAttribute('role', 'button');
+      el.setAttribute('tabindex', '0');
+      el.setAttribute('aria-label', 'Open diagram full size');
+      function openZoom() {
         // Print copy is always light-theme; legible on the dark dialog backdrop.
         const printEl = el.nextElementSibling;
         const printSvg =
@@ -36,6 +39,12 @@ document.addEventListener('DOMContentLoaded', function () {
         const serialized = new XMLSerializer().serializeToString(clone);
         const dataUrl = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(serialized)));
         document.dispatchEvent(new CustomEvent('zoom:open', { detail: { src: dataUrl, alt: '', mermaid: true } }));
+      }
+      el.addEventListener('click', openZoom);
+      el.addEventListener('keydown', function (e) {
+        if (e.key !== 'Enter' && e.key !== ' ') return;
+        e.preventDefault();
+        openZoom();
       });
     });
   }

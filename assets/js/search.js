@@ -891,7 +891,8 @@
           '</div><div class="search-overlay__history">';
         hist.forEach(function (q) {
           html +=
-            '<button class="search-overlay__history-item" data-hist="' +
+            '<div class="search-overlay__history-item">' +
+            '<button class="search-overlay__history-main" data-hist="' +
             escHtml(q) +
             '" type="button" aria-label="Search ' +
             escHtml(q) +
@@ -900,14 +901,15 @@
             '<span class="search-overlay__history-text">' +
             escHtml(q) +
             '</span>' +
-            '<span class="search-overlay__history-remove" data-rm="' +
+            '</button>' +
+            '<button class="search-overlay__history-remove" data-rm="' +
             escHtml(q) +
-            '" role="button" tabindex="0" aria-label="Remove ' +
+            '" type="button" aria-label="Remove ' +
             escHtml(q) +
             ' from history">' +
             SVG_X +
-            '</span>' +
-            '</button>';
+            '</button>' +
+            '</div>';
         });
         html += '</div>';
       }
@@ -925,30 +927,19 @@
           } catch (e) {}
           showHomepage();
         });
-      results.querySelectorAll('.search-overlay__history-item').forEach(function (btn) {
-        btn.addEventListener('click', function (e) {
-          const rmEl = e.target.closest('[data-rm]');
-          if (rmEl) {
-            e.stopPropagation();
-            removeHistory(rmEl.dataset.rm);
-            showHomepage();
-            return;
-          }
+      results.querySelectorAll('.search-overlay__history-main').forEach(function (btn) {
+        btn.addEventListener('click', function () {
           const q = btn.dataset.hist;
           if (input) {
             input.value = q;
             runSearch(q);
           }
         });
-        btn.addEventListener('keydown', function (e) {
-          if (e.key !== 'Enter' && e.key !== ' ') return;
-          const rmEl = e.target.closest('[data-rm]');
-          if (rmEl) {
-            e.preventDefault();
-            e.stopPropagation();
-            removeHistory(rmEl.dataset.rm);
-            showHomepage();
-          }
+      });
+      results.querySelectorAll('.search-overlay__history-remove').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          removeHistory(btn.dataset.rm);
+          showHomepage();
         });
       });
     }

@@ -60,8 +60,8 @@
       aria-label="Search results"
       aria-live="polite"
     ></div>
-    <div class="search-overlay__footer" aria-hidden="true">
-      <button class="search-overlay__hints-btn" type="button" tabindex="-1">
+    <details class="search-overlay__footer">
+      <summary class="search-overlay__hints-btn">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="13"
@@ -76,7 +76,7 @@
           <rect x="2" y="4" width="20" height="16" rx="2"/><path d="M6 8h.001M10 8h.001M14 8h.001M18 8h.001M6 12h.001M10 12h.001M14 12h.001M18 12h.001M8 16h8"/>
         </svg>
         shortcuts
-      </button>
+      </summary>
       <div class="search-overlay__shortcuts">
         <span><kbd class="search-kbd">"phrase"</kbd> exact</span>
         <span><kbd class="search-kbd">-word</kbd> exclude</span>
@@ -95,6 +95,6 @@
         <span><kbd class="search-kbd">Esc</kbd> close</span>
         <span><kbd class="search-kbd">Ctrl K</kbd> toggle</span>
       </div>
-    </div>
+    </details>
   </div>
 </dialog>

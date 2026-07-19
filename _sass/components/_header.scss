@@ -436,6 +436,8 @@
     font-family: $font-sans;
     font-size: $fs-xl;
     color: var(--text-primary);
+    -webkit-appearance: none;
+    appearance: none;
 
     &::placeholder {
       color: var(--text-muted);

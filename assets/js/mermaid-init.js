@@ -1,5 +1,5 @@
 // mermaid-init.js - Initialize Mermaid diagrams and handle theme/print re-rendering.
-document.addEventListener('DOMContentLoaded', function () {
+function initMermaid() {
   // The print * rule overrides Mermaid's own inline max-width; only inline !important outranks a stylesheet !important.
   function pinNaturalWidths() {
     document.querySelectorAll('.mermaid[data-processed]:not(.js-mermaid-print) svg').forEach(function (svg) {
@@ -184,4 +184,11 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     }
   });
-});
+}
+
+// Loaded dynamically by mermaid-lazy.js, usually after DOMContentLoaded already fired.
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initMermaid);
+} else {
+  initMermaid();
+}

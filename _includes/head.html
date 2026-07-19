@@ -215,12 +215,19 @@
     <script defer src="{{ '/assets/js/mathjax-tex-chtml.js' | relative_url }}"></script>
   {%- endif -%}
 
+  {%- assign _mermaid_enabled = false -%}
   {%- if page.layout == "post" and page.mermaid != false -%}
-    <script defer src="{{ '/assets/js/mermaid.min.js' | relative_url }}"></script>
-    <script defer src="{{ '/assets/js/mermaid-init.js' | relative_url }}"></script>
+    {%- assign _mermaid_enabled = true -%}
   {%- elsif page.mermaid -%}
-    <script defer src="{{ '/assets/js/mermaid.min.js' | relative_url }}"></script>
-    <script defer src="{{ '/assets/js/mermaid-init.js' | relative_url }}"></script>
+    {%- assign _mermaid_enabled = true -%}
+  {%- endif -%}
+  {%- if _mermaid_enabled -%}
+    <script
+      defer
+      src="{{ '/assets/js/mermaid-lazy.js' | relative_url }}"
+      data-mermaid-src="{{ '/assets/js/mermaid.min.js' | relative_url }}"
+      data-mermaid-init-src="{{ '/assets/js/mermaid-init.js' | relative_url }}"
+    ></script>
   {%- endif -%}
 
   {%- if site.google_analytics and site.google_analytics != "" -%}

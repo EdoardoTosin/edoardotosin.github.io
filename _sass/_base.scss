@@ -25,6 +25,20 @@ html {
   }
 }
 
+// Cross-document navigation transitions (Chromium; ignored elsewhere).
+@view-transition {
+  navigation: auto;
+}
+
+// The reduced-motion rule below doesn't match ::view-transition-* pseudo-elements.
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
 // Offset fragment anchors below sticky header.
 [id] {
   scroll-margin-top: calc(var(--header-h) + #{$sp-3});

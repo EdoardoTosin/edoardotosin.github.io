@@ -10,7 +10,10 @@ Jekyll::Hooks.register :site, :post_read do |site|
 
   used = Set.new
   site.posts.docs.each do |post|
-    tp = post.data['topic'].to_s.strip.downcase
+    topic = post.data['topic']
+    next unless topic.is_a?(String)
+
+    tp = topic.strip.downcase
     used.add(tp) unless tp.empty?
   end
 

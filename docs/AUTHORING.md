@@ -234,24 +234,24 @@ and in the RSS feed, each matched token is wrapped in an amber span.
 
 ## Supported Markdown
 
-| Element         | Syntax                   | Notes                                                                          |
-| --------------- | ------------------------ | ------------------------------------------------------------------------------ |
-| Headings        | `## H2`, `### H3`        | H1 is the post title - do not repeat it                                        |
-| Bold / Italic   | `**bold**`, `*italic*`   |                                                                                |
-| Inline code     | `` `code` ``             | Highlighted with accent color                                                  |
-| Code block      | ` ```javascript `        | Always include language tag                                                    |
-| Blockquote      | `> text`                 | Standard blockquotes are untouched                                             |
-| Link            | `[text](url)`            |                                                                                |
-| Image           | `![alt](url)`            | Auto-zoom on click, lazy-loaded                                                |
-| Table           | `\| col \| col \|`       | Scrollable on small screens                                                    |
-| Task list       | `- [ ] item`             | GFM checklist                                                                  |
-| Footnote        | `text[^1]` `[^1]: note`  | Rendered at bottom; hover or focus the reference for an inline preview tooltip |
-| `<kbd>`         | `<kbd>Ctrl</kbd>`        | Keyboard shortcut styling                                                      |
-| `<mark>`        | `<mark>text</mark>`      | Accent highlight                                                               |
-| Math (inline)   | `$E = mc^2$`             | Auto-loaded on posts; `math: false` to opt out, `math: true` on other pages    |
-| Math (block)    | `$$\nabla \cdot E = 0$$` | Auto-loaded on posts; `math: false` to opt out, `math: true` on other pages    |
-| Diagram         | ` ```mermaid `           | Auto-loaded on posts; `mermaid: false` to opt out, `mermaid: true` elsewhere   |
-| Details/summary | `<details><summary>`     | Native HTML collapsible                                                        |
+| Element         | Syntax                   | Notes                                                                             |
+| --------------- | ------------------------ | --------------------------------------------------------------------------------- |
+| Headings        | `## H2`, `### H3`        | H1 is the post title - do not repeat it                                           |
+| Bold / Italic   | `**bold**`, `*italic*`   |                                                                                   |
+| Inline code     | `` `code` ``             | Highlighted with accent color                                                     |
+| Code block      | ` ```javascript `        | Always include language tag                                                       |
+| Blockquote      | `> text`                 | Standard blockquotes are untouched                                                |
+| Link            | `[text](url)`            |                                                                                   |
+| Image           | `![alt](url)`            | Auto-zoom on click, lazy-loaded                                                   |
+| Table           | `\| col \| col \|`       | Scrollable on small screens                                                       |
+| Task list       | `- [ ] item`             | GFM checklist                                                                     |
+| Footnote        | `text[^1]` `[^1]: note`  | Rendered at bottom; hover or focus the reference for an inline preview tooltip    |
+| `<kbd>`         | `<kbd>Ctrl</kbd>`        | Keyboard shortcut styling                                                         |
+| `<mark>`        | `<mark>text</mark>`      | Accent highlight                                                                  |
+| Math (inline)   | `$E = mc^2$`             | Auto-detected from content, loads only if used; `math: false`/`true` overrides    |
+| Math (block)    | `$$\nabla \cdot E = 0$$` | Auto-detected from content, loads only if used; `math: false`/`true` overrides    |
+| Diagram         | ` ```mermaid `           | Auto-detected from content, loads only if used; `mermaid: false`/`true` overrides |
+| Details/summary | `<details><summary>`     | Native HTML collapsible                                                           |
 
 ## Code Blocks
 
@@ -280,7 +280,7 @@ The post hero image is set in front matter (`image:`), not inline Markdown.
 
 ## Math (MathJax)
 
-MathJax is loaded automatically on all posts. To disable it on a specific post, or to enable it on a non-post page:
+MathJax is loaded automatically on any post whose content contains math syntax (`$$`, `\[`, or `\(`). A post without it never loads MathJax at all. Set `math: false`/`true` in front matter to force it off or on regardless of content:
 
 ```yaml
 math: false  # disable on a post
@@ -301,7 +301,7 @@ $$
 
 ## Diagrams (Mermaid)
 
-Mermaid is loaded automatically on all posts. To disable it on a specific post, or to enable it on a non-post page:
+Mermaid is loaded automatically on any post whose content contains a ` ```mermaid ` fenced block. A post without one never loads Mermaid at all. Set `mermaid: false`/`true` in front matter to force it off or on regardless of content:
 
 ```yaml
 mermaid: false  # disable on a post
@@ -446,7 +446,7 @@ For Mastodon, any instance domain is supported as long as the post URL contains 
 
 ### cited_by
 
-List external pages (articles, blogs, papers, news) that reference the current post. Rendered as a "Cited by" section at the bottom of the post, visible in print/PDF.
+List external pages (articles, blogs, papers, news) that reference the current post. Sources aren't necessarily vetted or trusted, just anything that happens to link here. Rendered as a "Cited by" section at the bottom of the post.
 
 ```yaml
 cited_by:
@@ -468,6 +468,7 @@ cited_by:
 - Only `https://` and `http://` URLs are rendered; entries with other schemes (e.g. `javascript:`, `data:`) are silently dropped.
 - If every entry in the list is blank or invalid, the "Cited by" section is not rendered at all.
 - Title text is HTML-escaped automatically; no manual escaping needed.
+- Like `discussions`, this lists outside pages referencing the post rather than the author's own citations, so it's hidden in print/PDF.
 - Obsidian always writes list properties as YAML arrays, so single-item lists are safe:
   ```yaml
   cited_by:
@@ -491,21 +492,3 @@ Use Obsidian-style `[[wikilink]]` syntax to create internal links without writin
 **Broken links** render as `<span class="wikilink-broken">text</span>`, styled with a red dotted underline and `not-allowed` cursor.
 
 Wikilinks inside fenced code blocks and inline `code` are left untouched.
-
-## Content Checks
-
-The theme checks posts at build time. The build fails if a post is missing:
-
-- `title`
-- `date`
-- `topic`
-
-Warnings are shown for:
-
-- Missing or over-length `description`
-- `topic` set to an array (must be a single string)
-- Code blocks without a language specifier
-- Images with empty or missing alt text
-- Non-descriptive link text ("click here", "read more")
-- Heading levels that skip (e.g. H2 to H4)
-- Duplicate permalink

@@ -224,6 +224,7 @@ exclude:
   - Gemfile
   - Gemfile.lock
   - vendor
+  - .bundle
 
   # Node / npm
   - node_modules

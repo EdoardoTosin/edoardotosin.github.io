@@ -6,6 +6,10 @@
 /.jekyll-cache/
 /.jekyll-metadata
 
+# Ruby / Bundler local gem install
+/vendor/
+/.bundle/
+
 # System files (macOS and Windows)
 .DS_Store
 Thumbs.db

@@ -1,10 +1,26 @@
 # frozen_string_literal: true
 # obsidian_wikilinks.rb - [[wikilink]] syntax to anchors. Runs at :post_render; skips <pre>/<code> blocks.
+# :pre_render hides "|" in [[target|alias]] from kramdown-GFM, which otherwise reads it as a table.
 
 require 'cgi'
 
 module ObsidianWikilinks
   WIKILINK_RE = /\[\[([^\[\]]+?)\]\]/.freeze
+  PIPE_PLACEHOLDER = "" # U+E000 (Private Use Area), not an empty string - looks blank but isn't
+  RAW_CODE_RE = /(^ {0,3}(?:`{3,}|~{3,})[^\n]*\n.*?\n {0,3}(?:`{3,}|~{3,})[ \t]*$|`[^`\n]+?`)/m.freeze
+
+  module RawEscaper
+    # Split on fenced/inline code; only escape wikilink pipes in even-indexed (non-code) segments
+    def self.escape(content)
+      content.split(RAW_CODE_RE).map.with_index do |part, i|
+        i.even? ? escape_wikilink_pipes(part) : part
+      end.join
+    end
+
+    def self.escape_wikilink_pipes(text)
+      text.gsub(WIKILINK_RE) { "[[#{Regexp.last_match(1).tr('|', PIPE_PLACEHOLDER)}]]" }
+    end
+  end
 
   class PageIndex
     def initialize(site)
@@ -49,20 +65,20 @@ module ObsidianWikilinks
     end
 
     def normalize(str)
-      str.to_s.strip.downcase.gsub(/[^\p{Alnum}\s\-]/, '').gsub(/\s+/, '-').gsub(/-{2,}/, '-')
+      str.to_s.strip.downcase.gsub('_', '-').gsub(/[^\p{Alnum}\s\-]/, '').gsub(/\s+/, '-').gsub(/-{2,}/, '-')
     end
   end
 
   module Parser
     def self.parse(inner)
-      target, alias_text = inner.to_s.strip.split('|', 2).map(&:strip)
+      target, alias_text = inner.to_s.strip.split(PIPE_PLACEHOLDER, 2).map(&:strip)
       page, heading = target.split('#', 2).map { |s| s&.strip }
       { page: page.to_s, heading: heading, alias: alias_text }
     end
 
     def self.anchor(heading)
       return nil unless heading
-      heading.strip.downcase.gsub(/[^\p{Alnum}\s\-]/, '').gsub(/\s+/, '-')
+      heading.strip.downcase.gsub(/[^\p{Alnum}_\s\-]/, '').gsub(/\s+/, '-')
     end
   end
 
@@ -84,8 +100,12 @@ module ObsidianWikilinks
 
     def replace_links(text)
       text.gsub(WIKILINK_RE) do
-        parsed = Parser.parse(Regexp.last_match(1))
-        next Regexp.last_match(0) if parsed[:page].empty? && parsed[:heading].nil?
+        match = Regexp.last_match
+        # Leave Obsidian embeds (![[target]]) untouched; transclusion isn't implemented.
+        next match[0] if match.pre_match.end_with?('!')
+
+        parsed = Parser.parse(match[1])
+        next match[0] if parsed[:page].empty? && parsed[:heading].nil?
 
         if parsed[:page].empty? && parsed[:heading]
           href  = "##{anchor(parsed[:heading])}"
@@ -115,6 +135,21 @@ module ObsidianWikilinks
       %(<span class="wikilink-broken">#{CGI.escapeHTML(alias_text || page)}</span>)
     end
   end
+end
+
+Jekyll::Hooks.register :site, :pre_render do |site|
+  cfg = site.config['obsidian_wikilinks'] || {}
+  next if cfg['enabled'] == false
+
+  escape = lambda do |doc|
+    next unless doc.content.is_a?(String) && doc.content.include?('[[')
+
+    doc.content = ObsidianWikilinks::RawEscaper.escape(doc.content)
+  end
+
+  site.pages.each(&escape)
+  site.posts.docs.each(&escape) if site.respond_to?(:posts)
+  site.collections.each_value { |collection| collection.docs.each(&escape) }
 end
 
 Jekyll::Hooks.register :site, :post_render do |site|

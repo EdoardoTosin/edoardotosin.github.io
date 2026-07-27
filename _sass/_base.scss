@@ -182,9 +182,12 @@ i {
   color: var(--text-on-accent);
 }
 
+// Listing transform here too stops this higher-specificity rule from clobbering hover-zoom transitions.
 .js img[loading='lazy'] {
   opacity: 0;
-  transition: opacity $t-base-p;
+  transition:
+    opacity $t-base-p,
+    transform $t-img-p;
 }
 .js img[loading='lazy'].loaded {
   opacity: 1;

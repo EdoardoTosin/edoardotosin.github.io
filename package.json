@@ -24,7 +24,7 @@
     "ci": "npm run format:check && npm run test",
     "audit": "node scripts/audit.js",
     "audit:deps": "npm audit",
-    "all": "npm run ci && npm run audit && npm run audit:deps"
+    "all": "npm run ci && npm run audit && npm run format"
   },
   "devDependencies": {
     "@shopify/prettier-plugin-liquid": "^1.10.3",

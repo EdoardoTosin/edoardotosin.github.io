@@ -49,6 +49,7 @@ $container-pad: $sp-6;
 $sidebar-w: 320px;
 $header-h: 70px;
 $search-col-max: 680px;
+$content-measure: 74ch;
 
 // Transitions
 $t-fast: all 0.15s ease;
@@ -256,6 +257,9 @@ $z-skip: 9999;
 }
 
 @mixin widget-section-title {
+  display: flex;
+  align-items: center;
+  gap: $sp-2;
   font-size: $fs-md;
   font-weight: 700;
   text-transform: uppercase;
@@ -264,6 +268,15 @@ $z-skip: 9999;
   margin-bottom: $sp-5;
   padding-bottom: $sp-3;
   border-bottom: 1px solid var(--border);
+
+  &::before {
+    content: '';
+    flex-shrink: 0;
+    width: 14px;
+    height: 3px;
+    border-radius: $r-full;
+    background: var(--accent);
+  }
 }
 
 // High contrast overlay (explicit toggle or OS prefers-contrast: more)

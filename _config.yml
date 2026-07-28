@@ -127,6 +127,7 @@ defaults:
 
 # Homepage sections
 homepage:
+  show_hero:          false # avatar/name intro section above the blog feed
   enable_blog_toggle: true   # grid/list toggle on the blog feed
   sticky_sidebar:     true
   posts_per_page:     4

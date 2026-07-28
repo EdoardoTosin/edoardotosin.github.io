@@ -7,52 +7,56 @@ pagination:
 ---
 {%- assign hp = site.homepage -%}
 
-<section class="hero" aria-label="Introduction">
-  <div class="container">
-    <div class="hero__content">
-      <div class="hero__tagline" aria-hidden="true">
-        <img
-          src="{{ site.author.avatar | default: '/images/avatar.webp' | relative_url }}"
-          alt="{{ site.author.name }}"
-          class="hero__tagline-pic"
-          width="32"
-          height="32"
-          loading="eager"
-        >
-        {%- if site.author.tagline and site.author.tagline != '' -%}
-          <span>{{ site.author.tagline }}</span>
+{%- if hp.show_hero -%}
+  <section class="hero" aria-label="Introduction">
+    <div class="container">
+      <div class="hero__content">
+        <div class="hero__tagline" aria-hidden="true">
+          <img
+            src="{{ site.author.avatar | default: '/images/avatar.webp' | relative_url }}"
+            alt="{{ site.author.name }}"
+            class="hero__tagline-pic"
+            width="32"
+            height="32"
+            loading="eager"
+          >
+          {%- if site.author.tagline and site.author.tagline != '' -%}
+            <span>{{ site.author.tagline }}</span>
+          {%- endif -%}
+        </div>
+        <hgroup>
+          <h1 class="hero__title">{{ site.author.hero_title | default: site.title }}</h1>
+          {%- if site.author.hero_subtitle and site.author.hero_subtitle != '' -%}
+            <p class="hero__subtitle">{{ site.author.hero_subtitle }}</p>
+          {%- endif -%}
+        </hgroup>
+        {%- if site.author.hero_description and site.author.hero_description != '' -%}
+          <p class="hero__description">{{ site.author.hero_description }}</p>
         {%- endif -%}
+        <div class="hero__actions">
+          <a href="{{ '/contact/' | relative_url }}" class="btn btn--primary"> Get in Touch </a>
+          <a href="{{ '/blog/' | relative_url }}" class="btn btn--ghost"> Read the Blog </a>
+        </div>
       </div>
-      <hgroup>
-        <h1 class="hero__title">{{ site.author.hero_title | default: site.title }}</h1>
-        {%- if site.author.hero_subtitle and site.author.hero_subtitle != '' -%}
-          <p class="hero__subtitle">{{ site.author.hero_subtitle }}</p>
-        {%- endif -%}
-      </hgroup>
-      {%- if site.author.hero_description and site.author.hero_description != '' -%}
-        <p class="hero__description">{{ site.author.hero_description }}</p>
-      {%- endif -%}
-      <div class="hero__actions">
-        <a href="{{ '/contact/' | relative_url }}" class="btn btn--primary"> Get in Touch </a>
-        <a href="{{ '/blog/' | relative_url }}" class="btn btn--ghost"> Read the Blog </a>
-      </div>
-    </div>
 
-    <div class="hero__image-wrap">
-      <div class="hero__avatar-frame">
-        <img
-          src="{{ site.author.avatar | default: '/images/avatar.webp' | relative_url }}"
-          alt="{{ site.author.name }}"
-          class="hero__avatar"
-          width="400"
-          height="400"
-          loading="eager"
-          fetchpriority="high"
-        >
+      <div class="hero__image-wrap">
+        <div class="hero__avatar-frame">
+          <img
+            src="{{ site.author.avatar | default: '/images/avatar.webp' | relative_url }}"
+            alt="{{ site.author.name }}"
+            class="hero__avatar"
+            width="400"
+            height="400"
+            loading="eager"
+            fetchpriority="high"
+          >
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+{%- else -%}
+  <h1 class="sr-only">{{ site.title }}</h1>
+{%- endif -%}
 
 <section class="blog section" aria-labelledby="blog-heading">
   <div class="container">

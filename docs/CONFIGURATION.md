@@ -45,7 +45,8 @@ author:
 
 - `slug`: must match the key used in post front matter (`author:`). Required for multi-author support.
 - `url`: author profile URL, used in the Schema.org JSON-LD for posts.
-- `hero_subtitle`: short label shown below the hero title. Leave blank if `tagline` already covers the same content - the element is hidden when empty.
+- `tagline`: shown in the site footer; falls back to `description` if left blank.
+- `hero_title`, `hero_subtitle`, `hero_description`: only used when `homepage.show_hero` is enabled (see below). `hero_subtitle` can be left blank if `tagline` already covers the same content - the element is hidden when empty.
 
 All other fields are optional. Blank fields are omitted from the rendered page.
 
@@ -134,6 +135,7 @@ social:
 
 ```yaml
 homepage:
+  show_hero: false
   enable_blog_toggle: true
   sticky_sidebar: true
   posts_per_page: 4
@@ -152,6 +154,7 @@ homepage:
   gallery_limit: 5
 ```
 
+- `show_hero`: set to `true` to show an avatar/name intro section above the blog feed, using the `hero_*` fields under `author:`. Off by default.
 - `enable_blog_toggle`: show the grid/list view switch on the blog feed
 - `sticky_sidebar`: keep the sidebar fixed while scrolling
 - `posts_per_page`: number of posts shown initially on the homepage (mobile always shows at most 3)

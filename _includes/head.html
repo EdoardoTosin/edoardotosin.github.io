@@ -201,7 +201,7 @@
 
   {%- if page.layout == 'post' and page.image -%}
     <link rel="preload" as="image" href="{{ page.image | relative_url }}" fetchpriority="high">
-  {%- elsif page.url == '/' or page.url == '/index.html' -%}
+  {%- elsif site.homepage.show_hero and (page.url == '/' or page.url == '/index.html') -%}
     <link rel="preload" as="image" href="{{ site.author.avatar | default: '/images/avatar.webp' | relative_url }}" fetchpriority="high">
   {%- endif -%}
 

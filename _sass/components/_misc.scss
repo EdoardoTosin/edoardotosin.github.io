@@ -408,6 +408,10 @@
       color: var(--topic-color-text, var(--accent-text));
       border-color: var(--topic-color, var(--accent));
 
+      &::before {
+        @include pulse-dot(6px);
+      }
+
       .filter-page__btn-count {
         background: var(--topic-color, var(--accent));
         color: var(--topic-color-on, var(--text-on-accent));

@@ -395,7 +395,6 @@
   .tag-item,
   .topic-item {
     display: block !important;
-    margin-bottom: 6pt;
   }
 
   // Blog page
@@ -406,14 +405,13 @@
     display: none !important;
   }
   .blog__header {
-    margin-bottom: 0 !important;
+    margin-bottom: 10pt !important;
   }
   .blog__body {
     display: block !important;
   }
   .blog-post-item {
     display: block !important;
-    margin-bottom: 12pt;
   }
 
   // 6. Heroes & pages
@@ -487,6 +485,28 @@
     max-width: 100% !important;
   }
 
+  // Its wrapper section still has padding even with .newsletter-banner hidden above.
+  section[aria-label='Newsletter'] {
+    display: none !important;
+  }
+
+  // Drop the accent-color bar rather than print it in ink.
+  .section-header__title::before {
+    display: none !important;
+  }
+
+  // Explicit sizes/margins rather than relying on rem inheritance from the print root
+  .section-header__title {
+    font-size: 16pt !important;
+    margin: 0 !important;
+  }
+
+  // Homepage: video/gallery teasers are promotional, not reading material
+  section[aria-labelledby='videos-heading'],
+  section[aria-labelledby='gallery-heading'] {
+    display: none !important;
+  }
+
   .post-card__pinned-label {
     display: none !important;
   }
@@ -503,7 +523,12 @@
     border-radius: 0 !important;
     box-shadow: none !important;
     padding: 6pt 0 !important;
+    margin-bottom: 12pt !important;
     break-inside: avoid;
+
+    &__title {
+      font-size: 11pt !important;
+    }
 
     &__img-wrap {
       display: none !important;

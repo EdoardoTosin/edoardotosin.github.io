@@ -435,6 +435,96 @@
     }
   }
 
+  // Snippet
+  function makeSnippet(doc, rawTerms) {
+    const body = doc.content || doc.excerpt || doc.description || '';
+    const fallback = doc.excerpt || doc.description || '';
+    if (!rawTerms.length || !body) {
+      return fallback ? escHtml(fallback.slice(0, 150) + (fallback.length > 150 ? '…' : '')) : '';
+    }
+    const lower = body.toLowerCase();
+    const positions = [];
+    rawTerms.forEach(function (tok) {
+      let pos = 0;
+      let found;
+      while ((found = lower.indexOf(tok, pos)) !== -1) {
+        positions.push(found);
+        pos = found + 1;
+      }
+    });
+    if (!positions.length) {
+      return fallback ? escHtml(fallback.slice(0, 150) + (fallback.length > 150 ? '…' : '')) : '';
+    }
+    positions.sort(function (a, b) {
+      return a - b;
+    });
+    const WIN = 220;
+    let bestStart = Math.max(0, positions[0] - 40),
+      bestCount = 0;
+    positions.forEach(function (pos) {
+      const ws = Math.max(0, pos - 40),
+        we = ws + WIN;
+      let cnt = 0;
+      for (let pi = 0; pi < positions.length; pi++) {
+        if (positions[pi] >= ws && positions[pi] <= we) cnt++;
+      }
+      if (cnt > bestCount) {
+        bestCount = cnt;
+        bestStart = ws;
+      }
+    });
+    const start = bestStart,
+      end = Math.min(body.length, start + WIN);
+    const snip = (start > 0 ? '…' : '') + body.slice(start, end).trim() + (end < body.length ? '…' : '');
+    return highlightTerms(snip, rawTerms);
+  }
+
+  function safeUrl(url) {
+    const s = String(url || '');
+    return /^https?:\/\/|^\//.test(s) ? s : '';
+  }
+
+  function renderHits(hits, q, rawTerms) {
+    return hits
+      .map(function (p) {
+        let typeBadge = '';
+        if (p.type && p.type !== 'post') {
+          typeBadge =
+            '<span class="search-overlay__result-badge search-overlay__result-badge--' +
+            escHtml(p.type) +
+            '">' +
+            escHtml(p.type) +
+            '</span>';
+        }
+        const pinBadge = p.pinned ? '<span class="search-overlay__result-pinned" aria-label="Pinned">📌</span>' : '';
+        const sub = q
+          ? makeSnippet(p, rawTerms)
+          : p.description
+            ? escHtml(p.description.slice(0, 120) + (p.description.length > 120 ? '…' : ''))
+            : escHtml(p.date || '');
+        return (
+          '<a href="' +
+          escHtml(safeUrl(p.url)) +
+          '" class="search-overlay__result-item" role="option">' +
+          '<img src="' +
+          escHtml(p.image) +
+          '" alt="" loading="eager" width="72" height="48">' +
+          '<div class="search-overlay__result-body">' +
+          '<h4>' +
+          pinBadge +
+          highlightTerms(p.title, rawTerms) +
+          typeBadge +
+          '</h4>' +
+          '<span class="search-overlay__result-snippet">' +
+          sub +
+          '</span>' +
+          '</div>' +
+          '</a>'
+        );
+      })
+      .join('');
+  }
+
   function initSearch() {
     const overlay = qs('#search-overlay');
     const closeBtn = qs('#search-close');
@@ -653,96 +743,6 @@
       }
 
       return score;
-    }
-
-    // Snippet
-    function makeSnippet(doc, rawTerms) {
-      const body = doc.content || doc.excerpt || doc.description || '';
-      const fallback = doc.excerpt || doc.description || '';
-      if (!rawTerms.length || !body) {
-        return fallback ? escHtml(fallback.slice(0, 150) + (fallback.length > 150 ? '…' : '')) : '';
-      }
-      const lower = body.toLowerCase();
-      const positions = [];
-      rawTerms.forEach(function (tok) {
-        let pos = 0;
-        let found;
-        while ((found = lower.indexOf(tok, pos)) !== -1) {
-          positions.push(found);
-          pos = found + 1;
-        }
-      });
-      if (!positions.length) {
-        return fallback ? escHtml(fallback.slice(0, 150) + (fallback.length > 150 ? '…' : '')) : '';
-      }
-      positions.sort(function (a, b) {
-        return a - b;
-      });
-      const WIN = 220;
-      let bestStart = Math.max(0, positions[0] - 40),
-        bestCount = 0;
-      positions.forEach(function (pos) {
-        const ws = Math.max(0, pos - 40),
-          we = ws + WIN;
-        let cnt = 0;
-        for (let pi = 0; pi < positions.length; pi++) {
-          if (positions[pi] >= ws && positions[pi] <= we) cnt++;
-        }
-        if (cnt > bestCount) {
-          bestCount = cnt;
-          bestStart = ws;
-        }
-      });
-      const start = bestStart,
-        end = Math.min(body.length, start + WIN);
-      const snip = (start > 0 ? '…' : '') + body.slice(start, end).trim() + (end < body.length ? '…' : '');
-      return highlightTerms(snip, rawTerms);
-    }
-
-    function safeUrl(url) {
-      const s = String(url || '');
-      return /^https?:\/\/|^\//.test(s) ? s : '';
-    }
-
-    function renderHits(hits, q, rawTerms) {
-      return hits
-        .map(function (p) {
-          let typeBadge = '';
-          if (p.type && p.type !== 'post') {
-            typeBadge =
-              '<span class="search-overlay__result-badge search-overlay__result-badge--' +
-              escHtml(p.type) +
-              '">' +
-              escHtml(p.type) +
-              '</span>';
-          }
-          const pinBadge = p.pinned ? '<span class="search-overlay__result-pinned" aria-label="Pinned">📌</span>' : '';
-          const sub = q
-            ? makeSnippet(p, rawTerms)
-            : p.description
-              ? escHtml(p.description.slice(0, 120) + (p.description.length > 120 ? '…' : ''))
-              : escHtml(p.date || '');
-          return (
-            '<a href="' +
-            escHtml(safeUrl(p.url)) +
-            '" class="search-overlay__result-item" role="option">' +
-            '<img src="' +
-            escHtml(p.image) +
-            '" alt="" loading="eager" width="72" height="48">' +
-            '<div class="search-overlay__result-body">' +
-            '<h4>' +
-            pinBadge +
-            highlightTerms(p.title, rawTerms) +
-            typeBadge +
-            '</h4>' +
-            '<span class="search-overlay__result-snippet">' +
-            sub +
-            '</span>' +
-            '</div>' +
-            '</a>'
-          );
-        })
-        .join('');
     }
 
     // History / homepage
@@ -1239,6 +1239,17 @@
     });
   }
   if (typeof module !== 'undefined') {
-    module.exports = { stem, tokenize, parseQuery, parseFilterDate, parseNumericFilter, fieldMatch, evaluate };
+    module.exports = {
+      stem,
+      tokenize,
+      parseQuery,
+      parseFilterDate,
+      parseNumericFilter,
+      fieldMatch,
+      evaluate,
+      makeSnippet,
+      safeUrl,
+      renderHits,
+    };
   }
 })();

@@ -212,14 +212,14 @@
   padding: $sp-8 0 $sp-4;
 }
 
-// Featured item
-.featured-list {
+// Pinned item (compact row, used in the blog sidebar widget)
+.pinned-list {
   display: flex;
   flex-direction: column;
   gap: $sp-4;
 }
 
-.featured-item {
+.pinned-item {
   @include mini-post-row;
   &:active {
     transform: translateX(2px);

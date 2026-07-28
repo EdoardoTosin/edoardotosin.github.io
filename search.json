@@ -87,7 +87,7 @@ permalink: /search.json
   "modified_iso": {{ post.last_modified_at | default: post.date | date_to_xmlschema | jsonify }},
   "image": {{ post.image | default: "/images/social-preview.jpg" | relative_url | jsonify }},
   "type": {{ _type | jsonify }},
-  "featured": {{ post.featured | default: false | jsonify }},
+  "pinned": {{ post.pinned | default: false | jsonify }},
   "reading_time": {{ _mins }},
   "word_count": {{ _words }}
 }{% unless forloop.last %},{% endunless %}

@@ -61,12 +61,12 @@
     color: var(--text-primary);
   }
 
-  .featured-item:hover {
+  .pinned-item:hover {
     background: transparent;
     box-shadow: none;
   }
 
-  .featured-item:hover .featured-item__title {
+  .pinned-item:hover .pinned-item__title {
     color: var(--text-primary);
   }
 

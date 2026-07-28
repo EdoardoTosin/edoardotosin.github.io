@@ -10,7 +10,7 @@ permalink: /blog/
 {%- for _topic in site.data.topics -%}
   {%- assign _tp = _topic.name -%}
   {%- assign _tc = site.posts | where: 'topic', _tp | size -%}
-  {%- assign _tf = site.posts | where: 'topic', _tp | where: 'featured', true | size -%}
+  {%- assign _tf = site.posts | where: 'topic', _tp | where: 'pinned', true | size -%}
   {%- assign _sc = _tf | times: 1000 | plus: _tc | plus: 1000000 -%}
   {%- assign _tp_scored = _tp_scored | append: _sc | append: '~' | append: _tp | append: '|' -%}
 {%- endfor -%}
@@ -175,21 +175,21 @@ permalink: /blog/
       class="blog__aside{% if hp.sticky_sidebar != false %} is-sticky{% endif %}"
       aria-label="Blog sidebar"
     >
-      {%- assign fl = hp.featured_limit | default: 3 | plus: 0 -%}
-      {%- assign _feat_src = hp.featured_source | default: 'front_matter' -%}
-      {%- if _feat_src == 'collection' and site.featured -%}
-        {%- assign featured = site.featured | slice: 0, fl -%}
+      {%- assign pl = hp.pinned_limit | default: 3 | plus: 0 -%}
+      {%- assign _pin_src = hp.pinned_source | default: 'front_matter' -%}
+      {%- if _pin_src == 'collection' and site.pinned -%}
+        {%- assign pinned = site.pinned | slice: 0, pl -%}
       {%- else -%}
-        {%- assign all_featured = site.posts | where: 'featured', true -%}
-        {%- assign featured = all_featured | slice: 0, fl -%}
+        {%- assign all_pinned = site.posts | where: 'pinned', true -%}
+        {%- assign pinned = all_pinned | slice: 0, pl -%}
       {%- endif -%}
-      {%- if featured.size > 0 -%}
+      {%- if pinned.size > 0 -%}
         <div class="blog-widget">
-          <h3 class="blog-widget__title">Featured</h3>
-          <div class="featured-list">
-            {%- for post in featured -%}
-              <div class="featured-item">
-                <div class="featured-item__img" aria-hidden="true">
+          <h3 class="blog-widget__title">Pinned</h3>
+          <div class="pinned-list">
+            {%- for post in pinned -%}
+              <div class="pinned-item">
+                <div class="pinned-item__img" aria-hidden="true">
                   <img
                     src="{{ post.image | default: '/images/social-preview.jpg' | relative_url }}"
                     alt="{{ post.title | escape }}"
@@ -198,12 +198,12 @@ permalink: /blog/
                     height="50"
                   >
                 </div>
-                <div class="featured-item__content">
-                  <h4 class="featured-item__title">
+                <div class="pinned-item__content">
+                  <h4 class="pinned-item__title">
                     <a href="{{ post.url | relative_url }}" title="{{ post.title | escape }}">{{ post.title }}</a>
                   </h4>
                   <time
-                    class="featured-item__date"
+                    class="pinned-item__date"
                     datetime="{{ post.date | date_to_xmlschema }}"
                   >
                     {{ post.date | date: '%d %b %Y' }}

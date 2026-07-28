@@ -12,5 +12,5 @@ tags:
   -
 keywords:
   -
-featured: false
+pinned: false
 ---

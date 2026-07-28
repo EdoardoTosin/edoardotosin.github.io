@@ -117,7 +117,7 @@ defaults:
       image:    "/images/social-preview.jpg"
       comments: true
       share:    true
-      featured: false
+      pinned:   false
       video:    false
       gallery:  false
   - scope:
@@ -131,8 +131,8 @@ homepage:
   sticky_sidebar:     true
   posts_per_page:     4
 
-  featured_source: "front_matter"
-  featured_limit:  3
+  pinned_source: "front_matter"
+  pinned_limit:  3
 
   topics_limit: 6
 

@@ -254,7 +254,7 @@
         return d ? { op: 'field', kind: 'before', date: d } : termAtom(value);
       }
       case 'is':
-        return value === 'featured' ? { op: 'field', kind: 'featured' } : { op: 'field', kind: 'istype', value: value };
+        return value === 'pinned' ? { op: 'field', kind: 'pinned' } : { op: 'field', kind: 'istype', value: value };
       case 'has':
         return value === 'image' ? { op: 'field', kind: 'hasimage' } : termAtom(value);
       case 'words':
@@ -403,8 +403,8 @@
         return !!doc.date && doc.date >= node.date;
       case 'before':
         return !!doc.date && doc.date <= node.date;
-      case 'featured':
-        return !!doc.featured;
+      case 'pinned':
+        return !!doc.pinned;
       case 'istype':
         return doc.type === node.value;
       case 'hasimage':
@@ -608,7 +608,7 @@
         url: url,
         text: allText,
         date: doc.date_iso ? new Date(doc.date_iso) : null,
-        featured: !!doc.featured,
+        pinned: !!doc.pinned,
         image: doc.image || '',
         wordCount: doc.word_count || 0,
         readingTime: doc.reading_time || 0,
@@ -645,7 +645,7 @@
 
       if (terms.length > 1 && allText.indexOf(terms.join(' ')) !== -1) score += 2;
 
-      if (doc.featured) score += 0.5;
+      if (doc.pinned) score += 0.5;
 
       if (doc.date_iso) {
         const ageDays = (Date.now() - new Date(doc.date_iso).getTime()) / 86400000;
@@ -716,9 +716,7 @@
               escHtml(p.type) +
               '</span>';
           }
-          const star = p.featured
-            ? '<span class="search-overlay__result-featured" aria-label="Featured">⭐</span>'
-            : '';
+          const pinBadge = p.pinned ? '<span class="search-overlay__result-pinned" aria-label="Pinned">📌</span>' : '';
           const sub = q
             ? makeSnippet(p, rawTerms)
             : p.description
@@ -733,7 +731,7 @@
             '" alt="" loading="eager" width="72" height="48">' +
             '<div>' +
             '<h4>' +
-            star +
+            pinBadge +
             highlightTerms(p.title, rawTerms) +
             typeBadge +
             '</h4>' +

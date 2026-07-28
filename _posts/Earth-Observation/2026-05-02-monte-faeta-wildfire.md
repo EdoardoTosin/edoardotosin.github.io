@@ -20,7 +20,7 @@ keywords:
   - SWIR false color
   - NBR burn severity
   - Copernicus Data Space
-featured: true
+pinned: true
 ---
 
 This study analyses a Sentinel-2 Level-2A image acquired over Monte Faeta, Tuscany, on 29 April 2026.

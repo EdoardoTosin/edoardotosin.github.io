@@ -247,8 +247,8 @@ pagination:
   {%- assign _scored_topics = '' | split: '' -%}
   {%- for _tp in _all_topic_names -%}
     {%- assign _tp_posts = site.posts | where: 'topic', _tp -%}
-    {%- assign _tp_featured = _tp_posts | where: 'featured', true -%}
-    {%- assign _score = _tp_featured.size | times: 1000 | plus: _tp_posts.size | plus: 1000000 -%}
+    {%- assign _tp_pinned = _tp_posts | where: 'pinned', true -%}
+    {%- assign _score = _tp_pinned.size | times: 1000 | plus: _tp_posts.size | plus: 1000000 -%}
     {%- assign _entry = _score | append: '~' | append: _tp -%}
     {%- assign _scored_topics = _scored_topics | push: _entry -%}
   {%- endfor -%}

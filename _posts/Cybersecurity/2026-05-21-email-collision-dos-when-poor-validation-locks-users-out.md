@@ -22,7 +22,7 @@ keywords:
   - password reset misdirection
   - input validation
   - email change security
-featured: true
+pinned: true
 ---
 
 Account lockout does not always require brute force or stolen credentials. A missing uniqueness check on the email update endpoint is enough. This is what I found in a cloud portal.

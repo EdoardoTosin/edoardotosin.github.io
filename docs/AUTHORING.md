@@ -22,7 +22,7 @@ keywords: [webpack, vite]
 author:
   - john-doe
 
-featured: false
+pinned: false
 video: false
 gallery: false
 download_url: 'https://example.com/gallery/my-album'

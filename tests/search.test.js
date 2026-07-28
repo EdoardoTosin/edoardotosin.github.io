@@ -213,8 +213,7 @@ describe('parseQuery - filter atoms', () => {
       kind: 'before',
       date: new Date(2024, 11, 31, 23, 59, 59, 999),
     }));
-  test('is:featured → featured field', () =>
-    expect(parseQuery('is:featured')).toEqual({ op: 'field', kind: 'featured' }));
+  test('is:pinned → pinned field', () => expect(parseQuery('is:pinned')).toEqual({ op: 'field', kind: 'pinned' }));
   test('is:post → istype field', () =>
     expect(parseQuery('is:post')).toEqual({ op: 'field', kind: 'istype', value: 'post' }));
   test('has:image → hasimage field', () => expect(parseQuery('has:image')).toEqual({ op: 'field', kind: 'hasimage' }));
@@ -242,7 +241,7 @@ function makeDoc(f) {
     url: (f.url || '').toLowerCase(),
     text: text,
     date: f.date_iso ? new Date(f.date_iso) : null,
-    featured: !!f.featured,
+    pinned: !!f.pinned,
     image: f.image || '',
     wordCount: f.word_count || 0,
     readingTime: f.reading_time || 0,
@@ -322,8 +321,8 @@ describe('evaluate - boolean matching', () => {
   });
 
   test('is/has filters', () => {
-    expect(match('is:featured', { featured: true })).toBe(true);
-    expect(match('is:featured', { featured: false })).toBe(false);
+    expect(match('is:pinned', { pinned: true })).toBe(true);
+    expect(match('is:pinned', { pinned: false })).toBe(false);
     expect(match('is:post', { type: 'post' })).toBe(true);
     expect(match('is:video', { type: 'post' })).toBe(false);
     expect(match('has:image', { image: '/x.png' })).toBe(true);
@@ -411,8 +410,8 @@ describe('evaluate - negation edge cases', () => {
   });
 
   test('negated boolean filter', () => {
-    expect(match('-is:featured', { featured: true })).toBe(false);
-    expect(match('-is:featured', { featured: false })).toBe(true);
+    expect(match('-is:pinned', { pinned: true })).toBe(false);
+    expect(match('-is:pinned', { pinned: false })).toBe(true);
   });
 });
 
@@ -431,8 +430,8 @@ describe('evaluate - combined operators', () => {
   });
 
   test('field-only query (no free-text terms)', () => {
-    expect(match('topic:alpha is:featured', { topic: 'alpha', featured: true })).toBe(true);
-    expect(match('topic:alpha is:featured', { topic: 'alpha', featured: false })).toBe(false);
+    expect(match('topic:alpha is:pinned', { topic: 'alpha', pinned: true })).toBe(true);
+    expect(match('topic:alpha is:pinned', { topic: 'alpha', pinned: false })).toBe(false);
   });
 });
 

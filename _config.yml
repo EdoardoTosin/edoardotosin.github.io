@@ -195,6 +195,18 @@ feed:
   icon: /images/avatar.webp
   logo: /images/social-preview.png
 
+# PWA web app manifest (manifest.json)
+manifest:
+  shortcuts:
+    - name:        "Archive"
+      short_name:  "Archive"
+      description: "Browse all posts"
+      url:         "/archive/"
+    - name:        "Search"
+      short_name:  "Search"
+      description: "Search posts"
+      url:         "/?q="
+
 sass:
   sass_dir: _sass
   style: compressed

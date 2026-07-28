@@ -2,6 +2,7 @@
 layout: null
 permalink: /manifest.json
 ---
+{%- assign mf = site.manifest -%}
 {
   "name": {{ site.title | jsonify }},
   "short_name": {{ site.short_name | default: site.title | jsonify }},
@@ -35,31 +36,20 @@ permalink: /manifest.json
     }
   ],
   "shortcuts": [
-    {
-      "name": "Archive",
-      "short_name": "Archive",
-      "description": "Browse all posts",
-      "url": "{{ '/archive/' | relative_url }}",
-      "icons": [
-        {
-          "src": "{{ site.logo | relative_url }}",
-          "sizes": "256x256",
-          "type": "image/png"
-        }
-      ]
-    },
-    {
-      "name": "Search",
-      "short_name": "Search",
-      "description": "Search posts",
-      "url": "{{ '/?q=' | relative_url }}",
-      "icons": [
-        {
-          "src": "{{ site.logo | relative_url }}",
-          "sizes": "256x256",
-          "type": "image/png"
-        }
-      ]
-    }
+    {%- for shortcut in mf.shortcuts -%}
+      {
+        "name": {{ shortcut.name | jsonify }},
+        "short_name": {{ shortcut.short_name | default: shortcut.name | jsonify }},
+        "description": {{ shortcut.description | jsonify }},
+        "url": {{ shortcut.url | relative_url | jsonify }},
+        "icons": [
+          {
+            "src": "{{ site.logo | relative_url }}",
+            "sizes": "256x256",
+            "type": "image/png"
+          }
+        ]
+      }{% unless forloop.last %},{% endunless %}
+    {%- endfor -%}
   ]
 }

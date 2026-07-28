@@ -317,6 +317,25 @@ feed:
 - `path`: URL path of the feed file. Defaults to `feed.xml`. Referenced in templates to build the feed link.
 - `posts_limit`, `icon`, `logo`: consumed directly by the `jekyll-feed` gem. `posts_limit` caps the number of entries; `icon` is a small square image shown by feed readers; `logo` is a wide banner image.
 
+## PWA Manifest
+
+```yaml
+manifest:
+  shortcuts:
+    - name: 'Archive'
+      short_name: 'Archive'
+      description: 'Browse all posts'
+      url: '/archive/'
+    - name: 'Search'
+      short_name: 'Search'
+      description: 'Search posts'
+      url: '/?q='
+```
+
+Controls `manifest.json`, the web app manifest used when the site is installed as a PWA. `name`, `short_name`, `description`, and `lang` come from the top-level site settings above and aren't repeated here. `theme_color` and `background_color` are fixed to the site's brand colors and aren't configurable here.
+
+- `shortcuts`: right-click/long-press jump links on the installed app icon. Each entry needs `name` and `url`; `short_name` falls back to `name`, and all shortcuts reuse `logo` as their icon. Set to an empty list to omit shortcuts entirely.
+
 ## Reading Time
 
 ```yaml

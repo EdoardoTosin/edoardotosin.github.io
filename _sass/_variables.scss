@@ -100,6 +100,7 @@ $z-skip: 9999;
   --color-error: #dc2626;
   --color-error-subtle: rgba(239, 68, 68, 0.1);
   --color-error-border: rgba(239, 68, 68, 0.3);
+  --text-on-error: #ffffff;
 
   --color-success: #14753a; // 5.78:1 on bg-card
   --color-success-subtle: rgba(74, 222, 128, 0.12);
@@ -415,6 +416,7 @@ $z-skip: 9999;
   --color-error: #f87171;
   --color-error-subtle: rgba(239, 68, 68, 0.12);
   --color-error-border: rgba(239, 68, 68, 0.25);
+  --text-on-error: #0f172a;
 
   --color-success: #4ade80;
   --color-success-subtle: rgba(74, 222, 128, 0.1);

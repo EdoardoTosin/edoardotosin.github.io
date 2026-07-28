@@ -864,7 +864,7 @@
 
   &--video {
     background: var(--color-error);
-    color: #fff !important;
+    color: var(--text-on-error) !important;
   }
   &--gallery {
     background: var(--accent);

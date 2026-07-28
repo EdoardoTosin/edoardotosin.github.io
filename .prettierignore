@@ -11,4 +11,5 @@ assets/js/mathjax-tex-chtml.js
 _config.yml
 _includes/head.html
 _layouts/default.html
+search.json
 sw.js

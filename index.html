@@ -129,7 +129,7 @@ description: "Posts covering software development, security research, Linux, ope
     {%- assign buffer_limit = recent_limit | plus: pl -%}
     {%- assign candidate_posts = site.posts | slice: 0, buffer_limit -%}
     {%- assign shown_count = 0 -%}
-    <div class="posts-grid" id="posts-grid">
+    <div class="posts-grid" id="posts-grid" data-trim-orphans>
       {%- comment -%} Pinned first (newest to oldest), then non-pinned (newest to oldest) - same ordering as pinned/unpinned tweets {%- endcomment -%}
       {%- for post in pinned -%}
         {% include post-card.html post=post pinned=true eager=forloop.first %}

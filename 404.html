@@ -25,7 +25,7 @@ robots: "noindex, follow"
 
     <section class="error-page__recent" aria-labelledby="error-recent-heading">
       <h2 id="error-recent-heading" class="error-page__recent-title">Recent Posts</h2>
-      <div class="posts-grid">
+      <div class="posts-grid" data-trim-orphans>
         {%- for post in site.posts limit: 3 -%}
           {% include post-card.html post=post %}
         {%- endfor -%}

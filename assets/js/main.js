@@ -879,9 +879,9 @@
     });
   }
 
-  // Trim incomplete trailing grid row (e.g. 9 cards at 2 columns leaves 1 orphaned)
+  // Trim incomplete trailing grid row; opt-in so a full listing like /blog/ never loses a real post to it
   function initGridTrim() {
-    const grid = qs('#posts-grid');
+    const grid = qs('[data-trim-orphans]');
     if (!grid) return;
 
     function trim() {

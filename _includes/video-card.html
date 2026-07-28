@@ -1,0 +1,32 @@
+{%- assign _post = include.post -%}
+{%- assign _heading = include.heading | default: 'h3' -%}
+
+<article class="video-card">
+  <a href="{{ _post.url | relative_url }}" class="video-card__thumb" aria-hidden="true" tabindex="-1">
+    <img
+      src="{{ _post.image | default: '/images/social-preview.jpg' | relative_url }}"
+      alt=""
+      loading="lazy"
+      width="480"
+      height="270"
+    >
+    <div class="video-card__play" aria-hidden="true">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        aria-hidden="true"
+      >
+        <path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/>
+      </svg>
+    </div>
+  </a>
+  <div class="video-card__body">
+    <{{ _heading }} class="video-card__title">
+      <a href="{{ _post.url | relative_url }}">{{ _post.title }}</a>
+    </{{ _heading }}>
+    <p class="video-card__date">{{ _post.date | date: '%d %b %Y' }}</p>
+  </div>
+</article>

@@ -1,7 +1,7 @@
 ---
 permalink: /projects/
 layout: page
-title: Projects Portfolio
+title: Projects
 description: 'Open-source projects spanning CLI tools, browser extensions, computer vision, satellite imagery analysis, and web security utilities.'
 ---
 

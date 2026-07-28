@@ -255,10 +255,41 @@ $z-skip: 9999;
   }
 }
 
-@mixin widget-section-title {
+// A padding-bottom below the text (e.g. a divider) skews the centering - use heading-accent-bar-flex there instead.
+@mixin heading-accent-bar($width: 4px, $height: 70%, $gap: $sp-4) {
+  position: relative;
+  padding-left: $gap;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: $width;
+    height: $height;
+    background: var(--accent);
+    border-radius: $r-full;
+  }
+}
+
+// Centers against the text's line box instead, so it's correct even with a divider below it.
+@mixin heading-accent-bar-flex($width: 3px, $height: 12px, $gap: $sp-2) {
   display: flex;
   align-items: center;
-  gap: $sp-2;
+  gap: $gap;
+
+  &::before {
+    content: '';
+    flex-shrink: 0;
+    width: $width;
+    height: $height;
+    background: var(--accent);
+    border-radius: $r-full;
+  }
+}
+
+@mixin widget-section-title {
   font-size: $fs-md;
   font-weight: 700;
   text-transform: uppercase;
@@ -268,14 +299,7 @@ $z-skip: 9999;
   padding-bottom: $sp-3;
   border-bottom: 1px solid var(--border);
 
-  &::before {
-    content: '';
-    flex-shrink: 0;
-    width: 14px;
-    height: 3px;
-    border-radius: $r-full;
-    background: var(--accent);
-  }
+  @include heading-accent-bar-flex;
 }
 
 // High contrast overlay (explicit toggle or OS prefers-contrast: more)

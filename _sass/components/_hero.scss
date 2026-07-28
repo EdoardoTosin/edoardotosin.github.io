@@ -168,20 +168,7 @@
     font-size: 1.5rem;
     font-weight: 800;
     color: var(--text-primary);
-    position: relative;
-    padding-left: $sp-4;
-
-    &::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 4px;
-      height: 70%;
-      background: var(--accent);
-      border-radius: $r-full;
-    }
+    @include heading-accent-bar;
   }
 
   &__link {

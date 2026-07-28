@@ -38,7 +38,6 @@ This site is built with Jekyll and the following open-source tools and resources
 - **[Rouge](https://github.com/rouge-ruby/rouge)** - Syntax highlighting for code blocks
 - **[jekyll-feed](https://github.com/jekyll/jekyll-feed)** - RSS feed at `/feed.xml`
 - **[jekyll-sitemap](https://github.com/jekyll/jekyll-sitemap)** - `sitemap.xml` for search engines
-- **[jekyll-paginate-v2](https://github.com/sverrirs/jekyll-paginate-v2)** - Blog pagination
 
 ---
 

@@ -66,6 +66,17 @@ body {
   min-height: 100dvh;
 }
 
+// No return-to-start keyframe: the ring only expands and fades, never shrinks back.
+@keyframes pulse-dot {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 45%, transparent);
+  }
+  70%,
+  100% {
+    box-shadow: 0 0 0 7px transparent;
+  }
+}
+
 .site-main {
   flex: 1 0 auto;
 }

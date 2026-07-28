@@ -2,8 +2,6 @@
 layout: default
 title: Home
 description: "Posts covering software development, security research, Linux, open source, bug bounty, and astrophotography."
-pagination:
-  enabled: true
 ---
 {%- assign hp = site.homepage -%}
 
@@ -117,105 +115,33 @@ pagination:
       </div>
     </div>
 
-    <div class="blog__body">
-      <div class="blog__main">
-        <div class="posts-grid" id="posts-grid">
-          {%- for post in paginator.posts -%}
+    {%- assign pl = hp.pinned_limit | default: 3 | plus: 0 -%}
+    {%- assign _pin_src = hp.pinned_source | default: 'front_matter' -%}
+    {%- if _pin_src == 'collection' and site.pinned -%}
+      {%- assign pinned = site.pinned | slice: 0, pl -%}
+    {%- else -%}
+      {%- assign all_pinned = site.posts | where: 'pinned', true -%}
+      {%- assign pinned = all_pinned | slice: 0, pl -%}
+    {%- endif -%}
+    {%- assign pinned_urls = pinned | map: 'url' -%}
+
+    {%- assign recent_limit = hp.recent_limit | default: 6 | plus: 0 -%}
+    {%- assign buffer_limit = recent_limit | plus: pl -%}
+    {%- assign candidate_posts = site.posts | slice: 0, buffer_limit -%}
+    {%- assign shown_count = 0 -%}
+    <div class="posts-grid" id="posts-grid">
+      {%- comment -%} Pinned first (newest to oldest), then non-pinned (newest to oldest) - same ordering as pinned/unpinned tweets {%- endcomment -%}
+      {%- for post in pinned -%}
+        {% include post-card.html post=post pinned=true eager=forloop.first %}
+      {%- endfor -%}
+      {%- for post in candidate_posts -%}
+        {%- unless pinned_urls contains post.url -%}
+          {%- if shown_count < recent_limit -%}
             {% include post-card.html post=post %}
-          {%- endfor -%}
-        </div>
-
-        {%- if paginator.total_pages > 1 and paginator.next_page -%}
-          <div class="load-more-wrap">
-            <button
-              class="btn btn--ghost"
-              id="load-more"
-              data-total-pages="{{ paginator.total_pages }}"
-            >
-              Load More
-            </button>
-          </div>
-        {%- endif -%}
-      </div>
-
-      <div
-        class="blog__aside{% if hp.sticky_sidebar != false %} is-sticky{% endif %}"
-        aria-label="Blog sidebar"
-      >
-        {%- assign fl = hp.featured_limit | default: 3 | plus: 0 -%}
-        {%- assign _feat_src = hp.featured_source | default: 'front_matter' -%}
-        {%- if _feat_src == 'collection' and site.featured -%}
-          {%- assign featured = site.featured | slice: 0, fl -%}
-        {%- else -%}
-          {%- assign all_featured = site.posts | where: 'featured', true -%}
-          {%- assign featured = all_featured | slice: 0, fl -%}
-        {%- endif -%}
-        {%- if featured.size > 0 -%}
-          <div class="blog-widget">
-            <h3 class="blog-widget__title">Featured Posts</h3>
-            <div class="featured-list">
-              {%- for post in featured -%}
-                <div class="featured-item">
-                  <div class="featured-item__img" aria-hidden="true">
-                    <img
-                      src="{{ post.image | default: '/images/social-preview.jpg' | relative_url }}"
-                      alt=""
-                      loading="lazy"
-                      width="60"
-                      height="50"
-                    >
-                  </div>
-                  <div class="featured-item__content">
-                    <h4 class="featured-item__title">
-                      <a href="{{ post.url | relative_url }}" title="{{ post.title | escape }}">{{ post.title }}</a>
-                    </h4>
-                    <time
-                      class="featured-item__date"
-                      datetime="{{ post.date | date_to_xmlschema }}"
-                    >
-                      {{ post.date | date: '%d %b %Y' }}
-                    </time>
-                  </div>
-                </div>
-              {%- endfor -%}
-            </div>
-          </div>
-        {%- endif -%}
-
-        {%- assign tl = hp.topics_limit | default: 6 -%}
-        {%- assign all_topics = site.posts | map: 'topic' | compact | uniq | sort -%}
-        {%- if all_topics.size > 0 -%}
-          <div class="blog-widget">
-            <h3 class="blog-widget__title">Topics</h3>
-            <div class="widget-tags">
-              {%- assign _padded = '' -%}
-              {%- for tp in all_topics -%}
-                {%- assign _cnt = site.posts | where: 'topic', tp | size | plus: 10000 -%}
-                {%- assign _entry = _cnt | append: '~' | append: tp -%}
-                {%- assign _padded = _padded | append: _entry | append: '|' -%}
-              {%- endfor -%}
-              {%- assign _sorted_topics = _padded | split: '|' | sort | reverse -%}
-              {%- assign shown = 0 -%}
-              {%- for _s in _sorted_topics -%}
-                {%- if shown < tl and _s != '' -%}
-                  {%- assign _parts = _s | split: '~' -%}
-                  {%- assign _tp_name = _parts[1] -%}
-                  {%- if _tp_name and _tp_name != '' -%}
-                    <a
-                      href="{{ '/topics/?topic=' | append: _tp_name | relative_url }}"
-                      class="tag-pill"
-                      data-topic="{{ _tp_name | downcase | escape }}"
-                    >
-                      {{- _tp_name | downcase -}}
-                    </a>
-                    {%- assign shown = shown | plus: 1 -%}
-                  {%- endif -%}
-                {%- endif -%}
-              {%- endfor -%}
-            </div>
-          </div>
-        {%- endif -%}
-      </div>
+            {%- assign shown_count = shown_count | plus: 1 -%}
+          {%- endif -%}
+        {%- endunless -%}
+      {%- endfor -%}
     </div>
   </div>
 </section>

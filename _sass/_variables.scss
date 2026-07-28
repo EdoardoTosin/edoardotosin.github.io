@@ -255,6 +255,16 @@ $z-skip: 9999;
   }
 }
 
+@mixin pulse-dot($size: 6px) {
+  content: '';
+  flex-shrink: 0;
+  width: $size;
+  height: $size;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: pulse-dot 2s ease-out infinite;
+}
+
 // A padding-bottom below the text (e.g. a divider) skews the centering - use heading-accent-bar-flex there instead.
 @mixin heading-accent-bar($width: 4px, $height: 70%, $gap: $sp-4) {
   position: relative;

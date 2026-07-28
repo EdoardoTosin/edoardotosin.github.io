@@ -138,10 +138,10 @@ homepage:
   show_hero: false
   enable_blog_toggle: true
   sticky_sidebar: true
-  posts_per_page: 4
+  recent_limit: 6
 
-  featured_source: 'front_matter'
-  featured_limit: 3
+  pinned_source: 'front_matter'
+  pinned_limit: 3
 
   topics_limit: 6
 
@@ -156,18 +156,18 @@ homepage:
 
 - `show_hero`: set to `true` to show an avatar/name intro section above the blog feed, using the `hero_*` fields under `author:`. Off by default.
 - `enable_blog_toggle`: show the grid/list view switch on the blog feed
-- `sticky_sidebar`: keep the sidebar fixed while scrolling
-- `posts_per_page`: number of posts shown initially on the homepage (mobile always shows at most 3)
-- `featured_source`: how featured posts are selected. `front_matter` uses posts with `featured: true` in their front matter.
-- `featured_limit`: max posts shown in the Featured Posts sidebar widget
-- `topics_limit`: max topics shown in the Topics sidebar widget
-- `show_topic_clusters`: set to `false` to hide the Featured Topics section
+- `sticky_sidebar`: keep the `/blog/` sidebar fixed while scrolling
+- `recent_limit`: number of recent posts shown on the homepage
+- `pinned_source`: how pinned posts are selected. `front_matter` uses posts with `pinned: true` in their front matter.
+- `pinned_limit`: max posts shown in the homepage's pinned row and the `/blog/` sidebar's Pinned widget
+- `topics_limit`: max topics shown in the `/blog/` sidebar's Topics widget
+- `show_topic_clusters`: set to `false` to hide the Topics section
 - `video_source`: how video posts are selected. `front_matter` uses posts with `video: true` in their front matter.
 - `videos_limit`: max video posts shown in the homepage Videos section
 - `gallery_source`: how gallery posts are selected. `front_matter` uses posts with `gallery: true` in their front matter.
 - `gallery_limit`: max gallery posts shown in the homepage Gallery section
 
-The Featured Topics section selects topics automatically, ordered by the number of featured posts then total posts per topic. Up to four topics are shown, one per grid column.
+The Topics section selects topics automatically, ordered by the number of pinned posts then total posts per topic. Up to four topics are shown, one per grid column.
 
 ## Topic Colors
 

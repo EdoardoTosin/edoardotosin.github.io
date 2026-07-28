@@ -130,7 +130,7 @@ homepage:
   show_hero:          false # avatar/name intro section above the blog feed
   enable_blog_toggle: true   # grid/list toggle on the blog feed
   sticky_sidebar:     true
-  posts_per_page:     4
+  recent_limit:       6
 
   pinned_source: "front_matter"
   pinned_limit:  3
@@ -188,15 +188,6 @@ kramdown:
 plugins:
   - jekyll-feed
   - jekyll-sitemap
-  - jekyll-paginate-v2
-
-pagination:
-  enabled:      true
-  per_page:     6
-  permalink:    "/_pagination/homepage/:num/"
-  title:        ":title - page :num"
-  sort_field:   "date"
-  sort_reverse: true
 
 feed:
   path: feed.xml

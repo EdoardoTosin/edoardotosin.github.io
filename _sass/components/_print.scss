@@ -60,7 +60,6 @@
   .contact-social,
   .save-offline-btn,
   .view-toggle,
-  .load-more-wrap,
   .comments,
   .webmentions,
   .post-backlinks,
@@ -486,6 +485,10 @@
 
   .hero__content {
     max-width: 100% !important;
+  }
+
+  .post-card__pinned-label {
+    display: none !important;
   }
 
   .post-card {

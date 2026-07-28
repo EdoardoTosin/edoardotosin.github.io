@@ -27,6 +27,11 @@
     });
   }
 
+  function safeUrl(url) {
+    const s = String(url || '');
+    return /^https?:\/\/|^\//.test(s) ? s : '';
+  }
+
   function formatDate(iso) {
     if (!iso) return '';
     try {
@@ -49,7 +54,7 @@
       .map(function (m) {
         const author = m.author || {};
         const name = escHtml(author.name || 'Anonymous');
-        const url = escHtml(author.url || m.url || '#');
+        const url = escHtml(safeUrl(author.url || m.url) || '#');
         const photo = author.photo;
         if (photo) {
           return (
@@ -101,7 +106,7 @@
       .map(function (m) {
         const author = m.author || {};
         const name = escHtml(author.name || 'Anonymous');
-        const url = escHtml(m.url || '#');
+        const url = escHtml(safeUrl(m.url) || '#');
         const date = formatDate(m.published || m['wm-received']);
         const content = m.content ? escHtml((m.content.text || m.content.html || '').slice(0, 500)) : '';
         const photo = author.photo;
@@ -119,7 +124,7 @@
           '<article class="webmentions__reply">' +
           '<header class="webmentions__reply-header">' +
           '<a href="' +
-          escHtml(author.url || url) +
+          (author.url ? escHtml(safeUrl(author.url)) || url : url) +
           '" target="_blank" rel="noopener noreferrer" class="webmentions__reply-avatar" aria-label="' +
           name +
           '">' +
@@ -127,7 +132,7 @@
           '</a>' +
           '<div class="webmentions__reply-meta">' +
           '<a href="' +
-          escHtml(author.url || url) +
+          (author.url ? escHtml(safeUrl(author.url)) || url : url) +
           '" target="_blank" rel="noopener noreferrer" class="webmentions__reply-name">' +
           name +
           '</a>' +

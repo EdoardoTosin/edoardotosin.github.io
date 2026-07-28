@@ -729,13 +729,13 @@
             '<img src="' +
             escHtml(p.image) +
             '" alt="" loading="eager" width="72" height="48">' +
-            '<div>' +
+            '<div class="search-overlay__result-body">' +
             '<h4>' +
             pinBadge +
             highlightTerms(p.title, rawTerms) +
             typeBadge +
             '</h4>' +
-            '<span>' +
+            '<span class="search-overlay__result-snippet">' +
             sub +
             '</span>' +
             '</div>' +

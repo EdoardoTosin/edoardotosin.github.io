@@ -491,6 +491,11 @@
     display: none !important;
   }
 
+  // A layout-only fix for incomplete grid rows on screen; every post must still print
+  .is-row-orphan {
+    display: block !important;
+  }
+
   .post-card {
     background: transparent !important;
     border: none !important;

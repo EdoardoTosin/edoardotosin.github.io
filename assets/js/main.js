@@ -879,6 +879,43 @@
     });
   }
 
+  // Trim incomplete trailing grid row (e.g. 9 cards at 2 columns leaves 1 orphaned)
+  function initGridTrim() {
+    const grid = qs('#posts-grid');
+    if (!grid) return;
+
+    function trim() {
+      const cards = Array.from(qsa('.post-card', grid));
+      cards.forEach(function (c) {
+        c.classList.remove('is-row-orphan');
+      });
+      if (cards.length < 2) return;
+
+      const firstTop = cards[0].offsetTop;
+      let cols = 0;
+      for (let i = 0; i < cards.length; i++) {
+        if (cards[i].offsetTop !== firstTop) break;
+        cols++;
+      }
+      if (cols <= 1) return;
+
+      const remainder = cards.length % cols;
+      if (remainder === 0) return;
+
+      cards.slice(cards.length - remainder).forEach(function (c) {
+        c.classList.add('is-row-orphan');
+      });
+    }
+
+    trim();
+    window.addEventListener('resize', trim, { passive: true });
+    qsa('.view-toggle__btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        requestAnimationFrame(trim);
+      });
+    });
+  }
+
   // Share copy-link
   function initShareCopy() {
     qsa('[data-share="copy"]').forEach(function (btn) {
@@ -1323,6 +1360,7 @@
     initPrintLazyImages();
     initReadingProgress();
     initBlogToggle();
+    initGridTrim();
     initShareCopy();
     initNewsletterBtns();
     initHeadingCopy();

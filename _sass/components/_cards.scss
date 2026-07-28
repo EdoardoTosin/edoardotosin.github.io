@@ -214,6 +214,11 @@
   }
 }
 
+// Set by initGridTrim() in main.js to hide a lone leftover card in an incomplete row
+.is-row-orphan {
+  display: none;
+}
+
 // Pinned item (compact row, used in the blog sidebar widget)
 .pinned-list {
   display: flex;

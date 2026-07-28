@@ -14,7 +14,7 @@ permalink: /manifest.json
   "orientation": "any",
   "background_color": "#0f1117",
   "theme_color": "#4ade80",
-  "categories": ["blog", "education", "technology"],
+  "categories": ["technology", "security", "blog"],
   "icons": [
     {
       "src": "{{ site.logo | relative_url }}",

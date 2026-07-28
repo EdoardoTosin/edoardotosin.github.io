@@ -32,7 +32,7 @@
   </div>
 
   <div class="post-card__body">
-    {%- if include.pinned -%}
+    {%- if include.pinned or _post.pinned -%}
       <span class="post-card__pinned-label">Pinned</span>
     {%- endif -%}
     <h2 class="post-card__title" itemprop="headline">

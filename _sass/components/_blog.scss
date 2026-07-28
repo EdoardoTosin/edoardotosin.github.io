@@ -241,6 +241,12 @@ html[data-blog-view='list'] .posts-grid,
     font-size: $fs-md;
   }
 
+  // Compact the pinned label so a pinned row still fits the 200px cap above.
+  .post-card__pinned-label {
+    margin-bottom: 0;
+    font-size: $fs-2xs;
+  }
+
   // Collapse to stack layout on narrow screens
   @media (max-width: #{$bp-sm}) {
     grid-template-columns: 1fr !important;

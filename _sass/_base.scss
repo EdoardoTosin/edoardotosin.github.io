@@ -193,7 +193,7 @@ i {
   color: var(--text-on-accent);
 }
 
-// Listing transform here too stops this higher-specificity rule from clobbering hover-zoom transitions.
+// transform is listed here too so this higher-specificity rule doesn't clobber hover-zoom transitions.
 .js img[loading='lazy'] {
   opacity: 0;
   transition:
@@ -260,7 +260,6 @@ i {
   max-width: 100%;
 }
 
-// Global overflow containment
 .section,
 .page-content,
 .filter-page,

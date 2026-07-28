@@ -1,6 +1,5 @@
 @use 'variables' as *;
 
-// 404 error page
 .error-page {
   padding: clamp(#{$sp-12}, 7vw, #{$sp-20}) 0 clamp(#{$sp-10}, 6vw, #{$sp-16});
   overflow-x: hidden;
@@ -92,7 +91,7 @@
   }
 }
 
-// breakpoints - clamp() covers scaling; these handle structural layout changes
+// clamp() above handles size scaling; this handles the layout switch to stacked buttons
 @media (max-width: 480px) {
   .error-page__links {
     flex-direction: column;

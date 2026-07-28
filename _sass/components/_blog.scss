@@ -82,7 +82,7 @@
   }
 }
 
-// View toggle active-state override (list restore)
+// Restores the grid button to its inactive style once list view is selected
 html[data-blog-view='list'] .view-toggle__btn[data-view='grid'].is-active {
   background: transparent;
   color: var(--text-secondary);
@@ -266,6 +266,7 @@ html[data-blog-view='list'] .posts-grid,
   transition: none;
 
   .post-card {
+    // flex-direction/max-height at 0s so the grid<->list switch snaps instantly
     transition:
       transform $t-base-p,
       box-shadow $t-base-p,

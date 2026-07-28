@@ -54,7 +54,7 @@ $content-measure: 74ch;
 // Transitions
 $t-fast: all 0.15s ease;
 $t-base: all 0.25s ease;
-// Per-property variants: no 'all' prefix, safe in multi-value transition lists
+// No 'all' prefix - safe to combine in multi-value transition lists
 $t-fast-p: 0.15s ease;
 $t-base-p: 0.25s ease;
 $t-img-p: 0.4s ease-in-out;
@@ -83,7 +83,7 @@ $z-overlay: 200;
 $z-overlay-top: 210;
 $z-skip: 9999;
 
-// Light mode (default)
+// :root holds the light-mode values directly; [data-theme='dark'] below overrides them.
 :root {
   color-scheme: light dark;
   --accent: #4ade80;
@@ -393,7 +393,7 @@ $z-skip: 9999;
   --shadow-hover: 0 0 0 2px #ffffff;
 }
 
-// Explicit light mode
+// Keeps native UI (scrollbars, form controls) light even if the OS itself prefers dark.
 [data-theme='light'] {
   color-scheme: light;
 }

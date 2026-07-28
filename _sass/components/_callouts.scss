@@ -253,7 +253,6 @@
 }
 
 // Type modifiers
-// IMPORTANT uses 4px border for extra visual weight.
 .callout--note {
   --callout-color: var(--callout-note-border);
   border-color: var(--callout-note-border);
@@ -280,6 +279,7 @@
   }
 }
 
+// Extra-thick border for added visual weight
 .callout--important {
   --callout-color: var(--callout-important-title);
   border-color: var(--callout-important-border);

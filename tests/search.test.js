@@ -8,6 +8,8 @@ const {
   parseNumericFilter,
   fieldMatch,
   evaluate,
+  safeUrl,
+  renderHits,
 } = require('../assets/js/search.js');
 
 describe('stem', () => {
@@ -501,5 +503,74 @@ describe('parseQuery - malformed input never throws', () => {
   test('all-stopword or sub-token query yields a null AST (matches all)', () => {
     expect(parseQuery('the is a')).toBeNull();
     expect(parseQuery('x')).toBeNull();
+  });
+});
+
+describe('safeUrl', () => {
+  test('allows a site-relative path', () => expect(safeUrl('/blog/my-post')).toBe('/blog/my-post'));
+  test('allows an absolute http(s) URL', () => expect(safeUrl('https://example.com/x')).toBe('https://example.com/x'));
+  test('rejects a javascript: URL', () => expect(safeUrl('javascript:alert(1)')).toBe(''));
+  test('rejects a bare word with no leading slash or scheme', () => expect(safeUrl('example.com')).toBe(''));
+  test('rejects undefined/null', () => {
+    expect(safeUrl(undefined)).toBe('');
+    expect(safeUrl(null)).toBe('');
+  });
+});
+
+describe('renderHits', () => {
+  function hit(f) {
+    return {
+      type: 'post',
+      pinned: false,
+      url: '/blog/example',
+      image: '/images/example.jpg',
+      title: 'Example title',
+      date: '01 Jan 2026',
+      description: 'An example description.',
+      ...f,
+    };
+  }
+
+  test('post-type hit gets no type badge', () => {
+    const html = renderHits([hit({ type: 'post' })], '', []);
+    expect(html).not.toContain('search-overlay__result-badge');
+  });
+
+  test('video-type hit gets a video badge', () => {
+    const html = renderHits([hit({ type: 'video' })], '', []);
+    expect(html).toContain('search-overlay__result-badge search-overlay__result-badge--video');
+    expect(html).toContain('>video<');
+  });
+
+  test('gallery-type hit gets a gallery badge', () => {
+    const html = renderHits([hit({ type: 'gallery' })], '', []);
+    expect(html).toContain('search-overlay__result-badge--gallery');
+  });
+
+  test('pinned hit gets the pin badge, non-pinned does not', () => {
+    const pinned = renderHits([hit({ pinned: true })], '', []);
+    const unpinned = renderHits([hit({ pinned: false })], '', []);
+    expect(pinned).toContain('search-overlay__result-pinned');
+    expect(unpinned).not.toContain('search-overlay__result-pinned');
+  });
+
+  test('escapes title and url instead of injecting raw HTML', () => {
+    const html = renderHits([hit({ title: '<script>x</script>', url: '/blog/<script>' })], '', []);
+    expect(html).not.toContain('<script>x</script>');
+    expect(html).not.toContain('href="/blog/<script>"');
+  });
+
+  test('falls back to the date when there is no query and no description', () => {
+    const html = renderHits([hit({ description: '', date: '05 May 2026' })], '', []);
+    expect(html).toContain('05 May 2026');
+  });
+
+  test('multiple hits are concatenated with no separator between them', () => {
+    const html = renderHits([hit({ url: '/a' }), hit({ url: '/b' })], '', []);
+    expect(html.match(/search-overlay__result-item/g)).toHaveLength(2);
+  });
+
+  test('empty hits array renders an empty string', () => {
+    expect(renderHits([], '', [])).toBe('');
   });
 });

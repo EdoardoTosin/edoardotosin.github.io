@@ -883,10 +883,22 @@
   @include line-clamp(1);
 }
 
+// Same pulse-dot + label as .post-card__pinned-label - pinned is a status, not a type badge
 .search-overlay__result-pinned {
-  color: var(--accent);
-  margin-right: $sp-1;
-  font-size: $fs-sm;
+  display: inline-flex;
+  align-items: center;
+  gap: $sp-1;
+  margin-right: $sp-2;
+  font-size: $fs-2xs;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent-text);
+  vertical-align: middle;
+
+  &::before {
+    @include pulse-dot(6px);
+  }
 }
 
 // Search history chips

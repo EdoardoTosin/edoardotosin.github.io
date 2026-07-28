@@ -496,7 +496,7 @@
             escHtml(p.type) +
             '</span>';
         }
-        const pinBadge = p.pinned ? '<span class="search-overlay__result-pinned" aria-label="Pinned">📌</span>' : '';
+        const pinBadge = p.pinned ? '<span class="search-overlay__result-pinned">Pinned</span>' : '';
         const sub = q
           ? makeSnippet(p, rawTerms)
           : p.description

@@ -2,6 +2,10 @@
 
 $ext-link-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/%3E%3Cpolyline points='15 3 21 3 21 9'/%3E%3Cline x1='10' y1='14' x2='21' y2='3'/%3E%3C/svg%3E");
 
+$brand-twitter: #1da1f2;
+$brand-linkedin: #0a66c2;
+$brand-facebook: #1877f2;
+
 // Post hero
 .post-hero {
   position: relative;
@@ -1203,15 +1207,15 @@ $ext-link-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg
   }
 
   &--twitter:active {
-    background: #1da1f2;
+    background: $brand-twitter;
     color: #fff;
   }
   &--linkedin:active {
-    background: #0a66c2;
+    background: $brand-linkedin;
     color: #fff;
   }
   &--facebook:active {
-    background: #1877f2;
+    background: $brand-facebook;
     color: #fff;
   }
   &--twitter:active,
@@ -1222,17 +1226,17 @@ $ext-link-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg
 
   @media (hover: hover) and (pointer: fine) {
     &--twitter:hover {
-      background: #1da1f2;
+      background: $brand-twitter;
       color: #fff;
       transform: translateY(-1px);
     }
     &--linkedin:hover {
-      background: #0a66c2;
+      background: $brand-linkedin;
       color: #fff;
       transform: translateY(-1px);
     }
     &--facebook:hover {
-      background: #1877f2;
+      background: $brand-facebook;
       color: #fff;
       transform: translateY(-1px);
     }
@@ -1348,13 +1352,13 @@ $ext-link-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg
     --_disc-color: #0a0a0a;
   }
   &--twitter {
-    --_disc-color: #1da1f2;
+    --_disc-color: #{$brand-twitter};
   }
   &--x {
     --_disc-color: #000000;
   }
   &--linkedin {
-    --_disc-color: #0a66c2;
+    --_disc-color: #{$brand-linkedin};
   }
   &--github {
     --_disc-color: #181717;

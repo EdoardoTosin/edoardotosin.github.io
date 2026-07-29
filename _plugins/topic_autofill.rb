@@ -24,13 +24,15 @@ Jekyll::Hooks.register :site, :post_read do |site|
   all_entries = existing + new_entries
   site.data['topics'] = all_entries
 
-  yaml_out = "---\n"
+  quote_if_needed = lambda do |val|
+    val.match?(/[#:\[\]{}|&*!,>]/) || val.empty? ? "'#{val}'" : val
+  end
+
+  yaml_out = ''
   all_entries.each do |entry|
-    name_val = entry['name'].to_s
-    quoted_name = name_val.match?(/[#:\[\]{}|&*!,>]/) || name_val.empty? ? "'#{name_val}'" : name_val
-    color = entry['color'].to_s
-    quoted_color = color.match?(/[#:\[\]{}|&*!,>]/) || color.empty? ? "'#{color}'" : color
-    yaml_out += "- name: #{quoted_name}\n  color: #{quoted_color}\n"
+    quoted_name  = quote_if_needed.call(entry['name'].to_s)
+    quoted_color = quote_if_needed.call(entry['color'].to_s)
+    yaml_out << "- name: #{quoted_name}\n  color: #{quoted_color}\n"
   end
   File.write(topics_path, yaml_out)
 end

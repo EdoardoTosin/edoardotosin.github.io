@@ -108,9 +108,13 @@ Jekyll::Hooks.register :site, :pre_render do |site|
   topics = site.data['topics']
   next unless topics.is_a?(Array)
 
+  derived_keys = %w[subtle text_light text_dark text_on_solid].freeze
+
   topics.each do |t|
     next unless t.is_a?(Hash) && t['name'] && t['color']
+    next if derived_keys.all? { |k| t[k] } # derive() below would be a no-op here anyway
+
     derived = TopicColors.derive(t['color'])
-    derived.each { |k, v| t[k] ||= v } # only fill if not already set manually
+    derived.each { |k, v| t[k] ||= v }
   end
 end

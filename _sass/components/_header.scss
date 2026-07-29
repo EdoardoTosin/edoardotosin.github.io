@@ -155,7 +155,7 @@
     svg {
       width: 12px;
       height: 12px;
-      transition: transform 0.18s ease;
+      transition: transform $t-dropdown-p;
     }
   }
 
@@ -181,7 +181,7 @@
     visibility: hidden;
     transform: translateY(-6px);
     pointer-events: none;
-    transition-delay: 0.18s;
+    transition-delay: nth($t-dropdown-p, 1);
   }
 
   @media (hover: hover) and (pointer: fine) {
@@ -213,9 +213,9 @@
     visibility: hidden;
     transform: translateY(-6px);
     transition:
-      opacity 0.18s ease,
-      transform 0.18s ease,
-      visibility 0s linear 0.18s;
+      opacity $t-dropdown-p,
+      transform $t-dropdown-p,
+      visibility 0s linear nth($t-dropdown-p, 1);
     pointer-events: none;
     z-index: $z-dropdown;
 
@@ -346,9 +346,9 @@
   color: inherit;
   opacity: 0;
   transition:
-    opacity 0.2s ease,
-    overlay 0.2s ease allow-discrete,
-    display 0.2s ease allow-discrete;
+    opacity $t-overlay-p,
+    overlay $t-overlay-p allow-discrete,
+    display $t-overlay-p allow-discrete;
 
   &:not([open]) {
     display: none;

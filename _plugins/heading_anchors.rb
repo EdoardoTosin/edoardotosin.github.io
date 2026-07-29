@@ -24,7 +24,7 @@ Jekyll::Hooks.register [:documents], :post_render do |doc|
     id = h['id'].to_s.strip
     next if id.empty? # skip headings without a valid id
 
-    label = h.children.select { |n| n.text? }.map(&:text).join(' ').gsub(/\s+/, ' ').strip
+    label = h.children.filter_map { |n| n.text if n.text? }.join(' ').gsub(/\s+/, ' ').strip
     label = h.text.gsub(/\s+/, ' ').strip if label.empty?
     # If still empty (heading is only SVG/image), skip aria-label
     aria_label = label.empty? ? nil : "Link to section: #{label}"

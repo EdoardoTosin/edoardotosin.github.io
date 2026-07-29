@@ -18,7 +18,7 @@ Jekyll::Hooks.register [:documents], :post_render do |doc|
     id    = h['id'].to_s.strip
     next if id.empty?
     level = h.name[1].to_i
-    text  = h.children.select(&:text?).map(&:text).join(' ').gsub(/\s+/, ' ').strip
+    text  = h.children.filter_map { |n| n.text if n.text? }.join(' ').gsub(/\s+/, ' ').strip
     text  = h.text.gsub(/\s+/, ' ').strip if text.empty?
     next if text.empty?
     %(<li class="toc-item toc-item--h#{level}"><a class="toc-link" href="##{id}">#{CGI.escapeHTML(text)}</a></li>)

@@ -8,6 +8,16 @@
   function qsa(sel, root) {
     return (root || document).querySelectorAll(sel);
   }
+  function rafThrottle(fn) {
+    let rafId = null;
+    return function () {
+      if (rafId) return;
+      rafId = requestAnimationFrame(function () {
+        rafId = null;
+        fn();
+      });
+    };
+  }
   function scrollBehavior() {
     return window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth';
   }
@@ -908,7 +918,7 @@
     }
 
     trim();
-    window.addEventListener('resize', trim, { passive: true });
+    window.addEventListener('resize', rafThrottle(trim), { passive: true });
     qsa('.view-toggle__btn').forEach(function (btn) {
       btn.addEventListener('click', function () {
         requestAnimationFrame(trim);
@@ -1079,7 +1089,7 @@
       bar.setAttribute('aria-valuenow', Math.round(pct));
     }
 
-    window.addEventListener('resize', update, { passive: true });
+    window.addEventListener('resize', rafThrottle(update), { passive: true });
 
     let rafId = null;
     window.addEventListener(

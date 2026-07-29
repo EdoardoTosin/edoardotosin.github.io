@@ -3,8 +3,16 @@ module ReadingTimeFilter
 
   DEFAULT_WPM = 200
 
+  def self.cache
+    @cache ||= {}
+  end
+
   def reading_time(input)
     return "" if input.nil?
+
+    cache_key = input.to_s
+    cached = ReadingTimeFilter.cache[cache_key]
+    return cached if cached
 
     config = site_config
 
@@ -17,17 +25,22 @@ module ReadingTimeFilter
     text  = plain_text(input)
     words = text.split.size
 
-    return "0 #{second_label} #{read_text}" if words == 0
+    result =
+      if words == 0
+        "0 #{second_label} #{read_text}"
+      else
+        minutes = words.to_f / wpm
 
-    minutes = words.to_f / wpm
+        if minutes < 1
+          seconds = (minutes * 60).round
+          "#{seconds} #{second_label} #{read_text}"
+        else
+          m = minutes.ceil
+          "#{m} #{minute_label} #{read_text}"
+        end
+      end
 
-    if minutes < 1
-      seconds = (minutes * 60).round
-      "#{seconds} #{second_label} #{read_text}"
-    else
-      m = minutes.ceil
-      "#{m} #{minute_label} #{read_text}"
-    end
+    ReadingTimeFilter.cache[cache_key] = result
   end
 
   private

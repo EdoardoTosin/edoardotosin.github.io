@@ -227,6 +227,47 @@ describe('parseQuery - filter atoms', () => {
     expect(parseQuery('after:notadate')).toEqual({ op: 'term', term: stem('notadate'), raw: 'notadate' }));
 });
 
+describe('parseQuery - advanced search operator syntax', () => {
+  test('intitle: → intitle field node', () =>
+    expect(parseQuery('intitle:linux')).toEqual({ op: 'field', kind: 'intitle', value: 'linux' }));
+
+  test('inurl: → inurl field node', () =>
+    expect(parseQuery('inurl:blog')).toEqual({ op: 'field', kind: 'inurl', value: 'blog' }));
+
+  test('tags: aliases to the tag field', () =>
+    expect(parseQuery('tags:css')).toEqual({ op: 'field', kind: 'tag', value: 'css' }));
+
+  test('is: with a value other than "pinned" becomes an istype filter', () =>
+    expect(parseQuery('is:page')).toEqual({ op: 'field', kind: 'istype', value: 'page' }));
+
+  test('has: with a value other than "image" falls back to a text term', () =>
+    expect(parseQuery('has:video')).toEqual(parseQuery('video')));
+
+  test('words:/time: with a non-numeric value falls back to a text term', () =>
+    expect(parseQuery('words:abc')).toEqual(parseQuery('abc')));
+
+  test('words: with an unsupported negative value yields no match (invalid range ignored)', () =>
+    expect(parseQuery('words:-5')).toBeNull());
+
+  test('filetype: is not a supported operator and falls back to a plain text term', () =>
+    expect(parseQuery('filetype:pdf')).toEqual(parseQuery('pdf')));
+
+  test('field name is case-insensitive', () => expect(parseQuery('SITE:Linux')).toEqual(parseQuery('site:linux')));
+
+  test('trailing colon with no value falls back to a term (the field name itself)', () =>
+    expect(parseQuery('site:')).toEqual(parseQuery('site')));
+
+  test('leading colon with no field name is treated as a literal term', () =>
+    expect(parseQuery(':linux')).toEqual(parseQuery('linux')));
+
+  test('an operator inside quotes is literal phrase text, not parsed as a field', () => {
+    expect(parseQuery('"site:linux"')).toEqual({ op: 'phrase', value: 'site:linux' });
+  });
+
+  test('quotes immediately after a field colon are kept as part of the raw value, not stripped', () =>
+    expect(parseQuery('site:"linux"')).toEqual({ op: 'field', kind: 'topic', value: '"linux"' }));
+});
+
 // Doc view mirroring what scoreDoc builds.
 function makeDoc(f) {
   f = f || {};
@@ -434,6 +475,48 @@ describe('evaluate - combined operators', () => {
   test('field-only query (no free-text terms)', () => {
     expect(match('topic:alpha is:pinned', { topic: 'alpha', pinned: true })).toBe(true);
     expect(match('topic:alpha is:pinned', { topic: 'alpha', pinned: false })).toBe(false);
+  });
+});
+
+describe('evaluate - advanced combined operator queries', () => {
+  test('site + intitle + inurl exclusion + exact phrase, all together', () => {
+    const q = 'site:linux intitle:guide -inurl:archive "getting started"';
+    expect(
+      match(q, {
+        topic: 'linux',
+        title: 'Ultimate Guide',
+        url: '/blog/post',
+        text: 'a getting started tutorial in our guide',
+      }),
+    ).toBe(true);
+    expect(
+      match(q, { topic: 'linux', title: 'Ultimate Guide', url: '/archive/post', text: 'getting started guide' }),
+    ).toBe(false);
+    expect(match(q, { topic: 'linux', title: 'Ultimate Guide', url: '/blog/post', text: 'quick guide' })).toBe(false);
+  });
+
+  test('OR across site: filters', () => {
+    const q = 'site:python OR site:ruby';
+    expect(match(q, { topic: 'python' })).toBe(true);
+    expect(match(q, { topic: 'ruby' })).toBe(true);
+    expect(match(q, { topic: 'go' })).toBe(false);
+  });
+
+  test('unsupported filetype: operator has no special handling, matches as a plain text term', () => {
+    expect(match('filetype:pdf', { text: 'download the pdf filetype guide' })).toBe(true);
+    expect(match('filetype:pdf', { text: 'download the epub guide' })).toBe(false);
+  });
+
+  test('numeric range combined with a site filter', () => {
+    const q = 'words:200-800 site:linux';
+    expect(match(q, { topic: 'linux', word_count: 500 })).toBe(true);
+    expect(match(q, { topic: 'linux', word_count: 900 })).toBe(false);
+  });
+
+  test('date range combined with a site filter', () => {
+    const q = 'after:2024 before:2024 site:linux';
+    expect(match(q, { topic: 'linux', date_iso: '2024-06-01' })).toBe(true);
+    expect(match(q, { topic: 'linux', date_iso: '2025-06-01' })).toBe(false);
   });
 });
 

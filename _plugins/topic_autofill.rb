@@ -28,7 +28,7 @@ Jekyll::Hooks.register :site, :post_read do |site|
     val.match?(/[#:\[\]{}|&*!,>]/) || val.empty? ? "'#{val}'" : val
   end
 
-  yaml_out = ''
+  yaml_out = String.new
   all_entries.each do |entry|
     quoted_name  = quote_if_needed.call(entry['name'].to_s)
     quoted_color = quote_if_needed.call(entry['color'].to_s)

@@ -4,7 +4,7 @@ layout: page
 title: Privacy Policy
 description: 'Privacy policy covering data collection, third-party services, GitHub Pages hosting, Cloudflare CDN, and visitor rights.'
 date: 2023-03-01
-last_modified_at: 2026-05-29
+last_modified_at: 2026-07-31
 ---
 
 _This Privacy Policy is effective as of {{ page.last_modified_at | date: "%d %b %Y" }}_
@@ -127,16 +127,6 @@ For questions about this Privacy Policy or privacy-related concerns, please [con
 
 ---
 
-<br>
-
-<p align="center">
 By using this website, you acknowledge that you have read and understood this Privacy Policy.
-</p>
 
-<br>
-
----
-
-<sub>
 GitHub and GitHub Pages are trademarks of GitHub, Inc. Cloudflare and the Cloudflare logo are trademarks and/or registered trademarks of Cloudflare, Inc. in the United States and other jurisdictions.
-</sub>

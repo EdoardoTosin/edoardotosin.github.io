@@ -1,8 +1,8 @@
 ---
-layout: page
-title: 'Credits'
-description: 'Open-source tools, libraries, fonts, and resources used to build this website, including Jekyll, IBM Plex Sans, Outfit, JetBrains Mono, and more.'
 permalink: /credits/
+layout: page
+title: Credits
+description: 'Open-source tools, libraries, fonts, and resources used to build this website, including Jekyll, IBM Plex Sans, Outfit, JetBrains Mono, and more.'
 ---
 
 This site is built with Jekyll and the following open-source tools and resources.

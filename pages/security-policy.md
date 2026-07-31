@@ -4,10 +4,10 @@ layout: page
 title: Security Policy
 description: 'Security policy covering responsible disclosure, vulnerability reporting, and website architecture.'
 date: 2023-01-29
-last_modified_at: 2025-11-15
+last_modified_at: 2026-07-31
 ---
 
-_Last updated on {{ page.last_modified_at | date: "%d %b %Y" }}._
+_Last updated {{ page.last_modified_at | date: "%d %b %Y" }}_
 
 <br>
 

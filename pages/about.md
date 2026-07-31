@@ -1,8 +1,8 @@
 ---
-layout: page
-title: 'About'
-description: 'Background in software development and security research, with interests in Linux, open-source, and astrophotography. Contact details included.'
 permalink: /about/
+layout: page
+title: About
+description: 'Background in software development and security research, with interests in Linux, open-source, and astrophotography. Contact details included.'
 ---
 
 <div class="about-avatar h-card">
@@ -45,8 +45,6 @@ Some of the things I cover here:
 
 Questions, ideas, or just want to say hi - feel free to get in touch.
 
-<p style="display:flex;justify-content:center;">
-  <a href="/contact/" class="btn btn--primary" style="margin-top:1rem;">
-    Contact Me
-  </a>
+<p class="page-content__cta">
+  <a href="{{ '/contact' | relative_url }}" class="btn btn--primary">Contact Me</a>
 </p>

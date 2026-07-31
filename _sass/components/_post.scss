@@ -1556,6 +1556,8 @@ $brand-facebook: #1877f2;
 // Related posts
 .related-posts {
   margin-top: $sp-8;
+  padding-top: $sp-8;
+  border-top: 1px solid var(--border);
 
   &__title {
     font-size: 1rem;
@@ -1564,8 +1566,6 @@ $brand-facebook: #1877f2;
     letter-spacing: 0.06em;
     color: var(--text-muted);
     margin-bottom: $sp-4;
-    padding-bottom: $sp-3;
-    border-bottom: 1px solid var(--border);
   }
 
   &__grid {

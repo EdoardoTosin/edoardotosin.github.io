@@ -9,14 +9,15 @@ description: "Posts covering software development, security research, Linux, ope
   <section class="hero" aria-label="Introduction">
     <div class="container">
       <div class="hero__content">
-        <div class="hero__tagline" aria-hidden="true">
+        <div class="hero__tagline">
           <img
             src="{{ site.author.avatar | default: '/images/avatar.webp' | relative_url }}"
-            alt="{{ site.author.name }}"
+            alt=""
             class="hero__tagline-pic"
             width="32"
             height="32"
             loading="eager"
+            fetchpriority="high"
           >
           {%- if site.author.tagline and site.author.tagline != '' -%}
             <span>{{ site.author.tagline }}</span>
@@ -32,22 +33,8 @@ description: "Posts covering software development, security research, Linux, ope
           <p class="hero__description">{{ site.author.hero_description }}</p>
         {%- endif -%}
         <div class="hero__actions">
-          <a href="{{ '/contact/' | relative_url }}" class="btn btn--primary"> Get in Touch </a>
-          <a href="{{ '/blog/' | relative_url }}" class="btn btn--ghost"> Read the Blog </a>
-        </div>
-      </div>
-
-      <div class="hero__image-wrap">
-        <div class="hero__avatar-frame">
-          <img
-            src="{{ site.author.avatar | default: '/images/avatar.webp' | relative_url }}"
-            alt="{{ site.author.name }}"
-            class="hero__avatar"
-            width="400"
-            height="400"
-            loading="eager"
-            fetchpriority="high"
-          >
+          <a href="{{ '/now/' | relative_url }}" class="btn btn--ghost">What I'm doing now</a>
+          <a href="{{ '/contact/' | relative_url }}" class="btn btn--ghost">Get in touch</a>
         </div>
       </div>
     </div>

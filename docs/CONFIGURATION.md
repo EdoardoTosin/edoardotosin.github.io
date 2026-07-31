@@ -154,7 +154,7 @@ homepage:
   gallery_limit: 5
 ```
 
-- `show_hero`: set to `true` to show an avatar/name intro section above the blog feed, using the `hero_*` fields under `author:`. Off by default.
+- `show_hero`: set to `true` to show a name/intro section above the blog feed, using the `hero_*` fields under `author:`. Off by default.
 - `enable_blog_toggle`: show the grid/list view switch on the blog feed
 - `sticky_sidebar`: keep the `/blog/` sidebar fixed while scrolling
 - `recent_limit`: number of recent posts shown on the homepage

@@ -1247,6 +1247,16 @@ $brand-facebook: #1877f2;
   }
 }
 
+// Reused deliberately: hiding .share-btn anywhere hides this whole group with it.
+.post-footer__share.share-btn,
+.post-footer__tools.share-btn {
+  display: block;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  cursor: auto;
+}
+
 // Save for offline
 .share-btn.save-offline-btn {
   background: transparent;

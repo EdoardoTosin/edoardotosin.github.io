@@ -571,6 +571,7 @@
     overflow: visible !important;
     box-shadow: none !important;
     transform: none !important;
+    grid-row: auto !important;
 
     &:nth-child(1) {
       grid-column: span 1 !important;

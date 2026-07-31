@@ -926,6 +926,42 @@
     });
   }
 
+  // Computes each item's row-span to emulate masonry packing in the CSS grid.
+  function initGalleryMasonry() {
+    const grid = qs('.gallery-grid');
+    if (!grid) return;
+    const items = Array.from(qsa('.gallery-item', grid));
+    if (items.length < 2) return;
+
+    const layout = rafThrottle(function () {
+      const cs = getComputedStyle(grid);
+      const unit = parseFloat(cs.gridAutoRows) || 8;
+      const gap = parseFloat(cs.rowGap) || 0;
+      items.forEach(function (item) {
+        const h = item.getBoundingClientRect().height;
+        const span = Math.max(1, Math.ceil((h + gap) / (unit + gap)));
+        item.style.gridRowEnd = 'span ' + span;
+      });
+    });
+
+    grid.classList.add('is-masonry');
+    layout();
+
+    let pending = 0;
+    qsa('img', grid).forEach(function (img) {
+      if (img.complete) return;
+      pending++;
+      function settle() {
+        pending--;
+        if (pending <= 0) layout();
+      }
+      img.addEventListener('load', settle, { once: true });
+      img.addEventListener('error', settle, { once: true });
+    });
+
+    window.addEventListener('resize', layout, { passive: true });
+  }
+
   // Share copy-link
   function initShareCopy() {
     qsa('[data-share="copy"]').forEach(function (btn) {
@@ -1371,6 +1407,7 @@
     initReadingProgress();
     initBlogToggle();
     initGridTrim();
+    initGalleryMasonry();
     initShareCopy();
     initNewsletterBtns();
     initHeadingCopy();

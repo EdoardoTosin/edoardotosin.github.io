@@ -1,56 +1,105 @@
 @use 'variables' as *;
 
 // Section utilities
-.section-header {
+%section-heading-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: $sp-8;
   gap: $sp-4;
   flex-wrap: wrap;
+}
+
+%section-heading-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  @include heading-accent-bar;
+}
+
+%section-heading-link {
+  display: inline-flex;
+  align-items: center;
+  height: $touch-target;
+  padding: 0 $sp-3;
+  font-size: $fs-sm;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--bg-tag);
+  text-decoration: none;
+  white-space: nowrap;
+  border-radius: $r-md;
+  transition:
+    background $t-fast-p,
+    color $t-fast-p;
+  @include touch-reset;
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background: var(--accent-subtle);
+      color: var(--accent-text);
+    }
+  }
+
+  &:active {
+    background: var(--accent-subtle);
+    color: var(--accent-text);
+    filter: brightness(0.92);
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+    border-radius: $r-md;
+  }
+}
+
+.section-header {
+  @extend %section-heading-row;
 
   &__title {
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: var(--text-primary);
-    @include heading-accent-bar;
+    @extend %section-heading-title;
   }
 
   &__link {
-    display: inline-flex;
-    align-items: center;
-    height: 44px;
-    padding: 0 $sp-3;
-    font-size: $fs-sm;
-    font-weight: 600;
-    color: var(--text-secondary);
-    background: var(--bg-tag);
-    text-decoration: none;
-    white-space: nowrap;
-    border-radius: $r-md;
-    transition:
-      background $t-fast-p,
-      color $t-fast-p;
-    @include touch-reset;
-
-    @media (hover: hover) and (pointer: fine) {
-      &:hover {
-        background: var(--accent-subtle);
-        color: var(--accent-text);
-      }
-    }
-
-    &:active {
-      background: var(--accent-subtle);
-      color: var(--accent-text);
-      filter: brightness(0.92);
-    }
-
-    &:focus-visible {
-      @include focus-ring;
-      border-radius: $r-md;
-    }
+    @extend %section-heading-link;
   }
+}
+
+.media-section {
+  &__header {
+    @extend %section-heading-row;
+  }
+
+  &__title {
+    @extend %section-heading-title;
+  }
+
+  &__links {
+    display: flex;
+    gap: $sp-3;
+  }
+
+  &__link {
+    @extend %section-heading-link;
+  }
+
+  .video-grid + .gallery-grid {
+    margin-top: $sp-8;
+  }
+}
+
+.blog__title {
+  @extend %section-heading-title;
+  margin-bottom: 0;
+}
+
+.blog__link {
+  @extend %section-heading-link;
+}
+
+.page-hero__link {
+  @extend %section-heading-link;
+  margin-top: $sp-5;
 }
 
 // Newsletter banner

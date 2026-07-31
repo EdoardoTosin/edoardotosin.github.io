@@ -152,6 +152,8 @@ homepage:
 
   gallery_source: 'front_matter'
   gallery_limit: 5
+
+  merge_media_section: true
 ```
 
 - `show_hero`: set to `true` to show a name/intro section above the blog feed, using the `hero_*` fields under `author:`. Off by default.
@@ -163,9 +165,10 @@ homepage:
 - `topics_limit`: max topics shown in the `/blog/` sidebar's Topics widget
 - `show_topic_clusters`: set to `false` to hide the Topics section
 - `video_source`: how video posts are selected. `front_matter` uses posts with `video: true` in their front matter.
-- `videos_limit`: max video posts shown in the homepage Videos section
+- `videos_limit`: max video posts shown in the homepage's Media/Videos section
 - `gallery_source`: how gallery posts are selected. `front_matter` uses posts with `gallery: true` in their front matter.
-- `gallery_limit`: max gallery posts shown in the homepage Gallery section
+- `gallery_limit`: max gallery posts shown in the homepage's Media/Gallery section
+- `merge_media_section`: when `true` (default), Videos and Gallery render together under one heading that adapts its label ("Media"/"Videos"/"Gallery") to whichever content actually exists. Set to `false` to render them as two separate sections instead, each with its own "View all" link.
 
 The Topics section selects topics automatically, ordered by the number of pinned posts then total posts per topic. Up to four topics are shown, one per grid column.
 

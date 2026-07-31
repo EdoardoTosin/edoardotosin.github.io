@@ -121,7 +121,7 @@ The resolved names are also emitted in `<meta name="author">` and the Schema.org
 
 ## Gallery Posts
 
-Mark a post as a gallery entry by setting `gallery: true`. Gallery posts appear in the `/gallery/` page and in the homepage gallery section.
+Mark a post as a gallery entry by setting `gallery: true`. Gallery posts appear in the `/gallery/` page and in the homepage's Media/Gallery section.
 
 ```yaml
 gallery: true

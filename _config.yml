@@ -145,6 +145,8 @@ homepage:
   gallery_source: "front_matter"
   gallery_limit:  5
 
+  merge_media_section: true # combine Videos + Gallery into one "Media" section
+
 # Integrations
 newsletter:
   enabled:      false

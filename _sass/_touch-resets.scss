@@ -126,16 +126,6 @@
     border-color: var(--border-strong);
   }
 
-  .post-nav__link:hover {
-    transform: none;
-    border-color: var(--border);
-    box-shadow: var(--shadow-card);
-  }
-
-  .post-nav__link:hover .post-nav__title {
-    color: var(--text-primary);
-  }
-
   .post-content details summary:hover {
     color: var(--text-primary);
   }

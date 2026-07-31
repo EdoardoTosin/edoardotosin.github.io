@@ -259,30 +259,23 @@
   grid-template-columns: repeat(4, 1fr);
   gap: $sp-6;
   // Reduce column count and hide overflow items so the grid never wraps past one row.
-  @media (max-width: 1247px) {
+  @media (max-width: #{$bp-xl}) {
     grid-template-columns: repeat(3, 1fr);
     .topic-group:nth-child(n + 4) {
       display: none;
     }
   }
-  @media (max-width: 935px) {
+  @media (max-width: #{$bp-lg}) {
     grid-template-columns: repeat(2, 1fr);
     .topic-group:nth-child(n + 3) {
       display: none;
     }
   }
-  @media (max-width: 631px) {
+  @media (max-width: #{$bp-md}) {
     grid-template-columns: 1fr;
     .topic-group:nth-child(n + 2) {
       display: none;
     }
-  }
-}
-
-// Hide topic clusters on mobile
-.topic-clusters-section {
-  @media (max-width: #{$bp-sm}) {
-    display: none;
   }
 }
 

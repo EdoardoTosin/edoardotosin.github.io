@@ -1,3 +1,4 @@
+{%- assign _heading = include.heading | default: 'h3' -%}
 <div class="gallery-item">
   <div class="gallery-item__thumb">
     <img
@@ -13,9 +14,11 @@
   </div>
   <div class="gallery-item__info">
     <div class="gallery-item__meta">
-      <a href="{{ include.post.url | relative_url }}" class="gallery-item__title">
-        {{- include.post.title -}}
-      </a>
+      <{{ _heading }} class="gallery-item__title-heading">
+        <a href="{{ include.post.url | relative_url }}" class="gallery-item__title">
+          {{- include.post.title -}}
+        </a>
+      </{{ _heading }}>
       <time
         datetime="{{ include.post.date | date_to_xmlschema }}"
         class="gallery-item__date"

@@ -16,7 +16,7 @@ permalink: /gallery/
   {%- if gallery_posts.size > 0 -%}
     <div class="gallery-grid">
       {%- for post in gallery_posts -%}
-        {%- include gallery-card.html post=post -%}
+        {%- include gallery-card.html post=post heading='h2' -%}
       {%- endfor -%}
     </div>
   {%- else -%}

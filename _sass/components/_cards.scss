@@ -639,6 +639,12 @@
     min-width: 0;
   }
 
+  &__title-heading {
+    display: block;
+    margin: 0;
+    font: inherit;
+  }
+
   &__title {
     display: block;
     font-size: $fs-base;

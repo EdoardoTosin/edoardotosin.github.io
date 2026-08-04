@@ -186,6 +186,33 @@
   color: var(--accent-text);
   text-decoration: none;
   font-weight: 500;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 1.5px;
+  transition:
+    background-size $t-fast-p,
+    color $t-fast-p;
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background-size: 100% 1.5px;
+    }
+  }
+
+  &:focus-visible {
+    background-size: 100% 1.5px;
+    @include focus-ring;
+    border-radius: $r-sm;
+  }
+
+  &.key-block__value {
+    flex: 0 1 auto;
+  }
+
+  .contact-item:not(.contact-item--key) & {
+    background-image: none;
+  }
 }
 
 // Key block

@@ -1,0 +1,6 @@
+{%- assign _fp = include.value | remove: ' ' -%}
+{%- assign _groups = _fp.size | divided_by: 4.0 | ceil -%}
+{%- for _i in (1.._groups) -%}
+  {%- assign _offset = forloop.index0 | times: 4 -%}
+  <span class="key-code__group">{{ _fp | slice: _offset, 4 }}</span>
+{%- endfor -%}

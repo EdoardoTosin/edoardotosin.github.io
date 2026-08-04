@@ -266,6 +266,14 @@
   }
 }
 
+.key-code__group {
+  margin-right: 0.4em;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
 // Social grid (Elsewhere section)
 .contact-social {
   display: grid;

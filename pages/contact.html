@@ -188,7 +188,7 @@ permalink: /contact/
                       <div class="key-block__row">
                         <span class="key-block__label">Fingerprint</span>
                         <code class="key-block__value key-code key-code--fingerprint">
-                          {{- site.crypto_keys.pgp_fingerprint -}}
+                          {%- include fingerprint.html value=site.crypto_keys.pgp_fingerprint -%}
                         </code>
                       </div>
                       {%- if site.crypto_keys.pgp_keyserver and site.crypto_keys.pgp_keyserver != '' -%}
@@ -241,7 +241,7 @@ permalink: /contact/
                       <div class="key-block__row">
                         <span class="key-block__label">Fingerprint</span>
                         <code class="key-block__value key-code key-code--fingerprint">
-                          {{- site.crypto_keys.gpg_fingerprint -}}
+                          {%- include fingerprint.html value=site.crypto_keys.gpg_fingerprint -%}
                         </code>
                       </div>
                       {%- if site.crypto_keys.gpg_keyserver and site.crypto_keys.gpg_keyserver != '' -%}

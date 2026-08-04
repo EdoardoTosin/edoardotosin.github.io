@@ -460,8 +460,8 @@ $brand-facebook: #1877f2;
     }
   }
 
-  // External link icon (pure CSS, no JS)
-  a[data-ext] {
+  // External link icon
+  a[data-ext]:not(.btn) {
     &::after {
       content: '';
       display: inline-block;

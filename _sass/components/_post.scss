@@ -428,7 +428,7 @@ $brand-facebook: #1877f2;
     margin-bottom: $sp-6;
   }
 
-  a {
+  a:not(.heading-anchor):not(.btn) {
     color: var(--accent-text);
     text-decoration: none;
     background-image: linear-gradient(currentColor, currentColor);

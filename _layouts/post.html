@@ -16,13 +16,14 @@ layout: default
     <div class="post-hero__content">
       <div class="container">
         {%- if page.topic and page.topic != '' -%}
+          {%- assign _topic = page.topic | join: ', ' | split: ', ' | first -%}
           <a
-            href="{{ '/topics/?topic=' | append: page.topic | relative_url }}"
+            href="{{ '/topics/?topic=' | append: _topic | relative_url }}"
             class="post-hero__tag"
-            data-topic="{{ page.topic | downcase | escape }}"
+            data-topic="{{ _topic | downcase | escape }}"
             rel="tag"
           >
-            {{- page.topic | downcase -}}
+            {{- _topic | downcase -}}
           </a>
         {%- endif -%}
         <span class="post-hero__title" aria-hidden="true">{{ page.title }}</span>
@@ -36,13 +37,14 @@ layout: default
     <article class="h-entry" itemscope itemtype="http://schema.org/BlogPosting">
       <header class="post-header{% if page.image %} post-header__has-hero{% endif %}">
         {%- if page.topic and page.topic != '' -%}
+          {%- assign _topic = page.topic | join: ', ' | split: ', ' | first -%}
           <a
-            href="{{ '/topics/?topic=' | append: page.topic | relative_url }}"
+            href="{{ '/topics/?topic=' | append: _topic | relative_url }}"
             class="post-header__tag"
-            data-topic="{{ page.topic | downcase | escape }}"
+            data-topic="{{ _topic | downcase | escape }}"
             rel="tag"
           >
-            {{- page.topic | downcase -}}
+            {{- _topic | downcase -}}
           </a>
         {%- endif -%}
         <h1 class="post-header__title p-name" itemprop="headline">{{ page.title }}</h1>

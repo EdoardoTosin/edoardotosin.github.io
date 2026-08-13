@@ -20,13 +20,14 @@
       >
     </a>
     {%- if _post.topic and _post.topic != '' -%}
+      {%- assign _topic = _post.topic | join: ', ' | split: ', ' | first -%}
       <a
-        href="{{ '/topics/?topic=' | append: _post.topic | relative_url }}"
+        href="{{ '/topics/?topic=' | append: _topic | relative_url }}"
         class="post-card__tag"
-        data-topic="{{ _post.topic | downcase | escape }}"
+        data-topic="{{ _topic | downcase | escape }}"
         rel="tag"
       >
-        {{- _post.topic | downcase | escape -}}
+        {{- _topic | downcase | escape -}}
       </a>
     {%- endif -%}
   </div>

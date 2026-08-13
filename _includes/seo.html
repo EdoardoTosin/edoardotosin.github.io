@@ -63,7 +63,7 @@
     <meta property="article:tag" content="{{ tag | escape }}">
   {%- endfor -%}
   {%- if page.topic and page.topic != '' -%}
-    <meta property="article:section" content="{{ page.topic | escape }}">
+    <meta property="article:section" content="{{ page.topic | join: ', ' | split: ', ' | first | escape }}">
   {%- endif -%}
   <link rel="author" href="{{ '/about/' | absolute_url }}">
 {%- endif -%}

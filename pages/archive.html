@@ -66,12 +66,13 @@ permalink: /archive/
                   {{ post.date | date: '%d %b' }}
                 </time>
                 {%- if post.topic -%}
+                  {%- assign _topic = post.topic | join: ', ' | split: ', ' | first -%}
                   <a
                     class="archive-item__topic"
-                    data-topic="{{ post.topic | downcase | escape }}"
-                    href="{{ '/topics/' | relative_url }}?topic={{ post.topic | downcase | slugify }}"
+                    data-topic="{{ _topic | downcase | escape }}"
+                    href="{{ '/topics/' | relative_url }}?topic={{ _topic | downcase | slugify }}"
                   >
-                    {{- post.topic -}}
+                    {{- _topic -}}
                   </a>
                 {%- endif -%}
                 <a class="archive-item__title" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
@@ -86,12 +87,13 @@ permalink: /archive/
                     {{ post.date | date: '%d %b' }}
                   </time>
                   {%- if post.topic -%}
+                    {%- assign _topic = post.topic | join: ', ' | split: ', ' | first -%}
                     <a
                       class="archive-item__topic"
-                      data-topic="{{ post.topic | downcase | escape }}"
-                      href="{{ '/topics/' | relative_url }}?topic={{ post.topic | downcase | slugify }}"
+                      data-topic="{{ _topic | downcase | escape }}"
+                      href="{{ '/topics/' | relative_url }}?topic={{ _topic | downcase | slugify }}"
                     >
-                      {{- post.topic -}}
+                      {{- _topic -}}
                     </a>
                   {%- endif -%}
                   <a class="archive-item__title" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>

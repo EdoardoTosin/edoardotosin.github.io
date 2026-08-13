@@ -37,6 +37,9 @@
 
     img {
       box-shadow: none;
+      background: #fff;
+      border-radius: $r-lg;
+      padding: $sp-6;
     }
   }
 }

@@ -4,7 +4,7 @@ permalink: /offline.html
 sitemap: false
 ---
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="{{ site.lang | default: 'en' }}" data-theme="dark">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -171,7 +171,7 @@ sitemap: false
     </style>
   </head>
   <body>
-    <div class="card">
+    <main class="card">
       <span class="icon" aria-hidden="true">📡</span>
       <h1>You're offline</h1>
       <p>
@@ -183,7 +183,7 @@ sitemap: false
         <p class="offline-saved__title">Saved for offline</p>
         <ul class="offline-saved__list" id="saved-posts-list"></ul>
       </div>
-    </div>
+    </main>
     <script>
       (function () {
         var SAVED_KEY = 'jekyll-saved-posts';

@@ -37,5 +37,12 @@ Desktop.ini
 /_drafts
 !/_drafts/
 
+# Local-only content
+/_posts/Theme-QA-Fixtures/
+
+# Local-only root docs
+/*.md
+!/README.md
+
 # Node.js / npm
 /node_modules/

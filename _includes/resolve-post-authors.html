@@ -17,8 +17,6 @@
   {%- endunless -%}
   {%- if _rpa_au -%}
     {%- assign _post_author_names = _post_author_names | push: _rpa_au.name -%}
-  {%- else -%}
-    {%- assign _post_author_names = _post_author_names | push: _slug -%}
   {%- endif -%}
 {%- endfor -%}
 {%- if _post_author_names.size == 0 -%}

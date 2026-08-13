@@ -207,7 +207,7 @@ crypto_keys:
   gpg_keyserver: 'https://keys.openpgp.org/search?q=...'
 ```
 
-Shown on the `/contact/` page. Remove the block entirely to hide the section.
+Shown on the `/contact/` page, and the PGP keyserver link is shown on `/security-policy/`. Remove the block entirely to hide both.
 
 ## Short URL for Sharing
 

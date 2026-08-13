@@ -90,10 +90,17 @@ I appreciate security researchers who help identify and report vulnerabilities r
 
 ### Reporting Process
 
-1. **Email Disclosure**: Send security reports to [{{ site.author.email }}](mailto:{{ site.author.email }})
-   - Use **"Security Vulnerability Report"** in the subject line
-   - Encrypt sensitive reports using my [OpenPGP public key]({{ site.crypto_keys.pgp_keyserver }})
-2. **GitHub Issues**: For non-sensitive matters, open an issue at [{{ site.repository | append: '/issues' }}]({{ site.repository | append: '/issues' }})
+{% if site.author.email and site.author.email != '' %}
+
+- **Email Disclosure**: Send security reports to [{{ site.author.email }}](mailto:{{ site.author.email }})
+  - Use **"Security Vulnerability Report"** in the subject line
+    {% if site.crypto_keys and site.crypto_keys.pgp_keyserver and site.crypto_keys.pgp_keyserver != '' %}
+  - Encrypt sensitive reports using my [OpenPGP public key]({{ site.crypto_keys.pgp_keyserver }})
+    {% endif %}
+
+{% endif %}
+
+- **GitHub Issues**: For non-sensitive matters, open an issue at [{{ site.repository | append: '/issues' }}]({{ site.repository | append: '/issues' }})
 
 ### Report Requirements
 

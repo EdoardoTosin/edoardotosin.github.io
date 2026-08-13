@@ -11,7 +11,14 @@ Jekyll::Hooks.register :site, :post_read do |site|
   used = Set.new
   site.posts.docs.each do |post|
     topic = post.data['topic']
-    next unless topic.is_a?(String)
+    next if topic.nil?
+
+    unless topic.is_a?(String) && !topic.strip.empty?
+      Jekyll.logger.warn 'Topic:', "#{post.relative_path}: topic must be a single non-empty " \
+        "string, got #{topic.class} (#{topic.inspect}). It will not drive /topics/, badge " \
+        'colors, or related-post matching until fixed.'
+      next
+    end
 
     tp = topic.strip.downcase
     used.add(tp) unless tp.empty?

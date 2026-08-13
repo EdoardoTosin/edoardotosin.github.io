@@ -199,38 +199,25 @@ Both inline and multi-paragraph variants work:
 
 ## Defanged Indicators
 
-Write defanged URLs, IPs, and domains directly in the post body. The build
-detects recognised patterns and wraps them in an amber monospaced style,
-visually separating them from regular links and text.
-
-| Notation                   | Example                                       |
-| -------------------------- | --------------------------------------------- |
-| Defanged HTTP/HTTPS scheme | `hXXp://evil.com`, `hxxps[://]c2.example.net` |
-| Defanged domain (`[.]`)    | `evil[.]com`, `cdn[.]malware[.]io`            |
-| Defanged domain (`[dot]`)  | `evil[dot]com`, `cdn[dot]badactor[dot]ru`     |
-| Defanged domain (`(.)`)    | `evil(.)com`, `cdn(.)malware(.)io`            |
-| Defanged domain (`(dot)`)  | `evil(dot)com`, `cdn(dot)badactor(dot)ru`     |
-| Defanged IPv4              | `192.168[.]1.1`, `10[.]0[.]0[.]254`           |
-| Mixed scheme and IP        | `hXXp://192.168[.]1.1/shell.elf`              |
-
-Defanging is applied to the post body only. The post header (title, date, and
-other metadata) is never processed.
-
-The following contexts are left untouched:
-
-- Fenced and indented code blocks
-- Inline `` `code` `` spans
-- Hyperlink text and targets
-
-Write the notation as plain text in prose; no special markup is required:
+Write defanged URLs, IPs, domains, and email addresses directly in the post body; no special markup is required. The build detects recognised patterns and wraps them in an amber monospaced style, visually separating them from regular links and text. Notation follows [draft-grimminck-safe-ioc-sharing-12 - Safe and Reversible Sharing of Malicious URLs and Indicators](https://datatracker.ietf.org/doc/draft-grimminck-safe-ioc-sharing/): square-bracket the scheme, every dot, and every `@`, so the form is unambiguous to other tools too.
 
 ```markdown
-The implant beaconed to hXXps://c2[.]attacker[.]net/check-in
-and fetched a second stage from 203.0[.]113.42/payload.bin.
+The implant beaconed to [https]://c2[.]attacker[.]example/check-in and fetched a second stage from 203[.]0[.]113[.]42/payload.bin.
 ```
 
-In Obsidian and on GitHub the notation renders as plain text. On the built site
-and in the RSS feed, each matched token is wrapped in an amber span.
+**Recognised notations:**
+
+| Notation                     | Example                                               |
+| ---------------------------- | ----------------------------------------------------- |
+| Scheme + domain (`[scheme]`) | `[http]://evil[.]com`, `[https]://c2[.]example[.]net` |
+| Bare domain/IPv4 (`[.]`)     | `evil[.]com`, `192[.]168[.]1[.]1`                     |
+| Email (`[@]`)                | `phish[@]target[.]example`                            |
+| `mailto:` URI                | `[mailto]:user[@]example[.]com`                       |
+| IPv6 (`[:]`)                 | `2001[:]db8[:][:]1`                                   |
+
+The scheme keeps its original case (`[HTTPS]` stays `[HTTPS]`). When a scheme is present, defang both it and the host together, never just one: `[https]://example.example` or `https://c2[.]attacker[.]example` alone still leaves a live link.
+
+Defanging applies to the post body only, never front matter, and skips fenced/indented code blocks, inline `` `code` `` spans, and hyperlink text/targets. Wrapping an indicator in backticks disables the highlight, so write it as plain prose instead. In Obsidian and on GitHub the notation renders as plain text; on the built site and in the RSS feed, each matched token gets the amber span.
 
 ## Supported Markdown
 

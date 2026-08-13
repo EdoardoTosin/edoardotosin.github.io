@@ -160,7 +160,15 @@ description: "Posts covering software development, security research, Linux, ope
 {%- endif -%}
 
 {%- if site.homepage.show_topic_clusters != false -%}
-  {%- assign _all_topic_names = site.posts | map: 'topic' | compact | uniq -%}
+  {%- assign _all_topic_names = '' | split: '' -%}
+  {%- for _p in site.posts -%}
+    {%- assign _t = _p.topic | join: ', ' | split: ', ' | first -%}
+    {%- if _t -%}
+      {%- unless _all_topic_names contains _t -%}
+        {%- assign _all_topic_names = _all_topic_names | push: _t -%}
+      {%- endunless -%}
+    {%- endif -%}
+  {%- endfor -%}
   {%- assign _scored_topics = '' | split: '' -%}
   {%- for _tp in _all_topic_names -%}
     {%- assign _tp_posts = site.posts | where: 'topic', _tp -%}

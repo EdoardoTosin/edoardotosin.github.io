@@ -33,7 +33,14 @@
     </div>
   </div>
 
-  {%- assign all_topics = site.posts | map: 'topic' | compact | uniq | sort -%}
+  {%- assign _topic_str = '' -%}
+  {%- for _p in site.posts -%}
+    {%- assign _t = _p.topic | join: ', ' | split: ', ' | first -%}
+    {%- if _t -%}
+      {%- assign _topic_str = _topic_str | append: _t | append: '||' -%}
+    {%- endif -%}
+  {%- endfor -%}
+  {%- assign all_topics = _topic_str | split: '||' | uniq | sort -%}
   {%- if all_topics.size > 0 and page.layout != 'post' -%}
     <div class="sidebar-widget">
       <h2 class="sidebar-widget__title">Topics</h2>

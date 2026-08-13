@@ -10,7 +10,14 @@ permalink: /topics/
       <h1 class="page-hero__title">Topics</h1>
       <p class="page-hero__desc">Every post belongs to exactly one topic. Browse by subject below.</p>
     </div>
-    {%- assign all_topics = site.posts | map: 'topic' | uniq | compact | sort -%}
+    {%- assign _topic_str = '' -%}
+    {%- for _p in site.posts -%}
+      {%- assign _t = _p.topic | join: ', ' | split: ', ' | first -%}
+      {%- if _t -%}
+        {%- assign _topic_str = _topic_str | append: _t | append: '||' -%}
+      {%- endif -%}
+    {%- endfor -%}
+    {%- assign all_topics = _topic_str | split: '||' | uniq | sort -%}
 
     <div class="filter-page__toolbar" role="search" aria-label="Filter topics">
       <svg
@@ -70,7 +77,7 @@ permalink: /topics/
         {%- for post in site.posts -%}
           <div
             class="topic-item"
-            data-topic="{{ post.topic | downcase | slugify | default: 'uncategorised' }}"
+            data-topic="{{ post.topic | join: ', ' | split: ', ' | first | downcase | slugify | default: 'uncategorised' }}"
           >
             {% include post-card.html post=post %}
           </div>

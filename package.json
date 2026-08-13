@@ -22,6 +22,7 @@
     "format:check": "prettier --check \"**/*.{html,js,scss,md,yml}\"",
     "test": "jest",
     "ci": "npm run format:check && npm run test",
+    "minify": "node scripts/minify-assets.js",
     "audit": "node scripts/audit.js",
     "audit:deps": "npm audit",
     "all": "npm run ci && npm run audit && npm run format"
@@ -29,6 +30,7 @@
   "devDependencies": {
     "@shopify/prettier-plugin-liquid": "^1.10.3",
     "axe-core": "^4.12.1",
+    "esbuild": "^0.28.2",
     "jest": "^30.4.2",
     "js-yaml": "^5.2.3",
     "jsdom": "^29.1.1"

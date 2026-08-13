@@ -10,6 +10,10 @@ Jekyll::Hooks.register :site, :post_read do |site|
 
   used = Set.new
   site.posts.docs.each do |post|
+    # Future posts, visible locally only with `future: true`, are skipped so previewing them doesn't write to topics.yml.
+    post_date = post.data['date']
+    next if post_date.is_a?(Time) && post_date > Time.now
+
     topic = post.data['topic']
     next if topic.nil?
 

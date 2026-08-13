@@ -5,12 +5,17 @@ const { JSDOM } = require('jsdom');
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const { getSiteDir } = require('./site-dir');
+const { discoverPages } = require('./discover-pages');
 
+const SITE_DIR = getSiteDir();
 const BASE = 'http://localhost:4000';
 const AXE_SRC = path.join(__dirname, '..', 'node_modules', 'axe-core', 'axe.min.js');
 const axeSource = fs.readFileSync(AXE_SRC, 'utf8');
 
-const PAGES = ['/', '/blog/', '/archive/', '/tags/', '/topics/', '/gallery/', '/videos/', '/contact/'];
+const PAGES = discoverPages();
+
+const useSite = fs.existsSync(path.join(SITE_DIR, 'index.html'));
 
 function fetchPage(url) {
   return new Promise((resolve, reject) => {
@@ -29,8 +34,18 @@ function fetchPage(url) {
   });
 }
 
+function readSitePage(pageUrl) {
+  const filePath = pageUrl.endsWith('.html')
+    ? path.join(SITE_DIR, pageUrl)
+    : path.join(SITE_DIR, pageUrl, 'index.html');
+  if (!fs.existsSync(filePath)) {
+    throw new Error(`missing build output at ${path.relative(process.cwd(), filePath)}`);
+  }
+  return fs.readFileSync(filePath, 'utf8');
+}
+
 async function auditPage(pageUrl) {
-  const html = await fetchPage(BASE + pageUrl);
+  const html = useSite ? readSitePage(pageUrl) : await fetchPage(BASE + pageUrl);
   const dom = new JSDOM(html, {
     url: BASE + pageUrl,
     runScripts: 'outside-only',
@@ -59,6 +74,10 @@ async function auditPage(pageUrl) {
 }
 
 async function main() {
+  console.log(
+    useSite ? `Auditing built site: ${path.relative(process.cwd(), SITE_DIR)}\n` : `Auditing live server: ${BASE}\n`,
+  );
+
   let totalViolations = 0;
   let pagesWithViolations = 0;
 

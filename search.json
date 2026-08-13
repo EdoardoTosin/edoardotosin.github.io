@@ -77,7 +77,7 @@ permalink: /search.json
   "excerpt": {{ _excerpt | jsonify }},
   "headings": {{ _headings | strip | jsonify }},
   "content": {{ _content | jsonify }},
-  "topic": {{ post.topic | default: "" | jsonify }},
+  "topic": {{ post.topic | join: ", " | split: ", " | first | default: "" | jsonify }},
   "tags": {{ post.tags | default: "" | jsonify }},
   "keywords": {{ post.keywords | default: "" | jsonify }},
   "categories": {{ post.categories | default: "" | jsonify }},

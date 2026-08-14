@@ -7,7 +7,6 @@ gem 'jekyll-sass-converter', '~> 3.1'
 
 gem 'jekyll-feed'
 gem 'jekyll-sitemap'
-gem 'jekyll-paginate-v2'
 
 # Markdown & syntax
 gem 'kramdown-parser-gfm'

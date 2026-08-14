@@ -3,10 +3,9 @@
 WIKILINK_SCAN_RE = /\[\[([^\[\]]+?)\]\]/.freeze
 
 module Backlinks
-  # Same key normalisation as obsidian_wikilinks.rb, so every wikilink that
-  # resolves to a post also registers a backlink (slug or title reference).
+  # Same key normalisation as ObsidianWikilinks::PageIndex#normalize, so a resolvable wikilink always backlinks.
   def self.normalize(str)
-    str.to_s.strip.downcase.gsub(/[^\p{Alnum}\s\-]/, '').gsub(/\s+/, '-').gsub(/-{2,}/, '-')
+    str.to_s.strip.downcase.gsub('_', '-').gsub(/[^\p{Alnum}\s\-]/, '').gsub(/\s+/, '-').gsub(/-{2,}/, '-')
   end
 end
 
@@ -28,7 +27,10 @@ Jekyll::Hooks.register :site, :pre_render do |site|
   backlinks = Hash.new { |h, k| h[k] = [] }
 
   all_posts.each do |source|
-    source.content.to_s.scan(WIKILINK_SCAN_RE).each do |match|
+    source.content.to_s.scan(WIKILINK_SCAN_RE) do |match|
+      # Embeds render as inert text (obsidian_wikilinks.rb doesn't implement transclusion), so no backlink.
+      next if $~.pre_match.end_with?('!')
+
       inner      = match[0]
       target_key = Backlinks.normalize(inner.split('|').first.split('#').first)
       target     = index[target_key]

@@ -229,6 +229,7 @@ exclude:
   # Ruby / Bundler
   - Gemfile
   - Gemfile.lock
+  - Rakefile
   - vendor
   - .bundle
 

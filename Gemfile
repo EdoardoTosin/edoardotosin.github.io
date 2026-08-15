@@ -19,3 +19,8 @@ gem 'nokogiri'
 
 # Dev server
 gem 'webrick'
+
+group :test do
+  gem 'minitest'
+  gem 'rake'
+end

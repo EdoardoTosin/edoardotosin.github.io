@@ -270,8 +270,8 @@ The post hero image is set in front matter (`image:`), not inline Markdown.
 MathJax is loaded automatically on any post whose content contains math syntax (`$$`, `\[`, or `\(`). A post without it never loads MathJax at all. Set `math: false`/`true` in front matter to force it off or on regardless of content:
 
 ```yaml
-math: false  # disable on a post
-math: true   # enable on a non-post page
+math: false # disable on a post
+math: true # enable on a non-post page
 ```
 
 Use standard LaTeX delimiters:
@@ -291,8 +291,8 @@ $$
 Mermaid is loaded automatically on any post whose content contains a ` ```mermaid ` fenced block. A post without one never loads Mermaid at all. Set `mermaid: false`/`true` in front matter to force it off or on regardless of content:
 
 ```yaml
-mermaid: false  # disable on a post
-mermaid: true   # enable on a non-post page
+mermaid: false # disable on a post
+mermaid: true # enable on a non-post page
 ```
 
 Use a fenced code block with the `mermaid` language tag:

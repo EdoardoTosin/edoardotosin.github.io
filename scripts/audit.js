@@ -62,7 +62,7 @@ async function auditPage(pageUrl) {
       {
         runOnly: {
           type: 'tag',
-          values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'best-practice'],
+          values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa', 'best-practice'],
         },
       },
       (err, r) => (err ? reject(err) : resolve(r)),

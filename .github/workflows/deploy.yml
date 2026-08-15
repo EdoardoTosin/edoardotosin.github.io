@@ -21,6 +21,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
 
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '4.0'
+          bundler-cache: true
+
       - name: Setup Node
         uses: actions/setup-node@v7
         with:
@@ -33,8 +39,11 @@ jobs:
       - name: Check formatting
         run: npm run format:check
 
-      - name: Run tests
+      - name: Run JS tests
         run: npm test
+
+      - name: Run Ruby plugin tests
+        run: bundle exec rake test
 
   build:
     runs-on: ubuntu-latest

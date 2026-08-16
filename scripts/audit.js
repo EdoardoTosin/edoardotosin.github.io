@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 
-const { JSDOM } = require('jsdom');
+const { JSDOM, VirtualConsole } = require('jsdom');
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
@@ -12,6 +12,11 @@ const SITE_DIR = getSiteDir();
 const BASE = 'http://localhost:4000';
 const AXE_SRC = path.join(__dirname, '..', 'node_modules', 'axe-core', 'axe.min.js');
 const axeSource = fs.readFileSync(AXE_SRC, 'utf8');
+
+// Omits jsdom's "not implemented" canvas/video noise, which would otherwise bury real errors on stderr.
+const virtualConsole = new VirtualConsole().forwardTo(console, {
+  jsdomErrors: ['resource-loading', 'css-parsing', 'unhandled-exception'],
+});
 
 const PAGES = discoverPages();
 
@@ -50,6 +55,7 @@ async function auditPage(pageUrl) {
     url: BASE + pageUrl,
     runScripts: 'outside-only',
     pretendToBeVisual: true,
+    virtualConsole,
   });
   const { window } = dom;
   const { document } = window;

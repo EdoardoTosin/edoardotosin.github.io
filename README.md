@@ -20,7 +20,7 @@ JEKYLL_ENV=production bundle exec jekyll build
 ```bash
 npm install
 npm test
-npm run audit # WCAG 2.2 AA audit (requires local server on :4000)
+npm run audit # WCAG 2.2 AA audit (reads _site/ if present; jekyll build or serve both create it)
 npm run format
 bundle exec rake test # Minitest suite for _plugins/*.rb
 ```

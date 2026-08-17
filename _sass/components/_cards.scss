@@ -182,20 +182,25 @@
   }
 }
 
-// Editorial status, not a category - kept visually distinct from .post-card__tag
-.post-card__pinned-label {
-  display: inline-flex;
+// Editorial status, not a category; lives opposite .post-card__tag so the two never collide
+.post-card__pinned-badge {
+  position: absolute;
+  top: $sp-3;
+  right: $sp-3;
+  z-index: 2;
+  display: flex;
   align-items: center;
-  gap: $sp-2;
-  margin-bottom: $sp-2;
-  font-size: $fs-sm;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--accent-text);
+  justify-content: center;
+  width: $sp-8;
+  height: $sp-8;
+  border-radius: $r-full;
+  background: var(--accent);
+  color: var(--text-on-accent);
+  box-shadow: var(--shadow-lg);
 
-  &::before {
-    @include pulse-dot(6px);
+  svg {
+    flex-shrink: 0;
+    transform: rotate(-20deg);
   }
 }
 

@@ -883,21 +883,17 @@
   @include line-clamp(1);
 }
 
-// Same pulse-dot + label as .post-card__pinned-label - pinned is a status, not a type badge
+// Same pin glyph as .post-card__pinned-badge; the title has no line-clamp, so a text label would push it to wrap
 .search-overlay__result-pinned {
   display: inline-flex;
   align-items: center;
-  gap: $sp-1;
   margin-right: $sp-2;
-  font-size: $fs-2xs;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
   color: var(--accent-text);
   vertical-align: middle;
 
-  &::before {
-    @include pulse-dot(6px);
+  svg {
+    flex-shrink: 0;
+    transform: rotate(-20deg);
   }
 }
 

@@ -15,7 +15,7 @@ description: 'Open-source projects spanning CLI tools, browser extensions, compu
 ### Python
 
 - [Batch-Image-Converter](https://github.com/EdoardoTosin/Batch-Image-Converter): Command-line tool that batch-converts images to a target DPI, resolution, and color space, and ships as prebuilt binaries for Linux, Windows, and macOS.
-- [ObjectTracker](https://github.com/EdoardoTosin/ObjectTracker): Real-time object detector that watches a camera feed and automatically records video the moment it spots something.
+- [ObjectTracker](https://github.com/EdoardoTosin/ObjectTracker): Monitors a USB camera in real time and triggers event-based recording when it detects an object.
 
 ### Web Development (HTML/CSS/JS)
 

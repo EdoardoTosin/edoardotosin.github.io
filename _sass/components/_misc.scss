@@ -36,7 +36,7 @@
     }
 
     img {
-      box-shadow: none;
+      filter: none;
       background: #fff;
       border-radius: $r-lg;
       padding: $sp-6;
@@ -104,7 +104,7 @@
     max-width: calc(92vw - #{$sp-8});
     max-height: calc(92dvh - #{$sp-8} - env(safe-area-inset-top));
     object-fit: contain;
-    box-shadow: 0 16px 64px rgba(0, 0, 0, 0.7);
+    filter: drop-shadow(0 16px 64px rgba(0, 0, 0, 0.7));
     image-rendering: auto;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;

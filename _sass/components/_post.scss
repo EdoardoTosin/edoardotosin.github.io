@@ -651,11 +651,6 @@ $brand-facebook: #1877f2;
     margin: $sp-8 auto;
     box-shadow: var(--shadow-lg);
     cursor: zoom-in;
-
-    figure & {
-      margin: 0;
-      box-shadow: none;
-    }
   }
 
   picture {

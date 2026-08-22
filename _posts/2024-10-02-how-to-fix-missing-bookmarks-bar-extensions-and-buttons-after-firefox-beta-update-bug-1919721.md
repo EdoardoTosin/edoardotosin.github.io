@@ -1,6 +1,6 @@
 ---
 title: Fix Missing Bookmarks & Toolbar After Firefox Beta Bug 1919721
-description: Learn how to resolve the issue caused by bug 1919721 where the bookmarks bar, toolbar buttons, and pinned extensions disappear after updating Firefox Beta. Mozilla has updated Firefox to fix this in version 132.0b2; however, users must manually adjust their preferences to restore these features.
+description: How to fix missing bookmarks bar, toolbar buttons, and pinned extensions after a Firefox Beta update (bug 1919721).
 layout: post
 short_url: firefox-1919721
 date: 2024-10-02 21:30:00 +0200

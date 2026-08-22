@@ -148,21 +148,11 @@
         });
     }
 
-    function trapFocus(e) {
-      if (e.key !== 'Tab') return;
-      const f = getFocusableNav();
-      if (!f.length) return;
-      if (e.shiftKey) {
-        if (document.activeElement === f[0]) {
-          e.preventDefault();
-          f[f.length - 1].focus();
-        }
-      } else {
-        if (document.activeElement === f[f.length - 1]) {
-          e.preventDefault();
-          f[0].focus();
-        }
-      }
+    // main/footer/scroll-top sit behind the open drawer ($z-nav-mobile > $z-sticky); inerting them keeps Tab focus inside it.
+    function setBackgroundInert(state) {
+      [qs('#main-content'), qs('.site-footer'), qs('#scroll-top')].forEach(function (el) {
+        if (el) el.toggleAttribute('inert', state);
+      });
     }
 
     function openNav() {
@@ -175,7 +165,7 @@
       toggle.setAttribute('aria-expanded', 'true');
       toggle.setAttribute('aria-label', 'Close menu');
       document.body.style.overflow = 'hidden';
-      document.addEventListener('keydown', trapFocus);
+      setBackgroundInert(true);
       const f = getFocusableNav();
       if (f.length) {
         setTimeout(function () {
@@ -192,7 +182,7 @@
       toggle.setAttribute('aria-expanded', 'false');
       toggle.setAttribute('aria-label', 'Open menu');
       document.body.style.overflow = '';
-      document.removeEventListener('keydown', trapFocus);
+      setBackgroundInert(false);
       if (lastFocused && lastFocused.focus) lastFocused.focus();
     }
 

@@ -167,7 +167,6 @@
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
-    pointer-events: auto;
     transition-delay: 0s;
   }
 
@@ -180,7 +179,6 @@
     opacity: 0;
     visibility: hidden;
     transform: translateY(-6px);
-    pointer-events: none;
     transition-delay: nth($t-dropdown-p, 1);
   }
 
@@ -193,7 +191,6 @@
       opacity: 1;
       visibility: visible;
       transform: translateY(0);
-      pointer-events: auto;
       transition-delay: 0s;
     }
   }
@@ -213,10 +210,9 @@
     visibility: hidden;
     transform: translateY(-6px);
     transition:
-      opacity $t-dropdown-p,
-      transform $t-dropdown-p,
-      visibility 0s linear nth($t-dropdown-p, 1);
-    pointer-events: none;
+      opacity $t-dropdown-p $t-dropdown-close-delay,
+      transform $t-dropdown-p $t-dropdown-close-delay,
+      visibility 0s linear (nth($t-dropdown-p, 1) + $t-dropdown-close-delay);
     z-index: $z-dropdown;
 
     @include retina {

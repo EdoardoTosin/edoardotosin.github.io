@@ -31,6 +31,8 @@ header_nav:
     url:   "/blog/"
   - title: "Projects"
     url:   "/projects/"
+  - title: "Achievements"
+    url:   "/achievements/"
   - title: "About"
     url:   "/about/"
   - title: "Browse"
@@ -62,6 +64,8 @@ footer_nav:
     items:
       - title: "Projects"
         url:   "/projects/"
+      - title: "Achievements"
+        url:   "/achievements/"
       - title: "Gallery"
         url:   "/gallery/"
       - title: "Videos"

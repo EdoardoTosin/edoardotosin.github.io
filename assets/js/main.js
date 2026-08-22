@@ -926,11 +926,11 @@
     });
   }
 
-  // Computes each item's row-span to emulate masonry packing in the CSS grid.
-  function initGalleryMasonry() {
-    const grid = qs('.gallery-grid');
+  // Computes each item's row-span to emulate masonry packing in a CSS grid.
+  function initMasonry(gridSelector, itemSelector) {
+    const grid = qs(gridSelector);
     if (!grid) return;
-    const items = Array.from(qsa('.gallery-item', grid));
+    const items = Array.from(qsa(itemSelector, grid));
     if (items.length < 2) return;
 
     const layout = rafThrottle(function () {
@@ -1407,7 +1407,8 @@
     initReadingProgress();
     initBlogToggle();
     initGridTrim();
-    initGalleryMasonry();
+    initMasonry('.gallery-grid', '.gallery-item');
+    initMasonry('.achievement-grid', '.achievement-card');
     initShareCopy();
     initNewsletterBtns();
     initHeadingCopy();

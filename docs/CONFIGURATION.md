@@ -199,6 +199,24 @@ All contrast variants (`subtle`, `text_light`, `text_dark`) are derived automati
 
 Topics used in posts but missing from `_data/topics.yml` are added automatically during build with a neutral grey color (`#64748b`). Check `git diff` after building to see them.
 
+## Achievements
+
+Entries for `/achievements/` come from `_data/achievements.yml`, sorted by date, most recent first.
+
+```yaml
+- title: 'Example Certification'
+  issuer: 'Example Institute'
+  date: 2025-01-15
+  description: 'Short description of what was earned.'
+  url: 'https://example.com'
+  url_label: 'Verify'
+  images:
+    - src: '/images/pages/achievements/example/front.webp'
+      alt: 'Description of the image'
+```
+
+Required fields: `title`, `issuer`, `date`, `description`. `url` and `images` are optional; `url_label` defaults to "Reference" when omitted. One image renders as a wide banner, two or more render in a grid.
+
 ## PGP / GPG Keys
 
 ```yaml

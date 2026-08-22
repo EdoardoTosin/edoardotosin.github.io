@@ -27,20 +27,21 @@ bundle exec rake test # Minitest suite for _plugins/*.rb
 
 ## Pages
 
-| Route        | Description                                             |
-| ------------ | ------------------------------------------------------- |
-| `/`          | Homepage                                                |
-| `/blog/`     | All posts with thumbnails, year filter, and view toggle |
-| `/archive/`  | Compact text index of all posts by year                 |
-| `/topics/`   | Posts filtered by topic                                 |
-| `/tags/`     | Posts filtered by tag                                   |
-| `/projects/` | Projects                                                |
-| `/gallery/`  | Posts with `gallery: true`                              |
-| `/videos/`   | Posts with `video: true`                                |
-| `/now/`      | Now page                                                |
-| `/about/`    | About                                                   |
-| `/contact/`  | Contact and PGP/GPG keys                                |
-| `/credits/`  | Attributions                                            |
+| Route            | Description                                             |
+| ---------------- | ------------------------------------------------------- |
+| `/`              | Homepage                                                |
+| `/blog/`         | All posts with thumbnails, year filter, and view toggle |
+| `/archive/`      | Compact text index of all posts by year                 |
+| `/topics/`       | Posts filtered by topic                                 |
+| `/tags/`         | Posts filtered by tag                                   |
+| `/projects/`     | Projects                                                |
+| `/achievements/` | Certifications, competition awards, and recognitions    |
+| `/gallery/`      | Posts with `gallery: true`                              |
+| `/videos/`       | Posts with `video: true`                                |
+| `/now/`          | Now page                                                |
+| `/about/`        | About                                                   |
+| `/contact/`      | Contact and PGP/GPG keys                                |
+| `/credits/`      | Attributions                                            |
 
 ## Documentation
 

@@ -1,0 +1,27 @@
+- title: SANS CTF European Championship 2026
+  issuer: SANS Institute
+  date: 2026-06-12
+  description: >-
+    Awarded as a Euro Finalist for placing among Italy's top 10 qualifiers from a field of 1,000 competitors across
+    Europe during the qualifying stage (25-29 May 2026), advancing to the European Championship Final (10-12 June
+    2026).
+  url: https://www.sans.org/mlp/ctf-european-championship-2026
+  url_label: Competition Page
+  images:
+    - src: /images/pages/achievements/sans-ctf-2026/front.webp
+      alt: 'Front of the SANS CTF European Championship 2026 challenge coin, with a blue enameled banner reading SANS CTF European Championship, bordered by One Continent One Championship'
+    - src: /images/pages/achievements/sans-ctf-2026/back.webp
+      alt: 'Back of the SANS CTF European Championship 2026 challenge coin, with an orange trophy shield engraved TOP 10, bordered by a binary-pattern ring'
+    - src: /images/pages/achievements/sans-ctf-2026/front-uv.webp
+      alt: 'Front of the SANS CTF European Championship 2026 challenge coin under blacklight, with the banner text and stars in glow-in-the-dark ink'
+    - src: /images/pages/achievements/sans-ctf-2026/back-uv.webp
+      alt: 'Back of the SANS CTF European Championship 2026 challenge coin under blacklight, with the trophy and border in glow-in-the-dark ink'
+
+- title: BSI CVD Hall of Fame
+  issuer: Bundesamt für Sicherheit in der Informationstechnik (BSI)
+  date: 2025-12-01
+  description: >-
+    Credited in the German Federal Office for Information Security's Hall of Fame for responsibly disclosing a
+    Broken Access Control vulnerability through its Coordinated Vulnerability Disclosure (CVD) process.
+  url: https://www.bsi.bund.de/DE/IT-Sicherheitsvorfall/IT-Schwachstellen/Hall_of_Fame/Hall_of_Fame_node.html
+  url_label: CVD Hall of Fame

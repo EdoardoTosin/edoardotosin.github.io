@@ -498,27 +498,6 @@
   margin-top: $sp-8;
 }
 
-.post-content .award-coin {
-  max-width: 480px;
-  margin: $sp-8 auto;
-  text-align: center;
-
-  img {
-    display: block;
-    max-width: 100%;
-    height: auto;
-    margin: 0 auto;
-    border-radius: 0;
-    box-shadow: none;
-  }
-
-  &__images {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: $sp-4;
-  }
-}
-
 // Section
 .section {
   padding: $sp-12 0;

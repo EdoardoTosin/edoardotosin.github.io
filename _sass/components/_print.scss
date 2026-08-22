@@ -614,6 +614,29 @@
     }
   }
 
+  .achievement-grid {
+    display: block !important;
+  }
+
+  .achievement-card {
+    background: transparent !important;
+    border: none !important;
+    border-bottom: 0.5pt solid #ccc !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    padding: 6pt 0 !important;
+    margin-bottom: 12pt !important;
+    break-inside: avoid;
+
+    &__body {
+      padding: 6pt 0 0 !important;
+    }
+
+    &__description {
+      color: #000 !important;
+    }
+  }
+
   // 7. Code & math - keep dark bg; token colors need #0d1117 (print-color-adjust: exact enforces it)
 
   p code,

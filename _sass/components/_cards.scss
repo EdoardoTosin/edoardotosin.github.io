@@ -529,10 +529,17 @@
   }
 }
 
+// Set by initMasonry() in main.js; align-items: start stays on the grid (not here) so items don't stretch pre-JS.
+.is-masonry {
+  grid-auto-flow: dense;
+  grid-auto-rows: $sp-2;
+}
+
 // Gallery grid
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  align-items: start;
   gap: $sp-4;
 
   @media (max-width: #{$bp-md}) {
@@ -541,17 +548,11 @@
   @media (max-width: #{$bp-sm}) {
     grid-template-columns: 1fr;
   }
-
-  &.is-masonry {
-    grid-auto-flow: dense;
-    grid-auto-rows: $sp-2;
-  }
 }
 
 .gallery-item {
   display: flex;
   flex-direction: column;
-  align-self: start;
   border-radius: $r-md;
   overflow: hidden;
   background: var(--bg-card);
@@ -710,4 +711,113 @@
       @include focus-ring(2px);
     }
   }
+}
+
+// Achievement cards (certifications, awards, coins)
+.achievement-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 420px));
+  justify-content: center;
+  align-items: start;
+  gap: $sp-6;
+
+  @media (max-width: #{$bp-sm}) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.achievement-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: $r-lg;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+
+  &__img {
+    aspect-ratio: 2 / 1;
+    overflow: hidden;
+    background: var(--bg-tag);
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__images {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    background: var(--bg-tag);
+    padding: $sp-2;
+    gap: $sp-2;
+
+    img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border-radius: $r-sm;
+    }
+
+    // True only when the image count is odd, so the last one fills the row instead of leaving an empty cell.
+    img:nth-child(odd):last-child {
+      grid-column: 1 / -1;
+      aspect-ratio: 2 / 1;
+    }
+  }
+
+  &__body {
+    padding: $sp-4 $sp-5 $sp-5;
+    display: flex;
+    flex-direction: column;
+    gap: $sp-3;
+  }
+
+  &__title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.25;
+    text-wrap: balance;
+    color: var(--text-primary);
+  }
+
+  &__meta {
+    font-size: $fs-sm;
+    color: var(--text-muted);
+  }
+
+  &__description {
+    font-size: $fs-base;
+    color: var(--text-secondary);
+    line-height: 1.65;
+  }
+
+  &__link {
+    align-self: flex-start;
+    margin-top: $sp-2;
+  }
+}
+
+// .post-content's generic img/h*/p rules (_post.scss) outrank a bare BEM class on specificity.
+.post-content .achievement-card__img img {
+  margin: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.post-content .achievement-card__images img {
+  margin: 0;
+  box-shadow: none;
+}
+
+.post-content .achievement-card__title {
+  margin: 0;
+}
+
+.post-content .achievement-card__meta,
+.post-content .achievement-card__description {
+  margin: 0;
 }

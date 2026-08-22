@@ -1106,10 +1106,11 @@
     if (!bar || !content) return;
 
     function update() {
-      const mid = window.innerHeight / 2;
+      // visualViewport tracks the actually visible height when a mobile toolbar/keyboard shrinks it; innerHeight lags behind.
+      const vh = window.visualViewport ? window.visualViewport.height : window.innerHeight;
       const rect = content.getBoundingClientRect();
-      const contentBottom = window.scrollY + rect.top + content.offsetHeight;
-      const end = contentBottom - mid;
+      const contentBottom = window.scrollY + rect.bottom;
+      const end = contentBottom - vh / 2;
       const pct = end > 0 ? Math.min(100, Math.max(0, (window.scrollY / end) * 100)) : 100;
       bar.style.width = pct + '%';
       bar.setAttribute('aria-valuenow', Math.round(pct));

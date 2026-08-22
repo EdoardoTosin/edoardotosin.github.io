@@ -21,7 +21,7 @@
     <nav class="site-nav" role="navigation" aria-label="Primary">
       <ul class="site-nav__list" role="list">
         {%- for link in site.header_nav -%}
-          {%- if link.children and link.children.size > 0 -%}
+          {%- if link.groups and link.groups.size > 0 -%}
             <li class="site-nav__dropdown">
               <button
                 class="site-nav__dropdown-btn"
@@ -45,30 +45,45 @@
                 </svg>
               </button>
               <ul class="site-nav__dropdown-menu" role="menu">
-                {%- for child in link.children -%}
-                  {%- unless child.external -%}
-                    {%- assign _hdr_child = child.url
-                      | replace: site.url, ''
-                      | replace: site.baseurl, ''
-                      | split: '?'
-                      | first
-                      | replace: 'index.html', ''
-                      | replace: '//', '/'
-                    -%}
-                    {%- if _hdr_child == '' -%}{%- assign _hdr_child = '/' -%}{%- endif -%}
-                  {%- endunless -%}
-                  <li role="none">
-                    <a
-                      href="{% if child.external %}{{ child.url }}{% else %}{{ child.url | relative_url }}{% endif %}"
-                      role="menuitem"
-                      {% if child.external %}
-                        target="_blank" rel="noopener noreferrer"
-                      {% else %}
-                        {%- if _hdr_page == _hdr_child %}aria-current="page"{% endif -%}
+                {%- for group in link.groups -%}
+                  <li role="none" class="site-nav__dropdown-group">
+                    {%- if link.groups.size > 1 -%}
+                      <span class="site-nav__dropdown-group-label">{{ group.group | escape }}</span>
+                    {%- endif -%}
+                    <ul
+                      class="site-nav__dropdown-group-list"
+                      role="group"
+                      {% if link.groups.size > 1 %}
+                        aria-label="{{ group.group | escape }}"
                       {% endif %}
                     >
-                      {{ child.title | escape }}
-                    </a>
+                      {%- for child in group.items -%}
+                        {%- unless child.external -%}
+                          {%- assign _hdr_child = child.url
+                            | replace: site.url, ''
+                            | replace: site.baseurl, ''
+                            | split: '?'
+                            | first
+                            | replace: 'index.html', ''
+                            | replace: '//', '/'
+                          -%}
+                          {%- if _hdr_child == '' -%}{%- assign _hdr_child = '/' -%}{%- endif -%}
+                        {%- endunless -%}
+                        <li role="none">
+                          <a
+                            href="{% if child.external %}{{ child.url }}{% else %}{{ child.url | relative_url }}{% endif %}"
+                            role="menuitem"
+                            {% if child.external %}
+                              target="_blank" rel="noopener noreferrer"
+                            {% else %}
+                              {%- if _hdr_page == _hdr_child %}aria-current="page"{% endif -%}
+                            {% endif %}
+                          >
+                            {{ child.title | escape }}
+                          </a>
+                        </li>
+                      {%- endfor -%}
+                    </ul>
                   </li>
                 {%- endfor -%}
               </ul>
@@ -125,9 +140,31 @@
         >
           <circle cx="11" cy="11" r="8"/><path d="m21 21-4.34-4.34"/>
         </svg>
-        <span class="search-toggle__text">Search posts…</span>
-        <kbd class="search-toggle__kbd search-kbd" aria-hidden="true">⌘K</kbd>
       </button>
+
+      <a
+        href="{{ '/contact/' | relative_url }}"
+        class="contact-toggle"
+        aria-label="Contact"
+        {% if _hdr_page == '/contact/' %}
+          aria-current="page"
+        {% endif %}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/>
+        </svg>
+      </a>
 
       <div class="header-actions__theme">
         <button
@@ -201,12 +238,12 @@
   aria-hidden="true"
   inert
 >
-  <ul class="mobile-nav__list" role="list">
-    {%- for link in site.header_nav -%}
-      {%- if link.children and link.children.size > 0 -%}
-        {%- for child in link.children -%}
-          {%- unless child.external -%}
-            {%- assign _mob_child = child.url
+  <div class="mobile-nav__scroll">
+    <ul class="mobile-nav__list" role="list">
+      {%- for link in site.header_nav -%}
+        {%- unless link.groups -%}
+          {%- unless link.external -%}
+            {%- assign _mob_link = link.url
               | replace: site.url, ''
               | replace: site.baseurl, ''
               | split: '?'
@@ -214,50 +251,135 @@
               | replace: 'index.html', ''
               | replace: '//', '/'
             -%}
-            {%- if _mob_child == '' -%}{%- assign _mob_child = '/' -%}{%- endif -%}
+            {%- if _mob_link == '' -%}{%- assign _mob_link = '/' -%}{%- endif -%}
           {%- endunless -%}
           <li>
             <a
-              href="{% if child.external %}{{ child.url }}{% else %}{{ child.url | relative_url }}{% endif %}"
+              href="{% if link.external %}{{ link.url }}{% else %}{{ link.url | relative_url }}{% endif %}"
               class="mobile-nav__link"
-              {% if child.external %}
+              {% if link.external %}
                 target="_blank" rel="noopener noreferrer"
               {% else %}
-                {%- if _hdr_page == _mob_child %}aria-current="page"{% endif -%}
+                {%- if _hdr_page == _mob_link %}aria-current="page"{% endif -%}
               {% endif %}
             >
-              {{ child.title | escape }}
+              {{ link.title | escape }}
             </a>
           </li>
-        {%- endfor -%}
-      {%- else -%}
-        {%- unless link.external -%}
-          {%- assign _mob_link = link.url
-            | replace: site.url, ''
-            | replace: site.baseurl, ''
-            | split: '?'
-            | first
-            | replace: 'index.html', ''
-            | replace: '//', '/'
-          -%}
-          {%- if _mob_link == '' -%}{%- assign _mob_link = '/' -%}{%- endif -%}
         {%- endunless -%}
-        <li>
-          <a
-            href="{% if link.external %}{{ link.url }}{% else %}{{ link.url | relative_url }}{% endif %}"
-            class="mobile-nav__link"
-            {% if link.external %}
-              target="_blank" rel="noopener noreferrer"
-            {% else %}
-              {%- if _hdr_page == _mob_link %}aria-current="page"{% endif -%}
-            {% endif %}
-          >
-            {{ link.title | escape }}
-          </a>
-        </li>
+      {%- endfor -%}
+    </ul>
+
+    {%- for link in site.header_nav -%}
+      {%- if link.groups and link.groups.size > 0 -%}
+        {%- for group in link.groups -%}
+          {%- if link.groups.size > 1 -%}
+            {%- assign _group_open = false -%}
+            {%- for child in group.items -%}
+              {%- unless child.external -%}
+                {%- assign _peek = child.url
+                  | replace: site.url, ''
+                  | replace: site.baseurl, ''
+                  | split: '?'
+                  | first
+                  | replace: 'index.html', ''
+                  | replace: '//', '/'
+                -%}
+                {%- if _peek == '' -%}{%- assign _peek = '/' -%}{%- endif -%}
+                {%- if _peek == _hdr_page -%}{%- assign _group_open = true -%}{%- endif -%}
+              {%- endunless -%}
+            {%- endfor -%}
+            <details
+              class="mobile-nav__group"
+              name="mobile-nav-group"
+              {% if _group_open %}
+                open
+              {% endif %}
+            >
+              <summary class="mobile-nav__group-title">
+                {{ group.group | escape }}
+                <svg
+                  class="mobile-nav__group-chevron"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="m6 9 6 6 6-6"/>
+                </svg>
+              </summary>
+              <ul class="mobile-nav__list" role="list">
+                {%- for child in group.items -%}
+                  {%- unless child.external -%}
+                    {%- assign _mob_child = child.url
+                      | replace: site.url, ''
+                      | replace: site.baseurl, ''
+                      | split: '?'
+                      | first
+                      | replace: 'index.html', ''
+                      | replace: '//', '/'
+                    -%}
+                    {%- if _mob_child == '' -%}{%- assign _mob_child = '/' -%}{%- endif -%}
+                  {%- endunless -%}
+                  <li>
+                    <a
+                      href="{% if child.external %}{{ child.url }}{% else %}{{ child.url | relative_url }}{% endif %}"
+                      class="mobile-nav__link"
+                      {% if child.external %}
+                        target="_blank" rel="noopener noreferrer"
+                      {% else %}
+                        {%- if _hdr_page == _mob_child %}aria-current="page"{% endif -%}
+                      {% endif %}
+                    >
+                      {{ child.title | escape }}
+                    </a>
+                  </li>
+                {%- endfor -%}
+              </ul>
+            </details>
+          {%- else -%}
+            <div class="mobile-nav__group mobile-nav__group--flat">
+              <p class="mobile-nav__group-title">{{ group.group | escape }}</p>
+              <ul class="mobile-nav__list" role="list">
+                {%- for child in group.items -%}
+                  {%- unless child.external -%}
+                    {%- assign _mob_child = child.url
+                      | replace: site.url, ''
+                      | replace: site.baseurl, ''
+                      | split: '?'
+                      | first
+                      | replace: 'index.html', ''
+                      | replace: '//', '/'
+                    -%}
+                    {%- if _mob_child == '' -%}{%- assign _mob_child = '/' -%}{%- endif -%}
+                  {%- endunless -%}
+                  <li>
+                    <a
+                      href="{% if child.external %}{{ child.url }}{% else %}{{ child.url | relative_url }}{% endif %}"
+                      class="mobile-nav__link"
+                      {% if child.external %}
+                        target="_blank" rel="noopener noreferrer"
+                      {% else %}
+                        {%- if _hdr_page == _mob_child %}aria-current="page"{% endif -%}
+                      {% endif %}
+                    >
+                      {{ child.title | escape }}
+                    </a>
+                  </li>
+                {%- endfor -%}
+              </ul>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
       {%- endif -%}
     {%- endfor -%}
-  </ul>
+  </div>
 
   <div class="mobile-nav__actions" aria-label="Quick actions">
     <button
@@ -283,6 +405,30 @@
       </svg>
       <span class="search-toggle__text">Search posts…</span>
     </button>
+
+    <a
+      href="{{ '/contact/' | relative_url }}"
+      class="contact-toggle"
+      aria-label="Contact"
+      {% if _hdr_page == '/contact/' %}
+        aria-current="page"
+      {% endif %}
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/>
+      </svg>
+    </a>
   </div>
 </nav>
 

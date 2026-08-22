@@ -68,27 +68,30 @@ Required fields: `name`, `avatar`. `avatar` accepts a local path (`/images/avata
 
 ## Navigation
 
-Header and footer menus are configured independently. Header items with a `children` list become dropdowns.
+Header and footer menus are configured independently. Header items with a `groups` list become a dropdown. How a group renders depends on how many groups the dropdown has:
+
+- **One group**: a bare list of items on both desktop and mobile.
+- **Two or more groups**: each gets a labeled section (with a divider) in the desktop menu, and its own collapsible `<details>` accordion in the mobile drawer.
 
 ```yaml
 header_nav:
-  - title: 'Home'
-    url: '/'
   - title: 'Archive'
     url: '/archive/'
   - title: 'More'
-    children:
-      - title: 'About'
-        url: '/about/'
-      - title: 'GitHub'
-        url: 'https://github.com/you'
-        external: true
+    groups:
+      - group: 'Content'
+        items:
+          - title: 'About'
+            url: '/about/'
+      - group: 'Connect'
+        items:
+          - title: 'GitHub'
+            url: 'https://github.com/you'
+            external: true
 
 footer_nav:
   - group: 'Menu'
     items:
-      - title: 'Home'
-        url: '/'
       - title: 'Archive'
         url: '/archive/'
   - group: 'Pages'
@@ -96,6 +99,8 @@ footer_nav:
       - title: 'About'
         url: '/about/'
 ```
+
+The example above has two groups, so it gets labels and accordions; drop the second `group:` entry and merge its `items` into the first to get the flat single-group behavior instead.
 
 Add `external: true` to any item that links outside the site.
 

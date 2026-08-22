@@ -252,6 +252,36 @@
       }
     }
   }
+
+  &__dropdown-group {
+    display: block;
+
+    &:not(:first-child) {
+      margin-top: $sp-2;
+      padding-top: $sp-2;
+      border-top: 1px solid var(--border);
+
+      @include retina {
+        border-top-width: 0.5px;
+      }
+    }
+  }
+
+  &__dropdown-group-label {
+    display: block;
+    padding: $sp-2 $sp-3 $sp-1;
+    font-size: $fs-xs;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--text-muted);
+  }
+
+  &__dropdown-group-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
 }
 
 // Header Actions
@@ -262,6 +292,10 @@
   flex-shrink: 0;
   min-width: 0;
 
+  @media (max-width: #{$bp-sm}) {
+    gap: $sp-1;
+  }
+
   &__theme {
     display: flex;
     align-items: center;
@@ -270,70 +304,19 @@
 
 // Search toggle button
 .search-toggle {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: $sp-2;
-  min-width: 44px;
-  min-height: 44px;
-  padding: $sp-2 $sp-3;
-  border-radius: $r-full;
-  border: 1px solid transparent;
-  background: none;
-  color: var(--text-muted);
-  cursor: pointer;
-  transition: $t-fast;
-  font-family: $font-sans;
-  font-size: $fs-base;
-  white-space: nowrap;
-  flex-shrink: 0;
-  @include touch-reset;
+  @include header-icon-btn;
 
-  &:hover {
-    border-color: var(--border);
-    background: var(--bg-tag);
-    color: var(--text-secondary);
-  }
-
-  &:active {
-    background: var(--bg-tag);
-    border-color: var(--border-strong);
-    transform: scale(0.96);
-  }
-
-  &:focus-visible {
-    @include focus-ring(3px);
-  }
-
-  svg {
-    width: 17px;
-    height: 17px;
-    flex-shrink: 0;
-  }
-
-  @media (min-width: #{$bp-xl}) {
-    padding: $sp-2 $sp-4;
-    border-color: var(--border);
-    background: var(--bg-body);
-
-    @include retina {
-      border-width: 0.5px;
-    }
-
-    &:hover {
-      border-color: var(--border-strong);
-      background: var(--bg-tag);
-    }
-  }
-
+  // Consumed only by the mobile-nav__actions override below - nothing renders this on desktop.
   &__text {
     display: none;
+    font-family: $font-sans;
     font-size: $fs-md;
-
-    @media (min-width: #{$bp-xl}) {
-      display: inline;
-    }
   }
+}
+
+// Contact shortcut
+.contact-toggle {
+  @include header-icon-btn;
 }
 
 // Search overlay
@@ -1077,6 +1060,7 @@
 // Mobile nav drawer
 .mobile-nav {
   display: none;
+  flex-direction: column;
   position: fixed;
   top: var(--header-h);
   left: 0;
@@ -1084,10 +1068,7 @@
   bottom: 0;
   z-index: $z-nav-mobile;
   background: var(--bg-body);
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  padding: $sp-6 calc(#{$sp-6} + var(--safe-right)) calc(#{$sp-6} + var(--safe-bottom))
-    calc(#{$sp-6} + var(--safe-left));
+  overflow: hidden;
   transform: translateX(100%);
   transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: transform;
@@ -1096,13 +1077,75 @@
     transform: translateX(0);
   }
 
+  // Split so search stays reachable without scrolling, regardless of link-list length.
+  &__scroll {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: $sp-6 calc(#{$sp-6} + var(--safe-right)) $sp-4 calc(#{$sp-6} + var(--safe-left));
+  }
+
   &__list {
     list-style: none;
-    padding: 0;
     margin: 0;
+    padding: 0;
     li {
       margin-bottom: 0;
     }
+  }
+
+  &__group {
+    margin-top: $sp-4;
+  }
+
+  // No <details>/<summary> here - a single group has nothing worth hiding behind a second tap.
+  &__group--flat &__group-title {
+    cursor: default;
+    margin: 0;
+  }
+
+  &__group-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $sp-3;
+    padding: $sp-3 $sp-2;
+    font-size: $fs-sm;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+    transition: color $t-fast-p;
+    @include touch-reset;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+    &::marker {
+      display: none;
+    }
+
+    &:hover,
+    &:active {
+      color: var(--text-secondary);
+    }
+
+    &:focus-visible {
+      @include focus-ring;
+      border-radius: $r-sm;
+    }
+  }
+
+  &__group-chevron {
+    flex-shrink: 0;
+    transition: transform $t-fast-p;
+  }
+
+  &__group[open] &__group-chevron {
+    transform: rotate(180deg);
   }
 
   &__link {
@@ -1144,13 +1187,16 @@
     display: flex;
     align-items: center;
     gap: $sp-3;
-    padding: $sp-6 0 $sp-4;
-    margin-top: $sp-4;
+    flex-shrink: 0;
+    padding: $sp-4 calc(#{$sp-6} + var(--safe-right)) calc(#{$sp-4} + var(--safe-bottom))
+      calc(#{$sp-6} + var(--safe-left));
+    border-top: 1px solid var(--border);
+    background: var(--bg-body);
 
     .search-toggle {
       flex: 1;
       justify-content: center;
-      min-height: 48px;
+      min-height: $sp-12;
       border-radius: $r-md;
       border-color: var(--border);
       border-width: 1px;
@@ -1162,6 +1208,18 @@
         display: inline;
         color: var(--text-muted);
       }
+    }
+
+    .contact-toggle {
+      flex-shrink: 0;
+      width: $sp-12;
+      height: $sp-12;
+      min-width: $sp-12;
+      min-height: $sp-12;
+      border-radius: $r-md;
+      border-color: var(--border);
+      border-width: 1px;
+      background: var(--bg-tag);
     }
   }
 }
@@ -1175,7 +1233,11 @@
     display: flex;
   }
   .mobile-nav {
-    display: block;
+    display: flex;
+  }
+  // Redundant here - the mobile drawer's own action row has this same button.
+  .header-actions > .contact-toggle {
+    display: none;
   }
 }
 

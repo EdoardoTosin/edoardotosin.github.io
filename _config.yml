@@ -27,31 +27,24 @@ author:
 
 # Navigation
 header_nav:
-  - title: "Home"
-    url:   "/"
   - title: "Blog"
     url:   "/blog/"
   - title: "Projects"
     url:   "/projects/"
   - title: "About"
     url:   "/about/"
-  - title: "More"
-    children:
-      - title: "Topics"
-        url:   "/topics/"
-      - title: "Archive"
-        url:   "/archive/"
-      - title: "Now"
-        url:   "/now/"
-      - title: "Gallery"
-        url:   "/gallery/"
-      - title: "Videos"
-        url:   "/videos/"
-      - title: "Contact"
-        url:   "/contact/"
-      - title: "GitHub"
-        url:   "https://github.com/EdoardoTosin"
-        external: true
+  - title: "Browse"
+    groups:
+      - group: "Browse"
+        items:
+          - title: "Topics"
+            url:   "/topics/"
+          - title: "Archive"
+            url:   "/archive/"
+          - title: "Gallery"
+            url:   "/gallery/"
+          - title: "Videos"
+            url:   "/videos/"
 
 # Footer columns: each entry is a named group with its own `items` list.
 footer_nav:

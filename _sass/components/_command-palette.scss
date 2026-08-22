@@ -237,23 +237,3 @@
   text-align: center;
   margin: 0;
 }
-
-// Keyboard shortcut hint on search toggle (desktop only)
-.search-toggle__kbd {
-  display: none;
-
-  @media (min-width: #{$bp-xl}) {
-    display: inline-flex;
-    align-items: center;
-    padding: 3px 5px;
-    background: var(--bg-code);
-    border: 1px solid var(--border);
-    border-radius: $r-xs;
-    font-family: $font-mono;
-    font-size: $fs-sm;
-    color: var(--text-muted);
-    letter-spacing: 0.04em;
-    margin-left: $sp-2;
-    pointer-events: none;
-  }
-}

@@ -142,7 +142,7 @@
 
     function getFocusableNav() {
       return Array.prototype.slice
-        .call(nav.querySelectorAll('a,button,[tabindex]:not([tabindex="-1"])'))
+        .call(nav.querySelectorAll('a,button,summary,[tabindex]:not([tabindex="-1"])'))
         .filter(function (el) {
           return !el.disabled;
         });

@@ -186,6 +186,45 @@ $z-skip: 9999;
   overflow: hidden;
 }
 
+@mixin header-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: $sp-2;
+  border-radius: $r-full;
+  border: 1px solid transparent;
+  background: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: $t-fast;
+  flex-shrink: 0;
+  @include touch-reset;
+
+  &:hover {
+    border-color: var(--border);
+    background: var(--bg-tag);
+    color: var(--text-secondary);
+  }
+
+  &:active {
+    background: var(--bg-tag);
+    border-color: var(--border-strong);
+    transform: scale(0.96);
+  }
+
+  &:focus-visible {
+    @include focus-ring(3px);
+  }
+
+  svg {
+    width: 17px;
+    height: 17px;
+    flex-shrink: 0;
+  }
+}
+
 @mixin tag-pill-states {
   @media (hover: hover) and (pointer: fine) {
     &:hover {
@@ -499,5 +538,10 @@ $z-skip: 9999;
   .post-card__pinned-badge {
     box-shadow: none !important;
     border: 1px solid ButtonText !important;
+  }
+
+  .site-header {
+    box-shadow: none !important;
+    border-bottom: 1px solid ButtonText !important;
   }
 }

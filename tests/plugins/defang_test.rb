@@ -6,28 +6,28 @@ class DefangTest < Minitest::Test
   def process(html) = Defang.process(html)
 
   def test_wraps_legacy_hxxp_scheme
-    assert_equal '<span class="defanged">hxxp://evil[.]com</span>', process('hxxp://evil[.]com')
+    assert_equal '<span class="defanged" translate="no">hxxp://evil[.]com</span>', process('hxxp://evil[.]com')
   end
 
   def test_wraps_ietf_safe_ioc_scheme
-    assert_equal '<span class="defanged">[hxxp]://evil.com</span>', process('[hxxp]://evil.com')
+    assert_equal '<span class="defanged" translate="no">[hxxp]://evil.com</span>', process('[hxxp]://evil.com')
   end
 
   def test_wraps_bracketed_dot_notation
-    assert_equal '<span class="defanged">evil[.]com</span>', process('evil[.]com')
+    assert_equal '<span class="defanged" translate="no">evil[.]com</span>', process('evil[.]com')
   end
 
   def test_wraps_multi_label_dot_notation
-    assert_equal '<span class="defanged">mail[.]evil[.]com</span>', process('mail[.]evil[.]com')
+    assert_equal '<span class="defanged" translate="no">mail[.]evil[.]com</span>', process('mail[.]evil[.]com')
   end
 
   def test_wraps_at_sign_email_notation
-    assert_equal '<span class="defanged">user[@]evil[.]com</span>', process('user[@]evil[.]com')
+    assert_equal '<span class="defanged" translate="no">user[@]evil[.]com</span>', process('user[@]evil[.]com')
   end
 
   def test_wraps_ipv6_colon_notation
     result = process('2001[:]0db8[:]0000[:]0000[:]0000[:]ff00[:]0042[:]8329')
-    assert_includes result, '<span class="defanged">'
+    assert_includes result, '<span class="defanged" translate="no">'
     assert_includes result, '2001[:]0db8'
   end
 
@@ -54,12 +54,12 @@ class DefangTest < Minitest::Test
   def test_wraps_prose_around_untouched_tags
     html = '<p>see hxxp://evil[.]com here</p>'
     result = process(html)
-    assert_includes result, '<p>see <span class="defanged">hxxp://evil[.]com</span> here</p>'
+    assert_includes result, '<p>see <span class="defanged" translate="no">hxxp://evil[.]com</span> here</p>'
   end
 
   def test_strips_trailing_sentence_punctuation_from_scheme_match
     result = process('visit hxxp://evil[.]com.')
-    assert_includes result, '<span class="defanged">hxxp://evil[.]com</span>.'
+    assert_includes result, '<span class="defanged" translate="no">hxxp://evil[.]com</span>.'
   end
 
   def test_empty_brackets_do_not_crash_or_falsely_match
@@ -71,7 +71,7 @@ class DefangTest < Minitest::Test
   end
 
   def test_wraps_mixed_case_hxxp
-    assert_equal '<span class="defanged">hXXp://x.com</span>', process('hXXp://x.com')
+    assert_equal '<span class="defanged" translate="no">hXXp://x.com</span>', process('hXXp://x.com')
   end
 
   # LEGACY_SCHEME requires a literal lowercase h/p/s; only the X's have a case-insensitive class.
@@ -80,36 +80,36 @@ class DefangTest < Minitest::Test
   end
 
   def test_wraps_hxxps_variant
-    assert_equal '<span class="defanged">hxxps://evil.com</span>', process('hxxps://evil.com')
+    assert_equal '<span class="defanged" translate="no">hxxps://evil.com</span>', process('hxxps://evil.com')
   end
 
   def test_wraps_multiple_independent_iocs_in_one_string
     result = process('a[.]com and b[.]org')
-    assert_equal '<span class="defanged">a[.]com</span> and <span class="defanged">b[.]org</span>', result
+    assert_equal '<span class="defanged" translate="no">a[.]com</span> and <span class="defanged" translate="no">b[.]org</span>', result
   end
 
   def test_wraps_bracketed_dot_ipv4
-    assert_equal '<span class="defanged">1[.]2[.]3[.]4</span>', process('1[.]2[.]3[.]4')
+    assert_equal '<span class="defanged" translate="no">1[.]2[.]3[.]4</span>', process('1[.]2[.]3[.]4')
   end
 
   def test_wraps_ipv6_with_zone_id_and_cidr_suffix
     result = process('fe80[:]0[:]0[:]0[:]0[:]0[:]0[:]1%eth0')
-    assert_equal '<span class="defanged">fe80[:]0[:]0[:]0[:]0[:]0[:]0[:]1%eth0</span>', result
+    assert_equal '<span class="defanged" translate="no">fe80[:]0[:]0[:]0[:]0[:]0[:]0[:]1%eth0</span>', result
     result = process('2001[:]db8[:]0[:]0[:]0[:]0[:]0[:]1/64')
-    assert_equal '<span class="defanged">2001[:]db8[:]0[:]0[:]0[:]0[:]0[:]1/64</span>', result
+    assert_equal '<span class="defanged" translate="no">2001[:]db8[:]0[:]0[:]0[:]0[:]0[:]1/64</span>', result
   end
 
   def test_strips_trailing_question_mark
-    assert_equal '<span class="defanged">hxxp://evil[.]com</span>?', process('hxxp://evil[.]com?')
+    assert_equal '<span class="defanged" translate="no">hxxp://evil[.]com</span>?', process('hxxp://evil[.]com?')
   end
 
   def test_does_not_strip_closing_paren_it_did_not_open
     result = process('(see hxxp://evil[.]com)')
-    assert_equal '(see <span class="defanged">hxxp://evil[.]com</span>)', result
+    assert_equal '(see <span class="defanged" translate="no">hxxp://evil[.]com</span>)', result
   end
 
   def test_safe_ioc_scheme_accepts_arbitrary_scheme_name
-    assert_equal '<span class="defanged">[ftp]://evil[.]com</span>', process('[ftp]://evil[.]com')
+    assert_equal '<span class="defanged" translate="no">[ftp]://evil[.]com</span>', process('[ftp]://evil[.]com')
   end
 
   def test_does_not_wrap_inside_script_or_style_blocks
@@ -127,6 +127,6 @@ class DefangTest < Minitest::Test
     once = process('evil[.]com')
     twice = process(once)
     refute_equal once, twice
-    assert_includes twice, 'defanged"><span class="defanged">'
+    assert_includes twice, 'defanged" translate="no"><span class="defanged" translate="no">'
   end
 end

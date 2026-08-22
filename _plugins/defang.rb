@@ -25,7 +25,7 @@ module Defang
   def self.process(html)
     # Split on block/tag boundaries; replace only in even-indexed (text) segments.
     html.split(SKIP_RE).each_with_index.map do |part, i|
-      i.even? ? part.gsub(DEFANG_RE) { %(<span class="defanged">#{Regexp.last_match(0)}</span>) } : part
+      i.even? ? part.gsub(DEFANG_RE) { %(<span class="defanged" translate="no">#{Regexp.last_match(0)}</span>) } : part
     end.join
   end
 

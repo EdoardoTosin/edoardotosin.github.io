@@ -189,6 +189,7 @@
   background: var(--accent);
   color: var(--text-on-accent);
   border: none;
+  text-decoration: none;
   cursor: pointer;
   @include touch-reset;
   display: flex;

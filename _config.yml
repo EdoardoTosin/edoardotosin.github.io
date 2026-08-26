@@ -268,5 +268,7 @@ exclude:
   - .well-known/unsigned-security.txt.asc
 
   # Glob patterns
+  - "*.ps1"
   - "**/*.ps1"
+  - "*.sh"
   - "**/*.sh"

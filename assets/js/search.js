@@ -481,7 +481,7 @@
 
   function safeUrl(url) {
     const s = String(url || '');
-    return /^https?:\/\/|^\//.test(s) ? s : '';
+    return /^https?:\/\/|^\/(?!\/)/i.test(s) ? s : '';
   }
 
   function renderHits(hits, q, rawTerms) {
@@ -509,7 +509,7 @@
           escHtml(safeUrl(p.url)) +
           '" class="search-overlay__result-item" role="option">' +
           '<img src="' +
-          escHtml(p.image) +
+          escHtml(safeUrl(p.image)) +
           '" alt="" loading="eager" width="72" height="48">' +
           '<div class="search-overlay__result-body">' +
           '<h4>' +

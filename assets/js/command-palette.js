@@ -260,7 +260,7 @@
     } else if (action === 'toggle-motion') {
       close();
       if (window.a11y) window.a11y.toggleMotion();
-    } else if (url && /^(https?:\/\/|\/|#)/i.test(url)) {
+    } else if (url && /^(https?:\/\/|\/(?!\/)|#)/i.test(url)) {
       close();
       window.location.href = url;
     }

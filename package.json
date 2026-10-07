@@ -24,7 +24,7 @@
     "ci": "npm run format:check && npm run test",
     "minify": "node scripts/minify-assets.js",
     "audit": "node scripts/audit.js",
-    "audit:deps": "npm audit",
+    "audit:deps": "npm audit --omit=dev --audit-level=high",
     "all": "npm run ci && npm run audit && npm run format"
   },
   "devDependencies": {
@@ -43,5 +43,13 @@
       "/node_modules/",
       "/_site/"
     ]
+  },
+  "overrides": {
+    "@istanbuljs/load-nyc-config": {
+      "js-yaml": "^4.1.0"
+    }
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true
   }
 }

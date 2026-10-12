@@ -5,7 +5,7 @@ layout: post
 gallery: true
 short_url: sn2023ixf
 date: 2023-05-26 03:00:00 +0200
-last_modified_at: 2026-06-26 18:00:00 +0200
+last_modified_at: 2026-10-12 21:30:00 +0200
 lang: en
 image: https://raw.githubusercontent.com/EdoardoTosin/web-assets/refs/heads/main/blog/Astrophotography/Supernova%20in%20the%20Pinwheel%20galaxy.webp
 carousels:
@@ -13,14 +13,14 @@ carousels:
     settings:
       auto_play: false
     images:
-      - image: https://live.staticflickr.com/65535/52927581723_77449759fc_h.jpg
+      - image: https://live.staticflickr.com/65535/52927581723_28655c852c_k.jpg
         title: Supernova six days after discovery - 25 May 2023
         alt: Supernova visible in Pinwheel galaxy
-      - image: https://live.staticflickr.com/65535/52926129447_b5b2a2e102_h.jpg
+      - image: https://live.staticflickr.com/65535/52926129447_acedb50fd6_k.jpg
         title: Supernova six days after discovery - 25 May 2023
         alt: Supernova visible in Pinwheel galaxy
 download_url: https://www.flickr.com/photos/edoardo_tosin/albums/72177720308577781
-image_zoom: https://live.staticflickr.com/65535/52926129447_b5b2a2e102_h.jpg
+image_zoom: https://live.staticflickr.com/65535/52926129447_acedb50fd6_k.jpg
 topic: astrophotography
 tags:
   - astrophotography
@@ -37,8 +37,8 @@ keywords:
 
 A remarkable breakthrough in astronomy unfolded on 19 May 2023 with the discovery of a supernova in the Pinwheel Galaxy, also known as Messier 101 (M101).[^1][^2] This supernova, named SN 2023ixf, is not only a stunning cosmic event but also the closest observed supernova in recent years, offering scientists a rare opportunity to study such an explosion up close.[^3][^4]
 
-![SN 2023ixf supernova visible in the Pinwheel galaxy (M101), captured six days after discovery on 25 May 2023 (image 1)](https://live.staticflickr.com/65535/52927581723_77449759fc_h.jpg)
-![SN 2023ixf supernova visible in the Pinwheel galaxy (M101), captured six days after discovery on 25 May 2023 (image 2)](https://live.staticflickr.com/65535/52926129447_b5b2a2e102_h.jpg)
+![SN 2023ixf supernova visible in the Pinwheel galaxy (M101), captured six days after discovery on 25 May 2023 (image 1)](https://live.staticflickr.com/65535/52927581723_28655c852c_k.jpg)
+![SN 2023ixf supernova visible in the Pinwheel galaxy (M101), captured six days after discovery on 25 May 2023 (image 2)](https://live.staticflickr.com/65535/52926129447_acedb50fd6_k.jpg)
 
 _Supernova in the Pinwheel galaxy taken from my backyard, captured six days after its discovery.[^5]_
 

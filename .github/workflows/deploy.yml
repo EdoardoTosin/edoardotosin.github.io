@@ -79,6 +79,9 @@ jobs:
       - name: Install Node dependencies
         run: npm ci
 
+      - name: Sync vendor assets
+        run: npm run vendor
+
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v6

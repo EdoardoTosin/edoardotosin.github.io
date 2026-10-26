@@ -25,6 +25,7 @@
     "minify": "node scripts/minify-assets.js",
     "audit": "node scripts/audit.js",
     "audit:deps": "npm audit --omit=dev --audit-level=high",
+	"vendor": "node scripts/sync-vendor-assets.js",
     "all": "npm run ci && npm run audit && npm run format"
   },
   "devDependencies": {
@@ -33,7 +34,9 @@
     "esbuild": "^0.28.2",
     "jest": "^30.4.2",
     "js-yaml": "^5.2.3",
-    "jsdom": "^29.1.1"
+    "jsdom": "^29.1.1",
+    "mathjax": "^4.1.3",
+    "mermaid": "^12.2.0"
   },
   "jest": {
     "testMatch": [
@@ -51,5 +54,11 @@
   },
   "allowScripts": {
     "esbuild@0.28.2": true
-  }
+  },
+  "main": "sw.js",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "keywords": []
 }

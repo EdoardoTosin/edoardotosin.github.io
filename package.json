@@ -25,7 +25,7 @@
     "minify": "node scripts/minify-assets.js",
     "audit": "node scripts/audit.js",
     "audit:deps": "npm audit --omit=dev --audit-level=high",
-	"vendor": "node scripts/sync-vendor-assets.js",
+    "vendor": "node scripts/sync-vendor-assets.js",
     "all": "npm run ci && npm run audit && npm run format"
   },
   "devDependencies": {

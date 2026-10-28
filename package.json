@@ -48,6 +48,7 @@
     ]
   },
   "overrides": {
+    "deepmerge": "4.1.1",
     "@istanbuljs/load-nyc-config": {
       "js-yaml": "^4.1.0"
     }

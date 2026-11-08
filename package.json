@@ -51,6 +51,15 @@
     "deepmerge": "4.1.1",
     "@istanbuljs/load-nyc-config": {
       "js-yaml": "^4.1.0"
+    },
+    "jest": {
+      "glob": "^14.0.3"
+    },
+    "babel-plugin-istanbul": {
+      "test-exclude": {
+        "glob": "^14.0.3",
+        "minimatch": "^11.0.3"
+      }
     }
   },
   "allowScripts": {

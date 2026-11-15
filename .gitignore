@@ -25,6 +25,7 @@ Desktop.ini
 !.well-known/
 !.well-known/security.txt
 !.well-known/unsigned-security.txt
+!.well-known/security-signing-key.asc
 
 # Project utilities
 /utilities/

@@ -1,6 +1,9 @@
 _site/
 node_modules/
 
+# Jekyll Liquid templates with non-standard extensions
+/feed.json
+
 # Minified and bundled vendor files
 **/*.min.js
 **/*.min.css

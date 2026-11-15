@@ -43,40 +43,45 @@ function readSitePage(pageUrl) {
   const filePath = pageUrl.endsWith('.html')
     ? path.join(SITE_DIR, pageUrl)
     : path.join(SITE_DIR, pageUrl, 'index.html');
+
   if (!fs.existsSync(filePath)) {
     throw new Error(`missing build output at ${path.relative(process.cwd(), filePath)}`);
   }
+
   return fs.readFileSync(filePath, 'utf8');
 }
 
 async function auditPage(pageUrl) {
   const html = useSite ? readSitePage(pageUrl) : await fetchPage(BASE + pageUrl);
+
   const dom = new JSDOM(html, {
     url: BASE + pageUrl,
     runScripts: 'outside-only',
     pretendToBeVisual: true,
     virtualConsole,
   });
-  const { window } = dom;
-  const { document } = window;
 
-  window.eval(axeSource);
+  try {
+    const { window } = dom;
+    const { document } = window;
 
-  const results = await new Promise((resolve, reject) => {
-    window.axe.run(
-      document,
-      {
-        runOnly: {
-          type: 'tag',
-          values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa', 'best-practice'],
+    window.eval(axeSource);
+
+    return await new Promise((resolve, reject) => {
+      window.axe.run(
+        document,
+        {
+          runOnly: {
+            type: 'tag',
+            values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa', 'best-practice'],
+          },
         },
-      },
-      (err, r) => (err ? reject(err) : resolve(r)),
-    );
-  });
-
-  dom.window.close();
-  return results;
+        (err, results) => (err ? reject(err) : resolve(results)),
+      );
+    });
+  } finally {
+    dom.window.close();
+  }
 }
 
 async function main() {
@@ -86,14 +91,17 @@ async function main() {
 
   let totalViolations = 0;
   let pagesWithViolations = 0;
+  let pagesWithErrors = 0;
 
   for (const [i, page] of PAGES.entries()) {
     if (i > 0) console.log('');
 
     let results;
+
     try {
       results = await auditPage(page);
     } catch (e) {
+      pagesWithErrors++;
       console.error(`ERROR ${page}: ${e.message}`);
       continue;
     }
@@ -105,25 +113,42 @@ async function main() {
     } else {
       pagesWithViolations++;
       totalViolations += results.violations.length;
+
       console.log(`✗ ${page} - ${results.violations.length} violation(s)${incompleteNote}:`);
+
       results.violations.forEach((v) => {
         const impact = v.impact ? `[${v.impact.toUpperCase()}]` : '';
+
         console.log(`  ${impact} ${v.id}: ${v.description}`);
+
         v.nodes.slice(0, 2).forEach((n) => {
           console.log(`    → ${n.html.replace(/\s+/g, ' ').slice(0, 120)}`);
-          if (n.failureSummary) console.log(`      ${n.failureSummary.split('\n')[0]}`);
+
+          if (n.failureSummary) {
+            console.log(`      ${n.failureSummary.split('\n')[0]}`);
+          }
         });
-        if (v.nodes.length > 2) console.log(`    … +${v.nodes.length - 2} more`);
+
+        if (v.nodes.length > 2) {
+          console.log(`    … +${v.nodes.length - 2} more`);
+        }
       });
     }
   }
 
-  const pagesPassed = PAGES.length - pagesWithViolations;
-  console.log(`\n${pagesPassed}/${PAGES.length} pages passed - ${totalViolations} total violation(s)`);
-  process.exit(totalViolations > 0 ? 1 : 0);
+  const pagesPassed = PAGES.length - pagesWithViolations - pagesWithErrors;
+
+  console.log(
+    `\n${pagesPassed}/${PAGES.length} pages passed - ` +
+      `${totalViolations} total violation(s), ${pagesWithErrors} audit error(s)`,
+  );
+
+  if (totalViolations > 0 || pagesWithErrors > 0) {
+    process.exitCode = 1;
+  }
 }
 
 main().catch((e) => {
   console.error('Fatal:', e);
-  process.exit(2);
+  process.exitCode = 2;
 });

@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: 'pages'
+  group: pages
   cancel-in-progress: false
 
 jobs:
@@ -15,14 +15,15 @@ jobs:
     timeout-minutes: 10
     permissions:
       contents: read
+
     steps:
       - name: Checkout
         uses: actions/checkout@v7
 
-      - name: Configure Bundler for Universal Platform
+      - name: Configure Bundler
         run: |
-          echo "BUNDLE_FORCE_RUBY_PLATFORM=true" >> $GITHUB_ENV
-          echo "BUNDLE_FROZEN=true" >> $GITHUB_ENV
+          echo "BUNDLE_FORCE_RUBY_PLATFORM=true" >> "$GITHUB_ENV"
+          echo "BUNDLE_FROZEN=true" >> "$GITHUB_ENV"
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
@@ -30,22 +31,22 @@ jobs:
           ruby-version: '4.0'
           bundler-cache: true
 
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v7
         with:
           node-version: 'lts/*'
-          cache: 'npm'
+          cache: npm
 
-      - name: Install dependencies
+      - name: Install Node dependencies
         run: npm ci
 
       - name: Check formatting
         run: npm run format:check
 
-      - name: Run Node.js checks
+      - name: Run Node.js tests
         run: npm run test:node
 
-      - name: Run Ruby plugin tests
+      - name: Run Ruby tests
         run: npm run test:ruby
 
       - name: Audit dependencies
@@ -58,14 +59,15 @@ jobs:
     permissions:
       contents: read
       pages: write
+
     steps:
       - name: Checkout
         uses: actions/checkout@v7
 
-      - name: Configure Bundler for Universal Platform
+      - name: Configure Bundler
         run: |
-          echo "BUNDLE_FORCE_RUBY_PLATFORM=true" >> $GITHUB_ENV
-          echo "BUNDLE_FROZEN=true" >> $GITHUB_ENV
+          echo "BUNDLE_FORCE_RUBY_PLATFORM=true" >> "$GITHUB_ENV"
+          echo "BUNDLE_FROZEN=true" >> "$GITHUB_ENV"
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
@@ -73,14 +75,30 @@ jobs:
           ruby-version: '4.0'
           bundler-cache: true
 
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v7
         with:
           node-version: 'lts/*'
-          cache: 'npm'
+          cache: npm
 
       - name: Install Node dependencies
         run: npm ci
+
+      - name: Synchronize vendor assets
+        run: npm run assets:sync
+
+      - name: Verify vendor assets are committed
+        shell: bash
+        run: |
+          git diff --exit-code -- assets/js/
+
+          untracked_files="$(git ls-files --others --exclude-standard -- assets/js/)"
+
+          if [[ -n "$untracked_files" ]]; then
+            echo "::error::Untracked vendor assets detected. Run npm run assets:sync and commit the generated files."
+            printf '%s\n' "$untracked_files"
+            exit 1
+          fi
 
       - name: Setup Pages
         id: pages
@@ -91,8 +109,8 @@ jobs:
         env:
           JEKYLL_ENV: production
 
-      - name: Minify first-party JS/CSS
-        run: npm run minify
+      - name: Minify JavaScript and CSS
+        run: npm run assets:minify
 
       - name: Run accessibility audit
         run: npm run audit
@@ -113,6 +131,7 @@ jobs:
     permissions:
       pages: write
       id-token: write
+
     steps:
       - name: Deploy to GitHub Pages
         id: deployment

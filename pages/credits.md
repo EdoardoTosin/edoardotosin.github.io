@@ -2,7 +2,7 @@
 permalink: /credits/
 layout: page
 title: Credits
-description: 'Open-source tools, libraries, fonts, and resources used to build this website, including Jekyll, IBM Plex Sans, Outfit, JetBrains Mono, and more.'
+description: 'Open-source tools, libraries, fonts, and resources used to build this website, including Jekyll, IBM Plex Sans, Space Grotesk, JetBrains Mono, and more.'
 ---
 
 This site is built with Jekyll and the following open-source tools and resources.
@@ -44,7 +44,7 @@ This site is built with Jekyll and the following open-source tools and resources
 ## Typography
 
 - **[IBM Plex Sans](https://fonts.google.com/specimen/IBM+Plex+Sans)** - Body font
-- **[Outfit](https://fonts.google.com/specimen/Outfit)** - Heading font
+- **[Space Grotesk](https://fonts.google.com/specimen/Space+Grotesk)** - Heading font
 - **[JetBrains Mono](https://fonts.google.com/specimen/JetBrains+Mono)** - Monospace font for code, with ligatures
 
 All fonts are self-hosted as WOFF2 files - no external requests.
